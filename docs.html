@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoker – User Guide & Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-dark: #070d18;
+    --bg-darker: #050a14;
+    --primary: #2563eb;
+    --accent: #facc15;
+    --white: #ffffff;
+    --glass: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.12);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--white);
+    line-height: 1.7;
+    padding-top: 90px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background: rgba(5, 10, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.back-btn {
+    padding: 10px 24px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 30px;
+}
+
+h1, h2, h3 {
+    color: var(--accent);
+    margin: 40px 0 20px 0;
+}
+
+h1 { font-size: 36px; text-align: center; }
+h2 { font-size: 28px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+h3 { font-size: 22px; }
+
+p, li { margin-bottom: 16px; color: var(--text-secondary); }
+
+ul { padding-left: 24px; }
+li { list-style: disc; }
+
+code {
+    background: rgba(255,255,255,0.08);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 90%;
+}
+
+.note {
+    background: rgba(250, 204, 21, 0.15);
+    border-left: 4px solid var(--accent);
+    padding: 16px;
+    border-radius: 8px;
+    margin: 24px 0;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Invoker Documentation</h1>
+    <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+</header>
+
+<div class="container">
+
+<h1>Invoker – User Guide</h1>
+<p style="text-align:center; font-size:18px; color:var(--accent);">
+    PEPPOL BIS 3.0 Invoice Generator – Free & Open<br>
+    Last updated: December 14, 2025
+</p>
+
+<h2>1. Getting Started</h2>
+<p>Invoker is a completely free web app that lets you create fully compliant <strong>PEPPOL BIS Billing 3.0</strong> invoices.</p>
+<ul>
+    <li>Go to the <strong>Home</strong> page and click “Login / Sign Up”.</li>
+    <li>Use your email and a secure password to register or log in.</li>
+    <li>Confirm your email (first-time signup only).</li>
+</ul>
+
+<h2>2. Suppliers</h2>
+<p>You must have at least one supplier configured before creating invoices.</p>
+<ul>
+    <li>After login you’ll be taken to the <strong>Suppliers</strong> page.</li>
+    <li>Click “Add Supplier” and fill in your company details (name, endpoint ID, VAT, address, country, etc.).</li>
+    <li>Add at least one bank account (Account Name + IBAN required).</li>
+    <li>Save → the supplier becomes active and is remembered across sessions.</li>
+    <li>You can add multiple suppliers and switch anytime via the “Switch Supplier” button on the Dashboard.</li>
+</ul>
+
+<h2>3. Customers</h2>
+<p>Manage your buyers here.</p>
+<ul>
+    <li>Go to the <strong>Customers</strong> page.</li>
+    <li>Add manually or use the PEPPOL Directory search (by name, VAT, or country).</li>
+    <li>Found results can be added with one click (auto-fills endpoint, VAT, country).</li>
+    <li>Edit or delete customers as needed.</li>
+</ul>
+
+<h2>4. Dashboard</h2>
+<p>Your main hub.</p>
+<ul>
+    <li>Analytics: total invoices, revenue, outstanding amounts, monthly trends, status breakdown, top customers, receivables aging.</li>
+    <li>“Create Invoice” button → opens the invoice form.</li>
+    <li>Invoice History table with powerful filters and actions (edit draft, view/download XML, delete draft).</li>
+    <li>Export filtered invoices to CSV.</li>
+</ul>
+
+<h2>5. Creating an Invoice</h2>
+<p>Click “Create Invoice” on the Dashboard.</p>
+<ol>
+    <li>Fill <strong>Invoice Details</strong>: Invoice ID (must be unique), Issue Date, Due Date, Buyer/Order Reference (at least one required for PEPPOL compliance), Currency, Note.</li>
+    <li>Select a <strong>Customer</strong> – all fields auto-fill.</li>
+    <li>Choose a <strong>Bank Account</strong> – payment details auto-fill.</li>
+    <li>(Optional) Add Allowances/Charges.</li>
+    <li>Add <strong>Invoice Lines</strong>:
+        <ul>
+            <li>Click “Add Line”</li>
+            <li>Enter Description or Item Name, Quantity, Unit Price, VAT %</li>
+            <li>At least one line must have description/item + qty > 0 + price > 0</li>
+            <li>Use the duplicate button for similar lines</li>
+        </ul>
+    </li>
+    <li>Grand total updates live.</li>
+    <li>Click <strong>Generate XML & Save Draft</strong>:
+        <ul>
+            <li>XML preview appears</li>
+            <li>Basic PEPPOL validation runs</li>
+            <li>Draft is saved automatically</li>
+        </ul>
+    </li>
+    <li>Download the XML file (ready for your PEPPOL Access Point).</li>
+</ol>
+
+<div class="note">
+    <strong>Tip:</strong> Drafts are saved automatically and can be edited later from the Dashboard.
+</div>
+
+<h2>6. Editing a Draft</h2>
+<p>On the Dashboard, click “Edit Draft” next to any draft invoice → opens the form pre-filled.</p>
+
+<h2>7. Sending Invoices</h2>
+<p>The generated XML is ready to upload to your PEPPOL Access Point (e.g., Storecove, Pagero, Digipost, etc.). The “Send Invoice” button is a placeholder for future direct sending.</p>
+
+<h2>8. Light / Dark Mode</h2>
+<p>Use the sun/moon toggle in the header to switch themes. Preference is saved.</p>
+
+<h2>9. Security & Data</h2>
+<ul>
+    <li>All data stored securely in your private Supabase project.</li>
+    <li>Drafts and invoices are tied to your user account.</li>
+    <li>Log out clears active supplier selection (for safety).</li>
+</ul>
+
+<h2>10. Troubleshooting</h2>
+<ul>
+    <li>“Generate” button disabled? → Add a complete invoice line.</li>
+    <li>Login issues? → Check spam for confirmation email.</li>
+    <li>XML validation errors? → Ensure Buyer Reference or Order Reference is filled.</li>
+</ul>
+
+<h2>Further Resources</h2>
+<ul>
+    <li>PEPPOL BIS 3.0 Specification: <a href="https://docs.peppol.eu/poacc/billing/3.0/" style="color:var(--accent);">docs.peppol.eu</a></li>
+    <li>PEPPOL Directory: <a href="https://directory.peppol.eu/" style="color:var(--accent);">directory.peppol.eu</a></li>
+</ul>
+
+<footer>
+    © 2025 Invoker – Free PEPPOL Invoice Tool<br>
+    Questions? Reach out at support@invoker.example (or open an issue on GitHub if public)
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoker – Enterprise Invoice Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ---- STYLES SAME AS BEFORE ---- */
+        :root {
+            --bg-dark: #070d18;
+            --bg-darker: #050a14;
+            --primary: #2563eb;
+            --accent: #facc15;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.06);
+            --border: rgba(255, 255, 255, 0.12);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--white); scroll-behavior: smooth; }
+        header { position: sticky; top: 0; z-index: 100; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, rgba(7, 13, 24, .95), rgba(7, 13, 24, .75)); backdrop-filter: blur(10px); }
+        nav a, nav button { color: #00e5ff; text-decoration: none; margin-left: 30px; opacity: .85; font-weight: 600; padding: 8px 18px; border-radius: 12px; border: 1px solid transparent; background: transparent; transition: all 0.2s ease; }
+        nav a:hover, nav button:hover { background: #2563eb; border-color: #2563eb; color: #fff; }
+        button.cta { padding: 18px 42px; background: #2563eb; color: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .1); transition: transform .2s ease, box-shadow .2s ease; border-radius: 14px; border: none; cursor: pointer; font-weight: 600; }
+        button.cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .15); }
+        #vanta-hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+        #vanta-hero canvas { position: absolute; inset: 0; z-index: 0; }
+        .gradient-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(37, 99, 235, .25), rgba(7, 13, 24, .9), rgba(250, 204, 21, .12)); background-size: 300% 300%; animation: gradientMove 18s ease infinite; }
+        @keyframes gradientMove { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
+        .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; }
+        .hero-content h1 { font-size: 64px; line-height: 1.1; margin-bottom: 20px; }
+        .hero-content p { font-size: 20px; margin-bottom: 20px; }
+        .keywords { color: var(--accent); font-weight: 600; }
+        #logout-btn { display: none; margin-left: 20px; padding: 10px 20px; background: #facc15; color: #000; border-radius: 12px; border: none; cursor: pointer; }
+        section { opacity: 0; transform: translateY(40px); transition: .8s ease; }
+        section.visible { opacity: 1; transform: translateY(0); }
+        .features { padding: 120px 50px; max-width: 1200px; margin: auto; text-align: center; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 60px; }
+        .feature-card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transition: transform .3s, box-shadow .3s; }
+        .feature-card:hover { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0, 0, 0, .6); }
+        .feature-card h3 { color: var(--accent); margin-bottom: 12px; }
+        .trust { display: flex; justify-content: center; gap: 50px; padding: 60px 20px; opacity: .7; font-weight: 600; color: #00e5ff; }
+        footer { background: var(--bg-darker); text-align: center; padding: 40px 20px; opacity: .7; color: #00e5ff; }
+        /* Login popup */
+        #login-popup { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 9999; animation: fadeIn 0.3s ease forwards; }
+        #login-popup .popup-content { background: rgba(20, 25, 35, 0.85); backdrop-filter: blur(15px); padding: 50px 30px; border-radius: 20px; text-align: center; max-width: 380px; width: 90%; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); }
+        #login-popup h2 { margin-bottom: 30px; font-size: 28px; font-weight: 700; color: var(--accent); }
+        .floating-label { position: relative; margin-bottom: 20px; text-align: left; width: 100%; }
+        .floating-label input { width: 100%; padding: 14px 12px; border-radius: 10px; border: 1px solid var(--border); background: rgba(0,0,0,0.3); color: #fff; font-size:16px; }
+        .floating-label input:focus { outline: none; border-color: var(--primary); }
+        .floating-label label { position:absolute; left:12px; top:14px; color:rgba(255,255,255,0.6); font-size:14px; pointer-events:none; transition:all 0.2s ease; background:transparent; }
+        .floating-label input:focus + label, .floating-label input:not(:placeholder-shown) + label { top:-10px; font-size:12px; color:var(--primary); background: rgba(20,25,35,0.85); padding:0 4px; border-radius:4px; }
+        #login-popup button { width:100%; margin-top:10px; padding:14px 0; border:none; border-radius:12px; font-weight:600; cursor:pointer; transition:all 0.2s ease; }
+        #submit-login { background: var(--primary); color:#fff; }
+        #submit-login:hover { background:#1d4ed8; transform:translateY(-2px); }
+        #submit-signup { background: var(--accent); color:#000; margin-top:15px; }
+        #submit-signup:hover { background:#fbbc05; transform:translateY(-2px); }
+        #toggle-login { margin-top:15px; font-size:14px; color:#00e5ff; cursor:pointer; text-decoration:underline; }
+        #error-message { color:#ff4d6d; font-size:14px; margin-top:10px; min-height:18px; }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Invoker</h1>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#cta">Get Started</a>
+            <a href="#contact">Contact</a>
+            <a href="docs.html">Documentation</a>
+            <a href="dashboard.html" id="dashboard-nav" style="display:none;">Dashboard</a>
+            <a href="#" id="admin-nav" style="display:none;">Admin</a>
+            <button id="login-btn">Login / Sign Up</button>
+            <button id="logout-btn">Logout</button>
+        </nav>
+    </header>
+
+    <section id="vanta-hero" class="visible">
+        <div class="gradient-overlay"></div>
+        <div class="hero-content">
+            <h1>Compliant PEPPOL Invoice creation.</h1>
+            <p> Built for <span class="keywords">business</span>, <span class="keywords">compliance</span>, and <span class="keywords">ease</span>. </p>
+            <button id="create-invoice-btn" class="cta">Create Invoices</button>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Why Invoker</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>PEPPOL BIS 3.0</h3>
+                <p>Regulation-ready invoices across Europe.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Audit-Ready</h3>
+                <p>Structured data, immutable totals.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Real-Time Invoicing</h3>
+                <p>Instant access to the network.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Secure by Design</h3>
+                <p>Built with enterprise-grade security.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="trust">
+        <span>ISO-ready</span>
+        <span>GDPR-compliant</span>
+        <span>PEPPOL</span>
+        <span>Finance-first</span>
+    </div>
+
+    <footer id="contact"> support@invoker.com • © 2025 Invoker </footer>
+
+    <!-- Modern Login Popup -->
+    <div id="login-popup">
+        <div class="popup-content">
+            <h2 id="popup-title">Login</h2>
+            <div class="floating-label">
+                <input id="login-email" type="email" placeholder=" " required>
+                <label for="login-email">Email</label>
+            </div>
+            <div class="floating-label">
+                <input id="login-password" type="password" placeholder=" " required>
+                <label for="login-password">Password</label>
+            </div>
+            <button id="submit-login">Sign In</button>
+            <button id="submit-signup" style="display:none;">Sign Up</button>
+            <p id="toggle-login">Don't have an account? Sign Up</p>
+            <p id="error-message"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+
+    <script>
+        VANTA.NET({ el: "#vanta-hero", color: 0x2563eb, backgroundColor: 0x070d18, points: 10, spacing: 20, mouseControls: true });
+
+        const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
+        const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
+        const { createClient } = window.supabase;
+        const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const loginPopup = document.getElementById('login-popup');
+        const loginEmail = document.getElementById('login-email');
+        const loginPassword = document.getElementById('login-password');
+        const submitLogin = document.getElementById('submit-login');
+        const submitSignup = document.getElementById('submit-signup');
+        const errorMessage = document.getElementById('error-message');
+        const createInvoiceBtn = document.getElementById('create-invoice-btn');
+        const dashboardNav = document.getElementById('dashboard-nav');
+        const adminNav = document.getElementById('admin-nav');
+        const popupTitle = document.getElementById('popup-title');
+        const toggleLogin = document.getElementById('toggle-login');
+        let isLogin = true;
+
+        // Scroll fade-in
+        const sections = document.querySelectorAll('section');
+        const reveal = new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')); });
+        sections.forEach(s => reveal.observe(s));
+
+        toggleLogin.addEventListener('click', () => {
+            isLogin = !isLogin;
+            popupTitle.textContent = isLogin ? 'Login' : 'Sign Up';
+            submitLogin.style.display = isLogin ? 'block' : 'none';
+            submitSignup.style.display = isLogin ? 'none' : 'block';
+            toggleLogin.textContent = isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login";
+            errorMessage.textContent = '';
+            loginEmail.value = '';
+            loginPassword.value = '';
+        });
+
+        loginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
+
+        submitLogin.addEventListener('click', async () => {
+            errorMessage.textContent = '';
+            const email = loginEmail.value;
+            const password = loginPassword.value;
+            if (!email || !password) { errorMessage.textContent = 'Email & password required'; return; }
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) { errorMessage.textContent = error.message; return; }
+            loginPopup.style.display = 'none';
+            updateUI();
+        });
+
+        submitSignup.addEventListener('click', async () => {
+            errorMessage.textContent = '';
+            const email = loginEmail.value;
+            const password = loginPassword.value;
+            if (!email || !password) { errorMessage.textContent = 'Email & password required'; return; }
+            const { data, error } = await supabaseClient.auth.signUp({ email, password });
+            if (error) { errorMessage.textContent = error.message; return; }
+            alert('Sign-up successful! Please confirm e-mail to continue.');
+            toggleLogin.click();
+        });
+
+        logoutBtn.addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            updateUI();
+        });
+
+        // CREATE INVOICE BUTTON
+        createInvoiceBtn.addEventListener('click', async () => {
+            const { data } = await supabaseClient.auth.getSession();
+            const user = data.session?.user;
+            if (!user) {
+                loginPopup.style.display = 'flex';
+                return;
+            }
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        });
+
+        async function updateUI() {
+            const { data } = await supabaseClient.auth.getSession();
+            const user = data.session?.user;
+            if (user) {
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline-block';
+                dashboardNav.style.display = 'inline-block';
+                adminNav.style.display = (user.email === 'admin@example.com') ? 'inline-block' : 'none';
+            } else {
+                loginBtn.style.display = 'inline-block';
+                logoutBtn.style.display = 'none';
+                dashboardNav.style.display = 'none';
+                adminNav.style.display = 'none';
+            }
+        }
+
+        supabaseClient.auth.onAuthStateChange(() => updateUI());
+        updateUI();
+
+        loginPopup.addEventListener('click', (e) => { if (e.target === loginPopup) loginPopup.style.display = 'none'; });
+    </script>
+</body>
+</html>

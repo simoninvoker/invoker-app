@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Supplier</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-dark: #070d18;
+    --bg-darker: #050a14;
+    --primary: #2563eb;
+    --accent: #facc15;
+    --white: #ffffff;
+    --glass: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.12);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --error: #ef4444;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+    font-family:'Inter',sans-serif;
+    background: var(--bg-dark);
+    color: var(--white);
+    padding-top: 90px;
+    min-height: 100vh;
+}
+
+/* Modern Fixed Navbar */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background: rgba(5, 10, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--white);
+}
+
+#active-supplier {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 500;
+    background: rgba(250, 204, 21, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.back-btn, .logout-btn {
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.back-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.back-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+.logout-btn {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border);
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.main { max-width: 1000px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
+.card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
+.card h2 { margin-bottom:20px; color: var(--accent); font-size:24px; }
+.supplier-card {
+    cursor:pointer;
+    padding:28px;
+    border:2px solid transparent;
+    border-radius:16px;
+    transition:all 0.3s;
+    background:rgba(255,255,255,0.04);
+    margin-bottom:16px;
+}
+.supplier-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.supplier-card h3 { margin:0 0 8px 0; font-size:20px; }
+.supplier-card p { margin:4px 0; color: var(--text-secondary); font-size:14px; }
+.no-suppliers { text-align:center; color: var(--text-secondary); font-size:18px; padding:40px 0; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top:20px; }
+.form-group { display: flex; flex-direction: column; }
+label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px; }
+input { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
+input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+select {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23facc15'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding: 14px 40px 14px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 16px;
+    cursor: pointer;
+}
+select option {
+    background-color: var(--bg-darker);
+    color: var(--white);
+}
+.bank-entry { background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; margin-bottom:16px; position:relative; }
+
+/* Updated Remove Bank button to match Delete Supplier button */
+.remove-bank {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--error);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-bank:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* Improved buttons inside supplier cards */
+.supplier-card .buttons-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.supplier-card .primary-action {
+    flex: 1;
+    min-width: 180px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.supplier-card .primary-action:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.supplier-card .secondary-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.supplier-card .action-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.supplier-card .edit-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.supplier-card .edit-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+.supplier-card .delete-btn {
+    background: var(--error);
+    color: #fff;
+}
+
+.supplier-card .delete-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* Form buttons */
+#add-supplier-btn, #submit-btn, #add-bank-entry {
+    background: var(--primary);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#add-supplier-btn:hover, #submit-btn:hover, #add-bank-entry:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+#cancel-btn {
+    background: #6b7280;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#cancel-btn:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <h1>Select Supplier</h1>
+        <span id="active-supplier"></span>
+    </div>
+    <div class="header-right">
+        <a href="dashboard.html" id="dashboard-btn" class="back-btn" style="display:none;">Back to Dashboard</a>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+    </div>
+</header>
+
+<div class="main">
+    <div class="card">
+        <h2>Your Suppliers</h2>
+        <p>Select the supplier you want to create invoices for today.</p>
+        <div id="suppliers-list">
+            <div class="no-suppliers">Loading suppliers...</div>
+        </div>
+        <button id="add-supplier-btn">Add New Supplier</button>
+    </div>
+
+    <div class="card" id="supplier-form-card" style="display:none;">
+        <h2 id="form-title">Add New Supplier</h2>
+        <p id="form-subtitle">Fill in your company details and add at least one bank account for receiving payments.</p>
+        <form id="supplier-form">
+            <div class="form-grid">
+                <div class="form-group"><label>Supplier Name *</label><input id="name" required></div>
+                <div class="form-group"><label>Endpoint ID</label><input id="endpoint"></div>
+                <div class="form-group"><label>VAT ID</label><input id="vat"></div>
+                <div class="form-group"><label>Street</label><input id="street"></div>
+                <div class="form-group"><label>Additional Street</label><input id="additional-street"></div>
+                <div class="form-group"><label>City</label><input id="city"></div>
+                <div class="form-group"><label>Postal Code</label><input id="postal"></div>
+                <div class="form-group"><label>Country Code *</label><input id="country" required maxlength="2"></div>
+                <div class="form-group"><label>Email</label><input id="email" type="email"></div>
+                <div class="form-group"><label>Legal Name</label><input id="reg-name"></div>
+                <div class="form-group"><label>Company ID</label><input id="company-id"></div>
+                <div class="form-group">
+                    <label>Default Currency</label>
+                    <select id="default-currency">
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="SEK">SEK - Swedish Krona</option>
+                        <option value="NOK">NOK - Norwegian Krone</option>
+                        <option value="DKK">DKK - Danish Krone</option>
+                        <option value="CHF">CHF - Swiss Franc</option>
+                    </select>
+                </div>
+            </div>
+
+            <h3 style="margin-top:40px; color:var(--accent);">Bank Accounts</h3>
+            <p>Add at least one bank account where customers should send payment.</p>
+            <div id="banks-container"></div>
+            <button type="button" id="add-bank-entry">+ Add Another Bank</button>
+
+            <div style="margin-top:32px; display: flex; gap: 12px;">
+                <button type="submit" id="submit-btn">Save & Select This Supplier</button>
+                <button type="button" id="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+let editingSupplierId = null;
+let isSaving = false;
+let currentUserId = null;
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+        window.location.href = 'index.html';
+        return;
+    }
+    currentUserId = session.user.id;
+
+    // Display active supplier in navbar
+    const activeSupplierName = localStorage.getItem('selected_supplier_name');
+    const activeSupplierSpan = document.getElementById('active-supplier');
+    if (activeSupplierName) {
+        activeSupplierSpan.textContent = `Active: ${activeSupplierName}`;
+    } else {
+        activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
+    }
+
+    // Logout button
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
+    });
+
+    const selectedSupplierId = localStorage.getItem('selected_supplier_id');
+
+    // Safe access to dashboard-btn
+    const dashboardBtn = document.getElementById('dashboard-btn');
+    if (dashboardBtn) {
+        dashboardBtn.style.display = selectedSupplierId ? 'inline-block' : 'none';
+        dashboardBtn.addEventListener('click', () => {
+            window.location.href = 'dashboard.html';
+        });
+    }
+
+    await loadSuppliers(currentUserId);
+
+    document.getElementById('add-supplier-btn').addEventListener('click', () => {
+        startAddSupplier();
+    });
+
+    document.getElementById('cancel-btn').addEventListener('click', () => {
+        document.getElementById('supplier-form-card').style.display = 'none';
+        document.getElementById('suppliers-list').style.opacity = '1';
+        editingSupplierId = null;
+        isSaving = false;
+    });
+
+    document.getElementById('add-bank-entry').addEventListener('click', addBankEntry);
+
+    document.getElementById('supplier-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (isSaving) return;
+        isSaving = true;
+        document.getElementById('submit-btn').disabled = true;
+        document.getElementById('submit-btn').textContent = 'Saving...';
+
+        try {
+            if (editingSupplierId) {
+                await updateSupplier(editingSupplierId);
+            } else {
+                await createSupplierWithBanks(currentUserId);
+            }
+        } finally {
+            isSaving = false;
+            document.getElementById('submit-btn').disabled = false;
+            document.getElementById('submit-btn').textContent = editingSupplierId ? 'Save Supplier' : 'Save & Select This Supplier';
+        }
+    });
+});
+
+async function loadSuppliers(userId) {
+    const { data: suppliers, error } = await supabase
+        .from('suppliers')
+        .select('id, name, endpoint_id, vat_id, street, additional_street, city, postal_code, country')
+        .eq('user_id', userId)
+        .order('name');
+
+    const list = document.getElementById('suppliers-list');
+
+    if (error) {
+        list.innerHTML = '<p style="color:var(--error);">Error loading suppliers: ' + error.message + '</p>';
+        return;
+    }
+
+    if (suppliers.length === 0) {
+        list.innerHTML = `
+            <div class="no-suppliers">
+                <p>You don't have any suppliers yet.</p>
+                <p style="margin-top:16px;">Click "Add New Supplier" to create your first one.</p>
+            </div>
+        `;
+        return;
+    }
+
+    list.innerHTML = '';
+    suppliers.forEach(s => {
+        const address = [s.street, s.additional_street, s.city, s.postal_code].filter(Boolean).join(', ') || 'No address';
+        const card = document.createElement('div');
+        card.className = 'supplier-card';
+        card.innerHTML = `
+            <h3>${s.name}</h3>
+            <p>${s.endpoint_id || 'No endpoint'} • ${s.vat_id || 'No VAT'}</p>
+            <p>${address} • ${s.country || ''}</p>
+            <div class="buttons-container">
+                <button class="primary-action">Select & Continue</button>
+                <div class="secondary-actions">
+                    <button class="action-btn edit-btn">Edit</button>
+                    <button class="action-btn delete-btn">Delete</button>
+                </div>
+            </div>
+        `;
+        card.querySelector('.primary-action').addEventListener('click', () => {
+            localStorage.setItem('selected_supplier_id', s.id);
+            localStorage.setItem('selected_supplier_name', s.name);
+            window.location.href = 'dashboard.html';
+        });
+        card.querySelector('.edit-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            editSupplier(s.id);
+        });
+        card.querySelector('.delete-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteSupplier(s.id, s.name);
+        });
+        list.appendChild(card);
+    });
+}
+
+async function deleteSupplier(supplierId, supplierName) {
+    const confirmMsg = `Are you sure you want to delete "${supplierName}"?\n\nThis will permanently delete:\n• The supplier\n• All bank accounts\n• ALL invoice history for this supplier\n\nThis action cannot be undone.`;
+    if (!confirm(confirmMsg)) {
+        return;
+    }
+
+    const { error: bankError } = await supabase
+        .from('supplier_banks')
+        .delete()
+        .eq('supplier_id', supplierId);
+
+    if (bankError) {
+        alert('Error deleting bank accounts: ' + bankError.message);
+        return;
+    }
+
+    const { error: invoiceError } = await supabase
+        .from('invoices')
+        .delete()
+        .eq('supplier_id', supplierId);
+
+    if (invoiceError) {
+        alert('Error deleting invoices: ' + invoiceError.message);
+        return;
+    }
+
+    const { error } = await supabase
+        .from('suppliers')
+        .delete()
+        .eq('id', supplierId);
+
+    if (error) {
+        alert('Error deleting supplier: ' + error.message);
+        return;
+    }
+
+    alert(`"${supplierName}" and all related data have been permanently deleted.`);
+
+    if (localStorage.getItem('selected_supplier_id') === supplierId.toString()) {
+        localStorage.removeItem('selected_supplier_id');
+        localStorage.removeItem('selected_supplier_name');
+        const dashboardBtn = document.getElementById('dashboard-btn');
+        if (dashboardBtn) dashboardBtn.style.display = 'none';
+    }
+
+    await loadSuppliers(currentUserId);
+}
+
+function startAddSupplier() {
+    editingSupplierId = null;
+    document.getElementById('form-title').textContent = 'Add New Supplier';
+    document.getElementById('form-subtitle').textContent = 'Fill in your company details and add at least one bank account.';
+    document.getElementById('submit-btn').textContent = 'Save & Select This Supplier';
+    document.getElementById('supplier-form').reset();
+    document.getElementById('default-currency').value = 'EUR';
+    document.getElementById('banks-container').innerHTML = '';
+    addBankEntry();
+    document.getElementById('supplier-form-card').style.display = 'block';
+    document.getElementById('suppliers-list').style.opacity = '0.5';
+    document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function editSupplier(supplierId) {
+    editingSupplierId = supplierId;
+
+    const { data: supplier, error } = await supabase
+        .from('suppliers')
+        .select('*')
+        .eq('id', supplierId)
+        .single();
+
+    if (error || !supplier) {
+        alert('Error loading supplier');
+        return;
+    }
+
+    document.getElementById('form-title').textContent = 'Edit Supplier';
+    document.getElementById('form-subtitle').textContent = 'Update company details and manage bank accounts.';
+    document.getElementById('submit-btn').textContent = 'Save Supplier';
+    document.getElementById('name').value = supplier.name || '';
+    document.getElementById('endpoint').value = supplier.endpoint_id || '';
+    document.getElementById('vat').value = supplier.vat_id || '';
+    document.getElementById('street').value = supplier.street || '';
+    document.getElementById('additional-street').value = supplier.additional_street || '';
+    document.getElementById('city').value = supplier.city || '';
+    document.getElementById('postal').value = supplier.postal_code || '';
+    document.getElementById('country').value = supplier.country || '';
+    document.getElementById('email').value = supplier.email || '';
+    document.getElementById('reg-name').value = supplier.registration_name || '';
+    document.getElementById('company-id').value = supplier.company_id || '';
+    document.getElementById('default-currency').value = supplier.currency || 'EUR';
+
+    const { data: banks } = await supabase
+        .from('supplier_banks')
+        .select('*')
+        .eq('supplier_id', supplierId);
+
+    const container = document.getElementById('banks-container');
+    container.innerHTML = '';
+    if (banks && banks.length > 0) {
+        banks.forEach(bank => addBankEntry(bank));
+    } else {
+        addBankEntry();
+    }
+
+    document.getElementById('supplier-form-card').style.display = 'block';
+    document.getElementById('suppliers-list').style.opacity = '0.5';
+    document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+function addBankEntry(bankData = {}) {
+    const container = document.getElementById('banks-container');
+    const entry = document.createElement('div');
+    entry.className = 'bank-entry';
+    entry.innerHTML = `
+        <button type="button" class="remove-bank">Delete</button>
+        <div class="form-grid">
+            <div class="form-group"><label>Account Name *</label><input class="bank-name" value="${bankData.name || ''}" required></div>
+            <div class="form-group"><label>IBAN *</label><input class="bank-iban" value="${bankData.iban || ''}" required></div>
+            <div class="form-group"><label>BIC</label><input class="bank-bic" value="${bankData.bic || ''}"></div>
+            <div class="form-group"><label>Payment Means Code</label><input class="bank-code" value="${bankData.code || ''}"></div>
+            <div class="form-group"><label>Payment ID</label><input class="bank-payment_id" value="${bankData.payment_id || ''}"></div>
+            <div class="form-group"><label>Terms</label><input class="bank-terms" value="${bankData.terms || ''}"></div>
+        </div>
+    `;
+    entry.querySelector('.remove-bank').addEventListener('click', () => entry.remove());
+    container.appendChild(entry);
+    return entry;
+}
+
+async function createSupplierWithBanks(userId) {
+    const supplier = {
+        user_id: userId,
+        name: document.getElementById('name').value.trim(),
+        endpoint_id: document.getElementById('endpoint').value.trim() || null,
+        vat_id: document.getElementById('vat').value.trim(),
+        street: document.getElementById('street').value.trim() || null,
+        additional_street: document.getElementById('additional-street').value.trim() || null,
+        city: document.getElementById('city').value.trim() || null,
+        postal_code: document.getElementById('postal').value.trim() || null,
+        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        email: document.getElementById('email').value.trim() || null,
+        registration_name: document.getElementById('reg-name').value.trim() || null,
+        company_id: document.getElementById('company-id').value.trim() || null,
+        currency: document.getElementById('default-currency').value
+    };
+
+    const { data: newSupplier, error } = await supabase
+        .from('suppliers')
+        .insert(supplier)
+        .select()
+        .single();
+
+    if (error) {
+        alert('Error creating supplier: ' + error.message);
+        return;
+    }
+
+    const success = await saveBanksForSupplier(newSupplier.id, userId);
+    if (!success) return;
+
+    localStorage.setItem('selected_supplier_id', newSupplier.id);
+    localStorage.setItem('selected_supplier_name', newSupplier.name);
+    window.location.href = 'dashboard.html';
+}
+
+async function updateSupplier(supplierId) {
+    const updated = {
+        name: document.getElementById('name').value.trim(),
+        endpoint_id: document.getElementById('endpoint').value.trim() || null,
+        vat_id: document.getElementById('vat').value.trim(),
+        street: document.getElementById('street').value.trim() || null,
+        additional_street: document.getElementById('additional-street').value.trim() || null,
+        city: document.getElementById('city').value.trim() || null,
+        postal_code: document.getElementById('postal').value.trim() || null,
+        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        email: document.getElementById('email').value.trim() || null,
+        registration_name: document.getElementById('reg-name').value.trim() || null,
+        company_id: document.getElementById('company-id').value.trim() || null,
+        currency: document.getElementById('default-currency').value
+    };
+
+    const { error } = await supabase
+        .from('suppliers')
+        .update(updated)
+        .eq('id', supplierId);
+
+    if (error) {
+        alert('Error updating supplier: ' + error.message);
+        return;
+    }
+
+    const success = await saveBanksForSupplier(supplierId, currentUserId);
+    if (!success) return;
+
+    localStorage.setItem('selected_supplier_name', updated.name);
+    alert('Supplier updated successfully!');
+    document.getElementById('supplier-form-card').style.display = 'none';
+    document.getElementById('suppliers-list').style.opacity = '1';
+    loadSuppliers(currentUserId);
+}
+
+async function saveBanksForSupplier(supplierId, userId) {
+    const { error: deleteError } = await supabase
+        .from('supplier_banks')
+        .delete()
+        .eq('supplier_id', supplierId);
+
+    if (deleteError) {
+        console.error('Error deleting old banks:', deleteError);
+    }
+
+    const entries = document.querySelectorAll('.bank-entry');
+    const banks = [];
+    let hasValid = false;
+
+    entries.forEach(entry => {
+        const name = entry.querySelector('.bank-name').value.trim();
+        const iban = entry.querySelector('.bank-iban').value.trim();
+        if (name && iban) {
+            hasValid = true;
+            banks.push({
+                supplier_id: supplierId,
+                user_id: userId,
+                name,
+                iban,
+                bic: entry.querySelector('.bank-bic').value.trim() || null,
+                code: entry.querySelector('.bank-code').value.trim() || null,
+                payment_id: entry.querySelector('.bank-payment_id').value.trim() || null,
+                terms: entry.querySelector('.bank-terms').value.trim() || null
+            });
+        }
+    });
+
+    if (!hasValid) {
+        alert('Please add at least one bank account with name and IBAN.');
+        return false;
+    }
+
+    if (banks.length > 0) {
+        const { error } = await supabase.from('supplier_banks').insert(banks);
+        if (error) {
+            alert('Error saving banks: ' + error.message);
+            return false;
+        }
+    }
+
+    return true;
+}
+</script>
+</body>
+</html>
