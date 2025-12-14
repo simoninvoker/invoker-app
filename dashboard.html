@@ -127,106 +127,6 @@ header h1 {
     gap: 16px;
 }
 
-/* Hamburger Icon - Mobile Only */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-    z-index: 101;
-}
-
-.hamburger span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background: var(--white);
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Mobile Menu Overlay - FIXED */
-.mobile-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: var(--bg-dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    z-index: 100;
-    visibility: hidden;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.mobile-nav.active {
-    transform: translateX(0);
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.mobile-nav a, .mobile-nav button {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--white);
-    text-decoration: none;
-    background: none;
-    border: none;
-    padding: 12px 24px;
-    width: 80%;
-    text-align: center;
-    border-radius: 12px;
-    transition: background 0.3s ease;
-    cursor: pointer;
-}
-
-.mobile-nav a:hover, .mobile-nav button:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.mobile-nav-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 32px;
-    color: var(--white);
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background 0.3s ease;
-}
-
-.mobile-nav-close:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
 /* Buttons */
 .cta, .logout-btn {
     padding: 10px 24px;
@@ -324,6 +224,106 @@ input:checked + .slider:after {
     content: '☀️';
     left: 8px;
     right: auto;
+}
+
+/* Hamburger Icon - Mobile Only */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--white);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Menu Overlay */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    z-index: 100;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.mobile-nav a, .mobile-nav button {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    width: 80%;
+    text-align: center;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.mobile-nav a:hover, .mobile-nav button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    color: var(--white);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+
+.mobile-nav-close:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .main { max-width: 1200px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; width: 100%; }
@@ -495,8 +495,15 @@ input:checked + .slider:after {
 </header>
 
 <div class="main">
+    <!-- No Supplier Selected Message -->
+    <div class="card" id="no-supplier-card" style="display:none; text-align:center;">
+        <h2>No Supplier Selected</h2>
+        <p style="margin:20px 0; font-size:18px;">You need to select a supplier before accessing the dashboard.</p>
+        <a href="suppliers.html" class="cta" style="display:inline-block; padding:14px 32px; font-size:16px;">Go to Suppliers</a>
+    </div>
+
     <!-- Enhanced Analytics Section -->
-    <div class="card">
+    <div class="card" id="analytics-card">
         <h2>Analytics Overview</h2>
         <div class="analytics-grid" id="metrics-grid">
             <!-- Metrics injected by JS -->
@@ -522,12 +529,12 @@ input:checked + .slider:after {
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="create-invoice-card">
         <h2>Create New Invoice</h2>
         <button id="create-invoice-btn" class="cta">Create Invoice</button>
     </div>
 
-    <div class="card">
+    <div class="card" id="invoice-history-card">
         <h2>Invoice History</h2>
         <div class="filter-bar">
             <div class="filter-controls">
@@ -611,10 +618,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const selectedSupplierId = localStorage.getItem('selected_supplier_id');
     if (!selectedSupplierId) {
-        alert("Please select a supplier first.");
-        window.location.href = 'suppliers.html';
+        // Show "No Supplier" message and hide dashboard content
+        document.getElementById('no-supplier-card').style.display = 'block';
+        document.getElementById('analytics-card').style.display = 'none';
+        document.getElementById('create-invoice-card').style.display = 'none';
+        document.getElementById('invoice-history-card').style.display = 'none';
         return;
     }
+
+    // Supplier selected – show normal dashboard
+    document.getElementById('no-supplier-card').style.display = 'none';
 
     // Desktop button events
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
@@ -675,16 +688,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         mobileNav.classList.toggle('active');
     });
 
-    mobileNavClose.addEventListener('click', closeMobileMenu);
-
-    function closeMobileMenu() {
+    mobileNavClose.addEventListener('click', () => {
         hamburger.classList.remove('active');
         mobileNav.classList.remove('active');
-    }
+    });
 
     // Close menu on any link/button click
     mobileNav.querySelectorAll('a, button').forEach(item => {
-        item.addEventListener('click', closeMobileMenu);
+        item.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
     });
 
     async function logout() {
