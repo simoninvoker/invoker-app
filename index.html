@@ -7,7 +7,6 @@
     <title>Invoker – Enterprise Invoice Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ---- STYLES SAME AS BEFORE ---- */
         :root {
             --bg-dark: #070d18;
             --bg-darker: #050a14;
@@ -19,10 +18,113 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; background: var(--bg-dark); color: var(--white); scroll-behavior: smooth; }
-        header { position: sticky; top: 0; z-index: 100; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(180deg, rgba(7, 13, 24, .95), rgba(7, 13, 24, .75)); backdrop-filter: blur(10px); }
-        nav a, nav button { color: #00e5ff; text-decoration: none; margin-left: 30px; opacity: .85; font-weight: 600; padding: 8px 18px; border-radius: 12px; border: 1px solid transparent; background: transparent; transition: all 0.2s ease; }
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(7, 13, 24, .95), rgba(7, 13, 24, .75));
+            backdrop-filter: blur(10px);
+        }
+        header h1 { font-size: 28px; font-weight: 700; color: var(--white); }
+
+        /* Desktop Nav */
+        nav { display: flex; align-items: center; gap: 20px; }
+        nav a, nav button {
+            color: #00e5ff;
+            text-decoration: none;
+            opacity: .85;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
         nav a:hover, nav button:hover { background: #2563eb; border-color: #2563eb; color: #fff; }
-        button.cta { padding: 18px 42px; background: #2563eb; color: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .1); transition: transform .2s ease, box-shadow .2s ease; border-radius: 14px; border: none; cursor: pointer; font-weight: 600; }
+
+        /* Hamburger Icon */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 101;
+        }
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: var(--white);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+        /* Mobile Menu */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            transform: translateX(100%);
+            transition: transform 0.4s ease;
+            z-index: 100;
+        }
+        .mobile-nav.active { transform: translateX(0); }
+        .mobile-nav a, .mobile-nav button {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            background: none;
+            border: none;
+            padding: 12px 24px;
+            width: 80%;
+            text-align: center;
+            border-radius: 12px;
+            transition: background 0.3s ease;
+        }
+        .mobile-nav a:hover, .mobile-nav button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 32px;
+            color: var(--white);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        button.cta {
+            padding: 18px 42px;
+            background: #2563eb;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .1);
+            transition: transform .2s ease, box-shadow .2s ease;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
         button.cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .15); }
         #vanta-hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
         #vanta-hero canvas { position: absolute; inset: 0; z-index: 0; }
@@ -59,6 +161,13 @@
         #toggle-login { margin-top:15px; font-size:14px; color:#00e5ff; cursor:pointer; text-decoration:underline; }
         #error-message { color:#ff4d6d; font-size:14px; margin-top:10px; min-height:18px; }
         @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            nav { display: none; }
+            .hamburger { display: flex; }
+        }
     </style>
 </head>
 
@@ -75,6 +184,25 @@
             <button id="login-btn">Login / Sign Up</button>
             <button id="logout-btn">Logout</button>
         </nav>
+
+        <!-- Hamburger Icon -->
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-nav" id="mobile-nav">
+            <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+            <a href="#features">Features</a>
+            <a href="#cta">Get Started</a>
+            <a href="#contact">Contact</a>
+            <a href="docs.html">Documentation</a>
+            <a href="dashboard.html" id="mobile-dashboard-nav">Dashboard</a>
+            <button id="mobile-login-btn">Login / Sign Up</button>
+            <button id="mobile-logout-btn">Logout</button>
+        </div>
     </header>
 
     <section id="vanta-hero" class="visible">
@@ -149,7 +277,9 @@
         const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
         const loginBtn = document.getElementById('login-btn');
+        const mobileLoginBtn = document.getElementById('mobile-login-btn');
         const logoutBtn = document.getElementById('logout-btn');
+        const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
         const loginPopup = document.getElementById('login-popup');
         const loginEmail = document.getElementById('login-email');
         const loginPassword = document.getElementById('login-password');
@@ -158,14 +288,41 @@
         const errorMessage = document.getElementById('error-message');
         const createInvoiceBtn = document.getElementById('create-invoice-btn');
         const dashboardNav = document.getElementById('dashboard-nav');
+        const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
         const adminNav = document.getElementById('admin-nav');
         const popupTitle = document.getElementById('popup-title');
         const toggleLogin = document.getElementById('toggle-login');
+
+        // Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        const mobileNavClose = document.getElementById('mobile-nav-close');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+
+        mobileNavClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
+
+        // Close menu when clicking a link
+        mobileNav.querySelectorAll('a, button').forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+
         let isLogin = true;
 
         // Scroll fade-in
         const sections = document.querySelectorAll('section');
-        const reveal = new IntersectionObserver(entries => { entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')); });
+        const reveal = new IntersectionObserver(entries => {
+            entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+        });
         sections.forEach(s => reveal.observe(s));
 
         toggleLogin.addEventListener('click', () => {
@@ -179,7 +336,9 @@
             loginPassword.value = '';
         });
 
+        // Open login popup from both buttons
         loginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
+        if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
 
         submitLogin.addEventListener('click', async () => {
             errorMessage.textContent = '';
@@ -203,10 +362,14 @@
             toggleLogin.click();
         });
 
-        logoutBtn.addEventListener('click', async () => {
+        // Logout from both desktop and mobile
+        logoutBtn.addEventListener('click', logout);
+        if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', logout);
+
+        async function logout() {
             await supabaseClient.auth.signOut();
             updateUI();
-        });
+        }
 
         // CREATE INVOICE BUTTON
         createInvoiceBtn.addEventListener('click', async () => {
@@ -216,7 +379,6 @@
                 loginPopup.style.display = 'flex';
                 return;
             }
-            // Redirect to dashboard
             window.location.href = 'dashboard.html';
         });
 
@@ -225,13 +387,19 @@
             const user = data.session?.user;
             if (user) {
                 loginBtn.style.display = 'none';
+                if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
                 logoutBtn.style.display = 'inline-block';
+                if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'block';
                 dashboardNav.style.display = 'inline-block';
+                mobileDashboardNav.style.display = 'block';
                 adminNav.style.display = (user.email === 'admin@example.com') ? 'inline-block' : 'none';
             } else {
                 loginBtn.style.display = 'inline-block';
+                if (mobileLoginBtn) mobileLoginBtn.style.display = 'block';
                 logoutBtn.style.display = 'none';
+                if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
                 dashboardNav.style.display = 'none';
+                mobileDashboardNav.style.display = 'none';
                 adminNav.style.display = 'none';
             }
         }
@@ -239,7 +407,9 @@
         supabaseClient.auth.onAuthStateChange(() => updateUI());
         updateUI();
 
-        loginPopup.addEventListener('click', (e) => { if (e.target === loginPopup) loginPopup.style.display = 'none'; });
+        loginPopup.addEventListener('click', (e) => {
+            if (e.target === loginPopup) loginPopup.style.display = 'none';
+        });
     </script>
 </body>
 </html>
