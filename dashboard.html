@@ -1,755 +1,729 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoker Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --bg-dark: #070d18;
-            --bg-darker: #050a14;
-            --primary: #2563eb;
-            --accent: #facc15;
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.06);
-            --border: rgba(255, 255, 255, 0.12);
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --success: #22c55e;
-            --error: #dc2626;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoker Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root {
+    --bg-dark: #070d18;
+    --bg-darker: #050a14;
+    --primary: #2563eb;
+    --accent: #facc15;
+    --white: #ffffff;
+    --glass: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.12);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --success: #22c55e;
+    --error: #dc2626;
+}
 
-        /* Light Mode Overrides */
-        body.light-mode {
-            --bg-dark: #f8fafc;
-            --bg-darker: #e2e8f0;
-            --primary: #2563eb;
-            --accent: #f59e0b;
-            --glass: rgba(255, 255, 255, 0.8);
-            --border: rgba(0, 0, 0, 0.1);
-            --text-secondary: rgba(0, 0, 0, 0.6);
-            --success: #16a34a;
-            --error: #dc2626;
-        }
+/* Light Mode Overrides */
+body.light-mode {
+    --bg-dark: #f8fafc;
+    --bg-darker: #e2e8f0;
+    --primary: #2563eb;
+    --accent: #f59e0b;
+    --glass: rgba(255, 255, 255, 0.8);
+    --border: rgba(0, 0, 0, 0.1);
+    --text-secondary: rgba(0, 0, 0, 0.6);
+    --success: #16a34a;
+    --error: #dc2626;
+}
 
-        body.light-mode {
-            background: var(--bg-dark);
-            color: #0f172a;
-        }
+body.light-mode {
+    background: var(--bg-dark);
+    color: #0f172a;
+}
 
-        body.light-mode .card {
-            background: var(--glass);
-            border-color: var(--border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
+body.light-mode .card {
+    background: var(--glass);
+    border-color: var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
 
-        body.light-mode table th {
-            background: rgba(0, 0, 0, 0.05);
-        }
+body.light-mode table th {
+    background: rgba(0, 0, 0, 0.05);
+}
 
-        body.light-mode input,
-        body.light-mode select,
-        body.light-mode textarea {
-            background: rgba(255, 255, 255, 0.9);
-            color: #0f172a;
-            border-color: var(--border);
-        }
+body.light-mode input,
+body.light-mode select,
+body.light-mode textarea {
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    border-color: var(--border);
+}
 
-        body.light-mode .action-btn,
-        body.light-mode .cta,
-        body.light-mode .logout-btn {
-            color: white;
-        }
+body.light-mode .action-btn,
+body.light-mode .cta,
+body.light-mode .logout-btn {
+    color: white;
+}
 
-        /* Rest of your existing styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+/* Global fixes */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { 
+    width: 100%;
+    overflow-x: hidden;
+}
+body {
+    font-family:'Inter',sans-serif;
+    background: var(--bg-dark);
+    color: var(--white);
+    padding-top: 90px;
+    min-height: 100vh;
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-dark);
-            color: var(--white);
-            padding-top: 90px;
-            min-height: 100vh;
-        }
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background: rgba(5, 10, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
 
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 50px;
-            background: rgba(5, 10, 20, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        }
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
+header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--white);
+}
 
-        header h1 {
-            font-size: 26px;
-            font-weight: 700;
-            margin: 0;
-            color: var(--white);
-        }
+#active-supplier {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 500;
+    background: rgba(250, 204, 21, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(250, 204, 21, 0.3);
+}
 
-        #active-supplier {
-            font-size: 16px;
-            color: var(--accent);
-            font-weight: 500;
-            background: rgba(250, 204, 21, 0.15);
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(250, 204, 21, 0.3);
-        }
+/* Desktop Navigation */
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
 
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+.cta, .logout-btn {
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
 
-        .cta,
-        .logout-btn {
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
+.cta {
+    background: var(--primary);
+    color: white;
+}
 
-        .cta {
-            background: var(--primary);
-            color: white;
-        }
+.cta:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
 
-        .cta:hover {
-            background: #3b82f6;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-        }
+.logout-btn {
+    background: var(--accent);
+    color: #000;
+}
 
-        .logout-btn {
-            background: var(--accent);
-            color: #000;
-        }
+.logout-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
 
-        .logout-btn:hover {
-            background: #fde047;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
-        }
+/* Theme Toggle Switch */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+    margin: 0 16px;
+}
 
-        /* Theme Toggle Switch */
-        .theme-toggle {
-            position: relative;
-            display: inline-block;
-            width: 56px;
-            height: 30px;
-            margin: 0 16px;
-        }
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
 
-        .theme-toggle input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #64748b;
+    transition: .4s;
+    border-radius: 34px;
+}
 
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #64748b;
-            transition: .4s;
-            border-radius: 34px;
-        }
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 24px;
-            width: 24px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
+input:checked + .slider {
+    background-color: #facc15;
+}
 
-        input:checked+.slider {
-            background-color: #facc15;
-        }
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
 
-        input:checked+.slider:before {
-            transform: translateX(26px);
-        }
+/* Sun/Moon Icons */
+.slider:after {
+    content: '🌙';
+    color: white;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    transition: .4s;
+}
 
-        /* Sun/Moon Icons */
-        .slider:after {
-            content: '🌙';
-            color: white;
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 16px;
-            transition: .4s;
-        }
+input:checked + .slider:after {
+    content: '☀️';
+    left: 8px;
+    right: auto;
+}
 
-        input:checked+.slider:after {
-            content: '☀️';
-            left: 8px;
-            right: auto;
-        }
+/* Hamburger Icon - Mobile Only */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 101;
+}
 
-        .main {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--white);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
 
-        .card {
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(12px);
-        }
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
 
-        .card h2 {
-            margin-bottom: 20px;
-            color: var(--accent);
-        }
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
 
-        /* Analytics Section */
-        .analytics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 24px;
-        }
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
 
-        .metric-card {
-            background: rgba(255, 255, 255, 0.06);
-            padding: 24px;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
+/* Mobile Menu Overlay */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    z-index: 100;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+}
 
-        .metric-card h3 {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
+.mobile-nav.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
 
-        .metric-card .value {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--accent);
-        }
+.mobile-nav a, .mobile-nav button {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    width: 80%;
+    text-align: center;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
 
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 24px;
-            margin-top: 40px;
-        }
+.mobile-nav a:hover, .mobile-nav button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
 
-        .chart-container {
-            background: rgba(255, 255, 255, 0.06);
-            padding: 24px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            height: 380px;
-            position: relative;
-        }
+.mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    color: var(--white);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
 
-        .chart-container h3 {
-            text-align: center;
-            margin-bottom: 16px;
-            color: var(--white);
-        }
+.mobile-nav-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
 
-        .chart-container canvas {
-            width: 100% !important;
-            height: 100% !important;
-        }
+.main { max-width: 1200px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
+.card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
+.card h2 { margin-bottom:20px; color: var(--accent); }
 
-        /* Table and Filters */
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-            align-items: end;
-            justify-content: space-between;
-        }
+/* Analytics Section */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
 
-        .filter-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            align-items: end;
-        }
+.metric-card {
+    background: rgba(255,255,255,0.06);
+    padding: 24px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
 
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
+.metric-card h3 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
 
-        .filter-group label {
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
+.metric-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent);
+}
 
-        .filter-group input,
-        .filter-group select {
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.08);
-            color: white;
-        }
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+.chart-container {
+    background: rgba(255,255,255,0.06);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    height: 380px;
+    position: relative;
+}
 
-        .table th,
-        .table td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-            vertical-align: middle;
-        }
+.chart-container h3 {
+    text-align: center;
+    margin-bottom: 16px;
+    color: var(--white);
+}
 
-        .table th {
-            background: rgba(255, 255, 255, 0.05);
-        }
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
 
-        .actions-cell {
-            white-space: nowrap;
-            padding: 8px 16px !important;
-        }
+/* Table and Filters */
+.filter-bar { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; align-items: end; justify-content: space-between; }
+.filter-controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; }
+.filter-group { display: flex; flex-direction: column; }
+.filter-group label { font-size: 14px; margin-bottom: 8px; color: var(--text-secondary); }
+.filter-group input, .filter-group select { padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.08); color: white; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.table th { background: rgba(255,255,255,0.05); }
 
-        .action-btn {
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-right: 8px;
-            transition: all 0.25s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            min-width: 70px;
-            height: 28px;
-            vertical-align: middle;
-        }
+.actions-cell {
+    white-space: nowrap;
+    padding: 8px 16px !important;
+}
 
-        .view-btn {
-            background: var(--primary);
-            color: white;
-        }
+.action-btn {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 8px;
+    transition: all 0.25s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 70px;
+    height: 28px;
+    vertical-align: middle;
+}
 
-        .view-btn:hover {
-            background: #3b82f6;
-            transform: translateY(-1px);
-        }
+.view-btn { background: var(--primary); color: white; }
+.view-btn:hover { background: #3b82f6; transform: translateY(-1px); }
+.download-btn { background: var(--accent); color: white !important; }
+.download-btn:hover { background: #fde047; transform: translateY(-1px); }
+.edit-btn { background: #f59e0b; color: white; }
+.edit-btn:hover { background: #f97316; transform: translateY(-1px); }
+.delete-cell { text-align: center; padding: 8px 16px !important; }
+.delete-cross { display: inline-block; width: 32px; height: 32px; line-height: 32px; font-size: 22px; font-weight: bold; color: var(--error); cursor: pointer; transition: all 0.2s; }
+.delete-cross:hover { color: #dc2626; transform: scale(1.2); }
+.no-invoices { color: var(--text-secondary); font-style: italic; padding: 40px 0; font-size: 18px; }
+#export-csv-btn { background: var(--success); color: white; padding: 12px 24px; border-radius: 12px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s ease; align-self: end; }
+#export-csv-btn:hover { background: #16a34a; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(34,197,94,0.4); }
 
-        .download-btn {
-            background: var(--accent);
-            color: white !important;
-        }
-
-        .download-btn:hover {
-            background: #fde047;
-            transform: translateY(-1px);
-        }
-
-        .edit-btn {
-            background: #f59e0b;
-            color: white;
-        }
-
-        .edit-btn:hover {
-            background: #f97316;
-            transform: translateY(-1px);
-        }
-
-        .delete-cell {
-            text-align: center;
-            padding: 8px 16px !important;
-        }
-
-        .delete-cross {
-            display: inline-block;
-            width: 32px;
-            height: 32px;
-            line-height: 32px;
-            font-size: 22px;
-            font-weight: bold;
-            color: var(--error);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .delete-cross:hover {
-            color: #dc2626;
-            transform: scale(1.2);
-        }
-
-        .no-invoices {
-            color: var(--text-secondary);
-            font-style: italic;
-            padding: 40px 0;
-            font-size: 18px;
-        }
-
-        #export-csv-btn {
-            background: var(--success);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            align-self: end;
-        }
-
-        #export-csv-btn:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
-        }
-
-        /* Mobile Header Improvements */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     header {
-        padding: 0 20px; /* Less side padding */
-        height: 70px; /* Slightly shorter */
-        flex-wrap: wrap; /* Allow wrapping if needed */
-        gap: 12px;
+        padding: 0 20px;
+        height: 70px;
     }
-
-    .header-left {
-        gap: 12px;
-        flex: 1;
-        min-width: 0; /* Allow shrinking */
+    .desktop-nav, .theme-toggle {
+        display: none;
     }
-
+    .hamburger {
+        display: flex;
+    }
     header h1 {
-        font-size: 20px; /* Smaller title */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        font-size: 22px;
     }
-
     #active-supplier {
-        font-size: 13px;
-        padding: 4px 10px;
-        max-width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .header-right {
-        gap: 8px;
-    }
-
-    .cta, .logout-btn, .back-btn {
-        padding: 8px 16px;
         font-size: 14px;
-        min-width: 0; /* Allow buttons to shrink */
-    }
-
-    /* Theme toggle on mobile - make smaller */
-    .theme-toggle {
-        width: 46px;
-        height: 26px;
-    }
-
-    .slider:before {
-        height: 20px;
-        width: 20px;
-    }
-
-    input:checked + .slider:before {
-        transform: translateX(20px);
+        padding: 4px 10px;
     }
 }
-
-/* Extra small screens */
-@media (max-width: 480px) {
-    header {
-        padding: 0 12px;
-        height: auto;
-        min-height: 60px;
-        align-items: center;
-    }
-
-    .header-left h1 {
-        font-size: 18px;
-    }
-
-    .header-right {
-        flex-wrap: wrap;
-        justify-content: flex-end;
-    }
-
-    .cta, .logout-btn {
-        padding: 6px 12px;
-        font-size: 13px;
-    }
-}
-    </style>
+</style>
 </head>
-
 <body>
-    <header>
-        <div class="header-left">
-            <a href="docs.html">Documentation</a>
-        </div>
-        <div class="header-left">
-            <h1>Dashboard</h1>
-            <span id="active-supplier"></span>
-        </div>
-        <div class="header-right">
+<header>
+    <div class="header-left">
+        <a href="docs.html" style="color: var(--text-secondary); text-decoration: none; font-size: 14px;">Documentation</a>
+        <h1>Dashboard</h1>
+        <span id="active-supplier"></span>
+    </div>
+    <div class="header-right">
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
             <button id="suppliers-btn" class="cta">Switch Supplier</button>
             <button id="customers-btn" class="cta">Customers</button>
-
-            <!-- Theme Toggle with Sun/Moon -->
             <label class="theme-toggle">
                 <input type="checkbox" id="theme-switch">
                 <span class="slider"></span>
             </label>
-
             <button id="logout-btn" class="logout-btn">Logout</button>
-        </div>
-    </header>
-    <div class="main">
+        </nav>
 
-        <!-- Enhanced Analytics Section -->
-        <div class="card">
-            <h2>Analytics Overview</h2>
-            <div class="analytics-grid" id="metrics-grid">
-                <!-- Metrics injected by JS -->
-            </div>
-
-            <div class="charts-grid">
-                <div class="chart-container">
-                    <h3>Monthly Revenue (Billed vs Paid)</h3>
-                    <canvas id="revenueChart"></canvas>
-                </div>
-                <div class="chart-container">
-                    <h3>Invoice Status Distribution</h3>
-                    <canvas id="statusChart"></canvas>
-                </div>
-                <div class="chart-container">
-                    <h3>Top 5 Customers by Revenue</h3>
-                    <canvas id="topCustomersChart"></canvas>
-                </div>
-                <div class="chart-container">
-                    <h3>Receivables Aging</h3>
-                    <canvas id="agingChart"></canvas>
-                </div>
-            </div>
+        <!-- Hamburger Icon (Mobile Only) -->
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
 
-        <div class="card">
-            <h2>Create New Invoice</h2>
-            <button id="create-invoice-btn" class="cta">Create Invoice</button>
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-nav" id="mobile-nav">
+            <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+            <button id="mobile-suppliers-btn" class="cta">Switch Supplier</button>
+            <button id="mobile-customers-btn" class="cta">Customers</button>
+            <a href="form.html">Create Invoice</a>
+            <a href="docs.html">Documentation</a>
+            <label class="theme-toggle">
+                <input type="checkbox" id="mobile-theme-switch">
+                <span class="slider"></span>
+            </label>
+            <button id="mobile-logout-btn" class="logout-btn">Logout</button>
+        </div>
+    </div>
+</header>
+
+<div class="main">
+    <!-- Enhanced Analytics Section -->
+    <div class="card">
+        <h2>Analytics Overview</h2>
+        <div class="analytics-grid" id="metrics-grid">
+            <!-- Metrics injected by JS -->
         </div>
 
-        <div class="card">
-            <h2>Invoice History</h2>
-            <div class="filter-bar">
-                <div class="filter-controls">
-                    <div class="filter-group">
-                        <label>Search Invoice ID</label>
-                        <input type="text" id="filter-id" placeholder="e.g. INV-001">
-                    </div>
-                    <div class="filter-group">
-                        <label>Customer</label>
-                        <input type="text" id="filter-customer" placeholder="Customer name">
-                    </div>
-                    <div class="filter-group">
-                        <label>From Date</label>
-                        <input type="date" id="filter-from">
-                    </div>
-                    <div class="filter-group">
-                        <label>To Date</label>
-                        <input type="date" id="filter-to">
-                    </div>
-                    <div class="filter-group">
-                        <label>Status</label>
-                        <select id="filter-status">
-                            <option value="">All</option>
-                            <option value="draft">Draft</option>
-                            <option value="sent">Sent</option>
-                            <option value="paid">Paid</option>
-                        </select>
-                    </div>
-                    <button id="clear-filters"
-                        style="align-self: end; background:#6b7280; padding:10px 20px; border-radius:12px; border:none; cursor:pointer;">Clear</button>
-                </div>
-                <button id="export-csv-btn">Export Displayed to CSV</button>
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>Monthly Revenue (Billed vs Paid)</h3>
+                <canvas id="revenueChart"></canvas>
             </div>
-            <table id="invoices-table" class="table">
-                <thead>
-                    <tr>
-                        <th>Invoice ID</th>
-                        <th>Date</th>
-                        <th>Customer</th>
-                        <th>Total</th>
-                        <th>Currency</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="8" class="no-invoices">Loading invoices...</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
+            <div class="chart-container">
+                <h3>Invoice Status Distribution</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Top 5 Customers by Revenue</h3>
+                <canvas id="topCustomersChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Receivables Aging</h3>
+                <canvas id="agingChart"></canvas>
+            </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script>
-        const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-        const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
-        const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+    <div class="card">
+        <h2>Create New Invoice</h2>
+        <button id="create-invoice-btn" class="cta">Create Invoice</button>
+    </div>
 
-        let allInvoices = [];
-        let displayedInvoices = [];
-        let revenueChart = null;
-        let statusChart = null;
-        let topCustomersChart = null;
-        let agingChart = null;
+    <div class="card">
+        <h2>Invoice History</h2>
+        <div class="filter-bar">
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Search Invoice ID</label>
+                    <input type="text" id="filter-id" placeholder="e.g. INV-001">
+                </div>
+                <div class="filter-group">
+                    <label>Customer</label>
+                    <input type="text" id="filter-customer" placeholder="Customer name">
+                </div>
+                <div class="filter-group">
+                    <label>From Date</label>
+                    <input type="date" id="filter-from">
+                </div>
+                <div class="filter-group">
+                    <label>To Date</label>
+                    <input type="date" id="filter-to">
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select id="filter-status">
+                        <option value="">All</option>
+                        <option value="draft">Draft</option>
+                        <option value="sent">Sent</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                </div>
+                <button id="clear-filters" style="align-self: end; background:#6b7280; padding:10px 20px; border-radius:12px; border:none; cursor:pointer;">Clear</button>
+            </div>
+            <button id="export-csv-btn">Export Displayed to CSV</button>
+        </div>
+        <table id="invoices-table" class="table">
+            <thead>
+                <tr>
+                    <th>Invoice ID</th>
+                    <th>Date</th>
+                    <th>Customer</th>
+                    <th>Total</th>
+                    <th>Currency</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
+            </tbody>
+        </table>
+        <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
+    </div>
+</div>
 
-        document.addEventListener("DOMContentLoaded", async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (!session) {
-                window.location.href = 'index.html';
-                return;
-            }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-            const activeSupplierName = localStorage.getItem('selected_supplier_name');
-            const activeSupplierSpan = document.getElementById('active-supplier');
-            if (activeSupplierName) {
-                activeSupplierSpan.textContent = `Active: ${activeSupplierName}`;
-            } else {
-                activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
-            }
+let allInvoices = [];
+let displayedInvoices = [];
+let revenueChart = null;
+let statusChart = null;
+let topCustomersChart = null;
+let agingChart = null;
 
-            const selectedSupplierId = localStorage.getItem('selected_supplier_id');
-            if (!selectedSupplierId) {
-                alert("Please select a supplier first.");
-                window.location.href = 'suppliers.html';
-                return;
-            }
+document.addEventListener("DOMContentLoaded", async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+        window.location.href = 'index.html';
+        return;
+    }
 
-            document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
-            document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
-            document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
-            document.getElementById('logout-btn').addEventListener('click', async () => {
-                await supabase.auth.signOut();
-                localStorage.removeItem('selected_supplier_id');
-                localStorage.removeItem('selected_supplier_name');
-                window.location.href = 'index.html';
-            });
+    const activeSupplierName = localStorage.getItem('selected_supplier_name');
+    const activeSupplierSpan = document.getElementById('active-supplier');
+    if (activeSupplierName) {
+        activeSupplierSpan.textContent = `Active: ${activeSupplierName}`;
+    } else {
+        activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
+    }
 
-            document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
+    const selectedSupplierId = localStorage.getItem('selected_supplier_id');
+    if (!selectedSupplierId) {
+        alert("Please select a supplier first.");
+        window.location.href = 'suppliers.html';
+        return;
+    }
 
-            // Theme Toggle Logic
-            const themeSwitch = document.getElementById('theme-switch');
-            const savedTheme = localStorage.getItem('theme');
+    // Desktop button events
+    document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
+    document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
+    document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
+    document.getElementById('logout-btn').addEventListener('click', logout);
 
-            if (savedTheme === 'light' || (!savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-                document.body.classList.add('light-mode');
-                themeSwitch.checked = true;
-            }
+    // Mobile button events
+    document.getElementById('mobile-suppliers-btn').addEventListener('click', () => {
+        closeMobileMenu();
+        window.location.href = 'suppliers.html';
+    });
+    document.getElementById('mobile-customers-btn').addEventListener('click', () => {
+        closeMobileMenu();
+        window.location.href = 'customers.html';
+    });
+    document.getElementById('mobile-logout-btn').addEventListener('click', () => {
+        closeMobileMenu();
+        logout();
+    });
 
-            themeSwitch.addEventListener('change', () => {
-                if (themeSwitch.checked) {
-                    document.body.classList.add('light-mode');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    document.body.classList.remove('light-mode');
-                    localStorage.setItem('theme', 'dark');
-                }
-            });
+    document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
 
-            await loadInvoices(session.user.id, selectedSupplierId);
-        });
+    // Theme Toggle
+    const themeSwitch = document.getElementById('theme-switch');
+    const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
+    const savedTheme = localStorage.getItem('theme');
 
-        async function loadInvoices(userId, supplierId) {
-            const { data: invoices, error } = await supabase
-                .from('invoices')
-                .select('id, invoice_id, issue_date, customer_name, total_amount, currency, xml_data, status, form_data')
-                .eq('user_id', userId)
-                .eq('supplier_id', supplierId)
-                .order('issue_date', { ascending: false });
+    if (savedTheme === 'light' || (!savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.body.classList.add('light-mode');
+        themeSwitch.checked = true;
+        mobileThemeSwitch.checked = true;
+    }
 
-            if (error) {
-                document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">Error loading invoices: ${error.message}</td></tr>`;
-                return;
-            }
+    themeSwitch.addEventListener('change', toggleTheme);
+    mobileThemeSwitch.addEventListener('change', toggleTheme);
 
-            allInvoices = invoices || [];
-            displayedInvoices = allInvoices;
-            renderAnalytics(allInvoices);
-            renderTable(allInvoices);
+    function toggleTheme() {
+        const isLight = themeSwitch.checked || mobileThemeSwitch.checked;
+        if (isLight) {
+            document.body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'dark');
         }
+        themeSwitch.checked = isLight;
+        mobileThemeSwitch.checked = isLight;
+    }
 
-        function renderAnalytics(invoices) {
-            const totalInvoices = invoices.length;
-            const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
-            const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
-            const outstanding = totalRevenue - paidRevenue;
-            const avgInvoice = totalInvoices > 0 ? totalRevenue / totalInvoices : 0;
+    // Mobile Menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
 
-            const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
-            const sent = invoices.filter(inv => inv.status === 'sent').length;
-            const paid = invoices.filter(inv => inv.status === 'paid').length;
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
 
-            document.getElementById('metrics-grid').innerHTML = `
+    mobileNavClose.addEventListener('click', closeMobileMenu);
+
+    function closeMobileMenu() {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    }
+
+    // Close menu on link click
+    mobileNav.querySelectorAll('a, button').forEach(item => {
+        item.addEventListener('click', closeMobileMenu);
+    });
+
+    async function logout() {
+        await supabase.auth.signOut();
+        localStorage.removeItem('selected_supplier_id');
+        localStorage.removeItem('selected_supplier_name');
+        window.location.href = 'index.html';
+    }
+
+    await loadInvoices(session.user.id, selectedSupplierId);
+});
+
+async function loadInvoices(userId, supplierId) {
+    const { data: invoices, error } = await supabase
+        .from('invoices')
+        .select('id, invoice_id, issue_date, customer_name, total_amount, currency, xml_data, status, form_data')
+        .eq('user_id', userId)
+        .eq('supplier_id', supplierId)
+        .order('issue_date', { ascending: false });
+
+    if (error) {
+        document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">Error loading invoices: ${error.message}</td></tr>`;
+        return;
+    }
+
+    allInvoices = invoices || [];
+    displayedInvoices = allInvoices;
+    renderAnalytics(allInvoices);
+    renderTable(allInvoices);
+}
+
+function renderAnalytics(invoices) {
+    const totalInvoices = invoices.length;
+    const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
+    const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
+    const outstanding = totalRevenue - paidRevenue;
+    const avgInvoice = totalInvoices > 0 ? totalRevenue / totalInvoices : 0;
+
+    const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
+    const sent = invoices.filter(inv => inv.status === 'sent').length;
+    const paid = invoices.filter(inv => inv.status === 'paid').length;
+
+    document.getElementById('metrics-grid').innerHTML = `
         <div class="metric-card">
             <h3>Total Invoices</h3>
             <div class="value">${totalInvoices}</div>
@@ -780,144 +754,144 @@
         </div>
     `;
 
-            // Monthly Revenue (Billed vs Paid)
-            const monthlyBilled = {};
-            const monthlyPaid = {};
-            invoices.forEach(inv => {
-                if (inv.issue_date) {
-                    const month = inv.issue_date.substring(0, 7);
-                    const amount = parseFloat(inv.total_amount) || 0;
-                    monthlyBilled[month] = (monthlyBilled[month] || 0) + amount;
-                    if (inv.status === 'paid') monthlyPaid[month] = (monthlyPaid[month] || 0) + amount;
-                }
-            });
-            const months = [...new Set([...Object.keys(monthlyBilled), ...Object.keys(monthlyPaid)])].sort();
-            const billedData = months.map(m => monthlyBilled[m] || 0);
-            const paidData = months.map(m => monthlyPaid[m] || 0);
+    // Monthly Revenue (Billed vs Paid)
+    const monthlyBilled = {};
+    const monthlyPaid = {};
+    invoices.forEach(inv => {
+        if (inv.issue_date) {
+            const month = inv.issue_date.substring(0, 7);
+            const amount = parseFloat(inv.total_amount) || 0;
+            monthlyBilled[month] = (monthlyBilled[month] || 0) + amount;
+            if (inv.status === 'paid') monthlyPaid[month] = (monthlyPaid[month] || 0) + amount;
+        }
+    });
+    const months = [...new Set([...Object.keys(monthlyBilled), ...Object.keys(monthlyPaid)])].sort();
+    const billedData = months.map(m => monthlyBilled[m] || 0);
+    const paidData = months.map(m => monthlyPaid[m] || 0);
 
-            if (revenueChart) revenueChart.destroy();
-            revenueChart = new Chart(document.getElementById('revenueChart'), {
-                type: 'line',
-                data: {
-                    labels: months,
-                    datasets: [
-                        { label: 'Billed', data: billedData, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.2)', tension: 0.3, fill: true },
-                        { label: 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
-                    ]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-            });
+    if (revenueChart) revenueChart.destroy();
+    revenueChart = new Chart(document.getElementById('revenueChart'), {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [
+                { label: 'Billed', data: billedData, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.2)', tension: 0.3, fill: true },
+                { label: 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
 
-            // Status doughnut with amounts
-            if (statusChart) statusChart.destroy();
-            statusChart = new Chart(document.getElementById('statusChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: [`Draft (€${outstanding.toFixed(0)})`, `Sent (€${invoices.filter(i => i.status === 'sent').reduce((s, i) => s + (parseFloat(i.total_amount) || 0), 0).toFixed(0)})`, `Paid (€${paidRevenue.toFixed(0)})`],
-                    datasets: [{
-                        data: [drafts, sent, paid],
-                        backgroundColor: ['#ef4444', '#f59e0b', '#22c55e']
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-            });
+    // Status doughnut with amounts
+    if (statusChart) statusChart.destroy();
+    statusChart = new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+            labels: [`Draft (€${outstanding.toFixed(0)})`, `Sent (€${invoices.filter(i=>i.status==='sent').reduce((s,i)=>s+(parseFloat(i.total_amount)||0),0).toFixed(0)})`, `Paid (€${paidRevenue.toFixed(0)})`],
+            datasets: [{
+                data: [drafts, sent, paid],
+                backgroundColor: ['#ef4444', '#f59e0b', '#22c55e']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
 
-            // Top 5 customers
-            const customerRevenue = {};
-            invoices.forEach(inv => {
-                const name = inv.customer_name || 'Unknown';
-                customerRevenue[name] = (customerRevenue[name] || 0) + (parseFloat(inv.total_amount) || 0);
-            });
-            const top5 = Object.entries(customerRevenue)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 5);
+    // Top 5 customers
+    const customerRevenue = {};
+    invoices.forEach(inv => {
+        const name = inv.customer_name || 'Unknown';
+        customerRevenue[name] = (customerRevenue[name] || 0) + (parseFloat(inv.total_amount) || 0);
+    });
+    const top5 = Object.entries(customerRevenue)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
 
-            if (topCustomersChart) topCustomersChart.destroy();
-            topCustomersChart = new Chart(document.getElementById('topCustomersChart'), {
-                type: 'bar',
-                data: {
-                    labels: top5.map(c => c[0]),
-                    datasets: [{
-                        label: 'Revenue',
-                        data: top5.map(c => c[1]),
-                        backgroundColor: '#2563eb'
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { x: { beginAtZero: true } }
-                }
-            });
+    if (topCustomersChart) topCustomersChart.destroy();
+    topCustomersChart = new Chart(document.getElementById('topCustomersChart'), {
+        type: 'bar',
+        data: {
+            labels: top5.map(c => c[0]),
+            datasets: [{
+                label: 'Revenue',
+                data: top5.map(c => c[1]),
+                backgroundColor: '#2563eb'
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true } }
+        }
+    });
 
-            // Receivables Aging
-            const aging = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
-            const today = new Date();
-            invoices.filter(inv => inv.status !== 'paid').forEach(inv => {
-                if (!inv.issue_date) return;
-                const days = Math.floor((today - new Date(inv.issue_date)) / (1000 * 60 * 60 * 24));
-                const amount = parseFloat(inv.total_amount) || 0;
-                if (days <= 30) aging['0-30'] += amount;
-                else if (days <= 60) aging['31-60'] += amount;
-                else if (days <= 90) aging['61-90'] += amount;
-                else aging['90+'] += amount;
-            });
+    // Receivables Aging
+    const aging = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
+    const today = new Date();
+    invoices.filter(inv => inv.status !== 'paid').forEach(inv => {
+        if (!inv.issue_date) return;
+        const days = Math.floor((today - new Date(inv.issue_date)) / (1000 * 60 * 60 * 24));
+        const amount = parseFloat(inv.total_amount) || 0;
+        if (days <= 30) aging['0-30'] += amount;
+        else if (days <= 60) aging['31-60'] += amount;
+        else if (days <= 90) aging['61-90'] += amount;
+        else aging['90+'] += amount;
+    });
 
-            if (agingChart) agingChart.destroy();
-            agingChart = new Chart(document.getElementById('agingChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['0-30 days', '31-60 days', '61-90 days', '90+ days'],
-                    datasets: [{
-                        label: 'Outstanding',
-                        data: [aging['0-30'], aging['31-60'], aging['61-90'], aging['90+']],
-                        backgroundColor: ['#22c55e', '#f59e0b', '#f97316', '#ef4444']
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
+    if (agingChart) agingChart.destroy();
+    agingChart = new Chart(document.getElementById('agingChart'), {
+        type: 'bar',
+        data: {
+            labels: ['0-30 days', '31-60 days', '61-90 days', '90+ days'],
+            datasets: [{
+                label: 'Outstanding',
+                data: [aging['0-30'], aging['31-60'], aging['61-90'], aging['90+']],
+                backgroundColor: ['#22c55e', '#f59e0b', '#f97316', '#ef4444']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+}
+
+function renderTable(invoices) {
+    const tbody = document.querySelector('#invoices-table tbody');
+    const noMsg = document.getElementById('no-invoices');
+
+    displayedInvoices = invoices;
+
+    if (invoices.length === 0) {
+        noMsg.style.display = 'block';
+        noMsg.textContent = 'No invoices yet.';
+        tbody.innerHTML = '';
+        return;
+    }
+
+    noMsg.style.display = 'none';
+    tbody.innerHTML = '';
+
+    invoices.forEach(inv => {
+        let statusColor, statusText;
+        if (inv.status === 'paid') {
+            statusColor = '#10b981';
+            statusText = 'Paid';
+        } else if (inv.status === 'sent') {
+            statusColor = 'var(--success)';
+            statusText = 'Sent';
+        } else if (inv.status === 'draft' || !inv.status) {
+            statusColor = 'var(--error)';
+            statusText = 'Draft';
+        } else {
+            statusColor = '#6b7280';
+            statusText = inv.status.charAt(0).toUpperCase() + inv.status.slice(1);
         }
 
-        function renderTable(invoices) {
-            const tbody = document.querySelector('#invoices-table tbody');
-            const noMsg = document.getElementById('no-invoices');
+        const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
 
-            displayedInvoices = invoices;
+        const isDraft = (!inv.status || inv.status === 'draft');
 
-            if (invoices.length === 0) {
-                noMsg.style.display = 'block';
-                noMsg.textContent = 'No invoices yet.';
-                tbody.innerHTML = '';
-                return;
-            }
-
-            noMsg.style.display = 'none';
-            tbody.innerHTML = '';
-
-            invoices.forEach(inv => {
-                let statusColor, statusText;
-                if (inv.status === 'paid') {
-                    statusColor = '#10b981';
-                    statusText = 'Paid';
-                } else if (inv.status === 'sent') {
-                    statusColor = 'var(--success)';
-                    statusText = 'Sent';
-                } else if (inv.status === 'draft' || !inv.status) {
-                    statusColor = 'var(--error)';
-                    statusText = 'Draft';
-                } else {
-                    statusColor = '#6b7280';
-                    statusText = inv.status.charAt(0).toUpperCase() + inv.status.slice(1);
-                }
-
-                const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
-
-                const isDraft = (!inv.status || inv.status === 'draft');
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
             <td><strong>${inv.invoice_id || 'N/A'}</strong></td>
             <td>${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</td>
             <td>${inv.customer_name || '—'}</td>
@@ -933,150 +907,149 @@
                 ${isDraft ? `<span class="delete-cross" data-id="${inv.id}" title="Delete Draft">×</span>` : ''}
             </td>
         `;
-                tbody.appendChild(tr);
-            });
+        tbody.appendChild(tr);
+    });
 
-            attachActionListeners();
-        }
+    attachActionListeners();
+}
 
-        function attachActionListeners() {
-            document.querySelectorAll('.edit-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const invId = btn.dataset.id;
-                    const inv = allInvoices.find(i => i.id === invId);
-                    if (!inv) {
-                        alert('Invoice not found.');
-                        return;
-                    }
-
-                    let formData = inv.form_data;
-                    if (typeof formData === 'string') {
-                        try {
-                            formData = JSON.parse(formData);
-                        } catch (e) {
-                            alert('Corrupted form data.');
-                            return;
-                        }
-                    }
-
-                    if (formData && typeof formData === 'object' && Object.keys(formData).length > 0) {
-                        localStorage.setItem('draft_form_data', JSON.stringify(formData));
-                        localStorage.setItem('editing_draft_id', inv.id);
-                        window.location.href = 'form.html?mode=edit_draft';
-                    } else {
-                        alert('No valid form data found for this draft.');
-                    }
-                };
-            });
-
-            document.querySelectorAll('.delete-cross').forEach(icon => {
-                icon.onclick = async () => {
-                    if (!confirm("Are you sure you want to delete this draft? This cannot be undone.")) return;
-
-                    const invId = icon.dataset.id;
-                    const { error } = await supabase
-                        .from('invoices')
-                        .delete()
-                        .eq('id', invId);
-
-                    if (error) {
-                        alert('Failed to delete draft: ' + error.message);
-                    } else {
-                        alert('Draft deleted successfully.');
-                        allInvoices = allInvoices.filter(i => i.id !== invId);
-                        applyFilters();
-                    }
-                };
-            });
-
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const inv = allInvoices.find(i => i.id === btn.dataset.id);
-                    if (inv && inv.xml_data) {
-                        const blob = new Blob([inv.xml_data], { type: 'application/xml' });
-                        window.open(URL.createObjectURL(blob), '_blank');
-                    }
-                };
-            });
-
-            document.querySelectorAll('.download-btn').forEach(btn => {
-                btn.onclick = () => {
-                    const inv = allInvoices.find(i => i.id === btn.dataset.id);
-                    if (inv && inv.xml_data) {
-                        const blob = new Blob([inv.xml_data], { type: 'application/xml' });
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = `${inv.invoice_id || 'invoice'}.xml`;
-                        a.click();
-                        URL.revokeObjectURL(url);
-                    }
-                };
-            });
-        }
-
-        function applyFilters() {
-            let filtered = allInvoices;
-
-            const idFilter = document.getElementById('filter-id').value.trim().toLowerCase();
-            if (idFilter) filtered = filtered.filter(inv => (inv.invoice_id || '').toLowerCase().includes(idFilter));
-
-            const custFilter = document.getElementById('filter-customer').value.trim().toLowerCase();
-            if (custFilter) filtered = filtered.filter(inv => (inv.customer_name || '').toLowerCase().includes(custFilter));
-
-            const fromDate = document.getElementById('filter-from').value;
-            if (fromDate) filtered = filtered.filter(inv => inv.issue_date >= fromDate);
-
-            const toDate = document.getElementById('filter-to').value;
-            if (toDate) filtered = filtered.filter(inv => inv.issue_date <= toDate);
-
-            const statusFilter = document.getElementById('filter-status').value;
-            if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
-
-            displayedInvoices = filtered;
-            renderAnalytics(filtered);
-            renderTable(filtered);
-        }
-
-        ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('input', applyFilters);
-                el.addEventListener('change', applyFilters);
-            }
-        });
-
-        document.getElementById('clear-filters').addEventListener('click', () => {
-            ['filter-id', 'filter-customer', 'filter-from', 'filter-to'].forEach(id => document.getElementById(id).value = '');
-            document.getElementById('filter-status').value = '';
-            applyFilters();
-        });
-
-        function exportDisplayedToCSV() {
-            if (displayedInvoices.length === 0) {
-                alert('No invoices currently displayed to export.');
+function attachActionListeners() {
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.onclick = () => {
+            const invId = btn.dataset.id;
+            const inv = allInvoices.find(i => i.id === invId);
+            if (!inv) {
+                alert('Invoice not found.');
                 return;
             }
 
-            let csv = 'Invoice ID,Issue Date,Customer Name,Total Amount,Currency,Status\n';
+            let formData = inv.form_data;
+            if (typeof formData === 'string') {
+                try {
+                    formData = JSON.parse(formData);
+                } catch (e) {
+                    alert('Corrupted form data.');
+                    return;
+                }
+            }
 
-            displayedInvoices.forEach(inv => {
-                const status = inv.status ? inv.status.charAt(0).toUpperCase() + inv.status.slice(1) : 'Draft';
-                const customer = (inv.customer_name || '').replace(/"/g, '""');
-                csv += `"${inv.invoice_id || ''}","${inv.issue_date || ''}","${customer}","${inv.total_amount || '0.00'}","${inv.currency || 'EUR'}","${status}"\n`;
-            });
+            if (formData && typeof formData === 'object' && Object.keys(formData).length > 0) {
+                localStorage.setItem('draft_form_data', JSON.stringify(formData));
+                localStorage.setItem('editing_draft_id', inv.id);
+                window.location.href = 'form.html?mode=edit_draft';
+            } else {
+                alert('No valid form data found for this draft.');
+            }
+        };
+    });
 
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', `invoices_${new Date().toISOString().slice(0, 10)}.csv`);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
+    document.querySelectorAll('.delete-cross').forEach(icon => {
+        icon.onclick = async () => {
+            if (!confirm("Are you sure you want to delete this draft? This cannot be undone.")) return;
+
+            const invId = icon.dataset.id;
+            const { error } = await supabase
+                .from('invoices')
+                .delete()
+                .eq('id', invId);
+
+            if (error) {
+                alert('Failed to delete draft: ' + error.message);
+            } else {
+                alert('Draft deleted successfully.');
+                allInvoices = allInvoices.filter(i => i.id !== invId);
+                applyFilters();
+            }
+        };
+    });
+
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.onclick = () => {
+            const inv = allInvoices.find(i => i.id === btn.dataset.id);
+            if (inv && inv.xml_data) {
+                const blob = new Blob([inv.xml_data], { type: 'application/xml' });
+                window.open(URL.createObjectURL(blob), '_blank');
+            }
+        };
+    });
+
+    document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.onclick = () => {
+            const inv = allInvoices.find(i => i.id === btn.dataset.id);
+            if (inv && inv.xml_data) {
+                const blob = new Blob([inv.xml_data], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${inv.invoice_id || 'invoice'}.xml`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        };
+    });
+}
+
+function applyFilters() {
+    let filtered = allInvoices;
+
+    const idFilter = document.getElementById('filter-id').value.trim().toLowerCase();
+    if (idFilter) filtered = filtered.filter(inv => (inv.invoice_id || '').toLowerCase().includes(idFilter));
+
+    const custFilter = document.getElementById('filter-customer').value.trim().toLowerCase();
+    if (custFilter) filtered = filtered.filter(inv => (inv.customer_name || '').toLowerCase().includes(custFilter));
+
+    const fromDate = document.getElementById('filter-from').value;
+    if (fromDate) filtered = filtered.filter(inv => inv.issue_date >= fromDate);
+
+    const toDate = document.getElementById('filter-to').value;
+    if (toDate) filtered = filtered.filter(inv => inv.issue_date <= toDate);
+
+    const statusFilter = document.getElementById('filter-status').value;
+    if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
+
+    displayedInvoices = filtered;
+    renderAnalytics(filtered);
+    renderTable(filtered);
+}
+
+['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('input', applyFilters);
+        el.addEventListener('change', applyFilters);
+    }
+});
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+    ['filter-id', 'filter-customer', 'filter-from', 'filter-to'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('filter-status').value = '';
+    applyFilters();
+});
+
+function exportDisplayedToCSV() {
+    if (displayedInvoices.length === 0) {
+        alert('No invoices currently displayed to export.');
+        return;
+    }
+
+    let csv = 'Invoice ID,Issue Date,Customer Name,Total Amount,Currency,Status\n';
+
+    displayedInvoices.forEach(inv => {
+        const status = inv.status ? inv.status.charAt(0).toUpperCase() + inv.status.slice(1) : 'Draft';
+        const customer = (inv.customer_name || '').replace(/"/g, '""');
+        csv += `"${inv.invoice_id || ''}","${inv.issue_date || ''}","${customer}","${inv.total_amount || '0.00'}","${inv.currency || 'EUR'}","${status}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `invoices_${new Date().toISOString().slice(0,10)}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
 </body>
-
 </html>
