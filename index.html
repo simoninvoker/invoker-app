@@ -21,26 +21,29 @@
             margin: 0; 
             padding: 0; 
         }
-        html, body { 
-            width: 100%;
-            overflow-x: hidden; /* Critical: prevents any horizontal scroll */
+        html { 
+            overflow-x: hidden; 
         }
         body { 
             font-family: 'Inter', sans-serif; 
             background: var(--bg-dark); 
             color: var(--white); 
             scroll-behavior: smooth;
+            overflow-x: hidden; 
+            width: 100%;
+            min-width: 0;
         }
         header { 
             position: sticky; 
             top: 0; 
             z-index: 100; 
-            padding: 20px 50px; 
+            padding: 20px clamp(20px, 5vw, 50px); /* Responsive padding */
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             background: linear-gradient(180deg, rgba(7, 13, 24, .95), rgba(7, 13, 24, .75)); 
             backdrop-filter: blur(10px); 
+            width: 100%;
         }
         header h1 { font-size: 28px; font-weight: 700; color: var(--white); }
 
@@ -95,7 +98,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;               /* Full viewport width */
+            width: 100vw;
             height: 100vh;
             background: var(--bg-dark);
             display: flex;
@@ -165,24 +168,34 @@
             font-weight: 600; 
         }
         button.cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .15); }
-        #vanta-hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-        #vanta-hero canvas { position: absolute; inset: 0; z-index: 0; }
-        .gradient-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(37, 99, 235, .25), rgba(7, 13, 24, .9), rgba(250, 204, 21, .12)); background-size: 300% 300%; animation: gradientMove 18s ease infinite; }
+        #vanta-hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; width: 100%; }
+        #vanta-hero canvas { position: absolute; inset: 0; z-index: 0; width: 100% !important; }
+        .gradient-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(37, 99, 235, .25), rgba(7, 13, 24, .9), rgba(250, 204, 21, .12)); background-size: 300% 300%; animation: gradientMove 18s ease infinite; width: 100%; }
         @keyframes gradientMove { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
-        .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; }
+        .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; width: 100%; }
         .hero-content h1 { font-size: 64px; line-height: 1.1; margin-bottom: 20px; }
         .hero-content p { font-size: 20px; margin-bottom: 20px; }
         .keywords { color: var(--accent); font-weight: 600; }
         #logout-btn { display: none; margin-left: 20px; padding: 10px 20px; background: #facc15; color: #000; border-radius: 12px; border: none; cursor: pointer; }
         section { opacity: 0; transform: translateY(40px); transition: .8s ease; }
         section.visible { opacity: 1; transform: translateY(0); }
-        .features { padding: 120px 50px; max-width: 1200px; margin: auto; text-align: center; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 60px; }
-        .feature-card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transition: transform .3s, box-shadow .3s; }
+        .features { padding: 120px clamp(20px, 5vw, 50px); max-width: 1200px; margin: auto; text-align: center; width: 100%; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 60px; width: 100%; }
+        .feature-card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transition: transform .3s, box-shadow .3s; width: 100%; }
         .feature-card:hover { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0, 0, 0, .6); }
         .feature-card h3 { color: var(--accent); margin-bottom: 12px; }
-        .trust { display: flex; justify-content: center; gap: 50px; padding: 60px 20px; opacity: .7; font-weight: 600; color: #00e5ff; }
-        /* Footer – fixed to prevent width issues */
+        .trust { 
+            display: flex; 
+            justify-content: center; 
+            gap: 50px; 
+            padding: 60px 20px; 
+            opacity: .7; 
+            font-weight: 600; 
+            color: #00e5ff; 
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        /* Footer – STRICTLY FIXED */
         footer { 
             background: var(--bg-darker); 
             text-align: center; 
@@ -294,7 +307,6 @@
         <span>Finance-first</span>
     </div>
 
-    <!-- Footer – fixed width -->
     <footer id="contact">
         support@invoker.com • © 2025 Invoker
     </footer>
