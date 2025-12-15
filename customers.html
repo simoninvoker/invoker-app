@@ -384,6 +384,20 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
     min-height: 24px;
 }
 
+/* Cancel button styling improvement */
+#cancel-customer-btn {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border);
+    padding: 14px 28px;
+}
+
+#cancel-customer-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header { padding: 20px; }
@@ -473,7 +487,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 </div>
                 <div class="form-group">
                     <label>Endpoint ID *</label>
-                    <input id="cust-endpoint" required placeholder="e.g. 0088:7350133930013">
+                    <input id="cust-endpoint" required placeholder="e.g. 9955:se556608145001">
                     <div id="endpoint-validation" class="endpoint-validation"></div>
                 </div>
                 <div class="form-group">
@@ -525,7 +539,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
             </div>
             <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
                 <button type="submit" class="cta">Save Customer</button>
-                <button type="button" id="cancel-customer-btn" style="background:#6b7280;">Cancel</button>
+                <button type="button" id="cancel-customer-btn">Cancel</button>
             </div>
         </form>
     </div>
@@ -774,7 +788,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById('cust-company-id').addEventListener('input', updateValidation);
     document.getElementById('cust-endpoint').addEventListener('input', updateValidation);
 
-    // PEPPOL Directory lookup - only extract scheme:participant (no actorid part)
+    // PEPPOL Directory lookup - extract only the scheme:participant part (no actorid)
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -796,11 +810,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (data.matches && data.matches.length > 0) {
                 resultsDiv.innerHTML = '<h3>Found in PEPPOL Directory:</h3>';
                 data.matches.forEach(match => {
-                    const scheme = match.participantID.scheme;
                     const fullValue = match.participantID.value;
-                    // Extract only the part after :: if present (remove actorid)
-                    const participant = fullValue.includes('::') ? fullValue.split('::')[1] : fullValue;
-                    const cleanEndpoint = `${scheme}:${participant}`;
+                    // Remove everything before and including the last '::' if present (actorid)
+                    const participantPart = fullValue.includes('::') ? fullValue.split('::').pop() : fullValue;
+                    const scheme = match.participantID.scheme;
+                    const cleanEndpoint = `${scheme}:${participantPart}`;
 
                     let name = 'Unknown';
                     let country = '';
@@ -829,7 +843,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         currentCustomerId = null;
                         document.getElementById('customer-form-title').textContent = 'Add Customer (from PEPPOL)';
                         document.getElementById('cust-name').value = name;
-                        document.getElementById('cust-endpoint').value = cleanEndpoint; // Only 0000:endpoint
+                        document.getElementById('cust-endpoint').value = cleanEndpoint; // Only 9955:se556608145001
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
                         updateValidation();
