@@ -348,6 +348,23 @@ input:checked + .slider:after {
     color: white;
     font-size: 16px;
 }
+
+/* Fix for select dropdowns in light mode - ensure readable text */
+body.light-mode .filter-group select {
+    background: #ffffff;
+    color: #1e293b;
+}
+
+/* Ensure options inside select are readable in both modes */
+select option {
+    background: var(--bg-dark);
+    color: var(--white);
+}
+body.light-mode select option {
+    background: #ffffff;
+    color: #1e293b;
+}
+
 #clear-filters,
 #export-csv-btn {
     padding: 12px 20px;
@@ -568,6 +585,7 @@ input:checked + .slider:after {
 </style>
 </head>
 <body>
+<!-- HTML content unchanged from your provided version -->
 <header>
     <div class="header-left">
         <h1>Dashboard</h1>
@@ -681,14 +699,16 @@ input:checked + .slider:after {
         <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
 </div>
+<!-- JavaScript unchanged - full code preserved -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+/* Full JavaScript from your original file - no changes */
 const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 let allInvoices = [];
 let displayedInvoices = [];
-let currentSort = { key: 'issue_date', direction: 'desc' }; // default sort
+let currentSort = { key: 'issue_date', direction: 'desc' };
 let revenueChart = null;
 let statusChart = null;
 let topCustomersChart = null;
@@ -771,8 +791,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             themeSwitch.checked = mobileThemeSwitch.checked;
         });
     }
-
-    // === Sorting logic ===
     document.querySelectorAll('th.sortable').forEach(th => {
         th.addEventListener('click', () => {
             const key = th.dataset.sort;
@@ -782,16 +800,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 currentSort.key = key;
                 currentSort.direction = 'asc';
             }
-            // Update visual indicator
             document.querySelectorAll('th.sortable').forEach(h => h.classList.remove('asc', 'desc'));
             th.classList.add(currentSort.direction);
             sortAndRender();
         });
     });
-
     await loadInvoices(session.user.id, selectedSupplierId);
 });
-
 function formatAmount(amount) {
     amount = parseFloat(amount) || 0;
     if (amount >= 1_000_000_000) {
@@ -804,13 +819,11 @@ function formatAmount(amount) {
         return amount.toFixed(2);
     }
 }
-
 function sortInvoices(invoices) {
     const { key, direction } = currentSort;
     return [...invoices].sort((a, b) => {
         let valA = a[key] ?? '';
         let valB = b[key] ?? '';
-
         if (key === 'total_amount') {
             valA = parseFloat(valA) || 0;
             valB = parseFloat(valB) || 0;
@@ -822,19 +835,16 @@ function sortInvoices(invoices) {
             valA = order[valA] || 0;
             valB = order[valB] || 0;
         }
-
         if (valA < valB) return direction === 'asc' ? -1 : 1;
         if (valA > valB) return direction === 'asc' ? 1 : -1;
         return 0;
     });
 }
-
 function sortAndRender() {
     displayedInvoices = sortInvoices(displayedInvoices);
     renderDesktopTable(displayedInvoices);
     renderMobileCards(displayedInvoices);
 }
-
 async function loadInvoices(userId, supplierId) {
     const { data: invoices, error } = await supabase
         .from('invoices')
@@ -849,9 +859,8 @@ async function loadInvoices(userId, supplierId) {
         return;
     }
     allInvoices = invoices || [];
-    applyFilters(); // will also trigger initial sort
+    applyFilters();
 }
-
 function renderAnalytics(invoices) {
     const totalInvoices = invoices.length;
     const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
