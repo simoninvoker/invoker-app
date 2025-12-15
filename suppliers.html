@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Supplier Management</title>
-<style type="text/css">@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}</style>
+<title>Select Supplier</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
     --bg-dark: #070d18;
@@ -16,7 +16,6 @@
     --border: rgba(255, 255, 255, 0.12);
     --text-secondary: rgba(255, 255, 255, 0.7);
     --error: #ef4444;
-    --success: #22c55e;
 }
 
 /* Light Mode Overrides */
@@ -38,6 +37,10 @@ body.light-mode .card {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+body.light-mode table th {
+    background: rgba(0, 0, 0, 0.05);
+}
+
 body.light-mode input,
 body.light-mode select,
 body.light-mode textarea {
@@ -47,6 +50,7 @@ body.light-mode textarea {
 }
 
 * { box-sizing: border-box; margin:0; padding:0; }
+
 body { font-family:'Inter',sans-serif; background: var(--bg-dark); color: var(--white); padding-top: 90px; min-height: 100vh; }
 
 /* Header */
@@ -80,13 +84,22 @@ header h1 {
     color: var(--white);
 }
 
+#active-supplier {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 500;
+    background: rgba(250, 204, 21, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
 /* Desktop Navigation */
 nav.desktop-nav {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-
 nav.desktop-nav a,
 nav.desktop-nav button {
     padding: 10px 24px;
@@ -98,39 +111,24 @@ nav.desktop-nav button {
     border: none;
     cursor: pointer;
 }
-
 nav.desktop-nav .back-btn {
     background: var(--accent);
     color: #000;
 }
-
 nav.desktop-nav .back-btn:hover {
     background: #fde047;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
 }
-
 nav.desktop-nav .logout-btn {
     background: transparent;
     color: var(--white);
     border: 1px solid var(--border);
 }
-
 nav.desktop-nav .logout-btn:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent);
     color: var(--accent);
-}
-
-/* Cancel button - now uses same class as Save (cta) for identical look */
-#cancel-customer-btn {
-    background: #6b7280;
-}
-
-#cancel-customer-btn:hover {
-    background: #4b5563;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
 }
 
 /* Hamburger Icon - Mobile Only */
@@ -143,7 +141,6 @@ nav.desktop-nav .logout-btn:hover {
     cursor: pointer;
     z-index: 101;
 }
-
 .hamburger span {
     display: block;
     height: 3px;
@@ -152,7 +149,6 @@ nav.desktop-nav .logout-btn:hover {
     border-radius: 3px;
     transition: all 0.3s ease;
 }
-
 .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
@@ -177,13 +173,11 @@ nav.desktop-nav .logout-btn:hover {
     pointer-events: none;
     overflow: hidden;
 }
-
 .mobile-nav.active {
     transform: translateX(0);
     visibility: visible;
     pointer-events: auto;
 }
-
 .mobile-nav a,
 .mobile-nav button {
     font-size: 24px;
@@ -199,12 +193,10 @@ nav.desktop-nav .logout-btn:hover {
     transition: background 0.3s ease;
     cursor: pointer;
 }
-
 .mobile-nav a:hover,
 .mobile-nav button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
-
 .mobile-nav-close {
     position: absolute;
     top: 20px;
@@ -222,9 +214,171 @@ nav.desktop-nav .logout-btn:hover {
     border-radius: 50%;
     transition: background 0.3s ease;
 }
-
 .mobile-nav-close:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+.main { max-width: 1400px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
+.card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
+.card h2 { margin-bottom:20px; color: var(--accent); font-size:24px; }
+.supplier-card {
+    cursor:pointer;
+    padding:28px;
+    border:2px solid transparent;
+    border-radius:16px;
+    transition:all 0.3s;
+    background:rgba(255,255,255,0.04);
+    margin-bottom:16px;
+}
+.supplier-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+.supplier-card h3 { margin:0 0 8px 0; font-size:20px; }
+.supplier-card p { margin:4px 0; color: var(--text-secondary); font-size:14px; }
+.no-suppliers { text-align:center; color: var(--text-secondary); font-size:18px; padding:40px 0; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top:20px; }
+.form-group { display: flex; flex-direction: column; }
+label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px; }
+input { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
+input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+select {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23facc15'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding: 14px 40px 14px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    font-size: 16px;
+    cursor: pointer;
+}
+select option {
+    background-color: var(--bg-darker);
+    color: var(--white);
+}
+.bank-entry { background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; margin-bottom:16px; position:relative; }
+
+.remove-bank {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--error);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.remove-bank:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.supplier-card .buttons-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.supplier-card .primary-action {
+    flex: 1;
+    min-width: 180px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.supplier-card .primary-action:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.supplier-card .secondary-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.supplier-card .action-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.supplier-card .edit-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.supplier-card .edit-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+.supplier-card .delete-btn {
+    background: var(--error);
+    color: #fff;
+}
+
+.supplier-card .delete-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+#add-supplier-btn, #submit-btn, #add-bank-entry {
+    background: var(--primary);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#add-supplier-btn:hover, #submit-btn:hover, #add-bank-entry:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+#cancel-btn {
+    background: #6b7280;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+#cancel-btn:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
 }
 
 /* Theme Toggle Switch */
@@ -290,204 +444,29 @@ input:checked + .slider:after {
     right: auto;
 }
 
-.main { max-width: 1200px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
-.card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
-.card h2 { margin-bottom:20px; color: var(--accent); }
-
-.peppol-search { margin-bottom: 20px; }
-.peppol-search input { width: 350px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: white; }
-.peppol-results { margin-top: 20px; max-height: 400px; overflow-y: auto; position: relative; }
-.peppol-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 16px; }
-.peppol-result strong { font-size: 18px; }
-.peppol-result p { margin: 8px 0; color: var(--text-secondary); }
-
-/* Close button for PEPPOL results */
-#peppol-close-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: var(--white);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
-
-#peppol-close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Desktop Table */
-.desktop-table-wrapper { overflow-x: auto; }
-.table { width: 100%; border-collapse: collapse; }
-.table th, .table td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; }
-.table th { background: rgba(255,255,255,0.05); }
-
-/* Mobile Customer List */
-.mobile-customer-list { display: none; flex-direction: column; gap: 16px; }
-.customer-card { background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
-.customer-card h3 { font-size: 18px; margin-bottom: 12px; }
-.customer-card p { margin: 4px 0; color: var(--text-secondary); font-size: 14px; }
-.customer-card-actions { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
-
-/* Action Buttons - Consistent with other pages */
-.action-btn {
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.edit-btn {
-    background: var(--accent);
-    color: #000;
-}
-
-.edit-btn:hover {
-    background: #fde047;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
-}
-
-.delete-btn {
-    background: var(--error);
-    color: #fff;
-}
-
-.delete-btn:hover {
-    background: #dc2626;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
-}
-
-/* CTA Buttons */
-.cta {
-    background: var(--primary);
-    color: #fff;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-}
-
-.cta:hover {
-    background: #3b82f6;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-}
-
-.add-from-peppol {
-    background: var(--accent);
-    color: #000;
-    margin-top: 12px;
-}
-
-.add-from-peppol:hover {
-    background: #fde047;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
-}
-
-.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top:20px; }
-.form-group { display: flex; flex-direction: column; }
-label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px; }
-input, select { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
-input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
-
-.validation-message {
-    margin-top: 8px;
-    font-size: 14px;
-    min-height: 24px;
-}
-
-.endpoint-validation {
-    margin-top: 8px;
-    font-size: 14px;
-    min-height: 24px;
-}
-
-/* Searchable Country Dropdown Styles */
-#country-search-container {
-    position: relative;
-}
-
-#country-search-input {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--white);
-    font-size: 16px;
-}
-
-#country-search-input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-}
-
-#country-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    background: var(--bg-darker);
-    border: 1px solid var(--border);
-    border-top: none;
-    border-radius: 0 0 12px 12px;
-    z-index: 10;
-    display: none;
-}
-
-.country-option {
-    padding: 12px 14px;
-    cursor: pointer;
-    color: var(--white);
-}
-
-.country-option:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.country-option.selected {
-    background: var(--primary);
-}
-
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header { padding: 20px; }
     .desktop-nav { display: none; }
     .hamburger { display: flex; }
-    .desktop-table-wrapper { display: none; }
-    .mobile-customer-list { display: flex; }
     .main { padding: 20px; }
     .card { padding: 20px; }
-    .peppol-search input { width: 100%; margin-bottom: 12px; }
-    .peppol-search button { width: 100%; }
-    .customer-card-actions { flex-direction: column; }
-    .action-btn { width: 100%; text-align: center; }
+    .supplier-card { padding: 20px; }
+    .supplier-card .buttons-container { flex-direction: column; }
+    .supplier-card .primary-action { width: 100%; }
+    .supplier-card .secondary-actions { width: 100%; justify-content: space-between; }
+    .supplier-card .action-btn { flex: 1; text-align: center; }
+    .form-grid { grid-template-columns: 1fr; }
+    .bank-entry .form-grid { grid-template-columns: 1fr; }
+    .remove-bank { position: static; width: 100%; margin-top: 16px; }
 }
 </style>
 </head>
 <body>
 <header>
     <div class="header-left">
-        <h1>Supplier Management</h1>
+        <h1>Select Supplier</h1>
+        <span id="active-supplier"></span>
     </div>
 
     <!-- Desktop Navigation -->
@@ -521,101 +500,41 @@ input:focus, select:focus { outline: none; border-color: var(--primary); box-sha
 
 <div class="main">
     <div class="card">
-        <h2>Suppliers</h2>
-        <div class="peppol-search">
-            <label>Search in PEPPOL Directory</label><br>
-            <input id="peppol-search-input" placeholder="Company name, VAT ID, or country">
-            <button id="peppol-search-btn" class="cta">Lookup</button>
+        <h2>Your Suppliers</h2>
+        <p>Select the supplier you want to create invoices for today.</p>
+        <div id="suppliers-list">
+            <div class="no-suppliers">Loading suppliers...</div>
         </div>
-        <div id="peppol-results" class="peppol-results" style="display:none;">
-            <button id="peppol-close-btn">×</button>
-        </div>
-        <button id="add-supplier-btn" class="cta">Add Supplier Manually</button>
-
-        <div class="desktop-table-wrapper">
-            <table id="suppliers-table" class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>VAT ID</th>
-                        <th>Country</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <div id="mobile-supplier-list" class="mobile-customer-list"></div>
+        <button id="add-supplier-btn">Add New Supplier</button>
     </div>
 
-    <div class="card" id="supplier-form-card" style="display: none;">
-        <h2 id="supplier-form-title">Add Supplier</h2>
-        <form id="supplier-form" autocomplete="off">
+    <div class="card" id="supplier-form-card" style="display:none;">
+        <h2 id="form-title">Add New Supplier</h2>
+        <p id="form-subtitle">Fill in your company details and add at least one bank account for receiving payments.</p>
+        <form id="supplier-form">
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Name *</label>
-                    <input id="sup-name" required autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Endpoint ID *</label>
-                    <input id="sup-endpoint" required placeholder="e.g. 9955:se556608145001" autocomplete="off">
-                    <div id="endpoint-validation" class="endpoint-validation"></div>
-                </div>
-                <div class="form-group">
-                    <label>VAT ID *</label>
-                    <input id="sup-vat" required placeholder="e.g. SE556471447401" autocomplete="off">
-                    <div id="vat-validation" class="validation-message"></div>
-                </div>
-                <div class="form-group">
-                    <label>Registration Name *</label>
-                    <input id="sup-reg-name" required autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Street *</label>
-                    <input id="sup-street" required autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Additional Street</label>
-                    <input id="sup-add-street" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>City *</label>
-                    <input id="sup-city" required autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Postal Code *</label>
-                    <input id="sup-postal" required autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Country *</label>
-                    <div id="country-search-container">
-                        <input type="text" id="country-search-input" placeholder="Search country..." autocomplete="off">
-                        <div id="country-list"></div>
-                    </div>
-                    <input type="hidden" id="sup-country" required>
-                </div>
-                <div class="form-group">
-                    <label>Company ID</label>
-                    <input id="sup-company-id" placeholder="e.g. 5564714474" autocomplete="off">
-                    <div id="company-validation" class="validation-message"></div>
-                </div>
-                <div class="form-group">
-                    <label>Contact Name</label>
-                    <input id="sup-contact-name" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Contact Phone</label>
-                    <input id="sup-contact-phone" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label>Contact Email</label>
-                    <input id="sup-contact-email" type="email" autocomplete="off">
-                </div>
+                <div class="form-group"><label>Supplier Name *</label><input id="name" required></div>
+                <div class="form-group"><label>Endpoint ID</label><input id="endpoint"></div>
+                <div class="form-group"><label>VAT ID</label><input id="vat"></div>
+                <div class="form-group"><label>Street</label><input id="street"></div>
+                <div class="form-group"><label>Additional Street</label><input id="additional-street"></div>
+                <div class="form-group"><label>City</label><input id="city"></div>
+                <div class="form-group"><label>Postal Code</label><input id="postal"></div>
+                <div class="form-group"><label>Country Code *</label><input id="country" required maxlength="2"></div>
+                <div class="form-group"><label>Email</label><input id="email" type="email"></div>
+                <div class="form-group"><label>Legal Name</label><input id="reg-name"></div>
+                <div class="form-group"><label>Company ID</label><input id="company-id"></div>
+                <div class="form-group"><label>Default Currency *</label><select id="default-currency" required><option value="EUR">EUR</option><option value="SEK">SEK</option><option value="GBP">GBP</option><option value="USD">USD</option></select></div>
             </div>
+
+            <h3 style="margin-top:40px;">Bank Accounts</h3>
+            <p style="color: var(--text-secondary); margin-bottom:20px;">Add at least one bank account. IBAN and Account Name are required.</p>
+            <div id="banks-container"></div>
+            <button type="button" id="add-bank-entry" style="margin-top:20px; background:var(--accent); color:#000;">+ Add Another Bank</button>
+
             <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
-                <button type="submit" class="cta">Save Supplier</button>
-                <button type="button" id="cancel-supplier-btn" class="cta">Cancel</button>
+                <button type="submit" id="submit-btn" class="btn-primary">Save & Select This Supplier</button>
+                <button type="button" id="cancel-btn">Cancel</button>
             </div>
         </form>
     </div>
@@ -627,238 +546,403 @@ const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-let currentSupplierId = null;
-let userId = null;
+let currentUserId = null;
+let editingSupplierId = null;
 
-// Country list (same as customers.html)
-const countries = [
-    { code: "AT", name: "Austria" },
-    { code: "BE", name: "Belgium" },
-    { code: "BG", name: "Bulgaria" },
-    { code: "CY", name: "Cyprus" },
-    { code: "CZ", name: "Czech Republic" },
-    { code: "DE", name: "Germany" },
-    { code: "DK", name: "Denmark" },
-    { code: "EE", name: "Estonia" },
-    { code: "EL", name: "Greece" },
-    { code: "ES", name: "Spain" },
-    { code: "FI", name: "Finland" },
-    { code: "FR", name: "France" },
-    { code: "GB", name: "United Kingdom" },
-    { code: "HR", name: "Croatia" },
-    { code: "HU", name: "Hungary" },
-    { code: "IE", name: "Ireland" },
-    { code: "IT", name: "Italy" },
-    { code: "LT", name: "Lithuania" },
-    { code: "LU", name: "Luxembourg" },
-    { code: "LV", name: "Latvia" },
-    { code: "MT", name: "Malta" },
-    { code: "NL", name: "Netherlands" },
-    { code: "PL", name: "Poland" },
-    { code: "PT", name: "Portugal" },
-    { code: "RO", name: "Romania" },
-    { code: "SE", name: "Sweden" },
-    { code: "SI", name: "Slovenia" },
-    { code: "SK", name: "Slovakia" }
-];
+// Theme toggle logic
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isLight = saved === 'light' || (!saved && !prefersDark);
 
-// VAT patterns, company patterns, validation functions (same as customers.html)
-const vatPatterns = {
-    AT: /^U\d{8}$/,
-    BE: /^(0\d{9}|\d{10})$/,
-    BG: /^\d{9,10}$/,
-    CY: /^\d{8}[A-Z]$/,
-    CZ: /^\d{8,10}$/,
-    DE: /^\d{9}$/,
-    DK: /^\d{8}$/,
-    EE: /^\d{9}$/,
-    EL: /^\d{9}$/,
-    ES: /^[A-Z0-9]\d{7}[A-Z0-9]$/,
-    FI: /^\d{8}$/,
-    FR: /^[A-Z0-9]{2}\d{9}$/,
-    HR: /^\d{11}$/,
-    HU: /^\d{8}$/,
-    IE: /^\d{7}[A-Z]{1,2}$|^\d[A-Z]\d{5}[A-Z]$/,
-    IT: /^\d{11}$/,
-    LT: /^(\d{9}|\d{12})$/,
-    LU: /^\d{8}$/,
-    LV: /^\d{11}$/,
-    MT: /^\d{8}$/,
-    NL: /^\d{9}B\d{2}$/,
-    PL: /^\d{10}$/,
-    PT: /^\d{9}$/,
-    RO: /^\d{2,10}$/,
-    SE: /^\d{10}01$/,
-    SI: /^\d{8}$/,
-    SK: /^\d{10}$/,
-    GB: /^\d{9}(\d{3})?$/
-};
-
-const companyPatterns = {
-    DE: /^(HRB|HRA)\d+$/i,
-    NL: /^\d{8}$/,
-    FR: /^\d{9}\d{5}$/,
-    IT: /^\d{11}$/,
-    ES: /^[A-Z]?\d{8}[A-Z0-9]?$/i,
-    SE: /^\d{10}$/
-};
-
-function cleanInput(value) {
-    return value.trim().toUpperCase().replace(/[\s\.\-]/g, '');
-}
-
-function validateVAT(country, vat) {
-    if (!vat || !country) return null;
-    let cleaned = cleanInput(vat);
-    if (cleaned.startsWith(country)) {
-        cleaned = cleaned.slice(country.length);
-    }
-    const pattern = vatPatterns[country.toUpperCase()];
-    if (!pattern) return false;
-    return pattern.test(cleaned);
-}
-
-function validateCompanyID(country, companyId) {
-    if (!companyId || !country) return null;
-    const cleaned = cleanInput(companyId);
-    const pattern = companyPatterns[country.toUpperCase()];
-    if (!pattern) return true;
-    return pattern.test(cleaned);
-}
-
-function validateEndpoint(endpoint) {
-    if (!endpoint) return null;
-    const trimmed = endpoint.trim();
-    const regex = /^\d{4}:[A-Z0-9]+$/i;
-    return regex.test(trimmed);
-}
-
-function updateValidation() {
-    const country = document.getElementById('sup-country').value.toUpperCase();
-    const vat = document.getElementById('sup-vat').value;
-    const companyId = document.getElementById('sup-company-id').value;
-    const endpoint = document.getElementById('sup-endpoint').value;
-
-    const vatMsg = document.getElementById('vat-validation');
-    const companyMsg = document.getElementById('company-validation');
-    const endpointMsg = document.getElementById('endpoint-validation');
-
-    const vatValid = validateVAT(country, vat);
-    if (vatValid === null) {
-        vatMsg.textContent = '';
-    } else if (vatValid) {
-        vatMsg.textContent = 'Valid VAT format';
-        vatMsg.style.color = 'var(--success)';
+    if (isLight) {
+        document.body.classList.add('light-mode');
     } else {
-        vatMsg.textContent = 'Invalid VAT format for ' + country;
-        vatMsg.style.color = 'var(--error)';
+        document.body.classList.remove('light-mode');
     }
 
-    const companyValid = validateCompanyID(country, companyId);
-    if (companyValid === null) {
-        companyMsg.textContent = '';
-    } else if (companyValid) {
-        companyMsg.textContent = 'Valid format';
-        companyMsg.style.color = 'var(--success)';
-    } else {
-        companyMsg.textContent = 'Invalid Company ID format for ' + country + ' (no hyphens/spaces allowed)';
-        companyMsg.style.color = 'var(--error)';
-    }
-
-    const endpointValid = validateEndpoint(endpoint);
-    if (endpointValid === null) {
-        endpointMsg.textContent = '';
-    } else if (endpointValid) {
-        endpointMsg.textContent = 'Valid PEPPOL endpoint format';
-        endpointMsg.style.color = 'var(--success)';
-    } else {
-        endpointMsg.textContent = 'Invalid endpoint format (must be 0000:endpoint)';
-        endpointMsg.style.color = 'var(--error)';
-    }
+    document.getElementById('theme-toggle-desktop').checked = isLight;
+    document.getElementById('theme-toggle-mobile').checked = isLight;
 }
 
-// Sync Registration Name with Name in real time for new suppliers
-function syncRegistrationName() {
-    const nameInput = document.getElementById('sup-name');
-    const regNameInput = document.getElementById('sup-reg-name');
-    if (!currentSupplierId) {
-        regNameInput.value = nameInput.value;
-    }
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    document.getElementById('theme-toggle-desktop').checked = isLight;
+    document.getElementById('theme-toggle-mobile').checked = isLight;
 }
 
-// Swedish 0007 logic for suppliers
-function applySwedishLogic(endpoint) {
-    const trimmed = endpoint.trim();
-    if (trimmed.startsWith('0007:')) {
-        const orgNumber = trimmed.slice(5);
-        document.getElementById('sup-company-id').value = orgNumber;
-        document.getElementById('sup-vat').value = 'SE' + orgNumber + '01';
-        document.getElementById('sup-country').value = 'SE';
-        document.getElementById('country-search-input').value = 'Sweden (SE)';
-        syncRegistrationName();
-        updateValidation();
+document.addEventListener('DOMContentLoaded', async () => {
+    initTheme();
+
+    document.getElementById('theme-toggle-desktop').addEventListener('change', toggleTheme);
+    document.getElementById('theme-toggle-mobile').addEventListener('change', toggleTheme);
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+        window.location.href = 'index.html';
+        return;
     }
-}
+    currentUserId = session.user.id;
 
-// Searchable country dropdown (same as customers.html)
-function initCountryDropdown() {
-    const searchInput = document.getElementById('country-search-input');
-    const countryList = document.getElementById('country-list');
-    const hiddenCountry = document.getElementById('sup-country');
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
 
-    countries.forEach(country => {
-        const div = document.createElement('div');
-        div.className = 'country-option';
-        div.textContent = `${country.name} (${country.code})`;
-        div.dataset.code = country.code;
-        div.addEventListener('click', () => {
-            searchInput.value = `${country.name} (${country.code})`;
-            hiddenCountry.value = country.code;
-            countryList.style.display = 'none';
-            updateValidation();
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
+
+    mobileNavClose.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+
+    mobileNav.querySelectorAll('a, button').forEach(item => {
+        item.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
         });
-        countryList.appendChild(div);
     });
 
-    searchInput.addEventListener('focus', () => {
-        countryList.style.display = 'block';
-        filterCountries('');
+    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+    mobileLogoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
     });
 
-    searchInput.addEventListener('input', () => {
-        filterCountries(searchInput.value.toLowerCase());
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
     });
 
-    searchInput.addEventListener('blur', () => {
-        setTimeout(() => countryList.style.display = 'none', 200);
+    await loadSuppliers(currentUserId);
+
+    const addSupplierBtn = document.getElementById('add-supplier-btn');
+    addSupplierBtn.addEventListener('click', startAddSupplier);
+
+    const addBankBtn = document.getElementById('add-bank-entry');
+    addBankBtn.addEventListener('click', () => addBankEntry());
+
+    const supplierForm = document.getElementById('supplier-form');
+    supplierForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (editingSupplierId) {
+            await updateSupplier(editingSupplierId);
+        } else {
+            await createSupplierWithBanks(currentUserId);
+        }
     });
 
-    function filterCountries(query) {
-        const options = countryList.querySelectorAll('.country-option');
-        options.forEach(option => {
-            const text = option.textContent.toLowerCase();
-            option.style.display = text.includes(query) ? 'block' : 'none';
-        });
+    const cancelBtn = document.getElementById('cancel-btn');
+    cancelBtn.addEventListener('click', () => {
+        document.getElementById('supplier-form-card').style.display = 'none';
+        document.getElementById('suppliers-list').style.opacity = '1';
+        editingSupplierId = null;
+    });
+});
+
+async function loadSuppliers(userId) {
+    const { data: suppliers, error } = await supabase
+        .from('suppliers')
+        .select('*')
+        .eq('user_id', userId)
+        .order('name');
+
+    if (error) {
+        alert('Error loading suppliers: ' + error.message);
+        return;
     }
-}
 
-// Theme, clearForm, etc. (same as customers.html, adapted for sup- prefixes)
+    const list = document.getElementById('suppliers-list');
+    list.innerHTML = '';
 
-function clearForm() {
-    const form = document.getElementById('supplier-form');
-    form.reset();
-    form.querySelectorAll('input').forEach(input => {
-        input.value = '';
+    if (suppliers.length === 0) {
+        list.innerHTML = '<div class="no-suppliers">No suppliers added yet. Add your first supplier!</div>';
+        return;
+    }
+
+    const selectedId = localStorage.getItem('selected_supplier_id');
+    const selectedName = localStorage.getItem('selected_supplier_name');
+    document.getElementById('active-supplier').textContent = selectedName ? `Active: ${selectedName}` : '';
+
+    suppliers.forEach(supplier => {
+        const card = document.createElement('div');
+        card.className = 'supplier-card';
+        card.innerHTML = `
+            <h3>${supplier.name}</h3>
+            <p>VAT ID: ${supplier.vat_id || 'Not set'}</p>
+            <p>Country: ${supplier.country || 'Not set'}</p>
+            <p>Currency: ${supplier.currency || 'EUR'}</p>
+            <div class="buttons-container">
+                <button class="primary-action select-supplier" data-id="${supplier.id}" data-name="${supplier.name}">Select This Supplier</button>
+                <div class="secondary-actions">
+                    <button class="action-btn edit-btn" data-id="${supplier.id}">Edit</button>
+                    <button class="action-btn delete-btn" data-id="${supplier.id}">Delete</button>
+                </div>
+            </div>
+        `;
+        list.appendChild(card);
     });
-    document.getElementById('country-search-input').value = '';
-    document.getElementById('supplier-form-title').textContent = 'Add Supplier';
-    updateValidation();
+
+    document.querySelectorAll('.select-supplier').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            const name = btn.dataset.name;
+            localStorage.setItem('selected_supplier_id', id);
+            localStorage.setItem('selected_supplier_name', name);
+            document.getElementById('active-supplier').textContent = `Active: ${name}`;
+            window.location.href = 'dashboard.html';
+        });
+    });
+
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => editSupplier(btn.dataset.id));
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteSupplier(btn.dataset.id));
+    });
 }
 
-// All other functions (loadSuppliers, render tables, edit, delete, save) adapted from customers.html with "sup" prefixes and table "suppliers"
+async function deleteSupplier(supplierId) {
+    if (!confirm('Are you sure? This will delete the supplier and all related bank accounts permanently.')) return;
 
-// ... (full adapted script for suppliers.html)
+    const { error: banksError } = await supabase
+        .from('supplier_banks')
+        .delete()
+        .eq('supplier_id', supplierId);
 
+    if (banksError) {
+        alert('Error deleting banks: ' + banksError.message);
+        return;
+    }
+
+    const { error } = await supabase
+        .from('suppliers')
+        .delete()
+        .eq('id', supplierId);
+
+    if (error) {
+        alert('Error deleting supplier: ' + error.message);
+        return;
+    }
+
+    if (localStorage.getItem('selected_supplier_id') === supplierId.toString()) {
+        localStorage.removeItem('selected_supplier_id');
+        localStorage.removeItem('selected_supplier_name');
+        document.getElementById('active-supplier').textContent = '';
+    }
+
+    await loadSuppliers(currentUserId);
+}
+
+function startAddSupplier() {
+    editingSupplierId = null;
+    document.getElementById('form-title').textContent = 'Add New Supplier';
+    document.getElementById('form-subtitle').textContent = 'Fill in your company details and add at least one bank account.';
+    document.getElementById('submit-btn').textContent = 'Save & Select This Supplier';
+    document.getElementById('supplier-form').reset();
+    document.getElementById('default-currency').value = 'EUR';
+    document.getElementById('banks-container').innerHTML = '';
+    addBankEntry();
+    document.getElementById('supplier-form-card').style.display = 'block';
+    document.getElementById('suppliers-list').style.opacity = '0.5';
+    document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function editSupplier(supplierId) {
+    editingSupplierId = supplierId;
+
+    const { data: supplier, error } = await supabase
+        .from('suppliers')
+        .select('*')
+        .eq('id', supplierId)
+        .single();
+
+    if (error || !supplier) {
+        alert('Error loading supplier');
+        return;
+    }
+
+    document.getElementById('form-title').textContent = 'Edit Supplier';
+    document.getElementById('form-subtitle').textContent = 'Update company details and manage bank accounts.';
+    document.getElementById('submit-btn').textContent = 'Save Supplier';
+    document.getElementById('name').value = supplier.name || '';
+    document.getElementById('endpoint').value = supplier.endpoint_id || '';
+    document.getElementById('vat').value = supplier.vat_id || '';
+    document.getElementById('street').value = supplier.street || '';
+    document.getElementById('additional-street').value = supplier.additional_street || '';
+    document.getElementById('city').value = supplier.city || '';
+    document.getElementById('postal').value = supplier.postal_code || '';
+    document.getElementById('country').value = supplier.country || '';
+    document.getElementById('email').value = supplier.email || '';
+    document.getElementById('reg-name').value = supplier.registration_name || '';
+    document.getElementById('company-id').value = supplier.company_id || '';
+    document.getElementById('default-currency').value = supplier.currency || 'EUR';
+
+    const { data: banks } = await supabase
+        .from('supplier_banks')
+        .select('*')
+        .eq('supplier_id', supplierId);
+
+    const container = document.getElementById('banks-container');
+    container.innerHTML = '';
+    if (banks && banks.length > 0) {
+        banks.forEach(bank => addBankEntry(bank));
+    } else {
+        addBankEntry();
+    }
+
+    document.getElementById('supplier-form-card').style.display = 'block';
+    document.getElementById('suppliers-list').style.opacity = '0.5';
+    document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+function addBankEntry(bankData = {}) {
+    const container = document.getElementById('banks-container');
+    const entry = document.createElement('div');
+    entry.className = 'bank-entry';
+    entry.innerHTML = `
+        <button type="button" class="remove-bank">Delete</button>
+        <div class="form-grid">
+            <div class="form-group"><label>Account Name *</label><input class="bank-name" value="${bankData.name || ''}" required></div>
+            <div class="form-group"><label>IBAN *</label><input class="bank-iban" value="${bankData.iban || ''}" required></div>
+            <div class="form-group"><label>BIC</label><input class="bank-bic" value="${bankData.bic || ''}"></div>
+            <div class="form-group"><label>Payment Means Code</label><input class="bank-code" value="${bankData.code || ''}"></div>
+            <div class="form-group"><label>Payment ID</label><input class="bank-payment_id" value="${bankData.payment_id || ''}"></div>
+            <div class="form-group"><label>Terms</label><input class="bank-terms" value="${bankData.terms || ''}"></div>
+        </div>
+    `;
+    entry.querySelector('.remove-bank').addEventListener('click', () => entry.remove());
+    container.appendChild(entry);
+    return entry;
+}
+
+async function createSupplierWithBanks(userId) {
+    const supplier = {
+        user_id: userId,
+        name: document.getElementById('name').value.trim(),
+        endpoint_id: document.getElementById('endpoint').value.trim() || null,
+        vat_id: document.getElementById('vat').value.trim(),
+        street: document.getElementById('street').value.trim() || null,
+        additional_street: document.getElementById('additional-street').value.trim() || null,
+        city: document.getElementById('city').value.trim() || null,
+        postal_code: document.getElementById('postal').value.trim() || null,
+        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        email: document.getElementById('email').value.trim() || null,
+        registration_name: document.getElementById('reg-name').value.trim() || null,
+        company_id: document.getElementById('company-id').value.trim() || null,
+        currency: document.getElementById('default-currency').value
+    };
+
+    const { data: newSupplier, error } = await supabase
+        .from('suppliers')
+        .insert(supplier)
+        .select()
+        .single();
+
+    if (error) {
+        alert('Error creating supplier: ' + error.message);
+        return;
+    }
+
+    const success = await saveBanksForSupplier(newSupplier.id, userId);
+    if (!success) return;
+
+    localStorage.setItem('selected_supplier_id', newSupplier.id);
+    localStorage.setItem('selected_supplier_name', newSupplier.name);
+    window.location.href = 'dashboard.html';
+}
+
+async function updateSupplier(supplierId) {
+    const updated = {
+        name: document.getElementById('name').value.trim(),
+        endpoint_id: document.getElementById('endpoint').value.trim() || null,
+        vat_id: document.getElementById('vat').value.trim(),
+        street: document.getElementById('street').value.trim() || null,
+        additional_street: document.getElementById('additional-street').value.trim() || null,
+        city: document.getElementById('city').value.trim() || null,
+        postal_code: document.getElementById('postal').value.trim() || null,
+        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        email: document.getElementById('email').value.trim() || null,
+        registration_name: document.getElementById('reg-name').value.trim() || null,
+        company_id: document.getElementById('company-id').value.trim() || null,
+        currency: document.getElementById('default-currency').value
+    };
+
+    const { error } = await supabase
+        .from('suppliers')
+        .update(updated)
+        .eq('id', supplierId);
+
+    if (error) {
+        alert('Error updating supplier: ' + error.message);
+        return;
+    }
+
+    const success = await saveBanksForSupplier(supplierId, currentUserId);
+    if (!success) return;
+
+    localStorage.setItem('selected_supplier_name', updated.name);
+    alert('Supplier updated successfully!');
+    document.getElementById('supplier-form-card').style.display = 'none';
+    document.getElementById('suppliers-list').style.opacity = '1';
+    loadSuppliers(currentUserId);
+}
+
+async function saveBanksForSupplier(supplierId, userId) {
+    const { error: deleteError } = await supabase
+        .from('supplier_banks')
+        .delete()
+        .eq('supplier_id', supplierId);
+
+    if (deleteError) {
+        console.error('Error deleting old banks:', deleteError);
+    }
+
+    const entries = document.querySelectorAll('.bank-entry');
+    const banks = [];
+    let hasValid = false;
+
+    entries.forEach(entry => {
+        const name = entry.querySelector('.bank-name').value.trim();
+        const iban = entry.querySelector('.bank-iban').value.trim();
+        if (name && iban) {
+            hasValid = true;
+            banks.push({
+                supplier_id: supplierId,
+                user_id: userId,
+                name,
+                iban,
+                bic: entry.querySelector('.bank-bic').value.trim() || null,
+                code: entry.querySelector('.bank-code').value.trim() || null,
+                payment_id: entry.querySelector('.bank-payment_id').value.trim() || null,
+                terms: entry.querySelector('.bank-terms').value.trim() || null
+            });
+        }
+    });
+
+    if (!hasValid) {
+        alert('Please add at least one bank account with name and IBAN.');
+        return false;
+    }
+
+    if (banks.length > 0) {
+        const { error } = await supabase.from('supplier_banks').insert(banks);
+        if (error) {
+            alert('Error saving banks: ' + error.message);
+            return false;
+        }
+    }
+
+    return true;
+}
 </script>
 </body>
 </html>
+
