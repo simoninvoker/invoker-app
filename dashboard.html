@@ -310,10 +310,10 @@ input:checked + .slider:after {
 .card { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom: 20px; color: var(--accent); }
 
-/* Analytics - improved responsiveness */
+/* Analytics - restored original responsive behavior (2 columns on mobile) */
 .analytics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 16px;
     margin-top: 24px;
 }
@@ -649,7 +649,7 @@ body.light-mode .empty-state h3 {
     }
 
     .analytics-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .metric-card .value {
@@ -1040,7 +1040,6 @@ function renderAnalytics(invoices) {
         </div>
     `;
 
-    // Charts code unchanged (kept full)
     const monthlyBilled = {};
     const monthlyPaid = {};
     invoices.forEach(inv => {
