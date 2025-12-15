@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Invoker Dashboard</title>
-<style type="text/css">@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}</style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style type="text/css">@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root {
     --bg-dark: #070d18;
@@ -16,6 +16,8 @@
     --glass: rgba(255, 255, 255, 0.06);
     --border: rgba(255, 255, 255, 0.12);
     --text-secondary: rgba(255, 255, 255, 0.7);
+    --success: #22c55e;
+    --error: #dc2626;
 }
 
 /* Light Mode Overrides */
@@ -27,6 +29,8 @@ body.light-mode {
     --glass: rgba(255, 255, 255, 0.8);
     --border: rgba(0, 0, 0, 0.1);
     --text-secondary: rgba(0, 0, 0, 0.6);
+    --success: #16a34a;
+    --error: #dc2626;
     background: var(--bg-dark);
     color: #0f172a;
 }
@@ -49,10 +53,23 @@ body.light-mode textarea {
     border-color: var(--border);
 }
 
+body.light-mode .action-btn,
+body.light-mode .cta,
+body.light-mode .logout-btn {
+    color: white;
+}
+
 * { box-sizing: border-box; margin:0; padding:0; }
 
-body { font-family:'Inter',sans-serif; background: var(--bg-dark); color: var(--white); padding-top: 90px; min-height: 100vh; }
+body {
+    font-family:'Inter',sans-serif;
+    background: var(--bg-dark);
+    color: var(--white);
+    padding-top: 80px;
+    min-height: 100vh;
+}
 
+/* Header - Desktop */
 header {
     position: fixed;
     top: 0;
@@ -93,70 +110,20 @@ header h1 {
     border: 1px solid rgba(250, 204, 21, 0.3);
 }
 
-nav.desktop-nav {
+.header-right {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-nav.desktop-nav a,
-nav.desktop-nav button {
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
+/* Group Logout + Theme Toggle together */
+.logout-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-nav.desktop-nav .nav-primary-btn {
-    background: var(--primary);
-    color: white;
-}
-
-nav.desktop-nav .nav-primary-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-}
-
-nav.desktop-nav .nav-secondary-btn {
-    background: transparent;
-    color: var(--white);
-    border: 1px solid var(--border);
-}
-
-nav.desktop-nav .nav-secondary-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
-nav.desktop-nav .back-btn {
-    background: var(--accent);
-    color: #000;
-}
-
-nav.desktop-nav .back-btn:hover {
-    background: #fde047;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
-}
-
-nav.desktop-nav .logout-btn {
-    background: transparent;
-    color: var(--white);
-    border: 1px solid var(--border);
-}
-
-nav.desktop-nav .logout-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
+/* Hamburger - Mobile Only */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -180,6 +147,7 @@ nav.desktop-nav .logout-btn:hover {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
+/* Mobile Nav Overlay */
 .mobile-nav {
     position: fixed;
     top: 0;
@@ -197,7 +165,6 @@ nav.desktop-nav .logout-btn:hover {
     z-index: 100;
     visibility: hidden;
     pointer-events: none;
-    overflow: hidden;
 }
 
 .mobile-nav.active {
@@ -206,24 +173,22 @@ nav.desktop-nav .logout-btn:hover {
     pointer-events: auto;
 }
 
-.mobile-nav a,
-.mobile-nav button {
+.mobile-nav button,
+.mobile-nav a {
     font-size: 24px;
     font-weight: 600;
     color: var(--white);
-    text-decoration: none;
     background: none;
     border: none;
     padding: 12px 24px;
     width: 80%;
     text-align: center;
     border-radius: 12px;
-    transition: background 0.3s ease;
     cursor: pointer;
 }
 
-.mobile-nav a:hover,
-.mobile-nav button:hover {
+.mobile-nav button:hover,
+.mobile-nav a:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -236,128 +201,569 @@ nav.desktop-nav .logout-btn:hover {
     background: none;
     border: none;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+}
+
+.cta, .logout-btn {
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.cta {
+    background: var(--primary);
+    color: white;
+}
+
+.cta:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.logout-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.logout-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+/* Theme Toggle Switch */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #64748b;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #facc15;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider:after {
+    content: '🌙';
+    color: white;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    transition: .4s;
+}
+
+input:checked + .slider:after {
+    content: '☀️';
+    left: 8px;
+    right: auto;
+}
+
+.main { max-width: 1200px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; gap: 40px; }
+.card { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
+.card h2 { margin-bottom: 20px; color: var(--accent); }
+
+/* Analytics */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.metric-card {
+    background: rgba(255,255,255,0.06);
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.metric-card h3 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.metric-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.chart-container {
+    background: rgba(255,255,255,0.06);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    height: 340px;
+    position: relative;
+}
+
+.chart-container h3 {
+    text-align: center;
+    margin-bottom: 16px;
+    color: var(--white);
+    font-size: 18px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Filters */
+.filter-bar {
     display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.filter-group input,
+.filter-group select {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 16px;
+}
+
+#clear-filters,
+#export-csv-btn {
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    align-self: flex-start;
+}
+
+#clear-filters {
+    background: #6b7280;
+}
+
+#export-csv-btn {
+    background: var(--success);
+    color: white;
+}
+
+/* Desktop Table */
+.desktop-table-wrapper {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-top: 16px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+.table th {
+    background: rgba(255,255,255,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Smaller action buttons with original colors */
+.action-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-btn { background: var(--primary); color: white; }
+.download-btn { background: var(--accent); color: black; }
+.edit-btn { background: #f59e0b; color: white; }
+
+/* Delete column - far right with icon */
+.table th:last-child {
+    width: 70px;
+    min-width: 70px;
+    text-align: center;
+}
+
+.table td:last-child {
+    text-align: center;
+    padding: 16px 8px;
+}
+
+.delete-icon {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: background 0.3s ease;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    color: var(--error);
+    background: rgba(220, 38, 38, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.mobile-nav-close:hover {
-    background: rgba(255, 255, 255, 0.1);
+.delete-icon:hover {
+    background: rgba(220, 38, 38, 0.3);
+    transform: scale(1.1);
 }
 
-.main { max-width: 1400px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
-.card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
-.analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.analytics-card { background: rgba(255,255,255,0.04); padding:24px; border-radius:16px; text-align:center; }
-.analytics-card h3 { color: var(--accent); margin-bottom:12px; }
-.analytics-card .value { font-size:28px; font-weight:700; }
-.table-controls { display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:20px; }
-.filters { display:flex; flex-wrap:wrap; gap:12px; }
-.filters input, .filters select { padding:10px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,0.08); color:white; }
-.desktop-table-wrapper { overflow-x:auto; }
-table { width:100%; border-collapse:collapse; }
-th, td { padding:16px; text-align:left; border-bottom:1px solid var(--border); }
-th { background:rgba(255,255,255,0.1); color:var(--accent); }
-.action-btn { padding:6px 12px; border-radius:8px; border:none; cursor:pointer; font-size:14px; }
-.edit-btn { background:var(--primary); color:white; }
-.delete-btn { background:#ef4444; color:white; }
-.view-btn { background:#10b981; color:white; }
-.download-btn { background:#f59e0b; color:white; }
-.mobile-invoice-list { display:none; }
-.invoice-card { background:rgba(255,255,255,0.04); padding:20px; border-radius:16px; margin-bottom:16px; }
-.invoice-card h3 { margin-bottom:8px; }
-.invoice-card-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+/* Mobile Card List */
+.mobile-invoice-list {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
 
+.invoice-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.invoice-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.invoice-card-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+    font-size: 15px;
+}
+
+.invoice-card-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.invoice-card-value strong {
+    font-size: 18px;
+    color: var(--accent);
+}
+
+.invoice-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.invoice-card-actions .action-btn {
+    flex: 1;
+    min-width: 90px;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 13px;
+}
+
+.delete-cell-mobile {
+    text-align: right;
+}
+
+/* Hide trash icon on mobile - keep only text */
 @media (max-width: 768px) {
-    .desktop-table-wrapper { display:none; }
-    .mobile-invoice-list { display:block; }
-    nav.desktop-nav { display:none; }
-    .hamburger { display:flex; }
+    .delete-icon::before {
+        content: none;
+    }
+
+    .delete-icon {
+        background: none;
+        width: auto;
+        height: auto;
+        font-size: 15px;
+        color: var(--error);
+    }
+
+    .delete-icon:hover {
+        background: none;
+        transform: none;
+        text-decoration: underline;
+    }
+}
+
+.no-invoices {
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 40px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Mobile Media Queries */
+@media (max-width: 768px) {
+    header {
+        padding: 0 20px;
+        height: 70px;
+    }
+
+    .header-left h1 {
+        font-size: 22px;
+    }
+
+    .header-right {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .main {
+        margin: 30px auto;
+        padding: 16px;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    .card h2 {
+        font-size: 24px;
+    }
+
+    .filter-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .metric-card .value {
+        font-size: 24px;
+    }
+
+    .desktop-table-wrapper {
+        display: none;
+    }
+
+    .mobile-invoice-list {
+        display: flex;
+    }
 }
 </style>
 </head>
 <body>
-
 <header>
     <div class="header-left">
-        <h1>Invoker Dashboard</h1>
-        <div id="active-supplier"></div>
+        <h1>Dashboard</h1>
+        <span id="active-supplier"></span>
     </div>
 
-    <nav class="desktop-nav">
-        <a href="form.html" class="nav-primary-btn">Create Invoice</a>
-        <button id="switch-supplier-btn" class="nav-secondary-btn">Switch Supplier</button>
-        <a href="customers.html" class="nav-secondary-btn">Customers</a>
-        <a href="suppliers.html" class="nav-secondary-btn">Suppliers</a>
-        <a href="docs.html" class="nav-secondary-btn">Docs</a>
-        <a href="index.html" class="back-btn">← Home</a>
-        <button id="logout-btn" class="logout-btn">Logout</button>
-    </nav>
+    <!-- Desktop Header Right - Create Invoice added here -->
+    <div class="header-right">
+        <button id="create-invoice-btn" class="cta">Create Invoice</button>
+        <button id="suppliers-btn" class="cta">Switch Supplier</button>
+        <button id="customers-btn" class="cta">Customers</button>
 
-    <div class="hamburger">
+        <!-- Logout + Theme Toggle grouped together -->
+        <div class="logout-group">
+            <button id="logout-btn" class="logout-btn">Logout</button>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
     </div>
 </header>
 
-<nav class="mobile-nav">
-    <button class="mobile-nav-close">×</button>
-    <a href="form.html" class="nav-primary-btn">Create Invoice</a>
-    <button id="mobile-switch-supplier-btn" class="nav-secondary-btn">Switch Supplier</button>
-    <a href="customers.html" class="nav-secondary-btn">Customers</a>
-    <a href="suppliers.html" class="nav-secondary-btn">Suppliers</a>
-    <a href="docs.html" class="nav-secondary-btn">Docs</a>
-    <a href="index.html" class="back-btn">← Home</a>
+<!-- Mobile Navigation Overlay - Create Invoice added here -->
+<div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+    <button id="mobile-create-invoice-btn" class="cta">Create Invoice</button>
+    <button id="mobile-suppliers-btn">Switch Supplier</button>
+    <button id="mobile-customers-btn">Customers</button>
+    <label class="theme-toggle" style="margin:20px 0;">
+        <input type="checkbox" id="mobile-theme-switch">
+        <span class="slider"></span>
+    </label>
     <button id="mobile-logout-btn" class="logout-btn">Logout</button>
-</nav>
+</div>
 
 <div class="main">
+
+    <!-- Analytics -->
     <div class="card">
         <h2>Analytics Overview</h2>
-        <div class="analytics-grid" id="analytics-grid"></div>
+        <div class="analytics-grid" id="metrics-grid"></div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>Monthly Revenue (Billed vs Paid)</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Invoice Status Distribution</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Top 5 Customers by Revenue</h3>
+                <canvas id="topCustomersChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Receivables Aging</h3>
+                <canvas id="agingChart"></canvas>
+            </div>
+        </div>
     </div>
 
+    <!-- Invoice History -->
     <div class="card">
         <h2>Invoice History</h2>
-        <div class="table-controls">
-            <div class="filters">
-                <input type="text" id="filter-id" placeholder="Invoice ID">
-                <input type="text" id="filter-customer" placeholder="Customer">
-                <input type="date" id="filter-from" placeholder="From">
-                <input type="date" id="filter-to" placeholder="To">
-                <select id="filter-status">
-                    <option value="">All Statuses</option>
-                    <option value="draft">Draft</option>
-                    <option value="sent">Sent</option>
-                </select>
-                <button id="clear-filters">Clear</button>
+        <div class="filter-bar">
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Search Invoice ID</label>
+                    <input type="text" id="filter-id" placeholder="e.g. INV-001">
+                </div>
+                <div class="filter-group">
+                    <label>Customer</label>
+                    <input type="text" id="filter-customer" placeholder="Customer name">
+                </div>
+                <div class="filter-group">
+                    <label>From Date</label>
+                    <input type="date" id="filter-from">
+                </div>
+                <div class="filter-group">
+                    <label>To Date</label>
+                    <input type="date" id="filter-to">
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select id="filter-status">
+                        <option value="">All</option>
+                        <option value="draft">Draft</option>
+                        <option value="sent">Sent</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                </div>
+                <button id="clear-filters">Clear Filters</button>
             </div>
-            <button id="export-csv">Export to CSV</button>
+            <button id="export-csv-btn">Export Displayed to CSV</button>
         </div>
 
+        <!-- Desktop Table -->
         <div class="desktop-table-wrapper">
-            <table>
+            <table id="invoices-table" class="table">
                 <thead>
                     <tr>
                         <th>Invoice ID</th>
-                        <th>Issue Date</th>
+                        <th>Date</th>
                         <th>Customer</th>
                         <th>Total</th>
                         <th>Currency</th>
                         <th>Status</th>
                         <th>Actions</th>
+                        <th></th> <!-- Delete column (icon only) -->
                     </tr>
                 </thead>
-                <tbody id="desktop-table-body"></tbody>
+                <tbody>
+                    <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
+                </tbody>
             </table>
         </div>
 
-        <div class="mobile-invoice-list" id="mobile-invoice-list"></div>
+        <!-- Mobile Card List -->
+        <div class="mobile-invoice-list" id="mobile-invoice-list">
+            <!-- Cards injected by JS -->
+        </div>
+
+        <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
 </div>
 
@@ -365,133 +771,318 @@ th { background:rgba(255,255,255,0.1); color:var(--accent); }
 <script>
 const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
-const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-let userId = null;
 let allInvoices = [];
 let displayedInvoices = [];
+let revenueChart = null;
+let statusChart = null;
+let topCustomersChart = null;
+let agingChart = null;
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const hamburger = document.querySelector('.hamburger');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const mobileNavClose = document.querySelector('.mobile-nav-close');
+// Mobile nav
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
 
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-    });
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+});
 
-    mobileNavClose.addEventListener('click', () => {
+mobileNavClose.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('active');
+});
+
+mobileNav.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
         hamburger.classList.remove('active');
         mobileNav.classList.remove('active');
     });
+});
 
-    mobileNav.querySelectorAll('a, button').forEach(item => {
-        item.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileNav.classList.remove('active');
-        });
-    });
-
+document.addEventListener("DOMContentLoaded", async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         window.location.href = 'index.html';
         return;
     }
-    userId = session.user.id;
 
-    const selectedSupplierId = localStorage.getItem('selected_supplier_id');
-    const selectedSupplierName = localStorage.getItem('selected_supplier_name');
-    if (selectedSupplierId && selectedSupplierName) {
-        document.getElementById('active-supplier').textContent = selectedSupplierName;
+    const activeSupplierName = localStorage.getItem('selected_supplier_name');
+    const activeSupplierSpan = document.getElementById('active-supplier');
+    if (activeSupplierName) {
+        activeSupplierSpan.textContent = `Active: ${activeSupplierName}`;
     } else {
-        document.getElementById('active-supplier').textContent = 'No supplier selected';
+        activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
     }
 
-    document.getElementById('switch-supplier-btn').addEventListener('click', () => {
+    const selectedSupplierId = localStorage.getItem('selected_supplier_id');
+    if (!selectedSupplierId) {
+        alert("Please select a supplier first.");
+        window.location.href = 'suppliers.html';
+        return;
+    }
+
+    // Buttons - now using the ones in header
+    document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
+    document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
+
+    document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
+    document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
+
+    document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
+    document.getElementById('mobile-customers-btn')?.addEventListener('click', () => window.location.href = 'customers.html');
+
+    document.getElementById('logout-btn').addEventListener('click', logout);
+    document.getElementById('mobile-logout-btn')?.addEventListener('click', logout);
+
+    async function logout() {
+        await supabase.auth.signOut();
         localStorage.removeItem('selected_supplier_id');
         localStorage.removeItem('selected_supplier_name');
-        window.location.href = 'suppliers.html';
-    });
-
-    document.getElementById('mobile-switch-supplier-btn').addEventListener('click', () => {
-        localStorage.removeItem('selected_supplier_id');
-        localStorage.removeItem('selected_supplier_name');
-        window.location.href = 'suppliers.html';
-    });
-
-    document.getElementById('logout-btn').addEventListener('click', async () => {
-        await supabase.auth.signOut();
         window.location.href = 'index.html';
+    }
+
+    document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
+
+    // Theme
+    const themeSwitch = document.getElementById('theme-switch');
+    const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
+    const savedTheme = localStorage.getItem('theme');
+
+    const applyTheme = (isLight) => {
+        if (isLight) {
+            document.body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    };
+
+    const preferredLight = !savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initialLight = savedTheme === 'light' || preferredLight;
+
+    applyTheme(initialLight);
+    themeSwitch.checked = initialLight;
+    if (mobileThemeSwitch) mobileThemeSwitch.checked = initialLight;
+
+    themeSwitch.addEventListener('change', () => {
+        applyTheme(themeSwitch.checked);
+        if (mobileThemeSwitch) mobileThemeSwitch.checked = themeSwitch.checked;
     });
 
-    document.getElementById('mobile-logout-btn').addEventListener('click', async () => {
-        await supabase.auth.signOut();
-        window.location.href = 'index.html';
-    });
+    if (mobileThemeSwitch) {
+        mobileThemeSwitch.addEventListener('change', () => {
+            applyTheme(mobileThemeSwitch.checked);
+            themeSwitch.checked = mobileThemeSwitch.checked;
+        });
+    }
 
-    await loadInvoices();
+    await loadInvoices(session.user.id, selectedSupplierId);
 });
 
-async function loadInvoices() {
+async function loadInvoices(userId, supplierId) {
     const { data: invoices, error } = await supabase
         .from('invoices')
-        .select('*')
+        .select('id, invoice_id, issue_date, customer_name, total_amount, currency, xml_data, status, form_data')
         .eq('user_id', userId)
-        .order('created_at', { ascending: false });
+        .eq('supplier_id', supplierId)
+        .order('issue_date', { ascending: false });
 
     if (error) {
-        alert('Error loading invoices: ' + error.message);
+        const msg = `Error loading invoices: ${error.message}`;
+        document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">${msg}</td></tr>`;
+        document.getElementById('mobile-invoice-list').innerHTML = `<div class="no-invoices">${msg}</div>`;
         return;
     }
 
     allInvoices = invoices || [];
-    applyFilters();
+    displayedInvoices = allInvoices;
+    renderAnalytics(allInvoices);
+    renderDesktopTable(allInvoices);
+    renderMobileCards(allInvoices);
 }
 
 function renderAnalytics(invoices) {
-    const grid = document.getElementById('analytics-grid');
-    grid.innerHTML = '';
-
     const totalInvoices = invoices.length;
-    const totalRevenue = invoices.reduce((sum, inv) => sum + (inv.total_amount || 0), 0);
-    const draftCount = invoices.filter(i => i.status === 'draft').length;
-    const sentCount = invoices.filter(i => i.status === 'sent').length;
+    const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
+    const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
+    const outstanding = totalRevenue - paidRevenue;
+    const avgInvoice = totalInvoices > 0 ? totalRevenue / totalInvoices : 0;
 
-    const cards = [
-        { title: 'Total Invoices', value: totalInvoices },
-        { title: 'Total Revenue', value: `€${totalRevenue.toFixed(2)}` },
-        { title: 'Drafts', value: draftCount },
-        { title: 'Sent', value: sentCount }
-    ];
+    const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
+    const sent = invoices.filter(inv => inv.status === 'sent').length;
+    const paid = invoices.filter(inv => inv.status === 'paid').length;
 
-    cards.forEach(c => {
-        const card = document.createElement('div');
-        card.className = 'analytics-card';
-        card.innerHTML = `<h3>${c.title}</h3><div class="value">${c.value}</div>`;
-        grid.appendChild(card);
+    document.getElementById('metrics-grid').innerHTML = `
+        <div class="metric-card">
+            <h3>Total Invoices</h3>
+            <div class="value">${totalInvoices}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Total Billed</h3>
+            <div class="value">${totalRevenue.toFixed(2)}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Outstanding</h3>
+            <div class="value">${outstanding.toFixed(2)}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Avg. Invoice</h3>
+            <div class="value">${avgInvoice.toFixed(2)}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Drafts</h3>
+            <div class="value">${drafts}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Sent</h3>
+            <div class="value">${sent}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Paid</h3>
+            <div class="value">${paid}</div>
+        </div>
+    `;
+
+    const monthlyBilled = {};
+    const monthlyPaid = {};
+    invoices.forEach(inv => {
+        if (inv.issue_date) {
+            const month = inv.issue_date.substring(0, 7);
+            const amount = parseFloat(inv.total_amount) || 0;
+            monthlyBilled[month] = (monthlyBilled[month] || 0) + amount;
+            if (inv.status === 'paid') monthlyPaid[month] = (monthlyPaid[month] || 0) + amount;
+        }
+    });
+    const months = [...new Set([...Object.keys(monthlyBilled), ...Object.keys(monthlyPaid)])].sort();
+    const billedData = months.map(m => monthlyBilled[m] || 0);
+    const paidData = months.map(m => monthlyPaid[m] || 0);
+
+    if (revenueChart) revenueChart.destroy();
+    revenueChart = new Chart(document.getElementById('revenueChart'), {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [
+                { label: 'Billed', data: billedData, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.2)', tension: 0.3, fill: true },
+                { label: 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    if (statusChart) statusChart.destroy();
+    statusChart = new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+            labels: [`Draft (€${outstanding.toFixed(0)})`, `Sent (€${invoices.filter(i=>i.status==='sent').reduce((s,i)=>s+(parseFloat(i.total_amount)||0),0).toFixed(0)})`, `Paid (€${paidRevenue.toFixed(0)})`],
+            datasets: [{
+                data: [drafts, sent, paid],
+                backgroundColor: ['#ef4444', '#f59e0b', '#22c55e']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    const customerRevenue = {};
+    invoices.forEach(inv => {
+        const name = inv.customer_name || 'Unknown';
+        customerRevenue[name] = (customerRevenue[name] || 0) + (parseFloat(inv.total_amount) || 0);
+    });
+    const top5 = Object.entries(customerRevenue)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+
+    if (topCustomersChart) topCustomersChart.destroy();
+    topCustomersChart = new Chart(document.getElementById('topCustomersChart'), {
+        type: 'bar',
+        data: {
+            labels: top5.map(c => c[0]),
+            datasets: [{
+                label: 'Revenue',
+                data: top5.map(c => c[1]),
+                backgroundColor: '#2563eb'
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true } }
+        }
+    });
+
+    const aging = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
+    const today = new Date();
+    invoices.filter(inv => inv.status !== 'paid').forEach(inv => {
+        if (!inv.issue_date) return;
+        const days = Math.floor((today - new Date(inv.issue_date)) / (1000 * 60 * 60 * 24));
+        const amount = parseFloat(inv.total_amount) || 0;
+        if (days <= 30) aging['0-30'] += amount;
+        else if (days <= 60) aging['31-60'] += amount;
+        else if (days <= 90) aging['61-90'] += amount;
+        else aging['90+'] += amount;
+    });
+
+    if (agingChart) agingChart.destroy();
+    agingChart = new Chart(document.getElementById('agingChart'), {
+        type: 'bar',
+        data: {
+            labels: ['0-30 days', '31-60 days', '61-90 days', '90+ days'],
+            datasets: [{
+                label: 'Outstanding',
+                data: [aging['0-30'], aging['31-60'], aging['61-90'], aging['90+']],
+                backgroundColor: ['#22c55e', '#f59e0b', '#f97316', '#ef4444']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
     });
 }
 
 function renderDesktopTable(invoices) {
-    const tbody = document.getElementById('desktop-table-body');
+    const tbody = document.querySelector('#invoices-table tbody');
+    const noMsg = document.getElementById('no-invoices');
+
+    displayedInvoices = invoices;
+
+    if (invoices.length === 0) {
+        noMsg.style.display = 'block';
+        noMsg.textContent = 'No invoices yet.';
+        tbody.innerHTML = '';
+        return;
+    }
+
+    noMsg.style.display = 'none';
     tbody.innerHTML = '';
 
     invoices.forEach(inv => {
+        let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
+        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
+        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
+
+        const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
+
+        const isDraft = (!inv.status || inv.status === 'draft');
+
         const tr = document.createElement('tr');
-        const status = inv.status ? inv.status.charAt(0).toUpperCase() + inv.status.slice(1) : 'Draft';
         tr.innerHTML = `
-            <td>${inv.invoice_id || ''}</td>
-            <td>${inv.issue_date || ''}</td>
-            <td>${inv.customer_name || ''}</td>
-            <td>${inv.total_amount ? inv.total_amount.toFixed(2) : '0.00'}</td>
+            <td><strong>${inv.invoice_id || 'N/A'}</strong></td>
+            <td>${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</td>
+            <td>${inv.customer_name || '—'}</td>
+            <td><strong>${inv.total_amount ? parseFloat(inv.total_amount).toFixed(2) : '0.00'}</strong></td>
             <td>${inv.currency || 'EUR'}</td>
-            <td>${status}</td>
+            <td>${statusBadge}</td>
+            <td class="actions-cell">
+                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View</button>` : '<span style="color:var(--text-secondary);font-size:11px;">No XML</span>'}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
+            </td>
             <td>
-                <button class="action-btn edit-btn" data-id="${inv.id}">Edit Draft</button>
-                <button class="action-btn view-btn" data-id="${inv.id}">View XML</button>
-                <button class="action-btn download-btn" data-id="${inv.id}">Download</button>
-                <button class="action-btn delete-btn delete-cross" data-id="${inv.id}">✕</button>
+                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}" title="Delete Draft">🗑</span>` : ''}
             </td>
         `;
         tbody.appendChild(tr);
@@ -502,23 +1093,50 @@ function renderDesktopTable(invoices) {
 
 function renderMobileCards(invoices) {
     const container = document.getElementById('mobile-invoice-list');
+    const noMsg = document.getElementById('no-invoices');
+
+    if (invoices.length === 0) {
+        noMsg.style.display = 'block';
+        container.innerHTML = '';
+        return;
+    }
+
+    noMsg.style.display = 'none';
     container.innerHTML = '';
 
     invoices.forEach(inv => {
+        let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
+        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
+        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
+
+        const statusBadge = `<span style="padding:8px 16px; border-radius:50px; font-size:14px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
+
+        const isDraft = (!inv.status || inv.status === 'draft');
+
         const card = document.createElement('div');
         card.className = 'invoice-card';
-        const status = inv.status ? inv.status.charAt(0).toUpperCase() + inv.status.slice(1) : 'Draft';
         card.innerHTML = `
-            <h3>${inv.invoice_id || 'Untitled'}</h3>
-            <p>Date: ${inv.issue_date || '-'}</p>
-            <p>Customer: ${inv.customer_name || '-'}</p>
-            <p>Total: ${inv.total_amount ? inv.total_amount.toFixed(2) : '0.00'} ${inv.currency || 'EUR'}</p>
-            <p>Status: ${status}</p>
+            <div class="invoice-card-header">
+                <div>
+                    <strong style="font-size:20px;">${inv.invoice_id || 'N/A'}</strong><br>
+                    <span style="color:var(--text-secondary);">${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</span>
+                </div>
+                ${statusBadge}
+            </div>
+            <div class="invoice-card-main">
+                <div class="invoice-card-label">Customer</div>
+                <div class="invoice-card-value">${inv.customer_name || '—'}</div>
+
+                <div class="invoice-card-label">Total</div>
+                <div class="invoice-card-value"><strong>${inv.total_amount ? parseFloat(inv.total_amount).toFixed(2) : '0.00'} ${inv.currency || 'EUR'}</strong></div>
+            </div>
             <div class="invoice-card-actions">
-                <button class="action-btn edit-btn" data-id="${inv.id}">Edit Draft</button>
-                <button class="action-btn view-btn" data-id="${inv.id}">View XML</button>
-                <button class="action-btn download-btn" data-id="${inv.id}">Download</button>
-                <button class="action-btn delete-btn delete-cross" data-id="${inv.id}">Delete</button>
+                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
+            </div>
+            <div class="delete-cell-mobile">
+                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}">Delete</span>` : ''}
             </div>
         `;
         container.appendChild(card);
@@ -549,11 +1167,15 @@ function attachActionListeners() {
         };
     });
 
-    document.querySelectorAll('.delete-cross').forEach(icon => {
+    document.querySelectorAll('.delete-icon').forEach(icon => {
         icon.onclick = async () => {
-            if (!confirm("Are you sure you want to delete this draft? This cannot be undone.")) return;
-
             const invId = icon.dataset.id;
+            const inv = allInvoices.find(i => i.id === invId);
+
+            if (!confirm(`Are you sure you want to permanently delete draft "${inv.invoice_id || 'N/A'}"? This action cannot be undone.`)) {
+                return;
+            }
+
             const { error } = await supabase.from('invoices').delete().eq('id', invId);
 
             if (error) {
@@ -654,8 +1276,6 @@ function exportDisplayedToCSV() {
     link.click();
     document.body.removeChild(link);
 }
-
-document.getElementById('export-csv').addEventListener('click', exportDisplayedToCSV);
 </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ae72f4a2b8f9939',t:'MTc2NTgxNDc1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
