@@ -31,9 +31,6 @@ body.light-mode {
     --text-secondary: rgba(0, 0, 0, 0.6);
     --success: #16a34a;
     --error: #dc2626;
-}
-
-body.light-mode {
     background: var(--bg-dark);
     color: #0f172a;
 }
@@ -62,20 +59,17 @@ body.light-mode .logout-btn {
     color: white;
 }
 
-/* Global fixes for horizontal scroll */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { 
-    width: 100%;
-    overflow-x: hidden;
-}
+* { box-sizing: border-box; margin:0; padding:0; }
+
 body {
     font-family:'Inter',sans-serif;
     background: var(--bg-dark);
     color: var(--white);
-    padding-top: 90px;
+    padding-top: 80px;
     min-height: 100vh;
 }
 
+/* Header - Desktop */
 header {
     position: fixed;
     top: 0;
@@ -85,20 +79,18 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 50px;
     background: rgba(5, 10, 20, 0.85);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     z-index: 1000;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    width: 100%;
 }
 
 .header-left {
     display: flex;
     align-items: center;
-    gap: 16px;
-    flex-shrink: 0;
+    gap: 24px;
 }
 
 header h1 {
@@ -106,7 +98,6 @@ header h1 {
     font-weight: 700;
     margin: 0;
     color: var(--white);
-    white-space: nowrap;
 }
 
 #active-supplier {
@@ -117,17 +108,94 @@ header h1 {
     padding: 6px 14px;
     border-radius: 20px;
     border: 1px solid rgba(250, 204, 21, 0.3);
-    white-space: nowrap;
 }
 
-/* Desktop Navigation */
-.desktop-nav {
+.header-right {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-/* Buttons */
+/* Hamburger - Mobile Only */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--white);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+/* Mobile Nav Overlay */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    z-index: 100;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.mobile-nav.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.mobile-nav button,
+.mobile-nav a {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    width: 80%;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.mobile-nav button:hover,
+.mobile-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    color: var(--white);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 .cta, .logout-btn {
     padding: 10px 24px;
     border-radius: 12px;
@@ -167,7 +235,6 @@ header h1 {
     display: inline-block;
     width: 56px;
     height: 30px;
-    margin: 0 16px;
 }
 
 .theme-toggle input {
@@ -208,7 +275,6 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Sun/Moon Icons */
 .slider:after {
     content: '🌙';
     color: white;
@@ -226,121 +292,21 @@ input:checked + .slider:after {
     right: auto;
 }
 
-/* Hamburger Icon - Mobile Only */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-    z-index: 101;
-}
+.main { max-width: 1200px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; gap: 40px; }
+.card { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
+.card h2 { margin-bottom: 20px; color: var(--accent); }
 
-.hamburger span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background: var(--white);
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-/* Mobile Menu Overlay */
-.mobile-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: var(--bg-dark);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    z-index: 100;
-    visibility: hidden;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.mobile-nav.active {
-    transform: translateX(0);
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.mobile-nav a, .mobile-nav button {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--white);
-    text-decoration: none;
-    background: none;
-    border: none;
-    padding: 12px 24px;
-    width: 80%;
-    text-align: center;
-    border-radius: 12px;
-    transition: background 0.3s ease;
-    cursor: pointer;
-}
-
-.mobile-nav a:hover, .mobile-nav button:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.mobile-nav-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 32px;
-    color: var(--white);
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background 0.3s ease;
-}
-
-.mobile-nav-close:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.main { max-width: 1200px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; width: 100%; }
-.card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); width: 100%; }
-.card h2 { margin-bottom:20px; color: var(--accent); }
-
-/* Analytics Section */
+/* Analytics */
 .analytics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
     margin-top: 24px;
 }
 
 .metric-card {
     background: rgba(255,255,255,0.06);
-    padding: 24px;
+    padding: 20px;
     border-radius: 16px;
     text-align: center;
     border: 1px solid var(--border);
@@ -353,24 +319,24 @@ input:checked + .slider:after {
 }
 
 .metric-card .value {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
     color: var(--accent);
 }
 
 .charts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: 1fr;
     gap: 24px;
     margin-top: 40px;
 }
 
 .chart-container {
     background: rgba(255,255,255,0.06);
-    padding: 24px;
+    padding: 20px;
     border-radius: 16px;
     border: 1px solid var(--border);
-    height: 380px;
+    height: 340px;
     position: relative;
 }
 
@@ -378,6 +344,7 @@ input:checked + .slider:after {
     text-align: center;
     margin-bottom: 16px;
     color: var(--white);
+    font-size: 18px;
 }
 
 .chart-container canvas {
@@ -385,15 +352,98 @@ input:checked + .slider:after {
     height: 100% !important;
 }
 
-/* Table and Filters */
-.filter-bar { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; align-items: end; justify-content: space-between; }
-.filter-controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; }
-.filter-group { display: flex; flex-direction: column; }
-.filter-group label { font-size: 14px; margin-bottom: 8px; color: var(--text-secondary); }
-.filter-group input, .filter-group select { padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.08); color: white; }
-.table { width: 100%; border-collapse: collapse; }
-.table th, .table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: middle; }
-.table th { background: rgba(255,255,255,0.05); }
+/* Filters & Table */
+.filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.filter-group input,
+.filter-group select {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 16px;
+}
+
+#clear-filters,
+#export-csv-btn {
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    align-self: flex-start;
+}
+
+#clear-filters {
+    background: #6b7280;
+}
+
+#export-csv-btn {
+    background: var(--success);
+    color: white;
+}
+
+/* Responsive Table Wrapper */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-top: 16px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+}
+
+.table {
+    width: 100%;
+    min-width: 800px; /* forces horizontal scroll on mobile */
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+.table th {
+    background: rgba(255,255,255,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
 
 .actions-cell {
     white-space: nowrap;
@@ -401,54 +451,93 @@ input:checked + .slider:after {
 }
 
 .action-btn {
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 11px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
     font-weight: 600;
-    margin-right: 8px;
-    transition: all 0.25s ease;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    min-width: 70px;
-    height: 28px;
-    vertical-align: middle;
+    margin: 4px;
+    min-width: 80px;
+    height: 36px;
 }
 
 .view-btn { background: var(--primary); color: white; }
-.view-btn:hover { background: #3b82f6; transform: translateY(-1px); }
-.download-btn { background: var(--accent); color: white !important; }
-.download-btn:hover { background: #fde047; transform: translateY(-1px); }
+.download-btn { background: var(--accent); color: black; }
 .edit-btn { background: #f59e0b; color: white; }
-.edit-btn:hover { background: #f97316; transform: translateY(-1px); }
-.delete-cell { text-align: center; padding: 8px 16px !important; }
-.delete-cross { display: inline-block; width: 32px; height: 32px; line-height: 32px; font-size: 22px; font-weight: bold; color: var(--error); cursor: pointer; transition: all 0.2s; }
-.delete-cross:hover { color: #dc2626; transform: scale(1.2); }
-.no-invoices { color: var(--text-secondary); font-style: italic; padding: 40px 0; font-size: 18px; }
-#export-csv-btn { background: var(--success); color: white; padding: 12px 24px; border-radius: 12px; font-weight: 600; border: none; cursor: pointer; transition: all 0.3s ease; align-self: end; }
-#export-csv-btn:hover { background: #16a34a; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(34,197,94,0.4); }
 
-/* Mobile Responsiveness */
+.delete-cell { text-align: center; }
+.delete-cross {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 24px;
+    color: var(--error);
+    cursor: pointer;
+}
+
+.no-invoices {
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 40px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Mobile Media Queries */
 @media (max-width: 768px) {
     header {
         padding: 0 20px;
         height: 70px;
     }
-    .desktop-nav, .theme-toggle {
+
+    .header-left h1 {
+        font-size: 22px;
+    }
+
+    .header-right {
         display: none;
     }
+
     .hamburger {
         display: flex;
     }
-    header h1 {
-        font-size: 22px;
+
+    .main {
+        margin: 30px auto;
+        padding: 16px;
     }
-    #active-supplier {
+
+    .card {
+        padding: 24px;
+    }
+
+    .card h2 {
+        font-size: 24px;
+    }
+
+    .filter-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .metric-card .value {
+        font-size: 24px;
+    }
+
+    .action-btn {
+        padding: 10px 14px;
         font-size: 14px;
-        padding: 4px 10px;
+        width: 100%;
+        margin: 6px 0;
+    }
+
+    .actions-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
     }
 }
 </style>
@@ -459,55 +548,47 @@ input:checked + .slider:after {
         <h1>Dashboard</h1>
         <span id="active-supplier"></span>
     </div>
+
+    <!-- Desktop Header Right -->
     <div class="header-right">
-        <!-- Desktop Navigation -->
-        <nav class="desktop-nav">
-            <button id="suppliers-btn" class="cta">Switch Supplier</button>
-            <button id="customers-btn" class="cta">Customers</button>
-            <label class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
-                <span class="slider"></span>
-            </label>
-            <button id="logout-btn" class="logout-btn">Logout</button>
-        </nav>
+        <button id="suppliers-btn" class="cta">Switch Supplier</button>
+        <button id="customers-btn" class="cta">Customers</button>
 
-        <!-- Hamburger Icon (Mobile Only) -->
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <label class="theme-toggle">
+            <input type="checkbox" id="theme-switch">
+            <span class="slider"></span>
+        </label>
 
-        <!-- Mobile Menu Overlay -->
-        <div class="mobile-nav" id="mobile-nav">
-            <button class="mobile-nav-close" id="mobile-nav-close">×</button>
-            <button id="mobile-suppliers-btn" class="cta">Switch Supplier</button>
-            <button id="mobile-customers-btn" class="cta">Customers</button>
-            <a href="form.html">Create Invoice</a>
-            <a href="docs.html">Documentation</a>
-            <label class="theme-toggle">
-                <input type="checkbox" id="mobile-theme-switch">
-                <span class="slider"></span>
-            </label>
-            <button id="mobile-logout-btn" class="logout-btn">Logout</button>
-        </div>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 </header>
 
-<div class="main">
-    <!-- No Supplier Selected Message -->
-    <div class="card" id="no-supplier-card" style="display:none; text-align:center;">
-        <h2>No Supplier Selected</h2>
-        <p style="margin:20px 0; font-size:18px;">You need to select a supplier before accessing the dashboard.</p>
-        <a href="suppliers.html" class="cta" style="display:inline-block; padding:14px 32px; font-size:16px;">Go to Suppliers</a>
-    </div>
+<!-- Mobile Navigation Overlay -->
+<div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+    <button id="mobile-suppliers-btn">Switch Supplier</button>
+    <button id="mobile-customers-btn">Customers</button>
+    <button id="mobile-create-invoice-btn">Create Invoice</button>
+    <label class="theme-toggle" style="margin:20px 0;">
+        <input type="checkbox" id="mobile-theme-switch">
+        <span class="slider"></span>
+    </label>
+    <button id="mobile-logout-btn" class="logout-btn">Logout</button>
+</div>
 
-    <!-- Enhanced Analytics Section -->
-    <div class="card" id="analytics-card">
+<div class="main">
+
+    <!-- Analytics -->
+    <div class="card">
         <h2>Analytics Overview</h2>
-        <div class="analytics-grid" id="metrics-grid">
-            <!-- Metrics injected by JS -->
-        </div>
+        <div class="analytics-grid" id="metrics-grid"></div>
 
         <div class="charts-grid">
             <div class="chart-container">
@@ -529,12 +610,14 @@ input:checked + .slider:after {
         </div>
     </div>
 
-    <div class="card" id="create-invoice-card">
+    <!-- Create Invoice -->
+    <div class="card">
         <h2>Create New Invoice</h2>
         <button id="create-invoice-btn" class="cta">Create Invoice</button>
     </div>
 
-    <div class="card" id="invoice-history-card">
+    <!-- Invoice History -->
+    <div class="card">
         <h2>Invoice History</h2>
         <div class="filter-bar">
             <div class="filter-controls">
@@ -563,27 +646,30 @@ input:checked + .slider:after {
                         <option value="paid">Paid</option>
                     </select>
                 </div>
-                <button id="clear-filters" style="align-self: end; background:#6b7280; padding:10px 20px; border-radius:12px; border:none; cursor:pointer;">Clear</button>
+                <button id="clear-filters">Clear Filters</button>
             </div>
             <button id="export-csv-btn">Export Displayed to CSV</button>
         </div>
-        <table id="invoices-table" class="table">
-            <thead>
-                <tr>
-                    <th>Invoice ID</th>
-                    <th>Date</th>
-                    <th>Customer</th>
-                    <th>Total</th>
-                    <th>Currency</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
-            </tbody>
-        </table>
+
+        <div class="table-wrapper">
+            <table id="invoices-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Invoice ID</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Total</th>
+                        <th>Currency</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
+                </tbody>
+            </table>
+        </div>
         <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
 </div>
@@ -600,6 +686,28 @@ let revenueChart = null;
 let statusChart = null;
 let topCustomersChart = null;
 let agingChart = null;
+
+// Mobile nav elements
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+});
+
+mobileNavClose.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('active');
+});
+
+mobileNav.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+});
 
 document.addEventListener("DOMContentLoaded", async () => {
     const { data: { session } } = await supabase.auth.getSession();
@@ -618,88 +726,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const selectedSupplierId = localStorage.getItem('selected_supplier_id');
     if (!selectedSupplierId) {
-        // Show "No Supplier" message and hide dashboard content
-        document.getElementById('no-supplier-card').style.display = 'block';
-        document.getElementById('analytics-card').style.display = 'none';
-        document.getElementById('create-invoice-card').style.display = 'none';
-        document.getElementById('invoice-history-card').style.display = 'none';
+        alert("Please select a supplier first.");
+        window.location.href = 'suppliers.html';
         return;
     }
 
-    // Supplier selected – show normal dashboard
-    document.getElementById('no-supplier-card').style.display = 'none';
-
-    // Desktop button events
+    // Button bindings
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
+    document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
+
     document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
+    document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
+
     document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
+    document.getElementById('mobile-customers-btn')?.addEventListener('click', () => window.location.href = 'customers.html');
+
     document.getElementById('logout-btn').addEventListener('click', logout);
-
-    // Mobile button events
-    document.getElementById('mobile-suppliers-btn').addEventListener('click', () => {
-        closeMobileMenu();
-        window.location.href = 'suppliers.html';
-    });
-    document.getElementById('mobile-customers-btn').addEventListener('click', () => {
-        closeMobileMenu();
-        window.location.href = 'customers.html';
-    });
-    document.getElementById('mobile-logout-btn').addEventListener('click', () => {
-        closeMobileMenu();
-        logout();
-    });
-
-    document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
-
-    // Theme Toggle
-    const themeSwitch = document.getElementById('theme-switch');
-    const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
-    const savedTheme = localStorage.getItem('theme');
-
-    if (savedTheme === 'light' || (!savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        document.body.classList.add('light-mode');
-        themeSwitch.checked = true;
-        mobileThemeSwitch.checked = true;
-    }
-
-    themeSwitch.addEventListener('change', toggleTheme);
-    mobileThemeSwitch.addEventListener('change', toggleTheme);
-
-    function toggleTheme() {
-        const isLight = themeSwitch.checked || mobileThemeSwitch.checked;
-        if (isLight) {
-            document.body.classList.add('light-mode');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.body.classList.remove('light-mode');
-            localStorage.setItem('theme', 'dark');
-        }
-        themeSwitch.checked = isLight;
-        mobileThemeSwitch.checked = isLight;
-    }
-
-    // Mobile Menu
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobile-nav');
-    const mobileNavClose = document.getElementById('mobile-nav-close');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-    });
-
-    mobileNavClose.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileNav.classList.remove('active');
-    });
-
-    // Close menu on any link/button click
-    mobileNav.querySelectorAll('a, button').forEach(item => {
-        item.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileNav.classList.remove('active');
-        });
-    });
+    document.getElementById('mobile-logout-btn')?.addEventListener('click', logout);
 
     async function logout() {
         await supabase.auth.signOut();
@@ -708,9 +751,46 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = 'index.html';
     }
 
+    document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
+
+    // Theme Toggle (both desktop and mobile)
+    const themeSwitch = document.getElementById('theme-switch');
+    const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
+    const savedTheme = localStorage.getItem('theme');
+
+    const applyTheme = (isLight) => {
+        if (isLight) {
+            document.body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    };
+
+    const preferredLight = !savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initialLight = savedTheme === 'light' || preferredLight;
+
+    applyTheme(initialLight);
+    themeSwitch.checked = initialLight;
+    if (mobileThemeSwitch) mobileThemeSwitch.checked = initialLight;
+
+    themeSwitch.addEventListener('change', () => {
+        applyTheme(themeSwitch.checked);
+        if (mobileThemeSwitch) mobileThemeSwitch.checked = themeSwitch.checked;
+    });
+
+    if (mobileThemeSwitch) {
+        mobileThemeSwitch.addEventListener('change', () => {
+            applyTheme(mobileThemeSwitch.checked);
+            themeSwitch.checked = mobileThemeSwitch.checked;
+        });
+    }
+
     await loadInvoices(session.user.id, selectedSupplierId);
 });
 
+/* All your existing JS functions remain unchanged below */
 async function loadInvoices(userId, supplierId) {
     const { data: invoices, error } = await supabase
         .from('invoices')
@@ -772,7 +852,6 @@ function renderAnalytics(invoices) {
         </div>
     `;
 
-    // Monthly Revenue (Billed vs Paid)
     const monthlyBilled = {};
     const monthlyPaid = {};
     invoices.forEach(inv => {
@@ -800,7 +879,6 @@ function renderAnalytics(invoices) {
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
 
-    // Status doughnut with amounts
     if (statusChart) statusChart.destroy();
     statusChart = new Chart(document.getElementById('statusChart'), {
         type: 'doughnut',
@@ -814,7 +892,6 @@ function renderAnalytics(invoices) {
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
 
-    // Top 5 customers
     const customerRevenue = {};
     invoices.forEach(inv => {
         const name = inv.customer_name || 'Unknown';
@@ -844,7 +921,6 @@ function renderAnalytics(invoices) {
         }
     });
 
-    // Receivables Aging
     const aging = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
     const today = new Date();
     invoices.filter(inv => inv.status !== 'paid').forEach(inv => {
