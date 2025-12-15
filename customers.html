@@ -17,10 +17,67 @@
     --text-secondary: rgba(255, 255, 255, 0.7);
     --error: #ef4444;
 }
+
+/* Light Mode Overrides */
+body.light-mode {
+    --bg-dark: #f8fafc;
+    --bg-darker: #e2e8f0;
+    --primary: #2563eb;
+    --accent: #f59e0b;
+    --glass: rgba(255, 255, 255, 0.8);
+    --border: rgba(0, 0, 0, 0.1);
+    --text-secondary: rgba(0, 0, 0, 0.6);
+    background: var(--bg-dark);
+    color: #0f172a;
+}
+
+body.light-mode .card {
+    background: var(--glass);
+    border-color: var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode input,
+body.light-mode select,
+body.light-mode textarea {
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    border-color: var(--border);
+}
+
 * { box-sizing: border-box; margin:0; padding:0; }
-body { font-family:'Inter',sans-serif; background: var(--bg-dark); color: var(--white); }
-header { position: sticky; top: 0; z-index: 100; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-darker); }
-header h1 { font-size:28px; font-weight: 700; color: var(--white); }
+body { font-family:'Inter',sans-serif; background: var(--bg-dark); color: var(--white); padding-top: 90px; min-height: 100vh; }
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background: rgba(5, 10, 20, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--white);
+}
 
 /* Desktop Navigation */
 nav.desktop-nav {
@@ -28,22 +85,40 @@ nav.desktop-nav {
     align-items: center;
     gap: 20px;
 }
+
+nav.desktop-nav a,
 nav.desktop-nav button {
-    color: #00e5ff;
-    text-decoration: none;
-    opacity: .85;
-    font-weight: 600;
-    padding: 8px 18px;
+    padding: 10px 24px;
     border-radius: 12px;
-    border: 1px solid transparent;
-    background: transparent;
-    transition: all 0.2s ease;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
     cursor: pointer;
 }
-nav.desktop-nav button:hover {
-    background: #2563eb;
-    border-color: #2563eb;
-    color: #fff;
+
+nav.desktop-nav .back-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+nav.desktop-nav .back-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+nav.desktop-nav .logout-btn {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border);
+}
+
+nav.desktop-nav .logout-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 /* Hamburger Icon - Mobile Only */
@@ -56,6 +131,7 @@ nav.desktop-nav button:hover {
     cursor: pointer;
     z-index: 101;
 }
+
 .hamburger span {
     display: block;
     height: 3px;
@@ -64,6 +140,7 @@ nav.desktop-nav button:hover {
     border-radius: 3px;
     transition: all 0.3s ease;
 }
+
 .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
@@ -88,11 +165,14 @@ nav.desktop-nav button:hover {
     pointer-events: none;
     overflow: hidden;
 }
+
 .mobile-nav.active {
     transform: translateX(0);
     visibility: visible;
     pointer-events: auto;
 }
+
+.mobile-nav a,
 .mobile-nav button {
     font-size: 24px;
     font-weight: 600;
@@ -107,9 +187,12 @@ nav.desktop-nav button:hover {
     transition: background 0.3s ease;
     cursor: pointer;
 }
+
+.mobile-nav a:hover,
 .mobile-nav button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+
 .mobile-nav-close {
     position: absolute;
     top: 20px;
@@ -127,13 +210,78 @@ nav.desktop-nav button:hover {
     border-radius: 50%;
     transition: background 0.3s ease;
 }
+
 .mobile-nav-close:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+/* Theme Toggle Switch */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #64748b;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #facc15;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider:after {
+    content: '🌙';
+    color: white;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    transition: .4s;
+}
+
+input:checked + .slider:after {
+    content: '☀️';
+    left: 8px;
+    right: auto;
 }
 
 .main { max-width: 1200px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
 .card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom:20px; color: var(--accent); }
+
 .peppol-search { margin-bottom: 20px; }
 .peppol-search input { width: 350px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: white; }
 .peppol-results { margin-top: 20px; max-height: 400px; overflow-y: auto; }
@@ -152,23 +300,76 @@ nav.desktop-nav button:hover {
 .customer-card { background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
 .customer-card h3 { font-size: 18px; margin-bottom: 12px; }
 .customer-card p { margin: 4px 0; color: var(--text-secondary); font-size: 14px; }
-.customer-card-actions { margin-top: 16px; display: flex; gap: 12px; }
+.customer-card-actions { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* Actions */
-.action-btn { padding: 8px 16px; border-radius: 12px; font-weight: 600; transition: all 0.2s; }
-.action-btn:hover { transform: translateY(-2px); }
-.edit-btn { background: var(--accent); color: #000; }
-.delete-btn { background: var(--error); color: #fff; }
+/* Action Buttons - Consistent with other pages */
+.action-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.edit-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+.delete-btn {
+    background: var(--error);
+    color: #fff;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* CTA Buttons */
+.cta {
+    background: var(--primary);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.cta:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.add-from-peppol {
+    background: var(--accent);
+    color: #000;
+    margin-top: 12px;
+}
+
+.add-from-peppol:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
 
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top:20px; }
 .form-group { display: flex; flex-direction: column; }
 label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px; }
 input { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
 input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
-
-.cta { background: var(--primary); color:#fff; }
-.logout { background: var(--accent); color:#000; }
-.back { background: var(--accent); color:#000; }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
@@ -179,18 +380,27 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
     .mobile-customer-list { display: flex; }
     .main { padding: 20px; }
     .card { padding: 20px; }
-    .peppol-search input { width: 100%; }
+    .peppol-search input { width: 100%; margin-bottom: 12px; }
+    .peppol-search button { width: 100%; }
+    .customer-card-actions { flex-direction: column; }
+    .action-btn { width: 100%; text-align: center; }
 }
 </style>
 </head>
 <body>
 <header>
-    <h1>Customer Management</h1>
+    <div class="header-left">
+        <h1>Customer Management</h1>
+    </div>
 
     <!-- Desktop Navigation -->
     <nav class="desktop-nav">
-        <button id="back-btn" class="back">← Back to Dashboard</button>
-        <button id="logout-btn" class="logout">Logout</button>
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
+        <button id="logout-btn" class="logout-btn">Logout</button>
+        <label class="theme-toggle">
+            <input type="checkbox" id="theme-toggle-desktop">
+            <span class="slider"></span>
+        </label>
     </nav>
 
     <!-- Hamburger Icon (Mobile Only) -->
@@ -203,10 +413,15 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
     <!-- Mobile Menu Overlay -->
     <div class="mobile-nav" id="mobile-nav">
         <button class="mobile-nav-close" id="mobile-nav-close">×</button>
-        <button id="mobile-back-btn">← Back to Dashboard</button>
+        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
         <button id="mobile-logout-btn">Logout</button>
+        <label class="theme-toggle">
+            <input type="checkbox" id="theme-toggle-mobile">
+            <span class="slider"></span>
+        </label>
     </div>
 </header>
+
 <div class="main">
     <div class="card">
         <h2>Customers</h2>
@@ -217,6 +432,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
         </div>
         <div id="peppol-results" class="peppol-results" style="display:none;"></div>
         <button id="add-customer-btn" class="cta">Add Customer Manually</button>
+
         <div class="desktop-table-wrapper">
             <table id="customers-table" class="table">
                 <thead>
@@ -230,6 +446,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 <tbody></tbody>
             </table>
         </div>
+
         <div id="mobile-customer-list" class="mobile-customer-list"></div>
     </div>
 
@@ -290,9 +507,9 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                     <input id="cust-contact-email" type="email">
                 </div>
             </div>
-            <div style="margin-top:32px;">
+            <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
                 <button type="submit" class="cta">Save Customer</button>
-                <button type="button" id="cancel-customer-btn" style="background:#6b7280; margin-left:10px;">Cancel</button>
+                <button type="button" id="cancel-customer-btn" style="background:#6b7280;">Cancel</button>
             </div>
         </form>
     </div>
@@ -305,14 +522,44 @@ const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 let currentCustomerId = null;
+let userId = null;
+
+// Theme toggle logic
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isLight = saved === 'light' || (!saved && !prefersDark);
+
+    if (isLight) {
+        document.body.classList.add('light-mode');
+    } else {
+        document.body.classList.remove('light-mode');
+    }
+
+    document.getElementById('theme-toggle-desktop').checked = isLight;
+    document.getElementById('theme-toggle-mobile').checked = isLight;
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    document.getElementById('theme-toggle-desktop').checked = isLight;
+    document.getElementById('theme-toggle-mobile').checked = isLight;
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
+    initTheme();
+
+    document.getElementById('theme-toggle-desktop').addEventListener('change', toggleTheme);
+    document.getElementById('theme-toggle-mobile').addEventListener('change', toggleTheme);
+
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         window.location.href = 'index.html';
         return;
     }
-    const userId = session.user.id;
+    userId = session.user.id;
 
     const logoutBtn = document.getElementById('logout-btn');
     logoutBtn.addEventListener('click', async () => {
@@ -320,12 +567,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = 'index.html';
     });
 
-    const backBtn = document.getElementById('back-btn');
-    backBtn.addEventListener('click', () => {
-        window.location.href = 'dashboard.html';
-    });
-
-    // Mobile
+    // Mobile menu
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobile-nav');
     const mobileNavClose = document.getElementById('mobile-nav-close');
@@ -340,7 +582,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         mobileNav.classList.remove('active');
     });
 
-    mobileNav.querySelectorAll('button').forEach(item => {
+    mobileNav.querySelectorAll('a, button').forEach(item => {
         item.addEventListener('click', () => {
             hamburger.classList.remove('active');
             mobileNav.classList.remove('active');
@@ -351,11 +593,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     mobileLogoutBtn.addEventListener('click', async () => {
         await supabase.auth.signOut();
         window.location.href = 'index.html';
-    });
-
-    const mobileBackBtn = document.getElementById('mobile-back-btn');
-    mobileBackBtn.addEventListener('click', () => {
-        window.location.href = 'dashboard.html';
     });
 
     await loadCustomers(userId);
@@ -521,7 +758,7 @@ function attachActionListeners() {
     });
 
     document.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', () => deleteCustomer(btn.dataset.id, userId));
+        btn.addEventListener('click', () => deleteCustomer(btn.dataset.id));
     });
 }
 
@@ -557,7 +794,7 @@ async function editCustomer(id) {
     document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
 }
 
-async function deleteCustomer(id, userId) {
+async function deleteCustomer(id) {
     if (!confirm('Are you sure you want to delete this customer?')) return;
 
     const { error } = await supabase
