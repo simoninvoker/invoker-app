@@ -113,6 +113,13 @@ header h1 {
 .header-right {
     display: flex;
     align-items: center;
+    gap: 20px;
+}
+
+/* Group Logout + Theme Toggle together */
+.logout-group {
+    display: flex;
+    align-items: center;
     gap: 16px;
 }
 
@@ -417,7 +424,7 @@ input:checked + .slider:after {
 
 .table {
     width: 100%;
-    min-width: 800px;
+    min-width: 900px;
     border-collapse: collapse;
 }
 
@@ -434,6 +441,37 @@ input:checked + .slider:after {
     position: sticky;
     top: 0;
     z-index: 10;
+}
+
+/* Delete column fixes */
+.table th:last-child {
+    width: 80px;
+    min-width: 80px;
+    text-align: center;
+    padding: 16px 8px;
+}
+
+.table td.delete-cell {
+    text-align: center;
+    padding: 16px 8px;
+    vertical-align: middle;
+}
+
+.delete-cross {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
+    color: var(--error);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.delete-cross:hover {
+    background: rgba(220, 38, 38, 0.2);
 }
 
 /* Mobile Card List */
@@ -507,16 +545,6 @@ input:checked + .slider:after {
     margin-top: 12px;
 }
 
-.delete-cross {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 28px;
-    color: var(--error);
-    cursor: pointer;
-}
-
 .no-invoices {
     color: var(--text-secondary);
     font-style: italic;
@@ -569,7 +597,6 @@ input:checked + .slider:after {
         font-size: 24px;
     }
 
-    /* Hide desktop table, show mobile cards */
     .desktop-table-wrapper {
         display: none;
     }
@@ -592,12 +619,14 @@ input:checked + .slider:after {
         <button id="suppliers-btn" class="cta">Switch Supplier</button>
         <button id="customers-btn" class="cta">Customers</button>
 
-        <label class="theme-toggle">
-            <input type="checkbox" id="theme-switch">
-            <span class="slider"></span>
-        </label>
-
-        <button id="logout-btn" class="logout-btn">Logout</button>
+        <!-- Logout + Theme Toggle grouped together -->
+        <div class="logout-group">
+            <button id="logout-btn" class="logout-btn">Logout</button>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
     </div>
 
     <!-- Mobile Hamburger -->
@@ -701,7 +730,7 @@ input:checked + .slider:after {
                         <th>Currency</th>
                         <th>Status</th>
                         <th>Actions</th>
-                        <th></th>
+                        <th></th> <!-- Delete header -->
                     </tr>
                 </thead>
                 <tbody>
@@ -858,7 +887,6 @@ async function loadInvoices(userId, supplierId) {
 }
 
 function renderAnalytics(invoices) {
-    // ... (unchanged from previous version)
     const totalInvoices = invoices.length;
     const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
     const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
@@ -900,7 +928,6 @@ function renderAnalytics(invoices) {
         </div>
     `;
 
-    // Charts code unchanged...
     const monthlyBilled = {};
     const monthlyPaid = {};
     invoices.forEach(inv => {
@@ -1098,7 +1125,6 @@ function renderMobileCards(invoices) {
 }
 
 function attachActionListeners() {
-    // Edit, delete, view, download – same for both views
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.onclick = () => {
             const invId = btn.dataset.id;
@@ -1187,7 +1213,6 @@ function applyFilters() {
     renderMobileCards(filtered);
 }
 
-// Filter listeners unchanged
 ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
