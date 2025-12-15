@@ -532,7 +532,7 @@ input:checked + .slider:after {
             <div id="banks-container"></div>
             <button type="button" id="add-bank-entry" style="margin-top:20px; background:var(--accent); color:#000;">+ Add Another Bank</button>
 
-            <div style="margin-top:32px; display:flex; gap:16px;">
+            <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
                 <button type="submit" id="submit-btn" class="btn-primary">Save & Select This Supplier</button>
                 <button type="button" id="cancel-btn">Cancel</button>
             </div>
@@ -553,17 +553,16 @@ let editingSupplierId = null;
 function initTheme() {
     const saved = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = saved === 'dark' || (!saved && prefersDark);
+    const isLight = saved === 'light' || (!saved && !prefersDark);
 
-    if (isDark) {
+    if (isLight) {
         document.body.classList.add('light-mode');
-        document.getElementById('theme-toggle-desktop').checked = true;
-        document.getElementById('theme-toggle-mobile').checked = true;
     } else {
         document.body.classList.remove('light-mode');
-        document.getElementById('theme-toggle-desktop').checked = false;
-        document.getElementById('theme-toggle-mobile').checked = false;
     }
+
+    document.getElementById('theme-toggle-desktop').checked = isLight;
+    document.getElementById('theme-toggle-mobile').checked = isLight;
 }
 
 function toggleTheme() {
@@ -647,7 +646,302 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 });
 
-// ... (rest of the script remains exactly the same as before)
+async function loadSuppliers(userId) {
+    const { data: suppliers, error } = await supabase
+        .from('suppliers')
+        .select('*')
+        .eq('user_id', userId)
+        .order('name');
+
+    if (error) {
+        alert('Error loading suppliers: ' + error.message);
+        return;
+    }
+
+    const list = document.getElementById('suppliers-list');
+    list.innerHTML = '';
+
+    if (suppliers.length === 0) {
+        list.innerHTML = '<div class="no-suppliers">No suppliers added yet. Add your first supplier!</div>';
+        return;
+    }
+
+    const selectedId = localStorage.getItem('selected_supplier_id');
+    const selectedName = localStorage.getItem('selected_supplier_name');
+    document.getElementById('active-supplier').textContent = selectedName ? `Active: ${selectedName}` : '';
+
+    suppliers.forEach(supplier => {
+        const card = document.createElement('div');
+        card.className = 'supplier-card';
+        card.innerHTML = `
+            <h3>${supplier.name}</h3>
+            <p>VAT ID: ${supplier.vat_id || 'Not set'}</p>
+            <p>Country: ${supplier.country || 'Not set'}</p>
+            <p>Currency: ${supplier.currency || 'EUR'}</p>
+            <div class="buttons-container">
+                <button class="primary-action select-supplier" data-id="${supplier.id}" data-name="${supplier.name}">Select This Supplier</button>
+                <div class="secondary-actions">
+                    <button class="action-btn edit-btn" data-id="${supplier.id}">Edit</button>
+                    <button class="action-btn delete-btn" data-id="${supplier.id}">Delete</button>
+                </div>
+            </div>
+        `;
+        list.appendChild(card);
+    });
+
+    document.querySelectorAll('.select-supplier').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            const name = btn.dataset.name;
+            localStorage.setItem('selected_supplier_id', id);
+            localStorage.setItem('selected_supplier_name', name);
+            document.getElementById('active-supplier').textContent = `Active: ${name}`;
+            window.location.href = 'dashboard.html';
+        });
+    });
+
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => editSupplier(btn.dataset.id));
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteSupplier(btn.dataset.id));
+    });
+}
+
+async function deleteSupplier(supplierId) {
+    if (!confirm('Are you sure? This will delete the supplier and all related bank accounts permanently.')) return;
+
+    const { error: banksError } = await supabase
+        .from('supplier_banks')
+        .delete()
+        .eq('supplier_id', supplierId);
+
+    if (banksError) {
+        alert('Error deleting banks: ' + banksError.message);
+        return;
+    }
+
+    const { error } = await supabase
+        .from('suppliers')
+        .delete()
+        .eq('id', supplierId);
+
+    if (error) {
+        alert('Error deleting supplier: ' + error.message);
+        return;
+    }
+
+    if (localStorage.getItem('selected_supplier_id') === supplierId.toString()) {
+        localStorage.removeItem('selected_supplier_id');
+        localStorage.removeItem('selected_supplier_name');
+        document.getElementById('active-supplier').textContent = '';
+    }
+
+    await loadSuppliers(currentUserId);
+}
+
+function startAddSupplier() {
+    editingSupplierId = null;
+    document.getElementById('form-title').textContent = 'Add New Supplier';
+    document.getElementById('form-subtitle').textContent = 'Fill in your company details and add at least one bank account.';
+    document.getElementById('submit-btn').textContent = 'Save & Select This Supplier';
+    document.getElementById('supplier-form').reset();
+    document.getElementById('default-currency').value = 'EUR';
+    document.getElementById('banks-container').innerHTML = '';
+    addBankEntry();
+    document.getElementById('supplier-form-card').style.display = 'block';
+    document.getElementById('suppliers-list').style.opacity = '0.5';
+    document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function editSupplier(supplierId) {
+    editingSupplierId = supplierId;
+
+    const { data: supplier, error } = await supabase
+        .from('suppliers')
+        .select('*')
+        .eq('id', supplierId)
+        .single();
+
+    if (error || !supplier) {
+        alert('Error loading supplier');
+        return;
+    }
+
+    document.getElementById('form-title').textContent = 'Edit Supplier';
+    document.getElementById('form-subtitle').textContent = 'Update company details and manage bank accounts.';
+    document.getElementById('submit-btn').textContent = 'Save Supplier';
+    document.getElementById('name').value = supplier.name || '';
+    document.getElementById('endpoint').value = supplier.endpoint_id || '';
+    document.getElementById('vat').value = supplier.vat_id || '';
+    document.getElementById('street').value = supplier.street || '';
+    document.getElementById('additional-street').value = supplier.additional_street || '';
+    document.getElementById('city').value = supplier.city || '';
+    document.getElementById('postal').value = supplier.postal_code || '';
+    document.getElementById('country').value = supplier.country || '';
+    document.getElementById('email').value = supplier.email || '';
+    document.getElementById('reg-name').value = supplier.registration_name || '';
+    document.getElementById('company-id').value = supplier.company_id || '';
+    document.getElementById('default-currency').value = supplier.currency || 'EUR';
+
+    const { data: banks } = await supabase
+        .from('supplier_banks')
+        .select('*')
+        .eq('supplier_id', supplierId);
+
+    const container = document.getElementById('banks-container');
+    container.innerHTML = '';
+    if (banks && banks.length > 0) {
+        banks.forEach(bank => addBankEntry(bank));
+    } else {
+        addBankEntry();
+    }
+
+    document.getElementById('supplier-form-card').style.display = 'block';
+    document.getElementById('suppliers-list').style.opacity = '0.5';
+    document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+}
+
+function addBankEntry(bankData = {}) {
+    const container = document.getElementById('banks-container');
+    const entry = document.createElement('div');
+    entry.className = 'bank-entry';
+    entry.innerHTML = `
+        <button type="button" class="remove-bank">Delete</button>
+        <div class="form-grid">
+            <div class="form-group"><label>Account Name *</label><input class="bank-name" value="${bankData.name || ''}" required></div>
+            <div class="form-group"><label>IBAN *</label><input class="bank-iban" value="${bankData.iban || ''}" required></div>
+            <div class="form-group"><label>BIC</label><input class="bank-bic" value="${bankData.bic || ''}"></div>
+            <div class="form-group"><label>Payment Means Code</label><input class="bank-code" value="${bankData.code || ''}"></div>
+            <div class="form-group"><label>Payment ID</label><input class="bank-payment_id" value="${bankData.payment_id || ''}"></div>
+            <div class="form-group"><label>Terms</label><input class="bank-terms" value="${bankData.terms || ''}"></div>
+        </div>
+    `;
+    entry.querySelector('.remove-bank').addEventListener('click', () => entry.remove());
+    container.appendChild(entry);
+    return entry;
+}
+
+async function createSupplierWithBanks(userId) {
+    const supplier = {
+        user_id: userId,
+        name: document.getElementById('name').value.trim(),
+        endpoint_id: document.getElementById('endpoint').value.trim() || null,
+        vat_id: document.getElementById('vat').value.trim(),
+        street: document.getElementById('street').value.trim() || null,
+        additional_street: document.getElementById('additional-street').value.trim() || null,
+        city: document.getElementById('city').value.trim() || null,
+        postal_code: document.getElementById('postal').value.trim() || null,
+        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        email: document.getElementById('email').value.trim() || null,
+        registration_name: document.getElementById('reg-name').value.trim() || null,
+        company_id: document.getElementById('company-id').value.trim() || null,
+        currency: document.getElementById('default-currency').value
+    };
+
+    const { data: newSupplier, error } = await supabase
+        .from('suppliers')
+        .insert(supplier)
+        .select()
+        .single();
+
+    if (error) {
+        alert('Error creating supplier: ' + error.message);
+        return;
+    }
+
+    const success = await saveBanksForSupplier(newSupplier.id, userId);
+    if (!success) return;
+
+    localStorage.setItem('selected_supplier_id', newSupplier.id);
+    localStorage.setItem('selected_supplier_name', newSupplier.name);
+    window.location.href = 'dashboard.html';
+}
+
+async function updateSupplier(supplierId) {
+    const updated = {
+        name: document.getElementById('name').value.trim(),
+        endpoint_id: document.getElementById('endpoint').value.trim() || null,
+        vat_id: document.getElementById('vat').value.trim(),
+        street: document.getElementById('street').value.trim() || null,
+        additional_street: document.getElementById('additional-street').value.trim() || null,
+        city: document.getElementById('city').value.trim() || null,
+        postal_code: document.getElementById('postal').value.trim() || null,
+        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        email: document.getElementById('email').value.trim() || null,
+        registration_name: document.getElementById('reg-name').value.trim() || null,
+        company_id: document.getElementById('company-id').value.trim() || null,
+        currency: document.getElementById('default-currency').value
+    };
+
+    const { error } = await supabase
+        .from('suppliers')
+        .update(updated)
+        .eq('id', supplierId);
+
+    if (error) {
+        alert('Error updating supplier: ' + error.message);
+        return;
+    }
+
+    const success = await saveBanksForSupplier(supplierId, currentUserId);
+    if (!success) return;
+
+    localStorage.setItem('selected_supplier_name', updated.name);
+    alert('Supplier updated successfully!');
+    document.getElementById('supplier-form-card').style.display = 'none';
+    document.getElementById('suppliers-list').style.opacity = '1';
+    loadSuppliers(currentUserId);
+}
+
+async function saveBanksForSupplier(supplierId, userId) {
+    const { error: deleteError } = await supabase
+        .from('supplier_banks')
+        .delete()
+        .eq('supplier_id', supplierId);
+
+    if (deleteError) {
+        console.error('Error deleting old banks:', deleteError);
+    }
+
+    const entries = document.querySelectorAll('.bank-entry');
+    const banks = [];
+    let hasValid = false;
+
+    entries.forEach(entry => {
+        const name = entry.querySelector('.bank-name').value.trim();
+        const iban = entry.querySelector('.bank-iban').value.trim();
+        if (name && iban) {
+            hasValid = true;
+            banks.push({
+                supplier_id: supplierId,
+                user_id: userId,
+                name,
+                iban,
+                bic: entry.querySelector('.bank-bic').value.trim() || null,
+                code: entry.querySelector('.bank-code').value.trim() || null,
+                payment_id: entry.querySelector('.bank-payment_id').value.trim() || null,
+                terms: entry.querySelector('.bank-terms').value.trim() || null
+            });
+        }
+    });
+
+    if (!hasValid) {
+        alert('Please add at least one bank account with name and IBAN.');
+        return false;
+    }
+
+    if (banks.length > 0) {
+        const { error } = await supabase.from('supplier_banks').insert(banks);
+        if (error) {
+            alert('Error saving banks: ' + error.message);
+            return false;
+        }
+    }
+
+    return true;
+}
 </script>
 </body>
 </html>
