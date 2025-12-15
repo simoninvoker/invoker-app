@@ -380,8 +380,8 @@ input:checked + .slider:after {
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top:20px; }
 .form-group { display: flex; flex-direction: column; }
 label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px; }
-input { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+input, select { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
+input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
 
 .validation-message {
     margin-top: 8px;
@@ -484,7 +484,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 </div>
                 <div class="form-group">
                     <label>Endpoint ID *</label>
-                    <input id="cust-endpoint" required placeholder="e.g. 0088:7350133930013" autocomplete="off">
+                    <input id="cust-endpoint" required placeholder="e.g. 9955:se556608145001" autocomplete="off">
                     <div id="endpoint-validation" class="endpoint-validation"></div>
                 </div>
                 <div class="form-group">
@@ -510,7 +510,37 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 </div>
                 <div class="form-group">
                     <label>Country *</label>
-                    <input id="cust-country" required maxlength="2" placeholder="e.g. SE" autocomplete="off">
+                    <select id="cust-country" required>
+                        <option value="">Select Country</option>
+                        <option value="AT">Austria (AT)</option>
+                        <option value="BE">Belgium (BE)</option>
+                        <option value="BG">Bulgaria (BG)</option>
+                        <option value="CY">Cyprus (CY)</option>
+                        <option value="CZ">Czech Republic (CZ)</option>
+                        <option value="DE">Germany (DE)</option>
+                        <option value="DK">Denmark (DK)</option>
+                        <option value="EE">Estonia (EE)</option>
+                        <option value="EL">Greece (EL)</option>
+                        <option value="ES">Spain (ES)</option>
+                        <option value="FI">Finland (FI)</option>
+                        <option value="FR">France (FR)</option>
+                        <option value="GB">United Kingdom (GB)</option>
+                        <option value="HR">Croatia (HR)</option>
+                        <option value="HU">Hungary (HU)</option>
+                        <option value="IE">Ireland (IE)</option>
+                        <option value="IT">Italy (IT)</option>
+                        <option value="LT">Lithuania (LT)</option>
+                        <option value="LU">Luxembourg (LU)</option>
+                        <option value="LV">Latvia (LV)</option>
+                        <option value="MT">Malta (MT)</option>
+                        <option value="NL">Netherlands (NL)</option>
+                        <option value="PL">Poland (PL)</option>
+                        <option value="PT">Portugal (PT)</option>
+                        <option value="RO">Romania (RO)</option>
+                        <option value="SE">Sweden (SE)</option>
+                        <option value="SI">Slovenia (SI)</option>
+                        <option value="SK">Slovakia (SK)</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Registration Name</label>
@@ -667,6 +697,15 @@ function updateValidation() {
     }
 }
 
+// Sync Registration Name with Name in real time
+function syncRegistrationName() {
+    const nameInput = document.getElementById('cust-name');
+    const regNameInput = document.getElementById('cust-reg-name');
+    if (!currentCustomerId) { // Only auto-sync when adding new (not editing)
+        regNameInput.value = nameInput.value;
+    }
+}
+
 // New logic for Swedish 0007 prefix
 function applySwedishLogic(endpoint) {
     const trimmed = endpoint.trim();
@@ -675,6 +714,7 @@ function applySwedishLogic(endpoint) {
         document.getElementById('cust-company-id').value = orgNumber;
         document.getElementById('cust-vat').value = 'SE' + orgNumber + '01';
         document.getElementById('cust-country').value = 'SE';
+        syncRegistrationName();
         updateValidation();
     }
 }
@@ -799,16 +839,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         await saveCustomer(userId);
     });
 
-    // Real-time validation
-    document.getElementById('cust-country').addEventListener('input', updateValidation);
+    // Real-time validation and auto-sync
+    document.getElementById('cust-country').addEventListener('change', updateValidation);
     document.getElementById('cust-vat').addEventListener('input', updateValidation);
     document.getElementById('cust-company-id').addEventListener('input', updateValidation);
     document.getElementById('cust-endpoint').addEventListener('input', () => {
         updateValidation();
         applySwedishLogic(document.getElementById('cust-endpoint').value);
     });
+    document.getElementById('cust-name').addEventListener('input', syncRegistrationName);
 
-    // PEPPOL Directory lookup - restored original logic with Swedish logic
+    // PEPPOL Directory lookup
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -867,7 +908,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                         document.getElementById('cust-endpoint').value = cleanEndpoint;
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
-                        applySwedishLogic(cleanEndpoint); // Apply Swedish logic after setting endpoint
+                        applySwedishLogic(cleanEndpoint);
+                        syncRegistrationName();
                         updateValidation();
                         document.getElementById('customer-form-card').style.display = 'block';
                         document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
@@ -1014,6 +1056,12 @@ async function saveCustomer(userId) {
         formattedVat = country + formattedVat.replace(/^[A-Z]{2}/, '');
     }
 
+    // Registration Name defaults to Name if empty
+    let regName = document.getElementById('cust-reg-name').value.trim();
+    if (!regName) {
+        regName = document.getElementById('cust-name').value.trim();
+    }
+
     const customer = {
         user_id: userId,
         name: document.getElementById('cust-name').value.trim(),
@@ -1024,7 +1072,7 @@ async function saveCustomer(userId) {
         city: document.getElementById('cust-city').value.trim(),
         postal_code: document.getElementById('cust-postal').value.trim(),
         country: country,
-        registration_name: document.getElementById('cust-reg-name').value.trim(),
+        registration_name: regName,
         company_id: cleanInput(document.getElementById('cust-company-id').value),
         contact_name: document.getElementById('cust-contact-name').value.trim(),
         contact_phone: document.getElementById('cust-contact-phone').value.trim(),
