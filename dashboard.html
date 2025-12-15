@@ -424,7 +424,7 @@ input:checked + .slider:after {
 
 .table {
     width: 100%;
-    min-width: 900px;
+    min-width: 1000px; /* Increased to ensure enough space for all columns including delete */
     border-collapse: collapse;
 }
 
@@ -443,27 +443,23 @@ input:checked + .slider:after {
     z-index: 10;
 }
 
-/* Delete column fixes */
-.table th:last-child {
-    width: 80px;
-    min-width: 80px;
-    text-align: center;
-    padding: 16px 8px;
-}
-
-.table td.delete-cell {
-    text-align: center;
-    padding: 16px 8px;
-    vertical-align: middle;
+/* Delete column fixes - now guaranteed visible */
+.table th:nth-last-child(1),
+.table td:nth-last-child(1) {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+    text-align: center !important;
+    padding: 16px 8px !important;
 }
 
 .delete-cross {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    font-size: 28px;
+    width: 44px;
+    height: 44px;
+    font-size: 30px;
     color: var(--error);
     cursor: pointer;
     border-radius: 8px;
@@ -730,7 +726,7 @@ input:checked + .slider:after {
                         <th>Currency</th>
                         <th>Status</th>
                         <th>Actions</th>
-                        <th></th> <!-- Delete header -->
+                        <th>Delete</th> <!-- Added visible header for clarity -->
                     </tr>
                 </thead>
                 <tbody>
@@ -1062,7 +1058,7 @@ function renderDesktopTable(invoices) {
                 ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View XML</button>` : '<span style="color:var(--text-secondary);font-size:11px;">XML not generated</span>'}
                 ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
             </td>
-            <td class="delete-cell">
+            <td>
                 ${isDraft ? `<span class="delete-cross" data-id="${inv.id}" title="Delete Draft">×</span>` : ''}
             </td>
         `;
