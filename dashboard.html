@@ -443,7 +443,7 @@ input:checked + .slider:after {
     z-index: 10;
 }
 
-/* Smaller action buttons */
+/* Smaller action buttons with original colors */
 .action-btn {
     padding: 6px 12px;
     border-radius: 6px;
@@ -453,6 +453,10 @@ input:checked + .slider:after {
     cursor: pointer;
     transition: all 0.2s ease;
 }
+
+.view-btn { background: var(--primary); color: white; }
+.download-btn { background: var(--accent); color: black; }
+.edit-btn { background: #f59e0b; color: white; }
 
 /* Delete column - far right with icon */
 .table th:last-child {
@@ -1059,7 +1063,7 @@ function renderDesktopTable(invoices) {
             <td class="actions-cell">
                 ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit</button>` : ''}
                 ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View</button>` : '<span style="color:var(--text-secondary);font-size:11px;">No XML</span>'}
-                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">DL</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
             </td>
             <td>
                 ${isDraft ? `<span class="delete-icon" data-id="${inv.id}" title="Delete Draft">🗑</span>` : ''}
