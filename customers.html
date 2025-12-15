@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Management</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Invoker Dashboard</title>
+<style type="text/css">@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root {
     --bg-dark: #070d18;
@@ -15,8 +16,8 @@
     --glass: rgba(255, 255, 255, 0.06);
     --border: rgba(255, 255, 255, 0.12);
     --text-secondary: rgba(255, 255, 255, 0.7);
-    --error: #ef4444;
     --success: #22c55e;
+    --error: #dc2626;
 }
 
 /* Light Mode Overrides */
@@ -28,6 +29,8 @@ body.light-mode {
     --glass: rgba(255, 255, 255, 0.8);
     --border: rgba(0, 0, 0, 0.1);
     --text-secondary: rgba(0, 0, 0, 0.6);
+    --success: #16a34a;
+    --error: #dc2626;
     background: var(--bg-dark);
     color: #0f172a;
 }
@@ -38,6 +41,10 @@ body.light-mode .card {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+body.light-mode table th {
+    background: rgba(0, 0, 0, 0.05);
+}
+
 body.light-mode input,
 body.light-mode select,
 body.light-mode textarea {
@@ -46,10 +53,23 @@ body.light-mode textarea {
     border-color: var(--border);
 }
 
-* { box-sizing: border-box; margin:0; padding:0; }
-body { font-family:'Inter',sans-serif; background: var(--bg-dark); color: var(--white); padding-top: 90px; min-height: 100vh; }
+body.light-mode .action-btn,
+body.light-mode .cta,
+body.light-mode .logout-btn {
+    color: white;
+}
 
-/* Header */
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+    font-family:'Inter',sans-serif;
+    background: var(--bg-dark);
+    color: var(--white);
+    padding-top: 80px;
+    min-height: 100vh;
+}
+
+/* Header - Desktop */
 header {
     position: fixed;
     top: 0;
@@ -80,49 +100,30 @@ header h1 {
     color: var(--white);
 }
 
-/* Desktop Navigation */
-nav.desktop-nav {
+#active-supplier {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 500;
+    background: rgba(250, 204, 21, 0.15);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.header-right {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-nav.desktop-nav a,
-nav.desktop-nav button {
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
+/* Group Logout + Theme Toggle together */
+.logout-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-nav.desktop-nav .back-btn {
-    background: var(--accent);
-    color: #000;
-}
-
-nav.desktop-nav .back-btn:hover {
-    background: #fde047;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
-}
-
-nav.desktop-nav .logout-btn {
-    background: transparent;
-    color: var(--white);
-    border: 1px solid var(--border);
-}
-
-nav.desktop-nav .logout-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
-/* Hamburger Icon - Mobile Only */
+/* Hamburger - Mobile Only */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -146,7 +147,7 @@ nav.desktop-nav .logout-btn:hover {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
-/* Mobile Menu Overlay */
+/* Mobile Nav Overlay */
 .mobile-nav {
     position: fixed;
     top: 0;
@@ -164,7 +165,6 @@ nav.desktop-nav .logout-btn:hover {
     z-index: 100;
     visibility: hidden;
     pointer-events: none;
-    overflow: hidden;
 }
 
 .mobile-nav.active {
@@ -173,24 +173,22 @@ nav.desktop-nav .logout-btn:hover {
     pointer-events: auto;
 }
 
-.mobile-nav a,
-.mobile-nav button {
+.mobile-nav button,
+.mobile-nav a {
     font-size: 24px;
     font-weight: 600;
     color: var(--white);
-    text-decoration: none;
     background: none;
     border: none;
     padding: 12px 24px;
     width: 80%;
     text-align: center;
     border-radius: 12px;
-    transition: background 0.3s ease;
     cursor: pointer;
 }
 
-.mobile-nav a:hover,
-.mobile-nav button:hover {
+.mobile-nav button:hover,
+.mobile-nav a:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -203,17 +201,39 @@ nav.desktop-nav .logout-btn:hover {
     background: none;
     border: none;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background 0.3s ease;
 }
 
-.mobile-nav-close:hover {
-    background: rgba(255, 255, 255, 0.1);
+.cta, .logout-btn {
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.cta {
+    background: var(--primary);
+    color: white;
+}
+
+.cta:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.logout-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.logout-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
 }
 
 /* Theme Toggle Switch */
@@ -279,551 +299,958 @@ input:checked + .slider:after {
     right: auto;
 }
 
-.main { max-width: 1200px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
-.card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
-.card h2 { margin-bottom:20px; color: var(--accent); }
+.main { max-width: 1200px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; gap: 40px; }
+.card { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
+.card h2 { margin-bottom: 20px; color: var(--accent); }
 
-.peppol-search { margin-bottom: 20px; }
-.peppol-search input { width: 350px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: white; }
-.peppol-results { margin-top: 20px; max-height: 400px; overflow-y: auto; }
-.peppol-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 16px; }
-.peppol-result strong { font-size: 18px; }
-.peppol-result p { margin: 8px 0; color: var(--text-secondary); }
+/* Analytics */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.metric-card {
+    background: rgba(255,255,255,0.06);
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.metric-card h3 {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.metric-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.chart-container {
+    background: rgba(255,255,255,0.06);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    height: 340px;
+    position: relative;
+}
+
+.chart-container h3 {
+    text-align: center;
+    margin-bottom: 16px;
+    color: var(--white);
+    font-size: 18px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Filters */
+.filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.filter-group input,
+.filter-group select {
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 16px;
+}
+
+#clear-filters,
+#export-csv-btn {
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    align-self: flex-start;
+}
+
+#clear-filters {
+    background: #6b7280;
+}
+
+#export-csv-btn {
+    background: var(--success);
+    color: white;
+}
 
 /* Desktop Table */
-.desktop-table-wrapper { overflow-x: auto; }
-.table { width: 100%; border-collapse: collapse; }
-.table th, .table td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border); }
-.table th { background: rgba(255,255,255,0.1); color: var(--accent); }
+.desktop-table-wrapper {
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-top: 16px;
+    -webkit-overflow-scrolling: touch;
+}
 
-/* Mobile Cards */
-.mobile-customer-list { display: none; }
-.customer-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 16px; }
-.customer-card h3 { margin-bottom: 8px; }
-.customer-card p { margin: 4px 0; color: var(--text-secondary); }
-.customer-card-actions { margin-top: 12px; display: flex; gap: 12px; }
+.table {
+    width: 100%;
+    min-width: 900px;
+    border-collapse: collapse;
+}
 
-/* Buttons */
+.table th,
+.table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+.table th {
+    background: rgba(255,255,255,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* Delete column fixes */
+.table th:last-child {
+    width: 80px;
+    min-width: 80px;
+    text-align: center;
+    padding: 16px 8px;
+}
+
+.table td.delete-cell {
+    text-align: center;
+    padding: 16px 8px;
+    vertical-align: middle;
+}
+
+.delete-cross {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
+    color: var(--error);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.delete-cross:hover {
+    background: rgba(220, 38, 38, 0.2);
+}
+
+/* Mobile Card List */
+.mobile-invoice-list {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.invoice-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.invoice-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.invoice-card-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+    font-size: 15px;
+}
+
+.invoice-card-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.invoice-card-value strong {
+    font-size: 18px;
+    color: var(--accent);
+}
+
+.invoice-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.invoice-card-actions .action-btn {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+}
+
 .action-btn {
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 8px;
     font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.edit-btn { background: var(--primary); color: white; }
-.delete-btn { background: var(--error); color: white; }
-.action-btn:hover { opacity: 0.9; transform: translateY(-1px); }
-
-/* Form */
-.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-.form-group { display: flex; flex-direction: column; }
-label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); }
-input, select { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
-input:focus, select:focus { outline: none; border-color: var(--primary); }
-.btn { padding: 14px 28px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; margin-right: 12px; }
-.btn-primary { background: var(--primary); color: white; }
-.btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--white); }
-.error-message { color: var(--error); margin-top: 8px; min-height: 24px; font-size: 14px; }
-.valid-message { color: var(--success); margin-top: 8px; min-height: 24px; font-size: 14px; }
-
-/* Media Queries */
-@media (max-width: 768px) {
-    .desktop-table-wrapper { display: none; }
-    .mobile-customer-list { display: block; }
-    nav.desktop-nav { display: none; }
-    .hamburger { display: flex; }
-}
-
-/* Add Customer Button */
-#add-customer-btn {
-    padding: 12px 24px;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 12px;
     font-weight: 600;
+    border: none;
     cursor: pointer;
-    margin-bottom: 20px;
+    transition: all 0.2s ease;
+}
+
+.view-btn { background: var(--primary); color: white; }
+.download-btn { background: var(--accent); color: black; }
+.edit-btn { background: #f59e0b; color: white; }
+
+.delete-cell-mobile {
+    text-align: right;
+    margin-top: 12px;
+}
+
+.no-invoices {
+    color: var(--text-secondary);
+    font-style: italic;
+    padding: 40px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Mobile Media Queries */
+@media (max-width: 768px) {
+    header {
+        padding: 0 20px;
+        height: 70px;
+    }
+
+    .header-left h1 {
+        font-size: 22px;
+    }
+
+    .header-right {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .main {
+        margin: 30px auto;
+        padding: 16px;
+    }
+
+    .card {
+        padding: 24px;
+    }
+
+    .card h2 {
+        font-size: 24px;
+    }
+
+    .filter-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .metric-card .value {
+        font-size: 24px;
+    }
+
+    .desktop-table-wrapper {
+        display: none;
+    }
+
+    .mobile-invoice-list {
+        display: flex;
+    }
 }
 </style>
 </head>
 <body>
-
 <header>
     <div class="header-left">
-        <h1>Customer Management</h1>
+        <h1>Dashboard</h1>
+        <span id="active-supplier"></span>
     </div>
-    <div class="hamburger">
-        <span></span><span></span><span></span>
+
+    <!-- Desktop Header Right -->
+    <div class="header-right">
+        <button id="suppliers-btn" class="cta">Switch Supplier</button>
+        <button id="customers-btn" class="cta">Customers</button>
+
+        <!-- Logout + Theme Toggle grouped together -->
+        <div class="logout-group">
+            <button id="logout-btn" class="logout-btn">Logout</button>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
     </div>
-    <nav class="desktop-nav">
-        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
-        <button class="logout-btn">Logout</button>
-    </nav>
+
+    <!-- Mobile Hamburger -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 </header>
 
-<div class="mobile-nav">
-    <button class="mobile-nav-close">&times;</button>
-    <a href="dashboard.html">Dashboard</a>
-    <button class="logout-btn">Logout</button>
+<!-- Mobile Navigation Overlay -->
+<div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+    <button id="mobile-suppliers-btn">Switch Supplier</button>
+    <button id="mobile-customers-btn">Customers</button>
+    <button id="mobile-create-invoice-btn">Create Invoice</button>
+    <label class="theme-toggle" style="margin:20px 0;">
+        <input type="checkbox" id="mobile-theme-switch">
+        <span class="slider"></span>
+    </label>
+    <button id="mobile-logout-btn" class="logout-btn">Logout</button>
 </div>
 
 <div class="main">
 
+    <!-- Analytics -->
     <div class="card">
-        <h2>Search PEPPOL Directory</h2>
-        <div class="peppol-search">
-            <input type="text" id="peppol-search-input" placeholder="Search by name, VAT, or country...">
-            <button class="btn btn-primary" id="peppol-search-btn">Search</button>
+        <h2>Analytics Overview</h2>
+        <div class="analytics-grid" id="metrics-grid"></div>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>Monthly Revenue (Billed vs Paid)</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Invoice Status Distribution</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Top 5 Customers by Revenue</h3>
+                <canvas id="topCustomersChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Receivables Aging</h3>
+                <canvas id="agingChart"></canvas>
+            </div>
         </div>
-        <div id="peppol-results" class="peppol-results" style="display:none;"></div>
     </div>
 
+    <!-- Create Invoice -->
     <div class="card">
-        <h2>My Customers</h2>
-        <button id="add-customer-btn">+ Add New Customer</button>
+        <h2>Create New Invoice</h2>
+        <button id="create-invoice-btn" class="cta">Create Invoice</button>
+    </div>
+
+    <!-- Invoice History -->
+    <div class="card">
+        <h2>Invoice History</h2>
+        <div class="filter-bar">
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Search Invoice ID</label>
+                    <input type="text" id="filter-id" placeholder="e.g. INV-001">
+                </div>
+                <div class="filter-group">
+                    <label>Customer</label>
+                    <input type="text" id="filter-customer" placeholder="Customer name">
+                </div>
+                <div class="filter-group">
+                    <label>From Date</label>
+                    <input type="date" id="filter-from">
+                </div>
+                <div class="filter-group">
+                    <label>To Date</label>
+                    <input type="date" id="filter-to">
+                </div>
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select id="filter-status">
+                        <option value="">All</option>
+                        <option value="draft">Draft</option>
+                        <option value="sent">Sent</option>
+                        <option value="paid">Paid</option>
+                    </select>
+                </div>
+                <button id="clear-filters">Clear Filters</button>
+            </div>
+            <button id="export-csv-btn">Export Displayed to CSV</button>
+        </div>
+
+        <!-- Desktop Table -->
         <div class="desktop-table-wrapper">
-            <table class="table" id="customers-table">
+            <table id="invoices-table" class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>VAT ID</th>
-                        <th>Country</th>
+                        <th>Invoice ID</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Total</th>
+                        <th>Currency</th>
+                        <th>Status</th>
                         <th>Actions</th>
+                        <th></th> <!-- Delete header -->
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
+                </tbody>
             </table>
         </div>
-        <div id="mobile-customer-list" class="mobile-customer-list"></div>
-    </div>
 
-    <div class="card" id="customer-form-card" style="display:none;">
-        <h2 id="customer-form-title">Add New Customer</h2>
-        <div class="form-grid">
-            <div class="form-group">
-                <label>Customer Name *</label>
-                <input id="cust-name" required>
-            </div>
-            <div class="form-group">
-                <label>Endpoint ID (PEPPOL)</label>
-                <input id="cust-endpoint">
-            </div>
-            <div class="form-group">
-                <label>VAT Registration Number</label>
-                <input id="cust-vat">
-                <div id="vat-message" class="error-message"></div>
-            </div>
-            <div class="form-group">
-                <label>Country *</label>
-                <select id="cust-country" required>
-                    <option value="">Select Country</option>
-                    <option value="AT">Austria</option>
-                    <option value="BE">Belgium</option>
-                    <option value="BG">Bulgaria</option>
-                    <option value="CY">Cyprus</option>
-                    <option value="CZ">Czech Republic</option>
-                    <option value="DE">Germany</option>
-                    <option value="DK">Denmark</option>
-                    <option value="EE">Estonia</option>
-                    <option value="EL">Greece</option>
-                    <option value="ES">Spain</option>
-                    <option value="FI">Finland</option>
-                    <option value="FR">France</option>
-                    <option value="HR">Croatia</option>
-                    <option value="HU">Hungary</option>
-                    <option value="IE">Ireland</option>
-                    <option value="IT">Italy</option>
-                    <option value="LT">Lithuania</option>
-                    <option value="LU">Luxembourg</option>
-                    <option value="LV">Latvia</option>
-                    <option value="MT">Malta</option>
-                    <option value="NL">Netherlands</option>
-                    <option value="PL">Poland</option>
-                    <option value="PT">Portugal</option>
-                    <option value="RO">Romania</option>
-                    <option value="SE">Sweden</option>
-                    <option value="SI">Slovenia</option>
-                    <option value="SK">Slovakia</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Street</label>
-                <input id="cust-street">
-            </div>
-            <div class="form-group">
-                <label>Additional Street</label>
-                <input id="cust-add-street">
-            </div>
-            <div class="form-group">
-                <label>City</label>
-                <input id="cust-city">
-            </div>
-            <div class="form-group">
-                <label>Postal Code</label>
-                <input id="cust-postal">
-            </div>
-            <div class="form-group">
-                <label>Legal Registration Name</label>
-                <input id="cust-reg-name">
-            </div>
-            <div class="form-group">
-                <label>Company Registration ID</label>
-                <input id="cust-company-id">
-                <div id="company-id-message" class="error-message"></div>
-            </div>
-            <div class="form-group">
-                <label>Contact Name</label>
-                <input id="cust-contact-name">
-            </div>
-            <div class="form-group">
-                <label>Contact Phone</label>
-                <input id="cust-contact-phone">
-            </div>
-            <div class="form-group">
-                <label>Contact Email</label>
-                <input id="cust-contact-email">
-            </div>
+        <!-- Mobile Card List -->
+        <div class="mobile-invoice-list" id="mobile-invoice-list">
+            <!-- Cards injected by JS -->
         </div>
-        <div style="margin-top: 32px;">
-            <button class="btn btn-primary" id="save-customer-btn">Save Customer</button>
-            <button class="btn btn-secondary" id="cancel-customer-btn">Cancel</button>
-            <div id="general-error" class="error-message" style="margin-top:16px;"></div>
-        </div>
-    </div>
 
+        <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
-    const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-    let userId = null;
-    let currentCustomerId = null;
+let allInvoices = [];
+let displayedInvoices = [];
+let revenueChart = null;
+let statusChart = null;
+let topCustomersChart = null;
+let agingChart = null;
 
-    // Strict VAT format regex patterns (without country prefix, cleaned)
-    const vatPatterns = {
-        AT: /^U\d{8}$/,
-        BE: /^(0?\d{9}|\d{10})$/,
-        BG: /^\d{9,10}$/,
-        CY: /^\d{8}[A-Z]$/,
-        CZ: /^\d{8,10}$/,
-        DE: /^\d{9}$/,
-        DK: /^\d{8}$/,
-        EE: /^\d{9}$/,
-        EL: /^\d{9}$/,
-        ES: /^[A-Z0-9]\d{7}[A-Z0-9]$/,
-        FI: /^\d{8}$/,
-        FR: /^[A-Z0-9]{2}\d{9}$/,
-        HR: /^\d{11}$/,
-        HU: /^\d{8}$/,
-        IE: /^\d{7}[A-Z]{1,2}$|^[A-Z]\d{5}[A-Z]$/,
-        IT: /^\d{11}$/,
-        LT: /^(\d{9}|\d{12})$/,
-        LU: /^\d{8}$/,
-        LV: /^\d{11}$/,
-        MT: /^\d{8}$/,
-        NL: /^\d{9}B\d{2}$/,
-        PL: /^\d{10}$/,
-        PT: /^\d{9}$/,
-        RO: /^\d{2,10}$/,
-        SE: /^\d{10}01$/,
-        SI: /^\d{8}$/,
-        SK: /^\d{10}$/
-    };
+// Mobile nav
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
 
-    // Basic Company ID patterns (optional, lenient)
-    const companyIdPatterns = {
-        DE: /^(HRB|HRA)\s*\d+$/,
-        NL: /^\d{8}$/,
-        FR: /^\d{9}\s*\d{5}$/,
-        IT: /^\d{11}$/,
-        ES: /^[A-Z][-\d]{8,9}[A-Z0-9]?$/,
-        // Others: no strict check
-    };
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+});
 
-    function cleanVat(vat) {
-        return vat.trim().toUpperCase().replace(/[\s\.\-]/g, '');
-    }
+mobileNavClose.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('active');
+});
 
-    function validateVAT(country, vat) {
-        if (!vat) return true;
-        const cleaned = cleanVat(vat);
-        const pattern = vatPatterns[country];
-        if (!pattern) return true;
-        return pattern.test(cleaned);
-    }
-
-    function validateCompanyID(country, companyId) {
-        if (!companyId) return true;
-        const cleaned = companyId.trim().toUpperCase();
-        const pattern = companyIdPatterns[country];
-        if (!pattern) return true;
-        return pattern.test(cleaned);
-    }
-
-    function runRealtimeValidation() {
-        const country = document.getElementById('cust-country').value;
-        const vat = document.getElementById('cust-vat').value;
-        const companyId = document.getElementById('cust-company-id').value;
-
-        const vatMsg = document.getElementById('vat-message');
-        const companyMsg = document.getElementById('company-id-message');
-
-        if (country && vat) {
-            if (validateVAT(country, vat)) {
-                vatMsg.textContent = 'Valid format';
-                vatMsg.className = 'valid-message';
-            } else {
-                vatMsg.textContent = 'Invalid VAT format for ' + country;
-                vatMsg.className = 'error-message';
-            }
-        } else {
-            vatMsg.textContent = '';
-        }
-
-        if (country && companyId) {
-            if (validateCompanyID(country, companyId)) {
-                companyMsg.textContent = 'Valid format';
-                companyMsg.className = 'valid-message';
-            } else {
-                companyMsg.textContent = 'Invalid Company ID format for ' + country;
-                companyMsg.className = 'error-message';
-            }
-        } else {
-            companyMsg.textContent = '';
-        }
-    }
-
-    async function getCurrentUser() {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (error || !session) {
-            window.location.href = 'index.html';
-            return;
-        }
-        userId = session.user.id;
-        loadCustomers(userId);
-    }
-
-    async function loadCustomers(userId) {
-        const { data: customers, error } = await supabase
-            .from('customers')
-            .select('*')
-            .eq('user_id', userId)
-            .order('name');
-
-        if (error) {
-            alert('Error loading customers: ' + error.message);
-            return;
-        }
-
-        renderDesktopTable(customers);
-        renderMobileCards(customers);
-    }
-
-    function renderDesktopTable(customers) {
-        const tbody = document.getElementById('customers-table').querySelector('tbody');
-        tbody.innerHTML = '';
-
-        customers.forEach(c => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${c.name || ''}</td>
-                <td>${c.vat_id || ''}</td>
-                <td>${c.country || ''}</td>
-                <td>
-                    <button class="action-btn edit-btn" data-id="${c.id}">Edit</button>
-                    <button class="action-btn delete-btn" data-id="${c.id}">Delete</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-
-        attachActionListeners();
-    }
-
-    function renderMobileCards(customers) {
-        const container = document.getElementById('mobile-customer-list');
-        container.innerHTML = '';
-
-        customers.forEach(c => {
-            const card = document.createElement('div');
-            card.className = 'customer-card';
-            card.innerHTML = `
-                <h3>${c.name || ''}</h3>
-                <p>VAT ID: ${c.vat_id || ''}</p>
-                <p>Country: ${c.country || ''}</p>
-                <div class="customer-card-actions">
-                    <button class="action-btn edit-btn" data-id="${c.id}">Edit</button>
-                    <button class="action-btn delete-btn" data-id="${c.id}">Delete</button>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-
-        attachActionListeners();
-    }
-
-    function attachActionListeners() {
-        document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', () => editCustomer(btn.dataset.id));
-        });
-
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', () => deleteCustomer(btn.dataset.id));
-        });
-    }
-
-    async function editCustomer(id) {
-        const { data: customer, error } = await supabase
-            .from('customers')
-            .select('*')
-            .eq('id', id)
-            .single();
-
-        if (error || !customer) {
-            alert('Error loading customer');
-            return;
-        }
-
-        currentCustomerId = id;
-        document.getElementById('customer-form-title').textContent = 'Edit Customer';
-        document.getElementById('cust-name').value = customer.name || '';
-        document.getElementById('cust-endpoint').value = customer.endpoint_id || '';
-        document.getElementById('cust-vat').value = customer.vat_id || '';
-        document.getElementById('cust-street').value = customer.street || '';
-        document.getElementById('cust-add-street').value = customer.additional_street || '';
-        document.getElementById('cust-city').value = customer.city || '';
-        document.getElementById('cust-postal').value = customer.postal_code || '';
-        document.getElementById('cust-country').value = customer.country || '';
-        document.getElementById('cust-reg-name').value = customer.registration_name || '';
-        document.getElementById('cust-company-id').value = customer.company_id || '';
-        document.getElementById('cust-contact-name').value = customer.contact_name || '';
-        document.getElementById('cust-contact-phone').value = customer.contact_phone || '';
-        document.getElementById('cust-contact-email').value = customer.contact_email || '';
-
-        document.getElementById('customer-form-card').style.display = 'block';
-        document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
-        runRealtimeValidation();
-    }
-
-    async function deleteCustomer(id) {
-        if (!confirm('Are you sure you want to delete this customer?')) return;
-
-        const { error } = await supabase
-            .from('customers')
-            .delete()
-            .eq('id', id);
-
-        if (error) {
-            alert('Error deleting: ' + error.message);
-            return;
-        }
-
-        loadCustomers(userId);
-    }
-
-    document.getElementById('save-customer-btn').addEventListener('click', async () => {
-        document.getElementById('general-error').textContent = '';
-
-        const country = document.getElementById('cust-country').value;
-        const vat = document.getElementById('cust-vat').value;
-        const companyId = document.getElementById('cust-company-id').value;
-
-        if (country && vat && !validateVAT(country, vat)) {
-            document.getElementById('vat-message').textContent = 'Invalid VAT format for selected country';
-            document.getElementById('vat-message').className = 'error-message';
-            return;
-        }
-
-        if (country && companyId && !validateCompanyID(country, companyId)) {
-            document.getElementById('company-id-message').textContent = 'Invalid Company ID format for selected country';
-            document.getElementById('company-id-message').className = 'error-message';
-            return;
-        }
-
-        const customer = {
-            user_id: userId,
-            name: document.getElementById('cust-name').value.trim(),
-            endpoint_id: document.getElementById('cust-endpoint').value.trim() || null,
-            vat_id: vat.trim() || null,
-            street: document.getElementById('cust-street').value.trim() || null,
-            additional_street: document.getElementById('cust-add-street').value.trim() || null,
-            city: document.getElementById('cust-city').value.trim() || null,
-            postal_code: document.getElementById('cust-postal').value.trim() || null,
-            country: country || null,
-            registration_name: document.getElementById('cust-reg-name').value.trim() || null,
-            company_id: companyId.trim() || null,
-            contact_name: document.getElementById('cust-contact-name').value.trim() || null,
-            contact_phone: document.getElementById('cust-contact-phone').value.trim() || null,
-            contact_email: document.getElementById('cust-contact-email').value.trim() || null
-        };
-
-        let error;
-        if (currentCustomerId) {
-            ({ error } = await supabase.from('customers').update(customer).eq('id', currentCustomerId));
-        } else {
-            ({ error } = await supabase.from('customers').insert(customer));
-        }
-
-        if (error) {
-            document.getElementById('general-error').textContent = 'Error saving: ' + error.message;
-            return;
-        }
-
-        document.getElementById('customer-form-card').style.display = 'none';
-        currentCustomerId = null;
-        loadCustomers(userId);
-    });
-
-    document.getElementById('cancel-customer-btn').addEventListener('click', () => {
-        document.getElementById('customer-form-card').style.display = 'none';
-        currentCustomerId = null;
-        document.getElementById('vat-message').textContent = '';
-        document.getElementById('company-id-message').textContent = '';
-    });
-
-    document.getElementById('add-customer-btn').addEventListener('click', () => {
-        currentCustomerId = null;
-        document.getElementById('customer-form-title').textContent = 'Add New Customer';
-        document.querySelectorAll('#customer-form-card input, #customer-form-card select').forEach(el => el.value = '');
-        document.getElementById('vat-message').textContent = '';
-        document.getElementById('company-id-message').textContent = '';
-        document.getElementById('customer-form-card').style.display = 'block';
-        document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
-    });
-
-    // Real-time validation on input/change
-    document.getElementById('cust-country').addEventListener('change', runRealtimeValidation);
-    document.getElementById('cust-vat').addEventListener('input', runRealtimeValidation);
-    document.getElementById('cust-company-id').addEventListener('input', runRealtimeValidation);
-
-    // Hamburger menu
-    const hamburger = document.querySelector('.hamburger');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const mobileNavClose = document.querySelector('.mobile-nav-close');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-    });
-
-    mobileNavClose.addEventListener('click', () => {
+mobileNav.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
         hamburger.classList.remove('active');
         mobileNav.classList.remove('active');
     });
+});
 
-    // PEPPOL search placeholder (demo)
-    document.getElementById('peppol-search-btn').addEventListener('click', () => {
-        const resultsDiv = document.getElementById('peppol-results');
-        resultsDiv.innerHTML = '<p>No results (demo mode). Add manually.</p>';
-        resultsDiv.style.display = 'block';
+document.addEventListener("DOMContentLoaded", async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    const activeSupplierName = localStorage.getItem('selected_supplier_name');
+    const activeSupplierSpan = document.getElementById('active-supplier');
+    if (activeSupplierName) {
+        activeSupplierSpan.textContent = `Active: ${activeSupplierName}`;
+    } else {
+        activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
+    }
+
+    const selectedSupplierId = localStorage.getItem('selected_supplier_id');
+    if (!selectedSupplierId) {
+        alert("Please select a supplier first.");
+        window.location.href = 'suppliers.html';
+        return;
+    }
+
+    // Buttons
+    document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
+    document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
+
+    document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
+    document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
+
+    document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
+    document.getElementById('mobile-customers-btn')?.addEventListener('click', () => window.location.href = 'customers.html');
+
+    document.getElementById('logout-btn').addEventListener('click', logout);
+    document.getElementById('mobile-logout-btn')?.addEventListener('click', logout);
+
+    async function logout() {
+        await supabase.auth.signOut();
+        localStorage.removeItem('selected_supplier_id');
+        localStorage.removeItem('selected_supplier_name');
+        window.location.href = 'index.html';
+    }
+
+    document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
+
+    // Theme
+    const themeSwitch = document.getElementById('theme-switch');
+    const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
+    const savedTheme = localStorage.getItem('theme');
+
+    const applyTheme = (isLight) => {
+        if (isLight) {
+            document.body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    };
+
+    const preferredLight = !savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches;
+    const initialLight = savedTheme === 'light' || preferredLight;
+
+    applyTheme(initialLight);
+    themeSwitch.checked = initialLight;
+    if (mobileThemeSwitch) mobileThemeSwitch.checked = initialLight;
+
+    themeSwitch.addEventListener('change', () => {
+        applyTheme(themeSwitch.checked);
+        if (mobileThemeSwitch) mobileThemeSwitch.checked = themeSwitch.checked;
     });
 
-    getCurrentUser();
+    if (mobileThemeSwitch) {
+        mobileThemeSwitch.addEventListener('change', () => {
+            applyTheme(mobileThemeSwitch.checked);
+            themeSwitch.checked = mobileThemeSwitch.checked;
+        });
+    }
+
+    await loadInvoices(session.user.id, selectedSupplierId);
+});
+
+async function loadInvoices(userId, supplierId) {
+    const { data: invoices, error } = await supabase
+        .from('invoices')
+        .select('id, invoice_id, issue_date, customer_name, total_amount, currency, xml_data, status, form_data')
+        .eq('user_id', userId)
+        .eq('supplier_id', supplierId)
+        .order('issue_date', { ascending: false });
+
+    if (error) {
+        const msg = `Error loading invoices: ${error.message}`;
+        document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">${msg}</td></tr>`;
+        document.getElementById('mobile-invoice-list').innerHTML = `<div class="no-invoices">${msg}</div>`;
+        return;
+    }
+
+    allInvoices = invoices || [];
+    displayedInvoices = allInvoices;
+    renderAnalytics(allInvoices);
+    renderDesktopTable(allInvoices);
+    renderMobileCards(allInvoices);
+}
+
+function renderAnalytics(invoices) {
+    const totalInvoices = invoices.length;
+    const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
+    const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
+    const outstanding = totalRevenue - paidRevenue;
+    const avgInvoice = totalInvoices > 0 ? totalRevenue / totalInvoices : 0;
+
+    const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
+    const sent = invoices.filter(inv => inv.status === 'sent').length;
+    const paid = invoices.filter(inv => inv.status === 'paid').length;
+
+    document.getElementById('metrics-grid').innerHTML = `
+        <div class="metric-card">
+            <h3>Total Invoices</h3>
+            <div class="value">${totalInvoices}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Total Billed</h3>
+            <div class="value">${totalRevenue.toFixed(2)}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Outstanding</h3>
+            <div class="value">${outstanding.toFixed(2)}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Avg. Invoice</h3>
+            <div class="value">${avgInvoice.toFixed(2)}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Drafts</h3>
+            <div class="value">${drafts}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Sent</h3>
+            <div class="value">${sent}</div>
+        </div>
+        <div class="metric-card">
+            <h3>Paid</h3>
+            <div class="value">${paid}</div>
+        </div>
+    `;
+
+    const monthlyBilled = {};
+    const monthlyPaid = {};
+    invoices.forEach(inv => {
+        if (inv.issue_date) {
+            const month = inv.issue_date.substring(0, 7);
+            const amount = parseFloat(inv.total_amount) || 0;
+            monthlyBilled[month] = (monthlyBilled[month] || 0) + amount;
+            if (inv.status === 'paid') monthlyPaid[month] = (monthlyPaid[month] || 0) + amount;
+        }
+    });
+    const months = [...new Set([...Object.keys(monthlyBilled), ...Object.keys(monthlyPaid)])].sort();
+    const billedData = months.map(m => monthlyBilled[m] || 0);
+    const paidData = months.map(m => monthlyPaid[m] || 0);
+
+    if (revenueChart) revenueChart.destroy();
+    revenueChart = new Chart(document.getElementById('revenueChart'), {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [
+                { label: 'Billed', data: billedData, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.2)', tension: 0.3, fill: true },
+                { label: 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
+            ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    if (statusChart) statusChart.destroy();
+    statusChart = new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+            labels: [`Draft (€${outstanding.toFixed(0)})`, `Sent (€${invoices.filter(i=>i.status==='sent').reduce((s,i)=>s+(parseFloat(i.total_amount)||0),0).toFixed(0)})`, `Paid (€${paidRevenue.toFixed(0)})`],
+            datasets: [{
+                data: [drafts, sent, paid],
+                backgroundColor: ['#ef4444', '#f59e0b', '#22c55e']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+    });
+
+    const customerRevenue = {};
+    invoices.forEach(inv => {
+        const name = inv.customer_name || 'Unknown';
+        customerRevenue[name] = (customerRevenue[name] || 0) + (parseFloat(inv.total_amount) || 0);
+    });
+    const top5 = Object.entries(customerRevenue)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+
+    if (topCustomersChart) topCustomersChart.destroy();
+    topCustomersChart = new Chart(document.getElementById('topCustomersChart'), {
+        type: 'bar',
+        data: {
+            labels: top5.map(c => c[0]),
+            datasets: [{
+                label: 'Revenue',
+                data: top5.map(c => c[1]),
+                backgroundColor: '#2563eb'
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true } }
+        }
+    });
+
+    const aging = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
+    const today = new Date();
+    invoices.filter(inv => inv.status !== 'paid').forEach(inv => {
+        if (!inv.issue_date) return;
+        const days = Math.floor((today - new Date(inv.issue_date)) / (1000 * 60 * 60 * 24));
+        const amount = parseFloat(inv.total_amount) || 0;
+        if (days <= 30) aging['0-30'] += amount;
+        else if (days <= 60) aging['31-60'] += amount;
+        else if (days <= 90) aging['61-90'] += amount;
+        else aging['90+'] += amount;
+    });
+
+    if (agingChart) agingChart.destroy();
+    agingChart = new Chart(document.getElementById('agingChart'), {
+        type: 'bar',
+        data: {
+            labels: ['0-30 days', '31-60 days', '61-90 days', '90+ days'],
+            datasets: [{
+                label: 'Outstanding',
+                data: [aging['0-30'], aging['31-60'], aging['61-90'], aging['90+']],
+                backgroundColor: ['#22c55e', '#f59e0b', '#f97316', '#ef4444']
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+}
+
+function renderDesktopTable(invoices) {
+    const tbody = document.querySelector('#invoices-table tbody');
+    const noMsg = document.getElementById('no-invoices');
+
+    displayedInvoices = invoices;
+
+    if (invoices.length === 0) {
+        noMsg.style.display = 'block';
+        noMsg.textContent = 'No invoices yet.';
+        tbody.innerHTML = '';
+        return;
+    }
+
+    noMsg.style.display = 'none';
+    tbody.innerHTML = '';
+
+    invoices.forEach(inv => {
+        let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
+        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
+        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
+
+        const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
+
+        const isDraft = (!inv.status || inv.status === 'draft');
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><strong>${inv.invoice_id || 'N/A'}</strong></td>
+            <td>${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</td>
+            <td>${inv.customer_name || '—'}</td>
+            <td><strong>${inv.total_amount ? parseFloat(inv.total_amount).toFixed(2) : '0.00'}</strong></td>
+            <td>${inv.currency || 'EUR'}</td>
+            <td>${statusBadge}</td>
+            <td class="actions-cell">
+                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit Draft</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View XML</button>` : '<span style="color:var(--text-secondary);font-size:11px;">XML not generated</span>'}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
+            </td>
+            <td class="delete-cell">
+                ${isDraft ? `<span class="delete-cross" data-id="${inv.id}" title="Delete Draft">×</span>` : ''}
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    attachActionListeners();
+}
+
+function renderMobileCards(invoices) {
+    const container = document.getElementById('mobile-invoice-list');
+    const noMsg = document.getElementById('no-invoices');
+
+    if (invoices.length === 0) {
+        noMsg.style.display = 'block';
+        container.innerHTML = '';
+        return;
+    }
+
+    noMsg.style.display = 'none';
+    container.innerHTML = '';
+
+    invoices.forEach(inv => {
+        let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
+        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
+        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
+
+        const statusBadge = `<span style="padding:8px 16px; border-radius:50px; font-size:14px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
+
+        const isDraft = (!inv.status || inv.status === 'draft');
+
+        const card = document.createElement('div');
+        card.className = 'invoice-card';
+        card.innerHTML = `
+            <div class="invoice-card-header">
+                <div>
+                    <strong style="font-size:20px;">${inv.invoice_id || 'N/A'}</strong><br>
+                    <span style="color:var(--text-secondary);">${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</span>
+                </div>
+                ${statusBadge}
+            </div>
+            <div class="invoice-card-main">
+                <div class="invoice-card-label">Customer</div>
+                <div class="invoice-card-value">${inv.customer_name || '—'}</div>
+
+                <div class="invoice-card-label">Total</div>
+                <div class="invoice-card-value"><strong>${inv.total_amount ? parseFloat(inv.total_amount).toFixed(2) : '0.00'} ${inv.currency || 'EUR'}</strong></div>
+            </div>
+            <div class="invoice-card-actions">
+                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit Draft</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View XML</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
+            </div>
+            ${isDraft ? `<div class="delete-cell-mobile"><span class="delete-cross" data-id="${inv.id}">×</span></div>` : ''}
+        `;
+        container.appendChild(card);
+    });
+
+    attachActionListeners();
+}
+
+function attachActionListeners() {
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.onclick = () => {
+            const invId = btn.dataset.id;
+            const inv = allInvoices.find(i => i.id === invId);
+            if (!inv) return alert('Invoice not found.');
+
+            let formData = inv.form_data;
+            if (typeof formData === 'string') {
+                try { formData = JSON.parse(formData); } catch (e) { return alert('Corrupted form data.'); }
+            }
+
+            if (formData && typeof formData === 'object' && Object.keys(formData).length > 0) {
+                localStorage.setItem('draft_form_data', JSON.stringify(formData));
+                localStorage.setItem('editing_draft_id', inv.id);
+                window.location.href = 'form.html?mode=edit_draft';
+            } else {
+                alert('No valid form data found for this draft.');
+            }
+        };
+    });
+
+    document.querySelectorAll('.delete-cross').forEach(icon => {
+        icon.onclick = async () => {
+            if (!confirm("Are you sure you want to delete this draft? This cannot be undone.")) return;
+
+            const invId = icon.dataset.id;
+            const { error } = await supabase.from('invoices').delete().eq('id', invId);
+
+            if (error) {
+                alert('Failed to delete draft: ' + error.message);
+            } else {
+                alert('Draft deleted successfully.');
+                allInvoices = allInvoices.filter(i => i.id !== invId);
+                applyFilters();
+            }
+        };
+    });
+
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.onclick = () => {
+            const inv = allInvoices.find(i => i.id === btn.dataset.id);
+            if (inv && inv.xml_data) {
+                const blob = new Blob([inv.xml_data], { type: 'application/xml' });
+                window.open(URL.createObjectURL(blob), '_blank');
+            }
+        };
+    });
+
+    document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.onclick = () => {
+            const inv = allInvoices.find(i => i.id === btn.dataset.id);
+            if (inv && inv.xml_data) {
+                const blob = new Blob([inv.xml_data], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${inv.invoice_id || 'invoice'}.xml`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        };
+    });
+}
+
+function applyFilters() {
+    let filtered = allInvoices;
+
+    const idFilter = document.getElementById('filter-id').value.trim().toLowerCase();
+    if (idFilter) filtered = filtered.filter(inv => (inv.invoice_id || '').toLowerCase().includes(idFilter));
+
+    const custFilter = document.getElementById('filter-customer').value.trim().toLowerCase();
+    if (custFilter) filtered = filtered.filter(inv => (inv.customer_name || '').toLowerCase().includes(custFilter));
+
+    const fromDate = document.getElementById('filter-from').value;
+    if (fromDate) filtered = filtered.filter(inv => inv.issue_date >= fromDate);
+
+    const toDate = document.getElementById('filter-to').value;
+    if (toDate) filtered = filtered.filter(inv => inv.issue_date <= toDate);
+
+    const statusFilter = document.getElementById('filter-status').value;
+    if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
+
+    displayedInvoices = filtered;
+    renderAnalytics(filtered);
+    renderDesktopTable(filtered);
+    renderMobileCards(filtered);
+}
+
+['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('input', applyFilters);
+        el.addEventListener('change', applyFilters);
+    }
+});
+
+document.getElementById('clear-filters').addEventListener('click', () => {
+    ['filter-id', 'filter-customer', 'filter-from', 'filter-to'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('filter-status').value = '';
+    applyFilters();
+});
+
+function exportDisplayedToCSV() {
+    if (displayedInvoices.length === 0) {
+        alert('No invoices currently displayed to export.');
+        return;
+    }
+
+    let csv = 'Invoice ID,Issue Date,Customer Name,Total Amount,Currency,Status\n';
+
+    displayedInvoices.forEach(inv => {
+        const status = inv.status ? inv.status.charAt(0).toUpperCase() + inv.status.slice(1) : 'Draft';
+        const customer = (inv.customer_name || '').replace(/"/g, '""');
+        csv += `"${inv.invoice_id || ''}","${inv.issue_date || ''}","${customer}","${inv.total_amount || '0.00'}","${inv.currency || 'EUR'}","${status}"\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `invoices_${new Date().toISOString().slice(0,10)}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ae72f4a2b8f9939',t:'MTc2NTgxNDc1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ae7c0608ce4dabb',t:'MTc2NTgyMDY5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
