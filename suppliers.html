@@ -16,6 +16,7 @@
     --border: rgba(255, 255, 255, 0.12);
     --text-secondary: rgba(255, 255, 255, 0.7);
     --error: #ef4444;
+    --success: #22c55e;
 }
 
 /* Light Mode Overrides */
@@ -381,6 +382,13 @@ select option {
     transform: translateY(-2px);
 }
 
+/* Validation messages */
+.validation-message {
+    margin-top: 8px;
+    font-size: 14px;
+    min-height: 24px;
+}
+
 /* Theme Toggle Switch */
 .theme-toggle {
     position: relative;
@@ -514,8 +522,8 @@ input:checked + .slider:after {
         <form id="supplier-form">
             <div class="form-grid">
                 <div class="form-group"><label>Supplier Name *</label><input id="name" required></div>
-                <div class="form-group"><label>Endpoint ID</label><input id="endpoint"></div>
-                <div class="form-group"><label>VAT ID</label><input id="vat"></div>
+                <div class="form-group"><label>Endpoint ID</label><input id="endpoint"><div id="endpoint-validation" class="validation-message"></div></div>
+                <div class="form-group"><label>VAT ID</label><input id="vat"><div id="vat-validation" class="validation-message"></div></div>
                 <div class="form-group"><label>Street</label><input id="street"></div>
                 <div class="form-group"><label>Additional Street</label><input id="additional-street"></div>
                 <div class="form-group"><label>City</label><input id="city"></div>
@@ -523,7 +531,7 @@ input:checked + .slider:after {
                 <div class="form-group"><label>Country Code *</label><input id="country" required maxlength="2"></div>
                 <div class="form-group"><label>Email</label><input id="email" type="email"></div>
                 <div class="form-group"><label>Legal Name</label><input id="reg-name"></div>
-                <div class="form-group"><label>Company ID</label><input id="company-id"></div>
+                <div class="form-group"><label>Company ID</label><input id="company-id"><div id="company-validation" class="validation-message"></div></div>
                 <div class="form-group"><label>Default Currency *</label><select id="default-currency" required><option value="EUR">EUR</option><option value="SEK">SEK</option><option value="GBP">GBP</option><option value="USD">USD</option></select></div>
             </div>
 
@@ -548,6 +556,122 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 let currentUserId = null;
 let editingSupplierId = null;
+
+// VAT patterns (same as customers.html)
+const vatPatterns = {
+    AT: /^U\d{8}$/,
+    BE: /^(0\d{9}|\d{10})$/,
+    BG: /^\d{9,10}$/,
+    CY: /^\d{8}[A-Z]$/,
+    CZ: /^\d{8,10}$/,
+    DE: /^\d{9}$/,
+    DK: /^\d{8}$/,
+    EE: /^\d{9}$/,
+    EL: /^\d{9}$/,
+    ES: /^[A-Z0-9]\d{7}[A-Z0-9]$/,
+    FI: /^\d{8}$/,
+    FR: /^[A-Z0-9]{2}\d{9}$/,
+    HR: /^\d{11}$/,
+    HU: /^\d{8}$/,
+    IE: /^\d{7}[A-Z]{1,2}$|^\d[A-Z]\d{5}[A-Z]$/,
+    IT: /^\d{11}$/,
+    LT: /^(\d{9}|\d{12})$/,
+    LU: /^\d{8}$/,
+    LV: /^\d{11}$/,
+    MT: /^\d{8}$/,
+    NL: /^\d{9}B\d{2}$/,
+    PL: /^\d{10}$/,
+    PT: /^\d{9}$/,
+    RO: /^\d{2,10}$/,
+    SE: /^\d{10}01$/,
+    SI: /^\d{8}$/,
+    SK: /^\d{10}$/,
+    GB: /^\d{9}(\d{3})?$/
+};
+
+// Company ID patterns (same as customers.html)
+const companyPatterns = {
+    DE: /^(HRB|HRA)\d+$/i,
+    NL: /^\d{8}$/,
+    FR: /^\d{9}\d{5}$/,
+    IT: /^\d{11}$/,
+    ES: /^[A-Z]?\d{8}[A-Z0-9]?$/i,
+    SE: /^\d{10}$/
+};
+
+function cleanInput(value) {
+    return value.trim().toUpperCase().replace(/[\s\.\-]/g, '');
+}
+
+function validateVAT(country, vat) {
+    if (!vat || !country) return null;
+    let cleaned = cleanInput(vat);
+    if (cleaned.startsWith(country)) {
+        cleaned = cleaned.slice(country.length);
+    }
+    const pattern = vatPatterns[country.toUpperCase()];
+    if (!pattern) return false;
+    return pattern.test(cleaned);
+}
+
+function validateCompanyID(country, companyId) {
+    if (!companyId || !country) return null;
+    const cleaned = cleanInput(companyId);
+    const pattern = companyPatterns[country.toUpperCase()];
+    if (!pattern) return true;
+    return pattern.test(cleaned);
+}
+
+function validateEndpoint(endpoint) {
+    if (!endpoint) return null;
+    const trimmed = endpoint.trim();
+    const regex = /^\d{4}:[A-Z0-9]+$/i;
+    return regex.test(trimmed);
+}
+
+function updateValidation() {
+    const country = document.getElementById('country').value.toUpperCase();
+    const vat = document.getElementById('vat').value;
+    const companyId = document.getElementById('company-id').value;
+    const endpoint = document.getElementById('endpoint').value;
+
+    const vatMsg = document.getElementById('vat-validation');
+    const companyMsg = document.getElementById('company-validation');
+    const endpointMsg = document.getElementById('endpoint-validation');
+
+    const vatValid = validateVAT(country, vat);
+    if (vatValid === null) {
+        vatMsg.textContent = '';
+    } else if (vatValid) {
+        vatMsg.textContent = 'Valid VAT format';
+        vatMsg.style.color = 'var(--success)';
+    } else {
+        vatMsg.textContent = 'Invalid VAT format for ' + country;
+        vatMsg.style.color = 'var(--error)';
+    }
+
+    const companyValid = validateCompanyID(country, companyId);
+    if (companyValid === null) {
+        companyMsg.textContent = '';
+    } else if (companyValid) {
+        companyMsg.textContent = 'Valid format';
+        companyMsg.style.color = 'var(--success)';
+    } else {
+        companyMsg.textContent = 'Invalid Company ID format for ' + country + ' (no hyphens/spaces allowed)';
+        companyMsg.style.color = 'var(--error)';
+    }
+
+    const endpointValid = validateEndpoint(endpoint);
+    if (endpointValid === null) {
+        endpointMsg.textContent = '';
+    } else if (endpointValid) {
+        endpointMsg.textContent = 'Valid PEPPOL endpoint format';
+        endpointMsg.style.color = 'var(--success)';
+    } else {
+        endpointMsg.textContent = 'Invalid endpoint format (must be 0000:endpoint)';
+        endpointMsg.style.color = 'var(--error)';
+    }
+}
 
 // Theme toggle logic
 function initTheme() {
@@ -644,6 +768,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('suppliers-list').style.opacity = '1';
         editingSupplierId = null;
     });
+
+    // Real-time validation
+    document.getElementById('country').addEventListener('input', updateValidation);
+    document.getElementById('vat').addEventListener('input', updateValidation);
+    document.getElementById('company-id').addEventListener('input', updateValidation);
+    document.getElementById('endpoint').addEventListener('input', updateValidation);
 });
 
 async function loadSuppliers(userId) {
@@ -753,6 +883,7 @@ function startAddSupplier() {
     document.getElementById('supplier-form-card').style.display = 'block';
     document.getElementById('suppliers-list').style.opacity = '0.5';
     document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+    updateValidation();
 }
 
 async function editSupplier(supplierId) {
@@ -801,6 +932,7 @@ async function editSupplier(supplierId) {
     document.getElementById('supplier-form-card').style.display = 'block';
     document.getElementById('suppliers-list').style.opacity = '0.5';
     document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+    updateValidation();
 }
 
 function addBankEntry(bankData = {}) {
@@ -824,19 +956,25 @@ function addBankEntry(bankData = {}) {
 }
 
 async function createSupplierWithBanks(userId) {
+    const country = document.getElementById('country').value.trim().toUpperCase();
+    let vat = document.getElementById('vat').value.trim().toUpperCase();
+    if (vat && !vat.startsWith(country)) {
+        vat = country + vat.replace(/^[A-Z]{2}/, '');
+    }
+
     const supplier = {
         user_id: userId,
         name: document.getElementById('name').value.trim(),
         endpoint_id: document.getElementById('endpoint').value.trim() || null,
-        vat_id: document.getElementById('vat').value.trim(),
+        vat_id: vat || null,
         street: document.getElementById('street').value.trim() || null,
         additional_street: document.getElementById('additional-street').value.trim() || null,
         city: document.getElementById('city').value.trim() || null,
         postal_code: document.getElementById('postal').value.trim() || null,
-        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        country: country || null,
         email: document.getElementById('email').value.trim() || null,
         registration_name: document.getElementById('reg-name').value.trim() || null,
-        company_id: document.getElementById('company-id').value.trim() || null,
+        company_id: cleanInput(document.getElementById('company-id').value) || null,
         currency: document.getElementById('default-currency').value
     };
 
@@ -860,18 +998,24 @@ async function createSupplierWithBanks(userId) {
 }
 
 async function updateSupplier(supplierId) {
+    const country = document.getElementById('country').value.trim().toUpperCase();
+    let vat = document.getElementById('vat').value.trim().toUpperCase();
+    if (vat && !vat.startsWith(country)) {
+        vat = country + vat.replace(/^[A-Z]{2}/, '');
+    }
+
     const updated = {
         name: document.getElementById('name').value.trim(),
         endpoint_id: document.getElementById('endpoint').value.trim() || null,
-        vat_id: document.getElementById('vat').value.trim(),
+        vat_id: vat || null,
         street: document.getElementById('street').value.trim() || null,
         additional_street: document.getElementById('additional-street').value.trim() || null,
         city: document.getElementById('city').value.trim() || null,
         postal_code: document.getElementById('postal').value.trim() || null,
-        country: document.getElementById('country').value.trim().toUpperCase() || null,
+        country: country || null,
         email: document.getElementById('email').value.trim() || null,
         registration_name: document.getElementById('reg-name').value.trim() || null,
-        company_id: document.getElementById('company-id').value.trim() || null,
+        company_id: cleanInput(document.getElementById('company-id').value) || null,
         currency: document.getElementById('default-currency').value
     };
 
@@ -945,4 +1089,3 @@ async function saveBanksForSupplier(supplierId, userId) {
 </script>
 </body>
 </html>
-
