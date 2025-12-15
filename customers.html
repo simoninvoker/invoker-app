@@ -566,10 +566,10 @@ const vatPatterns = {
     PL: /^\d{10}$/,
     PT: /^\d{9}$/,
     RO: /^\d{2,10}$/,
-    SE: /^\d{10}01$/,  // Always ends with 01
+    SE: /^\d{10}01$/,
     SI: /^\d{8}$/,
     SK: /^\d{10}$/,
-    GB: /^\d{9}(\d{3})?$/  // 9 or 12 digits
+    GB: /^\d{9}(\d{3})?$/
 };
 
 // Company ID patterns (no hyphens/spaces allowed)
@@ -608,7 +608,7 @@ function validateCompanyID(country, companyId) {
 function validateEndpoint(endpoint) {
     if (!endpoint) return null;
     const trimmed = endpoint.trim();
-    const regex = /^\d{4}:[A-Z0-9]+$/i;  // 4 digits : alphanumeric
+    const regex = /^\d{4}:[A-Z0-9]+$/i;
     return regex.test(trimmed);
 }
 
@@ -774,7 +774,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById('cust-company-id').addEventListener('input', updateValidation);
     document.getElementById('cust-endpoint').addEventListener('input', updateValidation);
 
-    // PEPPOL Directory lookup
+    // PEPPOL Directory lookup - only extract scheme:participant (no actorid part)
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -797,8 +797,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 resultsDiv.innerHTML = '<h3>Found in PEPPOL Directory:</h3>';
                 data.matches.forEach(match => {
                     const scheme = match.participantID.scheme;
-                    const participant = match.participantID.value.split('::')[1] || match.participantID.value;
-                    const cleanEndpoint = `${scheme}:${participant}`;  // Always include scheme prefix
+                    const fullValue = match.participantID.value;
+                    // Extract only the part after :: if present (remove actorid)
+                    const participant = fullValue.includes('::') ? fullValue.split('::')[1] : fullValue;
+                    const cleanEndpoint = `${scheme}:${participant}`;
 
                     let name = 'Unknown';
                     let country = '';
@@ -827,7 +829,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         currentCustomerId = null;
                         document.getElementById('customer-form-title').textContent = 'Add Customer (from PEPPOL)';
                         document.getElementById('cust-name').value = name;
-                        document.getElementById('cust-endpoint').value = cleanEndpoint;
+                        document.getElementById('cust-endpoint').value = cleanEndpoint; // Only 0000:endpoint
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
                         updateValidation();
@@ -973,7 +975,7 @@ async function saveCustomer(userId) {
     // Force VAT prefix to uppercase country code
     let formattedVat = rawVat.toUpperCase();
     if (!formattedVat.startsWith(country)) {
-        formattedVat = country + formattedVat.replace(/^[A-Z]{2}/, '');  // Replace any existing prefix
+        formattedVat = country + formattedVat.replace(/^[A-Z]{2}/, '');
     }
 
     const customer = {
