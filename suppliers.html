@@ -546,16 +546,16 @@ input:checked + .slider:after {
         <form id="supplier-form">
             <div class="form-grid">
                 <div class="form-group"><label>Supplier Name *</label><input id="name" required></div>
-                <div class="form-group"><label>Endpoint ID</label><input id="endpoint"><div id="endpoint-validation" class="validation-message"></div></div>
-                <div class="form-group"><label>VAT ID</label><input id="vat"><div id="vat-validation" class="validation-message"></div></div>
-                <div class="form-group"><label>Street</label><input id="street"></div>
+                <div class="form-group"><label>Legal Name *</label><input id="reg-name" required></div>
+                <div class="form-group"><label>Endpoint ID *</label><input id="endpoint" required><div id="endpoint-validation" class="validation-message"></div></div>
+                <div class="form-group"><label>VAT ID *</label><input id="vat" required><div id="vat-validation" class="validation-message"></div></div>
+                <div class="form-group"><label>Company ID *</label><input id="company-id" required><div id="company-validation" class="validation-message"></div></div>
+                <div class="form-group"><label>Street *</label><input id="street" required></div>
                 <div class="form-group"><label>Additional Street</label><input id="additional-street"></div>
-                <div class="form-group"><label>City</label><input id="city"></div>
-                <div class="form-group"><label>Postal Code</label><input id="postal"></div>
+                <div class="form-group"><label>City *</label><input id="city" required></div>
+                <div class="form-group"><label>Postal Code *</label><input id="postal" required></div>
                 <div class="form-group"><label>Country Code *</label><input id="country" required maxlength="2"></div>
-                <div class="form-group"><label>Email</label><input id="email" type="email"></div>
-                <div class="form-group"><label>Legal Name</label><input id="reg-name"></div>
-                <div class="form-group"><label>Company ID</label><input id="company-id"><div id="company-validation" class="validation-message"></div></div>
+                <div class="form-group"><label>Email *</label><input id="email" type="email" required></div>
                 <div class="form-group"><label>Default Currency *</label><select id="default-currency" required><option value="EUR">EUR</option><option value="SEK">SEK</option><option value="GBP">GBP</option><option value="USD">USD</option></select></div>
             </div>
 
@@ -796,6 +796,15 @@ function validateAllBanks() {
     return allValid;
 }
 
+// Sync Legal Name with Supplier Name in real time for new suppliers
+function syncRegistrationName() {
+    const nameInput = document.getElementById('name');
+    const regNameInput = document.getElementById('reg-name');
+    if (!editingSupplierId) {
+        regNameInput.value = nameInput.value;
+    }
+}
+
 // Theme toggle logic
 function initTheme() {
     const saved = localStorage.getItem('theme');
@@ -903,6 +912,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('vat').addEventListener('input', updateValidation);
     document.getElementById('company-id').addEventListener('input', updateValidation);
     document.getElementById('endpoint').addEventListener('input', updateValidation);
+    document.getElementById('name').addEventListener('input', syncRegistrationName);
 
     // Real-time bank validation
     document.getElementById('banks-container').addEventListener('input', (e) => {
@@ -1019,6 +1029,7 @@ function startAddSupplier() {
     document.getElementById('suppliers-list').style.opacity = '0.5';
     document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
     updateValidation();
+    syncRegistrationName();
 }
 
 async function editSupplier(supplierId) {
@@ -1039,16 +1050,16 @@ async function editSupplier(supplierId) {
     document.getElementById('form-subtitle').textContent = 'Update company details and manage bank accounts.';
     document.getElementById('submit-btn').textContent = 'Save Supplier';
     document.getElementById('name').value = supplier.name || '';
+    document.getElementById('reg-name').value = supplier.registration_name || '';
     document.getElementById('endpoint').value = supplier.endpoint_id || '';
     document.getElementById('vat').value = supplier.vat_id || '';
+    document.getElementById('company-id').value = supplier.company_id || '';
     document.getElementById('street').value = supplier.street || '';
     document.getElementById('additional-street').value = supplier.additional_street || '';
     document.getElementById('city').value = supplier.city || '';
     document.getElementById('postal').value = supplier.postal_code || '';
     document.getElementById('country').value = supplier.country || '';
     document.getElementById('email').value = supplier.email || '';
-    document.getElementById('reg-name').value = supplier.registration_name || '';
-    document.getElementById('company-id').value = supplier.company_id || '';
     document.getElementById('default-currency').value = supplier.currency || 'EUR';
 
     const { data: banks } = await supabase
@@ -1128,16 +1139,16 @@ async function createSupplierWithBanks(userId) {
     const supplier = {
         user_id: userId,
         name: document.getElementById('name').value.trim(),
-        endpoint_id: document.getElementById('endpoint').value.trim() || null,
-        vat_id: vat || null,
-        street: document.getElementById('street').value.trim() || null,
+        endpoint_id: document.getElementById('endpoint').value.trim(),
+        vat_id: vat,
+        street: document.getElementById('street').value.trim(),
         additional_street: document.getElementById('additional-street').value.trim() || null,
-        city: document.getElementById('city').value.trim() || null,
-        postal_code: document.getElementById('postal').value.trim() || null,
-        country: country || null,
-        email: document.getElementById('email').value.trim() || null,
-        registration_name: document.getElementById('reg-name').value.trim() || null,
-        company_id: cleanInput(document.getElementById('company-id').value) || null,
+        city: document.getElementById('city').value.trim(),
+        postal_code: document.getElementById('postal').value.trim(),
+        country: country,
+        email: document.getElementById('email').value.trim(),
+        registration_name: document.getElementById('reg-name').value.trim(),
+        company_id: cleanInput(document.getElementById('company-id').value),
         currency: document.getElementById('default-currency').value
     };
 
@@ -1169,16 +1180,16 @@ async function updateSupplier(supplierId) {
 
     const updated = {
         name: document.getElementById('name').value.trim(),
-        endpoint_id: document.getElementById('endpoint').value.trim() || null,
-        vat_id: vat || null,
-        street: document.getElementById('street').value.trim() || null,
+        endpoint_id: document.getElementById('endpoint').value.trim(),
+        vat_id: vat,
+        street: document.getElementById('street').value.trim(),
         additional_street: document.getElementById('additional-street').value.trim() || null,
-        city: document.getElementById('city').value.trim() || null,
-        postal_code: document.getElementById('postal').value.trim() || null,
-        country: country || null,
-        email: document.getElementById('email').value.trim() || null,
-        registration_name: document.getElementById('reg-name').value.trim() || null,
-        company_id: cleanInput(document.getElementById('company-id').value) || null,
+        city: document.getElementById('city').value.trim(),
+        postal_code: document.getElementById('postal').value.trim(),
+        country: country,
+        email: document.getElementById('email').value.trim(),
+        registration_name: document.getElementById('reg-name').value.trim(),
+        company_id: cleanInput(document.getElementById('company-id').value),
         currency: document.getElementById('default-currency').value
     };
 
