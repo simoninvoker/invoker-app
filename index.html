@@ -16,34 +16,31 @@
             --glass: rgba(255, 255, 255, 0.06);
             --border: rgba(255, 255, 255, 0.12);
         }
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        html { 
-            overflow-x: hidden; 
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
         }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--bg-dark); 
-            color: var(--white); 
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--white);
             scroll-behavior: smooth;
-            overflow-x: hidden; 
-            width: 100%;
-            min-width: 0;
         }
-        header { 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            padding: 20px clamp(20px, 5vw, 50px); /* Responsive padding */
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: linear-gradient(180deg, rgba(7, 13, 24, .95), rgba(7, 13, 24, .75)); 
-            backdrop-filter: blur(10px); 
-            width: 100%;
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(7, 13, 24, .95), rgba(7, 13, 24, .75));
+            backdrop-filter: blur(10px);
         }
         header h1 { font-size: 28px; font-weight: 700; color: var(--white); }
 
@@ -53,22 +50,22 @@
             align-items: center;
             gap: 20px;
         }
-        nav.desktop-nav a, nav.desktop-nav button { 
-            color: #00e5ff; 
-            text-decoration: none; 
-            opacity: .85; 
-            font-weight: 600; 
-            padding: 8px 18px; 
-            border-radius: 12px; 
-            border: 1px solid transparent; 
-            background: transparent; 
-            transition: all 0.2s ease; 
+        nav.desktop-nav a, nav.desktop-nav button {
+            color: #00e5ff;
+            text-decoration: none;
+            opacity: .85;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 12px;
+            border: 1px solid transparent;
+            background: transparent;
+            transition: all 0.2s ease;
             cursor: pointer;
         }
-        nav.desktop-nav a:hover, nav.desktop-nav button:hover { 
-            background: #2563eb; 
-            border-color: #2563eb; 
-            color: #fff; 
+        nav.desktop-nav a:hover, nav.desktop-nav button:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
         }
 
         /* Hamburger Icon - Mobile Only */
@@ -93,7 +90,7 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
-        /* Mobile Menu Overlay - FIXED */
+        /* Mobile Menu Overlay */
         .mobile-nav {
             position: fixed;
             top: 0;
@@ -156,57 +153,51 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        button.cta { 
-            padding: 18px 42px; 
-            background: #2563eb; 
-            color: #fff; 
-            box-shadow: 0 6px 18px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .1); 
-            transition: transform .2s ease, box-shadow .2s ease; 
-            border-radius: 14px; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: 600; 
+        button.cta {
+            padding: 18px 42px;
+            background: #2563eb;
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .1);
+            transition: transform .2s ease, box-shadow .2s ease;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
         }
         button.cta:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .15); }
-        #vanta-hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; width: 100%; }
-        #vanta-hero canvas { position: absolute; inset: 0; z-index: 0; width: 100% !important; }
-        .gradient-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(37, 99, 235, .25), rgba(7, 13, 24, .9), rgba(250, 204, 21, .12)); background-size: 300% 300%; animation: gradientMove 18s ease infinite; width: 100%; }
+        #vanta-hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+        #vanta-hero canvas { position: absolute; inset: 0; z-index: 0; }
+        .gradient-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(120deg, rgba(37, 99, 235, .25), rgba(7, 13, 24, .9), rgba(250, 204, 21, .12)); background-size: 300% 300%; animation: gradientMove 18s ease infinite; }
         @keyframes gradientMove { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
-        .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; width: 100%; }
+        .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 20px; }
         .hero-content h1 { font-size: 64px; line-height: 1.1; margin-bottom: 20px; }
         .hero-content p { font-size: 20px; margin-bottom: 20px; }
         .keywords { color: var(--accent); font-weight: 600; }
-        #logout-btn { display: none; margin-left: 20px; padding: 10px 20px; background: #facc15; color: #000; border-radius: 12px; border: none; cursor: pointer; }
         section { opacity: 0; transform: translateY(40px); transition: .8s ease; }
         section.visible { opacity: 1; transform: translateY(0); }
-        .features { padding: 120px clamp(20px, 5vw, 50px); max-width: 1200px; margin: auto; text-align: center; width: 100%; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 60px; width: 100%; }
-        .feature-card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transition: transform .3s, box-shadow .3s; width: 100%; }
+        .features { padding: 120px 50px; max-width: 1200px; margin: auto; text-align: center; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 60px; }
+        .feature-card { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(12px); transition: transform .3s, box-shadow .3s; position: relative; overflow: hidden; }
         .feature-card:hover { transform: translateY(-8px); box-shadow: 0 30px 80px rgba(0, 0, 0, .6); }
-        .feature-card h3 { color: var(--accent); margin-bottom: 12px; }
-        .trust { 
-            display: flex; 
-            justify-content: center; 
-            gap: 50px; 
-            padding: 60px 20px; 
-            opacity: .7; 
-            font-weight: 600; 
-            color: #00e5ff; 
-            flex-wrap: wrap;
-            width: 100%;
-        }
-        /* Footer – STRICTLY FIXED */
-        footer { 
-            background: var(--bg-darker); 
-            text-align: center; 
-            padding: 40px 20px; 
-            opacity: .7; 
-            color: #00e5ff; 
+        .feature-card img { width: 100%; height: auto; border-radius: 12px; margin-bottom: 24px; object-fit: cover; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .feature-card h3 { color: var(--accent); margin-bottom: 16px; font-size: 26px; }
+        .feature-card p { font-size: 16px; line-height: 1.6; opacity: 0.9; }
+        .trust { display: flex; justify-content: center; gap: 50px; padding: 60px 20px; opacity: .7; font-weight: 600; color: #00e5ff; flex-wrap: wrap; }
+        footer {
+            background: var(--bg-darker);
+            text-align: center;
+            padding: 40px 20px;
+            opacity: .7;
+            color: #00e5ff;
             width: 100%;
             max-width: 100vw;
             overflow: hidden;
         }
-        /* Login popup */
+        #use-cases { padding: 120px 50px; background: rgba(5, 10, 20, 0.6); max-width: 1400px; margin: auto; }
+        #use-cases h2 { text-align: center; font-size: 48px; margin-bottom: 24px; }
+        #use-cases > p { text-align: center; max-width: 800px; margin: auto; margin-bottom: 80px; font-size: 18px; opacity: 0.9; }
+
+        /* Login Popup */
         #login-popup { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 9999; animation: fadeIn 0.3s ease forwards; }
         #login-popup .popup-content { background: rgba(20, 25, 35, 0.85); backdrop-filter: blur(15px); padding: 50px 30px; border-radius: 20px; text-align: center; max-width: 380px; width: 90%; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); }
         #login-popup h2 { margin-bottom: 30px; font-size: 28px; font-weight: 700; color: var(--accent); }
@@ -229,6 +220,9 @@
             header { padding: 20px; }
             nav.desktop-nav { display: none; }
             .hamburger { display: flex; }
+            .hero-content h1 { font-size: 48px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            #use-cases h2 { font-size: 40px; }
         }
     </style>
 </head>
@@ -240,9 +234,9 @@
         <!-- Desktop Navigation -->
         <nav class="desktop-nav">
             <a href="#features">Features</a>
-            <a href="#cta">Get Started</a>
+            <a href="#use-cases">Use Cases</a>
             <a href="#contact">Contact</a>
-            <a href="docs.html">Documentation</a>   
+            <a href="docs.html">Documentation</a>
             <a href="dashboard.html" id="dashboard-nav" style="display:none;">Dashboard</a>
             <a href="#" id="admin-nav" style="display:none;">Admin</a>
             <button id="login-btn">Login / Sign Up</button>
@@ -260,7 +254,7 @@
         <div class="mobile-nav" id="mobile-nav">
             <button class="mobile-nav-close" id="mobile-nav-close">×</button>
             <a href="#features">Features</a>
-            <a href="#cta">Get Started</a>
+            <a href="#use-cases">Use Cases</a>
             <a href="#contact">Contact</a>
             <a href="docs.html">Documentation</a>
             <a href="dashboard.html" id="mobile-dashboard-nav">Dashboard</a>
@@ -300,18 +294,49 @@
         </div>
     </section>
 
-    <div class="trust">
-        <span>ISO-ready</span>
-        <span>GDPR-compliant</span>
-        <span>PEPPOL</span>
-        <span>Finance-first</span>
-    </div>
+    <section id="use-cases">
+        <h2>Use Cases</h2>
+        <p>Invoker empowers European businesses to streamline PEPPOL-compliant invoicing with enterprise-grade features. Here are key scenarios where it shines:</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="https://thumbs.dreamstime.com/b/abstract-network-connection-futuristic-digital-technology-background-glowing-blue-lines-orange-nodes-forming-complex-web-383665197.jpg" alt="Abstract digital compliance network">
+                <h3>Be Ready to Invoice</h3>
+                <p>Stay ahead of evolving EU e-invoicing mandates (e.g., upcoming requirements in France, Germany, Belgium from 2026). Generate and send fully compliant PEPPOL BIS 3.0 invoices instantly, ensuring regulation-ready formats, structured data for audits, and real-time delivery via the PEPPOL network.</p>
+            </div>
 
-    <footer id="contact">
-        support@invoker.com • © 2025 Invoker AB
-    </footer>
+            <div class="feature-card">
+                <img src="https://thumbs.dreamstime.com/b/abstract-network-connection-futuristic-blue-orange-nodes-connected-lines-representing-global-digital-technology-data-flow-383665170.jpg" alt="Abstract multi-company interconnected nodes">
+                <h3>Manage Multiple Companies</h3>
+                <p>Handle invoicing for group structures, subsidiaries, or clients effortlessly in one platform. Centralize operations across entities while maintaining separate compliance profiles, branding, and data isolation.</p>
+            </div>
 
-    <!-- Modern Login Popup -->
+            <div class="feature-card">
+                <img src="https://thumbs.dreamstime.com/b/blue-network-digital-connections-data-points-abstract-glowing-lights-form-against-dark-background-pattern-361784745.jpg" alt="Abstract customer network connections grid">
+                <h3>Customer Management</h3>
+                <p>Build and maintain a robust customer database with PEPPOL IDs, contact details, tax info, and billing histories. Quickly lookup recipients on the network for accurate routing and automate recurring invoices.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="https://thumbs.dreamstime.com/b/hand-interacting-futuristic-holographic-data-dashboard-laptop-business-analytics-concept-points-glowing-blue-412339322.jpg" alt="Futuristic holographic analytics dashboard with graphs">
+                <h3>Analytics</h3>
+                <p>Gain insights into invoicing performance with dashboards tracking volume, payment timelines, compliance rates, and network delivery status. Spot trends to optimize cash flow.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="https://images.stockcake.com/public/b/3/c/b3c8f0ce-1c6a-4529-a943-00575b10a05a_large/neon-data-flow-stockcake.jpg" alt="Neon holographic data flow for workflow automation">
+                <h3>Workflow</h3>
+                <p>Automate end-to-end invoicing processes: from draft creation and approvals to validation, sending, and status monitoring. Set custom rules for multi-step reviews and notifications.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="https://thumbs.dreamstime.com/b/celestial-lotus-bloom-illuminated-vibrant-flower-glows-symbolizing-purity-enlightenment-rebirth-peace-spiritual-awakening-352101475.jpg" alt="Serene ethereal digital bloom">
+                <h3>Seamless Digital Harmony</h3>
+                <p>Experience the serene flow of compliant, automated invoicing—bringing peace of mind and effortless efficiency to your finance operations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Popup (placed before footer for better accessibility) -->
     <div id="login-popup">
         <div class="popup-content">
             <h2 id="popup-title">Login</h2>
@@ -330,12 +355,30 @@
         </div>
     </div>
 
+    <div class="trust">
+        <span>ISO-ready</span>
+        <span>GDPR-compliant</span>
+        <span>PEPPOL</span>
+        <span>Finance-first</span>
+    </div>
+
+    <footer id="contact">
+        support@invoker.com • © 2025 Invoker
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
     <script>
-        VANTA.NET({ el: "#vanta-hero", color: 0x2563eb, backgroundColor: 0x070d18, points: 10, spacing: 20, mouseControls: true });
+        VANTA.NET({
+            el: "#vanta-hero",
+            color: 0x2563eb,
+            backgroundColor: 0x070d18,
+            points: 10,
+            spacing: 20,
+            mouseControls: true
+        });
 
         const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
         const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
@@ -359,7 +402,6 @@
         const popupTitle = document.getElementById('popup-title');
         const toggleLogin = document.getElementById('toggle-login');
 
-        // Hamburger Menu
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobile-nav');
         const mobileNavClose = document.getElementById('mobile-nav-close');
@@ -374,7 +416,6 @@
             mobileNav.classList.remove('active');
         });
 
-        // Close menu when clicking a link
         mobileNav.querySelectorAll('a, button').forEach(item => {
             item.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -384,10 +425,9 @@
 
         let isLogin = true;
 
-        // Scroll fade-in
         const sections = document.querySelectorAll('section');
-        const reveal = new IntersectionObserver(entries => { 
-            entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')); 
+        const reveal = new IntersectionObserver(entries => {
+            entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
         });
         sections.forEach(s => reveal.observe(s));
 
@@ -402,7 +442,6 @@
             loginPassword.value = '';
         });
 
-        // Open login popup from both desktop and mobile buttons
         if (loginBtn) loginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
         if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
 
@@ -428,7 +467,6 @@
             toggleLogin.click();
         });
 
-        // Logout from both desktop and mobile
         if (logoutBtn) logoutBtn.addEventListener('click', logout);
         if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', logout);
 
@@ -437,7 +475,6 @@
             updateUI();
         }
 
-        // CREATE INVOICE BUTTON
         createInvoiceBtn.addEventListener('click', async () => {
             const { data } = await supabaseClient.auth.getSession();
             const user = data.session?.user;
@@ -473,10 +510,9 @@
         supabaseClient.auth.onAuthStateChange(() => updateUI());
         updateUI();
 
-        loginPopup.addEventListener('click', (e) => { 
-            if (e.target === loginPopup) loginPopup.style.display = 'none'; 
+        loginPopup.addEventListener('click', (e) => {
+            if (e.target === loginPopup) loginPopup.style.display = 'none';
         });
     </script>
 </body>
 </html>
-
