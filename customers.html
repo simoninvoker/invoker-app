@@ -19,41 +19,192 @@
 }
 * { box-sizing: border-box; margin:0; padding:0; }
 body { font-family:'Inter',sans-serif; background: var(--bg-dark); color: var(--white); }
-header { display:flex; justify-content: space-between; align-items:center; padding:20px 50px; background:var(--bg-darker); }
-header h1 { font-size:28px; }
-button { cursor:pointer; border:none; border-radius:12px; padding:14px 28px; font-weight:600; transition: all 0.2s; }
-button:hover { transform: translateY(-2px); }
-.cta { background: var(--primary); color:#fff; }
-.logout { background: var(--accent); color:#000; }
-.back { background: var(--accent); color:#000; }
-.main { max-width: 1000px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
+header { position: sticky; top: 0; z-index: 100; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-darker); }
+header h1 { font-size:28px; font-weight: 700; color: var(--white); }
+
+/* Desktop Navigation */
+nav.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+nav.desktop-nav button {
+    color: #00e5ff;
+    text-decoration: none;
+    opacity: .85;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+nav.desktop-nav button:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+/* Hamburger Icon - Mobile Only */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 101;
+}
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--white);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+/* Mobile Menu Overlay */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    z-index: 100;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+}
+.mobile-nav.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+.mobile-nav button {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    width: 80%;
+    text-align: center;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+.mobile-nav button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+.mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    color: var(--white);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+.mobile-nav-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.main { max-width: 1200px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
 .card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom:20px; color: var(--accent); }
-.table { width: 100%; border-collapse: collapse; }
-.table th, .table td { padding: 12px; border-bottom: 1px solid var(--border); }
-.table th { text-align: left; }
-.action-btn { padding: 8px 16px; margin-right: 10px; }
-.edit-btn { background: var(--accent); color: #000; }
-.delete-btn { background: var(--error); color: #fff; }
-.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top:20px; }
-.form-group { display: flex; flex-direction: column; }
-label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px; }
-input { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
 .peppol-search { margin-bottom: 20px; }
 .peppol-search input { width: 350px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: white; }
 .peppol-results { margin-top: 20px; max-height: 400px; overflow-y: auto; }
 .peppol-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 16px; }
 .peppol-result strong { font-size: 18px; }
 .peppol-result p { margin: 8px 0; color: var(--text-secondary); }
+
+/* Desktop Table */
+.desktop-table-wrapper { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; }
+.table th { background: rgba(255,255,255,0.05); }
+
+/* Mobile Customer List */
+.mobile-customer-list { display: none; flex-direction: column; gap: 16px; }
+.customer-card { background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+.customer-card h3 { font-size: 18px; margin-bottom: 12px; }
+.customer-card p { margin: 4px 0; color: var(--text-secondary); font-size: 14px; }
+.customer-card-actions { margin-top: 16px; display: flex; gap: 12px; }
+
+/* Actions */
+.action-btn { padding: 8px 16px; border-radius: 12px; font-weight: 600; transition: all 0.2s; }
+.action-btn:hover { transform: translateY(-2px); }
+.edit-btn { background: var(--accent); color: #000; }
+.delete-btn { background: var(--error); color: #fff; }
+
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top:20px; }
+.form-group { display: flex; flex-direction: column; }
+label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font-size: 14px; }
+input { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
+input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+
+.cta { background: var(--primary); color:#fff; }
+.logout { background: var(--accent); color:#000; }
+.back { background: var(--accent); color:#000; }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    header { padding: 20px; }
+    .desktop-nav { display: none; }
+    .hamburger { display: flex; }
+    .desktop-table-wrapper { display: none; }
+    .mobile-customer-list { display: flex; }
+    .main { padding: 20px; }
+    .card { padding: 20px; }
+    .peppol-search input { width: 100%; }
+}
 </style>
 </head>
 <body>
 <header>
     <h1>Customer Management</h1>
-    <div>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
         <button id="back-btn" class="back">← Back to Dashboard</button>
         <button id="logout-btn" class="logout">Logout</button>
+    </nav>
+
+    <!-- Hamburger Icon (Mobile Only) -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+        <button id="mobile-back-btn">← Back to Dashboard</button>
+        <button id="mobile-logout-btn">Logout</button>
     </div>
 </header>
 <div class="main">
@@ -66,17 +217,20 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
         </div>
         <div id="peppol-results" class="peppol-results" style="display:none;"></div>
         <button id="add-customer-btn" class="cta">Add Customer Manually</button>
-        <table id="customers-table" class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>VAT ID</th>
-                    <th>Country</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <div class="desktop-table-wrapper">
+            <table id="customers-table" class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>VAT ID</th>
+                        <th>Country</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="mobile-customer-list" class="mobile-customer-list"></div>
     </div>
 
     <div class="card" id="customer-form-card" style="display: none;">
@@ -168,6 +322,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const backBtn = document.getElementById('back-btn');
     backBtn.addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+    });
+
+    // Mobile
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
+
+    mobileNavClose.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+
+    mobileNav.querySelectorAll('button').forEach(item => {
+        item.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
+    });
+
+    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+    mobileLogoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
+    });
+
+    const mobileBackBtn = document.getElementById('mobile-back-btn');
+    mobileBackBtn.addEventListener('click', () => {
         window.location.href = 'dashboard.html';
     });
 
@@ -281,6 +468,11 @@ async function loadCustomers(userId) {
         return;
     }
 
+    renderDesktopTable(customers);
+    renderMobileCards(customers);
+}
+
+function renderDesktopTable(customers) {
     const tbody = document.getElementById('customers-table').querySelector('tbody');
     tbody.innerHTML = '';
 
@@ -298,6 +490,32 @@ async function loadCustomers(userId) {
         tbody.appendChild(tr);
     });
 
+    attachActionListeners();
+}
+
+function renderMobileCards(customers) {
+    const container = document.getElementById('mobile-customer-list');
+    container.innerHTML = '';
+
+    customers.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'customer-card';
+        card.innerHTML = `
+            <h3>${c.name}</h3>
+            <p>VAT ID: ${c.vat_id || ''}</p>
+            <p>Country: ${c.country || ''}</p>
+            <div class="customer-card-actions">
+                <button class="action-btn edit-btn" data-id="${c.id}">Edit</button>
+                <button class="action-btn delete-btn" data-id="${c.id}">Delete</button>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+
+    attachActionListeners();
+}
+
+function attachActionListeners() {
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', () => editCustomer(btn.dataset.id));
     });
@@ -367,7 +585,7 @@ async function saveCustomer(userId) {
         postal_code: document.getElementById('cust-postal').value.trim(),
         country: document.getElementById('cust-country').value.trim(),
         registration_name: document.getElementById('cust-reg-name').value.trim(),
-        company_id: document.getElementById('cust-company-id').value.trim(), // Now independent
+        company_id: document.getElementById('cust-company-id').value.trim(),
         contact_name: document.getElementById('cust-contact-name').value.trim(),
         contact_phone: document.getElementById('cust-contact-phone').value.trim(),
         contact_email: document.getElementById('cust-contact-email').value.trim()
