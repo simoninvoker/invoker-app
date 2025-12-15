@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,7 +42,6 @@
             backdrop-filter: blur(10px);
         }
         header h1 { font-size: 28px; font-weight: 700; color: var(--white); }
-
         /* Desktop Navigation */
         nav.desktop-nav {
             display: flex;
@@ -67,7 +65,6 @@
             border-color: #2563eb;
             color: #fff;
         }
-
         /* Hamburger Icon - Mobile Only */
         .hamburger {
             display: none;
@@ -89,7 +86,6 @@
         .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
-
         /* Mobile Menu Overlay */
         .mobile-nav {
             position: fixed;
@@ -152,7 +148,6 @@
         .mobile-nav-close:hover {
             background: rgba(255, 255, 255, 0.1);
         }
-
         button.cta {
             padding: 18px 42px;
             background: #2563eb;
@@ -196,7 +191,6 @@
         #use-cases { padding: 120px 50px; background: rgba(5, 10, 20, 0.6); max-width: 1400px; margin: auto; }
         #use-cases h2 { text-align: center; font-size: 48px; margin-bottom: 24px; }
         #use-cases > p { text-align: center; max-width: 800px; margin: auto; margin-bottom: 80px; font-size: 18px; opacity: 0.9; }
-
         /* Login Popup */
         #login-popup { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 9999; animation: fadeIn 0.3s ease forwards; }
         #login-popup .popup-content { background: rgba(20, 25, 35, 0.85); backdrop-filter: blur(15px); padding: 50px 30px; border-radius: 20px; text-align: center; max-width: 380px; width: 90%; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); }
@@ -215,7 +209,6 @@
         #forgot-password { margin-top:10px; font-size:14px; color:#00e5ff; cursor:pointer; text-decoration:underline; }
         #error-message { color:#ff4d6d; font-size:14px; margin-top:10px; min-height:18px; }
         @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             header { padding: 20px; }
@@ -227,11 +220,9 @@
         }
     </style>
 </head>
-
 <body>
     <header>
         <h1>Invoker</h1>
-
         <!-- Desktop Navigation -->
         <nav class="desktop-nav">
             <a href="#features">Features</a>
@@ -243,14 +234,12 @@
             <button id="login-btn">Login / Sign Up</button>
             <button id="logout-btn">Logout</button>
         </nav>
-
         <!-- Hamburger Icon (Mobile Only) -->
         <div class="hamburger" id="hamburger">
             <span></span>
             <span></span>
             <span></span>
         </div>
-
         <!-- Mobile Menu Overlay -->
         <div class="mobile-nav" id="mobile-nav">
             <button class="mobile-nav-close" id="mobile-nav-close">×</button>
@@ -263,7 +252,6 @@
             <button id="mobile-logout-btn">Logout</button>
         </div>
     </header>
-
     <section id="vanta-hero" class="visible">
         <div class="gradient-overlay"></div>
         <div class="hero-content">
@@ -272,7 +260,6 @@
             <button id="create-invoice-btn" class="cta">Create Invoices</button>
         </div>
     </section>
-
     <section class="features" id="features">
         <h2>Why Invoker</h2>
         <div class="feature-grid">
@@ -294,7 +281,6 @@
             </div>
         </div>
     </section>
-
     <section id="use-cases">
         <h2>Use Cases</h2>
         <p>Invoker empowers European businesses to streamline PEPPOL-compliant invoicing with enterprise-grade features. Here are key scenarios where it shines:</p>
@@ -304,31 +290,26 @@
                 <h3>Be Ready to Invoice</h3>
                 <p>Stay ahead of evolving EU e-invoicing mandates (e.g., upcoming requirements in France, Germany, Belgium from 2026). Generate and send fully compliant PEPPOL BIS 3.0 invoices instantly, ensuring regulation-ready formats, structured data for audits, and real-time delivery via the PEPPOL network.</p>
             </div>
-
             <div class="feature-card">
                 <img src="https://thumbs.dreamstime.com/b/abstract-network-connection-futuristic-blue-orange-nodes-connected-lines-representing-global-digital-technology-data-flow-383665170.jpg" alt="Abstract multi-company interconnected nodes">
                 <h3>Manage Multiple Companies</h3>
                 <p>Handle invoicing for group structures, subsidiaries, or clients effortlessly in one platform. Centralize operations across entities while maintaining separate compliance profiles, branding, and data isolation.</p>
             </div>
-
             <div class="feature-card">
                 <img src="https://thumbs.dreamstime.com/b/blue-network-digital-connections-data-points-abstract-glowing-lights-form-against-dark-background-pattern-361784745.jpg" alt="Abstract customer network connections grid">
                 <h3>Customer Management</h3>
                 <p>Build and maintain a robust customer database with PEPPOL IDs, contact details, tax info, and billing histories. Quickly lookup recipients on the network for accurate routing and automate recurring invoices.</p>
             </div>
-
             <div class="feature-card">
                 <img src="https://thumbs.dreamstime.com/b/hand-interacting-futuristic-holographic-data-dashboard-laptop-business-analytics-concept-points-glowing-blue-412339322.jpg" alt="Futuristic holographic analytics dashboard with graphs">
                 <h3>Analytics</h3>
                 <p>Gain insights into invoicing performance with dashboards tracking volume, payment timelines, compliance rates, and network delivery status. Spot trends to optimize cash flow.</p>
             </div>
-
             <div class="feature-card">
                 <img src="https://images.stockcake.com/public/b/3/c/b3c8f0ce-1c6a-4529-a943-00575b10a05a_large/neon-data-flow-stockcake.jpg" alt="Neon holographic data flow for workflow automation">
                 <h3>Workflow</h3>
                 <p>Automate end-to-end invoicing processes: from draft creation and approvals to validation, sending, and status monitoring. Set custom rules for multi-step reviews and notifications.</p>
             </div>
-
             <div class="feature-card">
                 <img src="https://thumbs.dreamstime.com/b/celestial-lotus-bloom-illuminated-vibrant-flower-glows-symbolizing-purity-enlightenment-rebirth-peace-spiritual-awakening-352101475.jpg" alt="Serene ethereal digital bloom">
                 <h3>Seamless Digital Harmony</h3>
@@ -336,7 +317,6 @@
             </div>
         </div>
     </section>
-
     <!-- Login Popup -->
     <div id="login-popup">
         <div class="popup-content">
@@ -356,14 +336,12 @@
             <p id="error-message"></p>
         </div>
     </div>
-
     <div class="trust">
         <span>ISO-ready</span>
         <span>GDPR-compliant</span>
         <span>PEPPOL</span>
         <span>Finance-first</span>
     </div>
-
     <footer id="contact">
         support@invoker.com • © 2025 Invoker
     </footer>
@@ -371,7 +349,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-
     <script>
         VANTA.NET({
             el: "#vanta-hero",
@@ -404,11 +381,11 @@
         const popupTitle = document.getElementById('popup-title');
         const toggleLogin = document.getElementById('toggle-login');
         const forgotPasswordLink = document.getElementById('forgot-password');
-
         const hamburger = document.getElementById('hamburger');
         const mobileNav = document.getElementById('mobile-nav');
         const mobileNavClose = document.getElementById('mobile-nav-close');
 
+        // Mobile menu toggle
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileNav.classList.toggle('active');
@@ -426,8 +403,7 @@
             });
         });
 
-        let isLogin = true;
-
+        // Section reveal on scroll
         const sections = document.querySelectorAll('section');
         const reveal = new IntersectionObserver(entries => {
             entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
@@ -435,6 +411,7 @@
         sections.forEach(s => reveal.observe(s));
 
         // Toggle between Login and Sign Up
+        let isLogin = true;
         toggleLogin.addEventListener('click', () => {
             isLogin = !isLogin;
             popupTitle.textContent = isLogin ? 'Login' : 'Sign Up';
@@ -447,62 +424,72 @@
             loginPassword.value = '';
         });
 
-        // Initial visibility
+        // Initial state
         forgotPasswordLink.style.display = isLogin ? 'block' : 'none';
 
+        // Open login popup
         if (loginBtn) loginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
         if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
 
-        // Close popup on backdrop click/touch
-        loginPopup.addEventListener('touchend', (e) => {
-            if (e.target === loginPopup) {
-                e.preventDefault();
-                loginPopup.style.display = 'none';
-            }
-        });
-
+        // Close popup on backdrop click
         loginPopup.addEventListener('click', (e) => {
             if (e.target === loginPopup) {
                 loginPopup.style.display = 'none';
             }
         });
 
+        // Login handler – fixed to avoid race condition
         submitLogin.addEventListener('click', async () => {
             errorMessage.textContent = '';
             const email = loginEmail.value.trim();
             const password = loginPassword.value;
+
             if (!email || !password) {
                 errorMessage.textContent = 'Email & password required';
                 return;
             }
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+            // Show loading state
+            submitLogin.disabled = true;
+            submitLogin.textContent = 'Signing in...';
+
+            const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+            submitLogin.disabled = false;
+            submitLogin.textContent = 'Sign In';
+
             if (error) {
                 errorMessage.textContent = error.message;
                 return;
             }
+
+            // Close popup – redirect will happen via onAuthStateChange
             loginPopup.style.display = 'none';
-            updateUI();
-            window.location.href = 'dashboard.html';
         });
 
+        // Sign Up handler
         submitSignup.addEventListener('click', async () => {
             errorMessage.textContent = '';
             const email = loginEmail.value.trim();
             const password = loginPassword.value;
+
             if (!email || !password) {
                 errorMessage.textContent = 'Email & password required';
                 return;
             }
-            const { data, error } = await supabaseClient.auth.signUp({ email, password });
+
+            const { error } = await supabaseClient.auth.signUp({ email, password });
+
             if (error) {
                 errorMessage.textContent = error.message;
                 return;
             }
+
             alert('Sign-up successful! Please confirm your email to continue.');
-            toggleLogin.click();
+            toggleLogin.click(); // Switch back to login
         });
 
-        // Forgot Password functionality
+        // Forgot Password
         forgotPasswordLink.addEventListener('click', async () => {
             const email = loginEmail.value.trim();
             if (!email) {
@@ -511,7 +498,6 @@
             }
 
             errorMessage.textContent = 'Sending password reset link...';
-
             const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
                 redirectTo: window.location.origin + '/password-reset.html',
             });
@@ -523,6 +509,7 @@
             }
         });
 
+        // Logout
         if (logoutBtn) logoutBtn.addEventListener('click', logout);
         if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', logout);
 
@@ -531,19 +518,21 @@
             updateUI();
         }
 
+        // Create Invoice button – requires login
         createInvoiceBtn.addEventListener('click', async () => {
             const { data } = await supabaseClient.auth.getSession();
-            const user = data.session?.user;
-            if (!user) {
+            if (!data.session) {
                 loginPopup.style.display = 'flex';
                 return;
             }
             window.location.href = 'dashboard.html';
         });
 
+        // Update navigation UI based on auth state
         async function updateUI() {
             const { data } = await supabaseClient.auth.getSession();
             const user = data.session?.user;
+
             if (user) {
                 if (loginBtn) loginBtn.style.display = 'none';
                 if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
@@ -563,7 +552,18 @@
             }
         }
 
-        supabaseClient.auth.onAuthStateChange(() => updateUI());
+        // Listen for auth changes – this reliably handles redirect after login
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') {
+                // Only redirect if we're currently on the index page
+                if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+                    window.location.href = 'dashboard.html';
+                }
+            }
+            updateUI();
+        });
+
+        // Initial UI update on page load
         updateUI();
     </script>
 </body>
