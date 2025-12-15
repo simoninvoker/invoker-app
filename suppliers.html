@@ -616,6 +616,24 @@ const companyPatterns = {
     SE: /^\d{10}$/
 };
 
+// PEPPOL Payment Means Code list (UN/ECE 4461 - most common codes)
+const paymentMeansCodes = [
+    { code: "1", name: "Instrument not defined" },
+    { code: "10", name: "In cash" },
+    { code: "20", name: "Cheque" },
+    { code: "30", name: "Credit transfer" },
+    { code: "31", name: "Debit transfer" },
+    { code: "42", name: "Payment to bank account" },
+    { code: "48", name: "Bank card" },
+    { code: "49", name: "Direct debit" },
+    { code: "50", name: "Payment by postgiro" },
+    { code: "57", name: "Standing agreement" },
+    { code: "58", name: "SEPA credit transfer" },
+    { code: "59", name: "SEPA direct debit" },
+    { code: "60", name: "Promissory note" },
+    { code: "97", name: "Clearing between partners" }
+];
+
 function cleanInput(value) {
     return value.trim().toUpperCase().replace(/[\s\.\-]/g, '');
 }
@@ -1055,7 +1073,13 @@ function addBankEntry(bankData = {}) {
                 <input class="bank-bic" value="${bankData.bic || ''}">
                 <div class="bank-bic-validation bank-validation"></div>
             </div>
-            <div class="form-group"><label>Payment Means Code</label><input class="bank-code" value="${bankData.code || ''}"></div>
+            <div class="form-group">
+                <label>Payment Means Code</label>
+                <select class="bank-code">
+                    <option value="">Select payment means</option>
+                    ${paymentMeansCodes.map(pm => `<option value="${pm.code}" ${bankData.code === pm.code ? 'selected' : ''}>${pm.code} - ${pm.name}</option>`).join('')}
+                </select>
+            </div>
             <div class="form-group"><label>Payment ID</label><input class="bank-payment_id" value="${bankData.payment_id || ''}"></div>
             <div class="form-group"><label>Terms</label><input class="bank-terms" value="${bankData.terms || ''}"></div>
         </div>
@@ -1176,7 +1200,7 @@ async function saveBanksForSupplier(supplierId, userId) {
                 name,
                 iban,
                 bic: entry.querySelector('.bank-bic').value.trim().toUpperCase() || null,
-                code: entry.querySelector('.bank-code').value.trim() || null,
+                code: entry.querySelector('.bank-code').value || null,
                 payment_id: entry.querySelector('.bank-payment_id').value.trim() || null,
                 terms: entry.querySelector('.bank-terms').value.trim() || null
             });
