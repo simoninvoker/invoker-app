@@ -667,6 +667,18 @@ function updateValidation() {
     }
 }
 
+// New logic for Swedish 0007 prefix
+function applySwedishLogic(endpoint) {
+    const trimmed = endpoint.trim();
+    if (trimmed.startsWith('0007:')) {
+        const orgNumber = trimmed.slice(5); // Remove '0007:'
+        document.getElementById('cust-company-id').value = orgNumber;
+        document.getElementById('cust-vat').value = 'SE' + orgNumber + '01';
+        document.getElementById('cust-country').value = 'SE';
+        updateValidation();
+    }
+}
+
 // Theme toggle logic
 function initTheme() {
     const saved = localStorage.getItem('theme');
@@ -791,9 +803,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById('cust-country').addEventListener('input', updateValidation);
     document.getElementById('cust-vat').addEventListener('input', updateValidation);
     document.getElementById('cust-company-id').addEventListener('input', updateValidation);
-    document.getElementById('cust-endpoint').addEventListener('input', updateValidation);
+    document.getElementById('cust-endpoint').addEventListener('input', () => {
+        updateValidation();
+        applySwedishLogic(document.getElementById('cust-endpoint').value);
+    });
 
-    // PEPPOL Directory lookup - restored original logic exactly as in your first file
+    // PEPPOL Directory lookup - restored original logic with Swedish logic
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -852,6 +867,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         document.getElementById('cust-endpoint').value = cleanEndpoint;
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
+                        applySwedishLogic(cleanEndpoint); // Apply Swedish logic after setting endpoint
                         updateValidation();
                         document.getElementById('customer-form-card').style.display = 'block';
                         document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
