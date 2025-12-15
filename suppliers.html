@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Select Supplier</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places" async defer></script>
 <style>
 :root {
     --bg-dark: #070d18;
@@ -555,7 +556,7 @@ input:checked + .slider:after {
                 <div class="form-group"><label>City *</label><input id="city" required></div>
                 <div class="form-group"><label>Postal Code *</label><input id="postal" required></div>
                 <div class="form-group"><label>Country Code *</label><input id="country" required maxlength="2"></div>
-                <div class="form-group"><label>Email *</label><input id="email" type="email" required></div>
+                <div class="form-group"><label>Email *</label><input id="email" type="email" required><div id="email-validation" class="validation-message"></div></div>
                 <div class="form-group"><label>Default Currency *</label><select id="default-currency" required><option value="EUR">EUR</option><option value="SEK">SEK</option><option value="GBP">GBP</option><option value="USD">USD</option></select></div>
             </div>
 
@@ -671,24 +672,32 @@ function validateEndpoint(endpoint) {
     return regex.test(trimmed);
 }
 
+function validateEmail(email) {
+    if (!email) return null;
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+}
+
 function updateValidation() {
     const country = document.getElementById('country').value.toUpperCase();
     const vat = document.getElementById('vat').value;
     const companyId = document.getElementById('company-id').value;
     const endpoint = document.getElementById('endpoint').value;
+    const email = document.getElementById('email').value;
 
     const vatMsg = document.getElementById('vat-validation');
     const companyMsg = document.getElementById('company-validation');
     const endpointMsg = document.getElementById('endpoint-validation');
+    const emailMsg = document.getElementById('email-validation');
 
     const vatValid = validateVAT(country, vat);
     if (vatValid === null) {
         vatMsg.textContent = '';
     } else if (vatValid) {
-        vatMsg.textContent = 'Valid VAT format';
+        vatMsg.textContent = 'Valid VAT ID';
         vatMsg.style.color = 'var(--success)';
     } else {
-        vatMsg.textContent = 'Invalid VAT format for ' + country;
+        vatMsg.textContent = 'Invalid VAT ID';
         vatMsg.style.color = 'var(--error)';
     }
 
@@ -696,10 +705,10 @@ function updateValidation() {
     if (companyValid === null) {
         companyMsg.textContent = '';
     } else if (companyValid) {
-        companyMsg.textContent = 'Valid format';
+        companyMsg.textContent = 'Valid Company ID';
         companyMsg.style.color = 'var(--success)';
     } else {
-        companyMsg.textContent = 'Invalid Company ID format for ' + country + ' (no hyphens/spaces allowed)';
+        companyMsg.textContent = 'Invalid Company ID';
         companyMsg.style.color = 'var(--error)';
     }
 
@@ -707,11 +716,31 @@ function updateValidation() {
     if (endpointValid === null) {
         endpointMsg.textContent = '';
     } else if (endpointValid) {
-        endpointMsg.textContent = 'Valid PEPPOL endpoint format';
+        endpointMsg.textContent = 'Valid Endpoint ID';
         endpointMsg.style.color = 'var(--success)';
     } else {
-        endpointMsg.textContent = 'Invalid endpoint format (must be 0000:endpoint)';
+        endpointMsg.textContent = 'Invalid Endpoint ID';
         endpointMsg.style.color = 'var(--error)';
+    }
+
+    const emailValid = validateEmail(email);
+    if (emailValid === null) {
+        emailMsg.textContent = '';
+    } else if (emailValid) {
+        emailMsg.textContent = 'Valid email';
+        emailMsg.style.color = 'var(--success)';
+    } else {
+        emailMsg.textContent = 'Invalid email';
+        emailMsg.style.color = 'var(--error)';
+    }
+}
+
+// Sync Legal Name with Supplier Name in real time for new suppliers
+function syncRegistrationName() {
+    const nameInput = document.getElementById('name');
+    const regNameInput = document.getElementById('reg-name');
+    if (!editingSupplierId) {
+        regNameInput.value = nameInput.value;
     }
 }
 
@@ -732,7 +761,7 @@ function validateBank(entry) {
 
     // Account Name required
     if (!name) {
-        nameMsg.textContent = 'Account name is required';
+        nameMsg.textContent = 'Required';
         nameMsg.style.color = 'var(--error)';
         isValid = false;
     } else {
@@ -741,9 +770,9 @@ function validateBank(entry) {
 
     // Either IBAN or BBAN must be provided
     if (!iban && !bban) {
-        ibanMsg.textContent = 'Either IBAN or BBAN must be provided';
+        ibanMsg.textContent = 'IBAN or BBAN required';
         ibanMsg.style.color = 'var(--error)';
-        bbanMsg.textContent = 'Either IBAN or BBAN must be provided';
+        bbanMsg.textContent = 'IBAN or BBAN required';
         bbanMsg.style.color = 'var(--error)';
         isValid = false;
     } else {
@@ -754,22 +783,22 @@ function validateBank(entry) {
     // IBAN format check if provided
     if (iban) {
         if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
-            ibanMsg.textContent = 'Invalid IBAN format';
+            ibanMsg.textContent = 'Invalid IBAN';
             ibanMsg.style.color = 'var(--error)';
             isValid = false;
         } else {
-            ibanMsg.textContent = 'Valid IBAN';
+            ibanMsg.textContent = 'Valid';
             ibanMsg.style.color = 'var(--success)';
         }
     }
 
     // BIC optional but format check if provided
     if (bic && !/^[A-Z]{6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3}){0,1}$/.test(bic)) {
-        bicMsg.textContent = 'Invalid BIC format';
+        bicMsg.textContent = 'Invalid BIC';
         bicMsg.style.color = 'var(--error)';
         isValid = false;
     } else if (bic) {
-        bicMsg.textContent = 'Valid BIC';
+        bicMsg.textContent = 'Valid';
         bicMsg.style.color = 'var(--success)';
     } else {
         bicMsg.textContent = '';
@@ -796,13 +825,48 @@ function validateAllBanks() {
     return allValid;
 }
 
-// Sync Legal Name with Supplier Name in real time for new suppliers
-function syncRegistrationName() {
-    const nameInput = document.getElementById('name');
-    const regNameInput = document.getElementById('reg-name');
-    if (!editingSupplierId) {
-        regNameInput.value = nameInput.value;
-    }
+// Address autocomplete
+function initAddressAutocomplete() {
+    const streetInput = document.getElementById('street');
+    const cityInput = document.getElementById('city');
+    const postalInput = document.getElementById('postal');
+    const countryInput = document.getElementById('country');
+
+    const autocomplete = new google.maps.places.Autocomplete(streetInput, {
+        types: ['address'],
+        componentRestrictions: { country: [] } // Allow all countries
+    });
+
+    autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) return;
+
+        let street = '';
+        let city = '';
+        let postal = '';
+        let country = '';
+
+        place.address_components.forEach(component => {
+            const types = component.types;
+            if (types.includes('street_number')) {
+                street = component.long_name + ' ' + street;
+            } else if (types.includes('route')) {
+                street = component.long_name + ' ' + street;
+            } else if (types.includes('locality')) {
+                city = component.long_name;
+            } else if (types.includes('postal_code')) {
+                postal = component.long_name;
+            } else if (types.includes('country')) {
+                country = component.short_name;
+            }
+        });
+
+        streetInput.value = street.trim();
+        cityInput.value = city;
+        postalInput.value = postal;
+        countryInput.value = country;
+        updateValidation();
+    });
 }
 
 // Theme toggle logic
@@ -831,6 +895,7 @@ function toggleTheme() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     initTheme();
+    initAddressAutocomplete();
 
     document.getElementById('theme-toggle-desktop').addEventListener('change', toggleTheme);
     document.getElementById('theme-toggle-mobile').addEventListener('change', toggleTheme);
@@ -912,6 +977,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('vat').addEventListener('input', updateValidation);
     document.getElementById('company-id').addEventListener('input', updateValidation);
     document.getElementById('endpoint').addEventListener('input', updateValidation);
+    document.getElementById('email').addEventListener('input', updateValidation);
     document.getElementById('name').addEventListener('input', syncRegistrationName);
 
     // Real-time bank validation
@@ -1110,14 +1176,14 @@ function addBankEntry(bankData = {}) {
                 <div class="bank-bic-validation bank-validation"></div>
             </div>
             <div class="form-group">
-                <label>Payment Means Code</label>
+                <label>Default Payment Means Code</label>
                 <select class="bank-code">
                     <option value="">Select payment means</option>
                     ${paymentMeansCodes.map(pm => `<option value="${pm.code}" ${bankData.code === pm.code ? 'selected' : ''}>${pm.code} - ${pm.name}</option>`).join('')}
                 </select>
             </div>
             <div class="form-group">
-                <label>Payment ID</label>
+                <label>Default Payment ID</label>
                 <input class="bank-payment_id" value="${bankData.payment_id || ''}">
                 <div class="hint">Optional reference shown to buyer (e.g., "Invoice #12345" or structured payment reference)</div>
             </div>
