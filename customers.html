@@ -294,7 +294,7 @@ input:checked + .slider:after {
 .card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom:20px; color: var(--accent); }
 
-.peppol-search { margin-bottom: 20px; position: relative; }
+.peppol-search { margin-bottom: 20px; }
 .peppol-search input { width: 350px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: white; }
 .peppol-results { margin-top: 20px; max-height: 400px; overflow-y: auto; position: relative; }
 .peppol-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 16px; }
@@ -314,14 +314,14 @@ input:checked + .slider:after {
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
-    display: flex;
+    display: none; /* Hidden by default, shown when results appear */
     align-items: center;
     justify-content: center;
     z-index: 10;
 }
 
 #peppol-close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba127, 127, 127, 0.3);
 }
 
 /* Desktop Table */
@@ -500,7 +500,7 @@ input:focus, select:focus { outline: none; border-color: var(--primary); box-sha
         </label>
     </nav>
 
-    <!-- Hamburger Icon (Mobile Only) -->
+    <!-- Hamburger Icon - Mobile Only -->
     <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
@@ -976,7 +976,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     document.getElementById('cust-name').addEventListener('input', syncRegistrationName);
 
-    // PEPPOL Directory lookup with close button
+    // PEPPOL Directory lookup - restored original logic with &rpc=50 for better results
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -1058,6 +1058,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Close button for PEPPOL results
     document.getElementById('peppol-close-btn').addEventListener('click', () => {
         document.getElementById('peppol-results').style.display = 'none';
+        document.getElementById('peppol-close-btn').style.display = 'none';
     });
 });
 
