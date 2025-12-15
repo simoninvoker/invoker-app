@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Select Supplier</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_API_KEY&libraries=places" async defer></script>
 <style>
 :root {
     --bg-dark: #070d18;
@@ -825,50 +824,6 @@ function validateAllBanks() {
     return allValid;
 }
 
-// Address autocomplete
-function initAddressAutocomplete() {
-    const streetInput = document.getElementById('street');
-    const cityInput = document.getElementById('city');
-    const postalInput = document.getElementById('postal');
-    const countryInput = document.getElementById('country');
-
-    const autocomplete = new google.maps.places.Autocomplete(streetInput, {
-        types: ['address'],
-        componentRestrictions: { country: [] } // Allow all countries
-    });
-
-    autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry) return;
-
-        let street = '';
-        let city = '';
-        let postal = '';
-        let country = '';
-
-        place.address_components.forEach(component => {
-            const types = component.types;
-            if (types.includes('street_number')) {
-                street = component.long_name + ' ' + street;
-            } else if (types.includes('route')) {
-                street = component.long_name + ' ' + street;
-            } else if (types.includes('locality')) {
-                city = component.long_name;
-            } else if (types.includes('postal_code')) {
-                postal = component.long_name;
-            } else if (types.includes('country')) {
-                country = component.short_name;
-            }
-        });
-
-        streetInput.value = street.trim();
-        cityInput.value = city;
-        postalInput.value = postal;
-        countryInput.value = country;
-        updateValidation();
-    });
-}
-
 // Theme toggle logic
 function initTheme() {
     const saved = localStorage.getItem('theme');
@@ -895,7 +850,6 @@ function toggleTheme() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     initTheme();
-    initAddressAutocomplete();
 
     document.getElementById('theme-toggle-desktop').addEventListener('change', toggleTheme);
     document.getElementById('theme-toggle-mobile').addEventListener('change', toggleTheme);
@@ -995,7 +949,8 @@ async function loadSuppliers(userId) {
         .order('name');
 
     if (error) {
-        alert('Error loading suppliers: ' + error.message);
+        console.error('Error loading suppliers:', error);
+        document.getElementById('suppliers-list').innerHTML = '<div class="no-suppliers">Error loading suppliers. Check console.</div>';
         return;
     }
 
