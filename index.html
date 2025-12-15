@@ -336,16 +336,16 @@
         </div>
     </section>
 
-    <!-- Login Popup (placed before footer for better accessibility) -->
+    <!-- Login Popup -->
     <div id="login-popup">
         <div class="popup-content">
             <h2 id="popup-title">Login</h2>
             <div class="floating-label">
-                <input id="login-email" type="email" placeholder=" " required>
+                <input id="login-email" type="email" placeholder=" " required autocomplete="username">
                 <label for="login-email">Email</label>
             </div>
             <div class="floating-label">
-                <input id="login-password" type="password" placeholder=" " required>
+                <input id="login-password" type="password" placeholder=" " required autocomplete="current-password">
                 <label for="login-password">Password</label>
             </div>
             <button id="submit-login">Sign In</button>
@@ -445,25 +445,53 @@
         if (loginBtn) loginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
         if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
 
+        // Fixed mobile backdrop closing bug: use touchend (doesn't fire on resize) + keep click for desktop
+        loginPopup.addEventListener('touchend', (e) => {
+            if (e.target === loginPopup) {
+                e.preventDefault();
+                loginPopup.style.display = 'none';
+            }
+        });
+
+        loginPopup.addEventListener('click', (e) => {
+            if (e.target === loginPopup) {
+                loginPopup.style.display = 'none';
+            }
+        });
+
         submitLogin.addEventListener('click', async () => {
             errorMessage.textContent = '';
-            const email = loginEmail.value;
+            const email = loginEmail.value.trim();
             const password = loginPassword.value;
-            if (!email || !password) { errorMessage.textContent = 'Email & password required'; return; }
+            if (!email || !password) {
+                errorMessage.textContent = 'Email & password required';
+                return;
+            }
             const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-            if (error) { errorMessage.textContent = error.message; return; }
+            if (error) {
+                errorMessage.textContent = error.message;
+                return;
+            }
+            // Success → close popup, update UI, and redirect to dashboard
             loginPopup.style.display = 'none';
             updateUI();
+            window.location.href = 'dashboard.html';
         });
 
         submitSignup.addEventListener('click', async () => {
             errorMessage.textContent = '';
-            const email = loginEmail.value;
+            const email = loginEmail.value.trim();
             const password = loginPassword.value;
-            if (!email || !password) { errorMessage.textContent = 'Email & password required'; return; }
+            if (!email || !password) {
+                errorMessage.textContent = 'Email & password required';
+                return;
+            }
             const { data, error } = await supabaseClient.auth.signUp({ email, password });
-            if (error) { errorMessage.textContent = error.message; return; }
-            alert('Sign-up successful! Please confirm e-mail to continue.');
+            if (error) {
+                errorMessage.textContent = error.message;
+                return;
+            }
+            alert('Sign-up successful! Please confirm your email to continue.');
             toggleLogin.click();
         });
 
@@ -509,10 +537,6 @@
 
         supabaseClient.auth.onAuthStateChange(() => updateUI());
         updateUI();
-
-        loginPopup.addEventListener('click', (e) => {
-            if (e.target === loginPopup) loginPopup.style.display = 'none';
-        });
     </script>
 </body>
 </html>
