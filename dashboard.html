@@ -89,8 +89,9 @@ header {
 
 .header-left {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
 }
 
 header h1 {
@@ -118,6 +119,7 @@ header h1 {
     gap: 16px;
 }
 
+.desktop-nav a,
 .desktop-nav button {
     padding: 10px 24px;
     border-radius: 12px;
@@ -127,6 +129,42 @@ header h1 {
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
+}
+
+.desktop-nav .cta {
+    background: var(--primary);
+    color: white;
+}
+
+.desktop-nav .cta:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.desktop-nav .logout-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.desktop-nav .logout-btn:hover {
+    background: #fde047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+.desktop-nav .suppliers-btn,
+.desktop-nav .customers-btn {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border);
+}
+
+.desktop-nav .suppliers-btn:hover,
+.desktop-nav .customers-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 /* Hamburger - Mobile Only */
@@ -179,8 +217,8 @@ header h1 {
     pointer-events: auto;
 }
 
-.mobile-nav button,
-.mobile-nav a {
+.mobile-nav a,
+.mobile-nav button {
     font-size: 24px;
     font-weight: 600;
     color: var(--white);
@@ -193,8 +231,8 @@ header h1 {
     cursor: pointer;
 }
 
-.mobile-nav button:hover,
-.mobile-nav a:hover {
+.mobile-nav a:hover,
+.mobile-nav button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -207,39 +245,6 @@ header h1 {
     background: none;
     border: none;
     cursor: pointer;
-}
-
-.cta, .logout-btn {
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
-    cursor: pointer;
-}
-
-.cta {
-    background: var(--primary);
-    color: white;
-}
-
-.cta:hover {
-    background: #3b82f6;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-}
-
-.logout-btn {
-    background: var(--accent);
-    color: #000;
-}
-
-.logout-btn:hover {
-    background: #fde047;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
 }
 
 /* Theme Toggle Switch */
@@ -603,6 +608,8 @@ input:checked + .slider:after {
     <!-- Desktop Navigation -->
     <nav class="desktop-nav">
         <button id="create-invoice-btn" class="cta">Create New Invoice</button>
+        <a href="suppliers.html" class="suppliers-btn">Suppliers</a>
+        <a href="customers.html" class="customers-btn">Customers</a>
         <button id="logout-btn" class="logout-btn">Logout</button>
         <label class="theme-toggle">
             <input type="checkbox" id="theme-toggle-desktop">
@@ -621,6 +628,8 @@ input:checked + .slider:after {
     <div class="mobile-nav" id="mobile-nav">
         <button class="mobile-nav-close" id="mobile-nav-close">×</button>
         <button id="mobile-create-invoice-btn" class="cta">Create New Invoice</button>
+        <a href="suppliers.html">Suppliers</a>
+        <a href="customers.html">Customers</a>
         <button id="mobile-logout-btn">Logout</button>
         <label class="theme-toggle">
             <input type="checkbox" id="theme-toggle-mobile">
@@ -779,8 +788,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('active-supplier').textContent = `Active: ${selectedSupplierName}`;
     } else {
         document.getElementById('active-supplier').textContent = 'No supplier selected';
-        window.location.href = 'suppliers.html';
-        return;
+        // Optionally redirect or show message
     }
 
     // Mobile menu
@@ -798,7 +806,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         mobileNav.classList.remove('active');
     });
 
-    mobileNav.querySelectorAll('button, a').forEach(item => {
+    mobileNav.querySelectorAll('a, button').forEach(item => {
         item.addEventListener('click', () => {
             hamburger.classList.remove('active');
             mobileNav.classList.remove('active');
@@ -828,22 +836,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     const createFirstInvoiceBtn = document.getElementById('create-first-invoice');
-    createFirstInvoiceBtn.addEventListener('click', () => {
-        window.location.href = 'form.html';
-    });
+    if (createFirstInvoiceBtn) {
+        createFirstInvoiceBtn.addEventListener('click', () => {
+            window.location.href = 'form.html';
+        });
+    }
 
     await loadInvoices();
     setupEventListeners();
 });
 
 async function loadInvoices() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
     const { data, error } = await supabase
         .from('invoices')
         .select(`
-            *,
-            customers!inner(name),
-            suppliers!inner(name)
+            id,
+            invoice_id,
+            issue_date,
+            total_amount,
+            currency,
+            status,
+            xml_data,
+            form_data,
+            customer_id,
+            customers (name)
         `)
+        .eq('user_id', user.id)
         .order('issue_date', { ascending: false });
 
     if (error) {
@@ -852,16 +873,21 @@ async function loadInvoices() {
     }
 
     allInvoices = data.map(inv => ({
-        ...inv,
-        customer_name: inv.customers?.name || 'Unknown',
-        supplier_name: inv.suppliers?.name || 'Unknown'
+        id: inv.id,
+        invoice_id: inv.invoice_id,
+        issue_date: inv.issue_date,
+        total_amount: inv.total_amount,
+        currency: inv.currency,
+        status: inv.status || 'draft',
+        xml_data: inv.xml_data,
+        form_data: inv.form_data,
+        customer_name: inv.customers?.name || 'Unknown'
     }));
 
     applyFilters();
 }
 
 function setupEventListeners() {
-    // Filter listeners
     ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
@@ -895,7 +921,7 @@ function applyFilters() {
     if (toDate) filtered = filtered.filter(inv => inv.issue_date <= toDate);
 
     const statusFilter = document.getElementById('filter-status').value;
-    if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
+    if (statusFilter) filtered = filtered.filter(inv => inv.status === statusFilter);
 
     displayedInvoices = filtered;
     renderAnalytics(filtered);
@@ -914,14 +940,13 @@ function renderAnalytics(invoices) {
     const total = invoices.length;
     const paid = invoices.filter(inv => inv.status === 'paid').length;
     const sent = invoices.filter(inv => inv.status === 'sent').length;
-    const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
+    const drafts = invoices.filter(inv => inv.status === 'draft').length;
 
     document.getElementById('total-invoices').textContent = total;
     document.getElementById('paid-invoices').textContent = paid;
     document.getElementById('sent-invoices').textContent = sent;
     document.getElementById('draft-invoices').textContent = drafts;
 
-    // Update charts
     updateCharts(invoices);
 }
 
@@ -932,11 +957,10 @@ function renderDesktopTable(invoices) {
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
         let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
-        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
 
         const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
 
-        const isDraft = (!inv.status || inv.status === 'draft');
+        const isDraft = inv.status === 'draft';
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -977,11 +1001,10 @@ function renderMobileCards(invoices) {
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
         let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
-        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
 
         const statusBadge = `<span style="padding:8px 16px; border-radius:50px; font-size:14px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
 
-        const isDraft = (!inv.status || inv.status === 'draft');
+        const isDraft = inv.status === 'draft';
 
         const card = document.createElement('div');
         card.className = 'invoice-card';
@@ -1014,7 +1037,6 @@ function renderMobileCards(invoices) {
 }
 
 function attachActionListeners() {
-    // Edit, delete, view, download – same for both views
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.onclick = () => {
             const invId = btn.dataset.id;
@@ -1080,7 +1102,6 @@ function attachActionListeners() {
 }
 
 function updateCharts(invoices) {
-    // Monthly chart
     const monthlyData = {};
     invoices.forEach(inv => {
         if (inv.issue_date) {
@@ -1115,9 +1136,8 @@ function updateCharts(invoices) {
         }
     });
 
-    // Status chart
     const statusData = {
-        draft: invoices.filter(inv => !inv.status || inv.status === 'draft').length,
+        draft: invoices.filter(inv => inv.status === 'draft').length,
         sent: invoices.filter(inv => inv.status === 'sent').length,
         paid: invoices.filter(inv => inv.status === 'paid').length
     };
