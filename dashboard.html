@@ -119,8 +119,8 @@ header h1 {
     gap: 16px;
 }
 
-.desktop-nav a,
-.desktop-nav button {
+.desktop-nav button,
+.desktop-nav a {
     padding: 10px 24px;
     border-radius: 12px;
     font-weight: 600;
@@ -153,15 +153,13 @@ header h1 {
     box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
 }
 
-.desktop-nav .suppliers-btn,
-.desktop-nav .customers-btn {
+.desktop-nav .link-btn {
     background: transparent;
     color: var(--white);
     border: 1px solid var(--border);
 }
 
-.desktop-nav .suppliers-btn:hover,
-.desktop-nav .customers-btn:hover {
+.desktop-nav .link-btn:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent);
     color: var(--accent);
@@ -217,8 +215,8 @@ header h1 {
     pointer-events: auto;
 }
 
-.mobile-nav a,
-.mobile-nav button {
+.mobile-nav button,
+.mobile-nav a {
     font-size: 24px;
     font-weight: 600;
     color: var(--white);
@@ -231,8 +229,8 @@ header h1 {
     cursor: pointer;
 }
 
-.mobile-nav a:hover,
-.mobile-nav button:hover {
+.mobile-nav button:hover,
+.mobile-nav a:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
@@ -344,7 +342,7 @@ input:checked + .slider:after {
 
 .charts-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
     margin-top: 40px;
 }
@@ -591,6 +589,7 @@ input:checked + .slider:after {
     .main { padding: 20px; }
     .card { padding: 20px; }
     .filter-controls { grid-template-columns: 1fr; }
+    .charts-grid { grid-template-columns: 1fr; }
     .invoice-card-main { grid-template-columns: 1fr; gap: 4px; }
     .invoice-card-actions { flex-direction: column; }
     .action-btn { width: 100%; text-align: center; }
@@ -608,8 +607,8 @@ input:checked + .slider:after {
     <!-- Desktop Navigation -->
     <nav class="desktop-nav">
         <button id="create-invoice-btn" class="cta">Create New Invoice</button>
-        <a href="suppliers.html" class="suppliers-btn">Suppliers</a>
-        <a href="customers.html" class="customers-btn">Customers</a>
+        <a href="suppliers.html" class="link-btn">Suppliers</a>
+        <a href="customers.html" class="link-btn">Customers</a>
         <button id="logout-btn" class="logout-btn">Logout</button>
         <label class="theme-toggle">
             <input type="checkbox" id="theme-toggle-desktop">
@@ -788,7 +787,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('active-supplier').textContent = `Active: ${selectedSupplierName}`;
     } else {
         document.getElementById('active-supplier').textContent = 'No supplier selected';
-        // Optionally redirect or show message
     }
 
     // Mobile menu
@@ -1128,7 +1126,7 @@ function updateCharts(invoices) {
             }]
         },
         options: {
-            responsive: true,
+            responsive: true;
             maintainAspectRatio: false,
             scales: {
                 y: { beginAtZero: true }
@@ -1154,7 +1152,7 @@ function updateCharts(invoices) {
             }]
         },
         options: {
-            responsive: true,
+            responsive: true;
             maintainAspectRatio: false
         }
     });
