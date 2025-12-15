@@ -1074,6 +1074,10 @@ function addBankEntry(bankData = {}) {
                 <div class="bank-bic-validation bank-validation"></div>
             </div>
             <div class="form-group">
+                <label>BBAN</label>
+                <input class="bank-bban" value="${bankData.bban || ''}">
+            </div>
+            <div class="form-group">
                 <label>Payment Means Code</label>
                 <select class="bank-code">
                     <option value="">Select payment means</option>
@@ -1081,7 +1085,6 @@ function addBankEntry(bankData = {}) {
                 </select>
             </div>
             <div class="form-group"><label>Payment ID</label><input class="bank-payment_id" value="${bankData.payment_id || ''}"></div>
-            <div class="form-group"><label>Terms</label><input class="bank-terms" value="${bankData.terms || ''}"></div>
         </div>
     `;
     entry.querySelector('.remove-bank').addEventListener('click', () => entry.remove());
@@ -1202,7 +1205,7 @@ async function saveBanksForSupplier(supplierId, userId) {
                 bic: entry.querySelector('.bank-bic').value.trim().toUpperCase() || null,
                 code: entry.querySelector('.bank-code').value || null,
                 payment_id: entry.querySelector('.bank-payment_id').value.trim() || null,
-                terms: entry.querySelector('.bank-terms').value.trim() || null
+                bban: entry.querySelector('.bank-bban').value.trim() || null
             });
         }
     });
