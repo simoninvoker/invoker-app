@@ -19,32 +19,28 @@
     --success: #22c55e;
     --error: #dc2626;
 }
-
 /* Light Mode - Softer, easier on eyes */
 body.light-mode {
-    --bg-dark: #f1f5f9;           /* Soft slate background */
+    --bg-dark: #f1f5f9; /* Soft slate background */
     --bg-darker: #e2e8f0;
     --primary: #2563eb;
-    --accent: #f59e0b;            /* Warmer accent */
+    --accent: #f59e0b; /* Warmer accent */
     --glass: rgba(255, 255, 255, 0.85);
     --border: rgba(0, 0, 0, 0.1);
     --text-secondary: rgba(0, 0, 0, 0.65);
     --success: #16a34a;
     --error: #dc2626;
     background: var(--bg-dark);
-    color: #1e293b;               /* Softer dark text */
+    color: #1e293b; /* Softer dark text */
 }
-
 body.light-mode .card {
     background: var(--glass);
     border-color: var(--border);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
-
 body.light-mode table th {
     background: rgba(0, 0, 0, 0.04);
 }
-
 body.light-mode input,
 body.light-mode select,
 body.light-mode textarea {
@@ -52,15 +48,12 @@ body.light-mode textarea {
     color: #1e293b;
     border-color: var(--border);
 }
-
 body.light-mode .action-btn,
 body.light-mode .cta,
 body.light-mode .logout-btn {
     color: white;
 }
-
 * { box-sizing: border-box; margin:0; padding:0; }
-
 body {
     font-family:'Inter',sans-serif;
     background: var(--bg-dark);
@@ -68,7 +61,6 @@ body {
     padding-top: 80px;
     min-height: 100vh;
 }
-
 /* Header - Desktop */
 header {
     position: fixed;
@@ -86,20 +78,17 @@ header {
     z-index: 1000;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
-
 .header-left {
     display: flex;
     align-items: center;
     gap: 24px;
 }
-
 header h1 {
     font-size: 26px;
     font-weight: 700;
     margin: 0;
     color: var(--white);
 }
-
 #active-supplier {
     font-size: 16px;
     color: var(--accent);
@@ -109,19 +98,16 @@ header h1 {
     border-radius: 20px;
     border: 1px solid rgba(250, 204, 21, 0.3);
 }
-
 .header-right {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-
 .logout-group {
     display: flex;
     align-items: center;
     gap: 16px;
 }
-
 /* Hamburger - Mobile Only */
 .hamburger {
     display: none;
@@ -132,7 +118,6 @@ header h1 {
     cursor: pointer;
     z-index: 101;
 }
-
 .hamburger span {
     display: block;
     height: 3px;
@@ -141,11 +126,9 @@ header h1 {
     border-radius: 3px;
     transition: all 0.3s ease;
 }
-
 .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
-
 /* Mobile Nav Overlay */
 .mobile-nav {
     position: fixed;
@@ -166,18 +149,15 @@ header h1 {
     visibility: hidden;
     pointer-events: none;
 }
-
 body.light-mode .mobile-nav {
     background: var(--bg-dark);
     color: #1e293b;
 }
-
 .mobile-nav.active {
     transform: translateX(0);
     visibility: visible;
     pointer-events: auto;
 }
-
 .mobile-nav button {
     font-size: 24px;
     font-weight: 600;
@@ -190,15 +170,12 @@ body.light-mode .mobile-nav {
     border-radius: 12px;
     cursor: pointer;
 }
-
 .mobile-nav button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
-
 body.light-mode .mobile-nav button:hover {
     background: rgba(0, 0, 0, 0.08);
 }
-
 .mobile-nav-close {
     position: absolute;
     top: 20px;
@@ -209,7 +186,6 @@ body.light-mode .mobile-nav button:hover {
     border: none;
     cursor: pointer;
 }
-
 .cta, .logout-btn {
     padding: 10px 24px;
     border-radius: 12px;
@@ -220,29 +196,24 @@ body.light-mode .mobile-nav button:hover {
     border: none;
     cursor: pointer;
 }
-
 .cta {
     background: var(--primary);
     color: white;
 }
-
 .cta:hover {
     background: #3b82f6;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
 }
-
 .logout-btn {
     background: var(--accent);
     color: #000;
 }
-
 .logout-btn:hover {
     background: #fde047;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
 }
-
 /* Theme Toggle Switch */
 .theme-toggle {
     position: relative;
@@ -250,13 +221,11 @@ body.light-mode .mobile-nav button:hover {
     width: 56px;
     height: 30px;
 }
-
 .theme-toggle input {
     opacity: 0;
     width: 0;
     height: 0;
 }
-
 .slider {
     position: absolute;
     cursor: pointer;
@@ -268,7 +237,6 @@ body.light-mode .mobile-nav button:hover {
     transition: .4s;
     border-radius: 34px;
 }
-
 .slider:before {
     position: absolute;
     content: "";
@@ -280,15 +248,12 @@ body.light-mode .mobile-nav button:hover {
     transition: .4s;
     border-radius: 50%;
 }
-
 input:checked + .slider {
     background-color: #facc15;
 }
-
 input:checked + .slider:before {
     transform: translateX(26px);
 }
-
 .slider:after {
     content: '🌙';
     color: white;
@@ -299,87 +264,43 @@ input:checked + .slider:before {
     font-size: 16px;
     transition: .4s;
 }
-
 input:checked + .slider:after {
     content: '☀️';
     left: 8px;
     right: auto;
 }
-
 .main { max-width: 1200px; margin: 50px auto; padding: 20px; display: flex; flex-direction: column; gap: 40px; }
 .card { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom: 20px; color: var(--accent); }
-
-/* Analytics - restored original responsive behavior (2 columns on mobile) */
 .analytics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 16px;
     margin-top: 24px;
 }
-
-/* Empty state improvements */
-.empty-state {
+.metric-card {
+    background: rgba(255,255,255,0.06);
+    padding: 20px;
+    border-radius: 16px;
     text-align: center;
-    padding: 60px 20px;
-    color: var(--text-secondary);
+    border: 1px solid var(--border);
 }
-
-.empty-state h3 {
-    font-size: 24px;
-    margin-bottom: 16px;
-    color: var(--white);
-}
-
-body.light-mode .empty-state h3 {
-    color: #1e293b;
-}
-
-.empty-state p {
-    font-size: 18px;
-    margin-bottom: 32px;
-}
-
-.empty-state .cta {
-    display: inline-block;
-}
-
-/* Sortable table headers */
-.table th.sortable {
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-    padding-right: 32px !important;
-}
-
-.table th.sortable::after {
-    content: '↕';
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.4;
+.metric-card h3 {
     font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
 }
-
-.table th.sortable.asc::after {
-    content: '↑';
-    opacity: 1;
+.metric-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
 }
-
-.table th.sortable.desc::after {
-    content: '↓';
-    opacity: 1;
-}
-
-/* Rest of styles unchanged */
 .charts-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
     margin-top: 40px;
 }
-
 .chart-container {
     background: rgba(255,255,255,0.06);
     padding: 20px;
@@ -388,43 +309,36 @@ body.light-mode .empty-state h3 {
     height: 340px;
     position: relative;
 }
-
 .chart-container h3 {
     text-align: center;
     margin-bottom: 16px;
     color: var(--white);
     font-size: 18px;
 }
-
 .chart-container canvas {
     width: 100% !important;
     height: 100% !important;
 }
-
 .filter-bar {
     display: flex;
     flex-direction: column;
     gap: 16px;
     margin-bottom: 24px;
 }
-
 .filter-controls {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
 }
-
 .filter-group {
     display: flex;
     flex-direction: column;
 }
-
 .filter-group label {
     font-size: 14px;
     margin-bottom: 8px;
     color: var(--text-secondary);
 }
-
 .filter-group input,
 .filter-group select {
     padding: 12px;
@@ -434,7 +348,6 @@ body.light-mode .empty-state h3 {
     color: white;
     font-size: 16px;
 }
-
 #clear-filters,
 #export-csv-btn {
     padding: 12px 20px;
@@ -444,16 +357,13 @@ body.light-mode .empty-state h3 {
     font-weight: 600;
     align-self: flex-start;
 }
-
 #clear-filters {
     background: #6b7280;
 }
-
 #export-csv-btn {
     background: var(--success);
     color: white;
 }
-
 .desktop-table-wrapper {
     overflow-x: auto;
     border-radius: 16px;
@@ -461,13 +371,11 @@ body.light-mode .empty-state h3 {
     margin-top: 16px;
     -webkit-overflow-scrolling: touch;
 }
-
 .table {
     width: 100%;
     min-width: 1000px;
     border-collapse: collapse;
 }
-
 .table th,
 .table td {
     padding: 16px;
@@ -475,14 +383,12 @@ body.light-mode .empty-state h3 {
     border-bottom: 1px solid var(--border);
     white-space: nowrap;
 }
-
 .table th {
     background: rgba(255,255,255,0.05);
     position: sticky;
     top: 0;
     z-index: 10;
 }
-
 .action-btn {
     padding: 6px 12px;
     border-radius: 6px;
@@ -492,22 +398,18 @@ body.light-mode .empty-state h3 {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-
 .view-btn { background: var(--primary); color: white; }
 .download-btn { background: var(--accent); color: black; }
 .edit-btn { background: #f59e0b; color: white; }
-
 .table th:last-child {
     width: 70px;
     min-width: 70px;
     text-align: center;
 }
-
 .table td:last-child {
     text-align: center;
     padding: 16px 8px;
 }
-
 .delete-icon {
     display: inline-flex;
     align-items: center;
@@ -521,33 +423,28 @@ body.light-mode .empty-state h3 {
     cursor: pointer;
     transition: all 0.2s ease;
 }
-
 .delete-icon:hover {
     background: rgba(220, 38, 38, 0.3);
     transform: scale(1.1);
 }
-
 .mobile-invoice-list {
     display: none;
     flex-direction: column;
     gap: 16px;
     margin-top: 16px;
 }
-
 .invoice-card {
     background: rgba(255,255,255,0.06);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 20px;
 }
-
 .invoice-card-header {
     display: flex;
     justify-content: space-between;
     align-items: start;
     margin-bottom: 12px;
 }
-
 .invoice-card-main {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -555,24 +452,20 @@ body.light-mode .empty-state h3 {
     margin-bottom: 16px;
     font-size: 15px;
 }
-
 .invoice-card-label {
     color: var(--text-secondary);
     font-weight: 500;
 }
-
 .invoice-card-value strong {
     font-size: 18px;
     color: var(--accent);
 }
-
 .invoice-card-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 12px;
 }
-
 .invoice-card-actions .action-btn {
     flex: 1;
     min-width: 90px;
@@ -580,16 +473,13 @@ body.light-mode .empty-state h3 {
     padding: 8px 12px;
     font-size: 13px;
 }
-
 .delete-cell-mobile {
     text-align: right;
 }
-
 @media (max-width: 768px) {
     .delete-icon::before {
         content: none;
     }
-
     .delete-icon {
         background: none;
         width: auto;
@@ -597,14 +487,12 @@ body.light-mode .empty-state h3 {
         font-size: 15px;
         color: var(--error);
     }
-
     .delete-icon:hover {
         background: none;
         transform: none;
         text-decoration: underline;
     }
 }
-
 .no-invoices {
     color: var(--text-secondary);
     font-style: italic;
@@ -612,57 +500,70 @@ body.light-mode .empty-state h3 {
     font-size: 18px;
     text-align: center;
 }
-
 @media (max-width: 768px) {
     header {
         padding: 0 20px;
         height: 70px;
     }
-
     .header-left h1 {
         font-size: 22px;
     }
-
     .header-right {
         display: none;
     }
-
     .hamburger {
         display: flex;
     }
-
     .main {
         margin: 30px auto;
         padding: 16px;
     }
-
     .card {
         padding: 24px;
     }
-
     .card h2 {
         font-size: 24px;
     }
-
     .filter-controls {
         grid-template-columns: 1fr;
     }
-
     .analytics-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
     .metric-card .value {
         font-size: 24px;
     }
-
     .desktop-table-wrapper {
         display: none;
     }
-
     .mobile-invoice-list {
         display: flex;
     }
+}
+
+/* Sortable table headers */
+.table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 32px !important;
+}
+.table th.sortable::after {
+    content: '↕';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.4;
+    font-size: 14px;
+}
+.table th.sortable.asc::after {
+    content: '↑';
+    opacity: 1;
+}
+.table th.sortable.desc::after {
+    content: '↓';
+    opacity: 1;
 }
 </style>
 </head>
@@ -672,12 +573,10 @@ body.light-mode .empty-state h3 {
         <h1>Dashboard</h1>
         <span id="active-supplier"></span>
     </div>
-
     <div class="header-right">
         <button id="create-invoice-btn" class="cta">Create Invoice</button>
         <button id="suppliers-btn" class="cta">Switch Supplier</button>
         <button id="customers-btn" class="cta">Customers</button>
-
         <div class="logout-group">
             <button id="logout-btn" class="logout-btn">Logout</button>
             <label class="theme-toggle">
@@ -686,14 +585,12 @@ body.light-mode .empty-state h3 {
             </label>
         </div>
     </div>
-
     <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
     </div>
 </header>
-
 <div class="mobile-nav" id="mobile-nav">
     <button class="mobile-nav-close" id="mobile-nav-close">×</button>
     <button id="mobile-create-invoice-btn">Create Invoice</button>
@@ -705,12 +602,10 @@ body.light-mode .empty-state h3 {
     </label>
     <button id="mobile-logout-btn" class="logout-btn">Logout</button>
 </div>
-
 <div class="main">
     <div class="card">
         <h2>Analytics Overview</h2>
         <div class="analytics-grid" id="metrics-grid"></div>
-
         <div class="charts-grid">
             <div class="chart-container">
                 <h3>Monthly Revenue (Billed vs Paid)</h3>
@@ -730,7 +625,6 @@ body.light-mode .empty-state h3 {
             </div>
         </div>
     </div>
-
     <div class="card">
         <h2>Invoice History</h2>
         <div class="filter-bar">
@@ -764,8 +658,6 @@ body.light-mode .empty-state h3 {
             </div>
             <button id="export-csv-btn">Export Displayed to CSV</button>
         </div>
-
-        <!-- Desktop Table -->
         <div class="desktop-table-wrapper">
             <table id="invoices-table" class="table">
                 <thead>
@@ -781,29 +673,19 @@ body.light-mode .empty-state h3 {
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Filled by JS -->
+                    <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
                 </tbody>
             </table>
         </div>
-
-        <!-- Mobile Card List -->
         <div class="mobile-invoice-list" id="mobile-invoice-list"></div>
-
-        <!-- Improved empty state -->
-        <div id="empty-state" class="empty-state" style="display:none;">
-            <h3>No invoices yet</h3>
-            <p>Get started by creating your first PEPPOL invoice.</p>
-            <button id="empty-create-btn" class="cta">Create Invoice</button>
-        </div>
+        <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-
 let allInvoices = [];
 let displayedInvoices = [];
 let currentSort = { key: 'issue_date', direction: 'desc' }; // default sort
@@ -811,35 +693,29 @@ let revenueChart = null;
 let statusChart = null;
 let topCustomersChart = null;
 let agingChart = null;
-
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobile-nav');
 const mobileNavClose = document.getElementById('mobile-nav-close');
-
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     mobileNav.classList.toggle('active');
 });
-
 mobileNavClose.addEventListener('click', () => {
     hamburger.classList.remove('active');
     mobileNav.classList.remove('active');
 });
-
 mobileNav.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
         hamburger.classList.remove('active');
         mobileNav.classList.remove('active');
     });
 });
-
 document.addEventListener("DOMContentLoaded", async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         window.location.href = 'index.html';
         return;
     }
-
     const activeSupplierName = localStorage.getItem('selected_supplier_name');
     const activeSupplierSpan = document.getElementById('active-supplier');
     if (activeSupplierName) {
@@ -847,40 +723,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
         activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
     }
-
     const selectedSupplierId = localStorage.getItem('selected_supplier_id');
     if (!selectedSupplierId) {
         alert("Please select a supplier first.");
         window.location.href = 'suppliers.html';
         return;
     }
-
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
     document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
-    document.getElementById('empty-create-btn')?.addEventListener('click', () => window.location.href = 'form.html');
-
     document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
     document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
-
     document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
     document.getElementById('mobile-customers-btn')?.addEventListener('click', () => window.location.href = 'customers.html');
-
     document.getElementById('logout-btn').addEventListener('click', logout);
     document.getElementById('mobile-logout-btn')?.addEventListener('click', logout);
-
     async function logout() {
         await supabase.auth.signOut();
         localStorage.removeItem('selected_supplier_id');
         localStorage.removeItem('selected_supplier_name');
         window.location.href = 'index.html';
     }
-
     document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
-
     const themeSwitch = document.getElementById('theme-switch');
     const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
     const savedTheme = localStorage.getItem('theme');
-
     const applyTheme = (isLight) => {
         if (isLight) {
             document.body.classList.add('light-mode');
@@ -890,19 +756,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             localStorage.setItem('theme', 'dark');
         }
     };
-
     const preferredLight = !savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches;
     const initialLight = savedTheme === 'light' || preferredLight;
-
     applyTheme(initialLight);
     themeSwitch.checked = initialLight;
     if (mobileThemeSwitch) mobileThemeSwitch.checked = initialLight;
-
     themeSwitch.addEventListener('change', () => {
         applyTheme(themeSwitch.checked);
         if (mobileThemeSwitch) mobileThemeSwitch.checked = themeSwitch.checked;
     });
-
     if (mobileThemeSwitch) {
         mobileThemeSwitch.addEventListener('change', () => {
             applyTheme(mobileThemeSwitch.checked);
@@ -910,22 +772,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Table sorting
+    // === Sorting logic ===
     document.querySelectorAll('th.sortable').forEach(th => {
         th.addEventListener('click', () => {
             const key = th.dataset.sort;
             if (currentSort.key === key) {
                 currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
             } else {
-                currentSort = { key, direction: 'asc' };
+                currentSort.key = key;
+                currentSort.direction = 'asc';
             }
-
-            // Update arrow indicators
-            document.querySelectorAll('th.sortable').forEach(h => {
-                h.classList.remove('asc', 'desc');
-            });
+            // Update visual indicator
+            document.querySelectorAll('th.sortable').forEach(h => h.classList.remove('asc', 'desc'));
             th.classList.add(currentSort.direction);
-
             sortAndRender();
         });
     });
@@ -949,8 +808,8 @@ function formatAmount(amount) {
 function sortInvoices(invoices) {
     const { key, direction } = currentSort;
     return [...invoices].sort((a, b) => {
-        let valA = a[key] || '';
-        let valB = b[key] || '';
+        let valA = a[key] ?? '';
+        let valB = b[key] ?? '';
 
         if (key === 'total_amount') {
             valA = parseFloat(valA) || 0;
@@ -959,12 +818,9 @@ function sortInvoices(invoices) {
             valA = valA ? new Date(valA) : new Date(0);
             valB = valB ? new Date(valB) : new Date(0);
         } else if (key === 'status') {
-            const order = { paid: 3, sent: 2, draft: 1, '': 1 };
+            const order = { paid: 3, sent: 2, draft: 1, null: 1, '': 1 };
             valA = order[valA] || 0;
             valB = order[valB] || 0;
-        } else if (key === 'invoice_id') {
-            valA = valA.toString().toLowerCase();
-            valB = valB.toString().toLowerCase();
         }
 
         if (valA < valB) return direction === 'asc' ? -1 : 1;
@@ -986,16 +842,14 @@ async function loadInvoices(userId, supplierId) {
         .eq('user_id', userId)
         .eq('supplier_id', supplierId)
         .order('issue_date', { ascending: false });
-
     if (error) {
         const msg = `Error loading invoices: ${error.message}`;
         document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">${msg}</td></tr>`;
         document.getElementById('mobile-invoice-list').innerHTML = `<div class="no-invoices">${msg}</div>`;
         return;
     }
-
     allInvoices = invoices || [];
-    applyFilters(); // this will also sort initially
+    applyFilters(); // will also trigger initial sort
 }
 
 function renderAnalytics(invoices) {
@@ -1004,11 +858,9 @@ function renderAnalytics(invoices) {
     const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
     const outstanding = totalRevenue - paidRevenue;
     const avgInvoice = totalInvoices > 0 ? totalRevenue / totalInvoices : 0;
-
     const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
     const sent = invoices.filter(inv => inv.status === 'sent').length;
     const paid = invoices.filter(inv => inv.status === 'paid').length;
-
     document.getElementById('metrics-grid').innerHTML = `
         <div class="metric-card">
             <h3>Total Invoices</h3>
@@ -1039,7 +891,6 @@ function renderAnalytics(invoices) {
             <div class="value">${paid}</div>
         </div>
     `;
-
     const monthlyBilled = {};
     const monthlyPaid = {};
     invoices.forEach(inv => {
@@ -1053,7 +904,6 @@ function renderAnalytics(invoices) {
     const months = [...new Set([...Object.keys(monthlyBilled), ...Object.keys(monthlyPaid)])].sort();
     const billedData = months.map(m => monthlyBilled[m] || 0);
     const paidData = months.map(m => monthlyPaid[m] || 0);
-
     if (revenueChart) revenueChart.destroy();
     revenueChart = new Chart(document.getElementById('revenueChart'), {
         type: 'line',
@@ -1066,7 +916,6 @@ function renderAnalytics(invoices) {
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
-
     if (statusChart) statusChart.destroy();
     statusChart = new Chart(document.getElementById('statusChart'), {
         type: 'doughnut',
@@ -1079,7 +928,6 @@ function renderAnalytics(invoices) {
         },
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
-
     const customerRevenue = {};
     invoices.forEach(inv => {
         const name = inv.customer_name || 'Unknown';
@@ -1088,7 +936,6 @@ function renderAnalytics(invoices) {
     const top5 = Object.entries(customerRevenue)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 5);
-
     if (topCustomersChart) topCustomersChart.destroy();
     topCustomersChart = new Chart(document.getElementById('topCustomersChart'), {
         type: 'bar',
@@ -1108,7 +955,6 @@ function renderAnalytics(invoices) {
             scales: { x: { beginAtZero: true } }
         }
     });
-
     const aging = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
     const today = new Date();
     invoices.filter(inv => inv.status !== 'paid').forEach(inv => {
@@ -1120,7 +966,6 @@ function renderAnalytics(invoices) {
         else if (days <= 90) aging['61-90'] += amount;
         else aging['90+'] += amount;
     });
-
     if (agingChart) agingChart.destroy();
     agingChart = new Chart(document.getElementById('agingChart'), {
         type: 'bar',
@@ -1135,29 +980,24 @@ function renderAnalytics(invoices) {
         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
     });
 }
-
 function renderDesktopTable(invoices) {
     const tbody = document.querySelector('#invoices-table tbody');
-    const emptyState = document.getElementById('empty-state');
-
+    const noMsg = document.getElementById('no-invoices');
+    displayedInvoices = invoices;
     if (invoices.length === 0) {
+        noMsg.style.display = 'block';
+        noMsg.textContent = 'No invoices yet.';
         tbody.innerHTML = '';
-        emptyState.style.display = 'block';
         return;
     }
-
-    emptyState.style.display = 'none';
+    noMsg.style.display = 'none';
     tbody.innerHTML = '';
-
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
         let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
         if (!inv.status || inv.status === 'draft') statusText = 'Draft';
-
         const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
-
         const isDraft = (!inv.status || inv.status === 'draft');
-
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><strong>${inv.invoice_id || 'N/A'}</strong></td>
@@ -1177,32 +1017,24 @@ function renderDesktopTable(invoices) {
         `;
         tbody.appendChild(tr);
     });
-
     attachActionListeners();
 }
-
 function renderMobileCards(invoices) {
     const container = document.getElementById('mobile-invoice-list');
-    const emptyState = document.getElementById('empty-state');
-
+    const noMsg = document.getElementById('no-invoices');
     if (invoices.length === 0) {
+        noMsg.style.display = 'block';
         container.innerHTML = '';
-        emptyState.style.display = 'block';
         return;
     }
-
-    emptyState.style.display = 'none';
+    noMsg.style.display = 'none';
     container.innerHTML = '';
-
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
         let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
         if (!inv.status || inv.status === 'draft') statusText = 'Draft';
-
         const statusBadge = `<span style="padding:8px 16px; border-radius:50px; font-size:14px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
-
         const isDraft = (!inv.status || inv.status === 'draft');
-
         const card = document.createElement('div');
         card.className = 'invoice-card';
         card.innerHTML = `
@@ -1216,7 +1048,6 @@ function renderMobileCards(invoices) {
             <div class="invoice-card-main">
                 <div class="invoice-card-label">Customer</div>
                 <div class="invoice-card-value">${inv.customer_name || '—'}</div>
-
                 <div class="invoice-card-label">Total</div>
                 <div class="invoice-card-value"><strong>${formatAmount(inv.total_amount)} ${inv.currency || 'EUR'}</strong></div>
             </div>
@@ -1231,22 +1062,18 @@ function renderMobileCards(invoices) {
         `;
         container.appendChild(card);
     });
-
     attachActionListeners();
 }
-
 function attachActionListeners() {
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.onclick = () => {
             const invId = btn.dataset.id;
             const inv = allInvoices.find(i => i.id === invId);
             if (!inv) return alert('Invoice not found.');
-
             let formData = inv.form_data;
             if (typeof formData === 'string') {
                 try { formData = JSON.parse(formData); } catch (e) { return alert('Corrupted form data.'); }
             }
-
             if (formData && typeof formData === 'object' && Object.keys(formData).length > 0) {
                 localStorage.setItem('draft_form_data', JSON.stringify(formData));
                 localStorage.setItem('editing_draft_id', inv.id);
@@ -1256,18 +1083,14 @@ function attachActionListeners() {
             }
         };
     });
-
     document.querySelectorAll('.delete-icon').forEach(icon => {
         icon.onclick = async () => {
             const invId = icon.dataset.id;
             const inv = allInvoices.find(i => i.id === invId);
-
             if (!confirm(`Are you sure you want to permanently delete draft "${inv.invoice_id || 'N/A'}"? This action cannot be undone.`)) {
                 return;
             }
-
             const { error } = await supabase.from('invoices').delete().eq('id', invId);
-
             if (error) {
                 alert('Failed to delete draft: ' + error.message);
             } else {
@@ -1277,7 +1100,6 @@ function attachActionListeners() {
             }
         };
     });
-
     document.querySelectorAll('.view-btn').forEach(btn => {
         btn.onclick = () => {
             const inv = allInvoices.find(i => i.id === btn.dataset.id);
@@ -1287,7 +1109,6 @@ function attachActionListeners() {
             }
         };
     });
-
     document.querySelectorAll('.download-btn').forEach(btn => {
         btn.onclick = () => {
             const inv = allInvoices.find(i => i.id === btn.dataset.id);
@@ -1303,30 +1124,22 @@ function attachActionListeners() {
         };
     });
 }
-
 function applyFilters() {
     let filtered = allInvoices;
-
     const idFilter = document.getElementById('filter-id').value.trim().toLowerCase();
     if (idFilter) filtered = filtered.filter(inv => (inv.invoice_id || '').toLowerCase().includes(idFilter));
-
     const custFilter = document.getElementById('filter-customer').value.trim().toLowerCase();
     if (custFilter) filtered = filtered.filter(inv => (inv.customer_name || '').toLowerCase().includes(custFilter));
-
     const fromDate = document.getElementById('filter-from').value;
     if (fromDate) filtered = filtered.filter(inv => inv.issue_date >= fromDate);
-
     const toDate = document.getElementById('filter-to').value;
     if (toDate) filtered = filtered.filter(inv => inv.issue_date <= toDate);
-
     const statusFilter = document.getElementById('filter-status').value;
     if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
-
     displayedInvoices = filtered;
     sortAndRender();
     renderAnalytics(filtered);
 }
-
 ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -1334,27 +1147,22 @@ function applyFilters() {
         el.addEventListener('change', applyFilters);
     }
 });
-
 document.getElementById('clear-filters').addEventListener('click', () => {
     ['filter-id', 'filter-customer', 'filter-from', 'filter-to'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('filter-status').value = '';
     applyFilters();
 });
-
 function exportDisplayedToCSV() {
     if (displayedInvoices.length === 0) {
         alert('No invoices currently displayed to export.');
         return;
     }
-
     let csv = 'Invoice ID,Issue Date,Customer Name,Total Amount,Currency,Status\n';
-
     displayedInvoices.forEach(inv => {
         const status = inv.status ? inv.status.charAt(0).toUpperCase() + inv.status.slice(1) : 'Draft';
         const customer = (inv.customer_name || '').replace(/"/g, '""');
         csv += `"${inv.invoice_id || ''}","${inv.issue_date || ''}","${customer}","${inv.total_amount || '0.00'}","${inv.currency || 'EUR'}","${status}"\n`;
     });
-
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
