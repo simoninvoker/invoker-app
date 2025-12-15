@@ -20,36 +20,36 @@
     --error: #dc2626;
 }
 
-/* Light Mode Overrides */
+/* Light Mode - Softer, easier on eyes */
 body.light-mode {
-    --bg-dark: #f8fafc;
+    --bg-dark: #f1f5f9;           /* Soft slate background */
     --bg-darker: #e2e8f0;
     --primary: #2563eb;
-    --accent: #f59e0b;
-    --glass: rgba(255, 255, 255, 0.8);
+    --accent: #f59e0b;            /* Warmer accent */
+    --glass: rgba(255, 255, 255, 0.85);
     --border: rgba(0, 0, 0, 0.1);
-    --text-secondary: rgba(0, 0, 0, 0.6);
+    --text-secondary: rgba(0, 0, 0, 0.65);
     --success: #16a34a;
     --error: #dc2626;
     background: var(--bg-dark);
-    color: #0f172a;
+    color: #1e293b;               /* Softer dark text */
 }
 
 body.light-mode .card {
     background: var(--glass);
     border-color: var(--border);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 body.light-mode table th {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.04);
 }
 
 body.light-mode input,
 body.light-mode select,
 body.light-mode textarea {
-    background: rgba(255, 255, 255, 0.9);
-    color: #0f172a;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
     border-color: var(--border);
 }
 
@@ -116,7 +116,6 @@ header h1 {
     gap: 20px;
 }
 
-/* Group Logout + Theme Toggle together */
 .logout-group {
     display: flex;
     align-items: center;
@@ -147,7 +146,7 @@ header h1 {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
-/* Mobile Nav Overlay - now respects light/dark mode */
+/* Mobile Nav Overlay */
 .mobile-nav {
     position: fixed;
     top: 0;
@@ -155,7 +154,7 @@ header h1 {
     width: 100vw;
     height: 100vh;
     background: var(--bg-dark);
-    color: var(--white); /* Ensures text is white in dark mode */
+    color: var(--white);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,7 +169,7 @@ header h1 {
 
 body.light-mode .mobile-nav {
     background: var(--bg-dark);
-    color: #0f172a; /* Dark text in light mode */
+    color: #1e293b;
 }
 
 .mobile-nav.active {
@@ -179,11 +178,10 @@ body.light-mode .mobile-nav {
     pointer-events: auto;
 }
 
-.mobile-nav button,
-.mobile-nav a {
+.mobile-nav button {
     font-size: 24px;
     font-weight: 600;
-    color: inherit; /* Inherits from .mobile-nav */
+    color: inherit;
     background: none;
     border: none;
     padding: 12px 24px;
@@ -193,14 +191,12 @@ body.light-mode .mobile-nav {
     cursor: pointer;
 }
 
-.mobile-nav button:hover,
-.mobile-nav a:hover {
+.mobile-nav button:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-body.light-mode .mobile-nav button:hover,
-body.light-mode .mobile-nav a:hover {
-    background: rgba(0, 0, 0, 0.1);
+body.light-mode .mobile-nav button:hover {
+    background: rgba(0, 0, 0, 0.08);
 }
 
 .mobile-nav-close {
@@ -314,7 +310,6 @@ input:checked + .slider:after {
 .card { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom: 20px; color: var(--accent); }
 
-/* Analytics */
 .analytics-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -370,7 +365,6 @@ input:checked + .slider:after {
     height: 100% !important;
 }
 
-/* Filters */
 .filter-bar {
     display: flex;
     flex-direction: column;
@@ -424,7 +418,6 @@ input:checked + .slider:after {
     color: white;
 }
 
-/* Desktop Table */
 .desktop-table-wrapper {
     overflow-x: auto;
     border-radius: 16px;
@@ -454,7 +447,6 @@ input:checked + .slider:after {
     z-index: 10;
 }
 
-/* Smaller action buttons with original colors */
 .action-btn {
     padding: 6px 12px;
     border-radius: 6px;
@@ -469,7 +461,6 @@ input:checked + .slider:after {
 .download-btn { background: var(--accent); color: black; }
 .edit-btn { background: #f59e0b; color: white; }
 
-/* Delete column - far right with icon */
 .table th:last-child {
     width: 70px;
     min-width: 70px;
@@ -500,7 +491,6 @@ input:checked + .slider:after {
     transform: scale(1.1);
 }
 
-/* Mobile Card List */
 .mobile-invoice-list {
     display: none;
     flex-direction: column;
@@ -559,7 +549,6 @@ input:checked + .slider:after {
     text-align: right;
 }
 
-/* Hide trash icon on mobile - keep only text */
 @media (max-width: 768px) {
     .delete-icon::before {
         content: none;
@@ -588,7 +577,6 @@ input:checked + .slider:after {
     text-align: center;
 }
 
-/* Mobile Media Queries */
 @media (max-width: 768px) {
     header {
         padding: 0 20px;
@@ -649,13 +637,11 @@ input:checked + .slider:after {
         <span id="active-supplier"></span>
     </div>
 
-    <!-- Desktop Header Right -->
     <div class="header-right">
         <button id="create-invoice-btn" class="cta">Create Invoice</button>
         <button id="suppliers-btn" class="cta">Switch Supplier</button>
         <button id="customers-btn" class="cta">Customers</button>
 
-        <!-- Logout + Theme Toggle grouped together -->
         <div class="logout-group">
             <button id="logout-btn" class="logout-btn">Logout</button>
             <label class="theme-toggle">
@@ -665,7 +651,6 @@ input:checked + .slider:after {
         </div>
     </div>
 
-    <!-- Mobile Hamburger -->
     <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
@@ -673,10 +658,9 @@ input:checked + .slider:after {
     </div>
 </header>
 
-<!-- Mobile Navigation Overlay -->
 <div class="mobile-nav" id="mobile-nav">
     <button class="mobile-nav-close" id="mobile-nav-close">×</button>
-    <button id="mobile-create-invoice-btn" class="cta">Create Invoice</button>
+    <button id="mobile-create-invoice-btn">Create Invoice</button>
     <button id="mobile-suppliers-btn">Switch Supplier</button>
     <button id="mobile-customers-btn">Customers</button>
     <label class="theme-toggle" style="margin:20px 0;">
@@ -687,8 +671,6 @@ input:checked + .slider:after {
 </div>
 
 <div class="main">
-
-    <!-- Analytics -->
     <div class="card">
         <h2>Analytics Overview</h2>
         <div class="analytics-grid" id="metrics-grid"></div>
@@ -713,7 +695,6 @@ input:checked + .slider:after {
         </div>
     </div>
 
-    <!-- Invoice History -->
     <div class="card">
         <h2>Invoice History</h2>
         <div class="filter-bar">
@@ -748,7 +729,6 @@ input:checked + .slider:after {
             <button id="export-csv-btn">Export Displayed to CSV</button>
         </div>
 
-        <!-- Desktop Table -->
         <div class="desktop-table-wrapper">
             <table id="invoices-table" class="table">
                 <thead>
@@ -760,7 +740,7 @@ input:checked + .slider:after {
                         <th>Currency</th>
                         <th>Status</th>
                         <th>Actions</th>
-                        <th></th> <!-- Delete column (icon only) -->
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -769,10 +749,7 @@ input:checked + .slider:after {
             </table>
         </div>
 
-        <!-- Mobile Card List -->
-        <div class="mobile-invoice-list" id="mobile-invoice-list">
-            <!-- Cards injected by JS -->
-        </div>
+        <div class="mobile-invoice-list" id="mobile-invoice-list"></div>
 
         <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
@@ -791,7 +768,6 @@ let statusChart = null;
 let topCustomersChart = null;
 let agingChart = null;
 
-// Mobile nav
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobile-nav');
 const mobileNavClose = document.getElementById('mobile-nav-close');
@@ -835,7 +811,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // Buttons
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
     document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
 
@@ -857,7 +832,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
 
-    // Theme
     const themeSwitch = document.getElementById('theme-switch');
     const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
     const savedTheme = localStorage.getItem('theme');
@@ -894,7 +868,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadInvoices(session.user.id, selectedSupplierId);
 });
 
-/* The rest of your JavaScript remains unchanged from your original file */
 async function loadInvoices(userId, supplierId) {
     const { data: invoices, error } = await supabase
         .from('invoices')
