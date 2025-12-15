@@ -108,12 +108,25 @@ header h1 {
     padding: 6px 14px;
     border-radius: 20px;
     border: 1px solid rgba(250, 204, 21, 0.3);
+    white-space: nowrap;
 }
 
-.header-right {
+/* Desktop Navigation */
+.desktop-nav {
     display: flex;
     align-items: center;
     gap: 16px;
+}
+
+.desktop-nav button {
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
 /* Hamburger - Mobile Only */
@@ -462,45 +475,24 @@ input:checked + .slider:after {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 8px 16px;
-    margin-bottom: 16px;
-    font-size: 15px;
 }
 
 .invoice-card-label {
+    font-weight: 600;
     color: var(--text-secondary);
-    font-weight: 500;
+    font-size: 14px;
 }
 
-.invoice-card-value strong {
-    font-size: 18px;
-    color: var(--accent);
+.invoice-card-value {
+    color: var(--white);
 }
 
 .invoice-card-actions {
     display: flex;
+    gap: 12px;
+    margin-top: 16px;
     flex-wrap: wrap;
-    gap: 8px;
 }
-
-.invoice-card-actions .action-btn {
-    flex: 1;
-    min-width: 100px;
-    text-align: center;
-}
-
-.action-btn {
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.view-btn { background: var(--primary); color: white; }
-.download-btn { background: var(--accent); color: black; }
-.edit-btn { background: #f59e0b; color: white; }
 
 .delete-cell-mobile {
     text-align: right;
@@ -508,75 +500,96 @@ input:checked + .slider:after {
 }
 
 .delete-cross {
+    font-size: 24px;
+    color: var(--error);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s;
     display: inline-block;
     width: 40px;
     height: 40px;
-    line-height: 40px;
-    font-size: 28px;
-    color: var(--error);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-cross:hover {
+    background: rgba(239, 68, 68, 0.2);
+    transform: scale(1.1);
+}
+
+/* Action Buttons */
+.action-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
     cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-.no-invoices {
-    color: var(--text-secondary);
-    font-style: italic;
-    padding: 40px 0;
-    font-size: 18px;
-    text-align: center;
+.action-btn:hover {
+    transform: translateY(-2px);
 }
 
-/* Mobile Media Queries */
+.edit-btn {
+    background: var(--accent);
+    color: #000;
+}
+
+.edit-btn:hover {
+    background: #fde047;
+    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+}
+
+.view-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.view-btn:hover {
+    background: #3b82f6;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+.download-btn {
+    background: var(--success);
+    color: white;
+}
+
+.download-btn:hover {
+    background: #16a34a;
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+.actions-cell {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.delete-cell {
+    text-align: right;
+    width: 40px;
+}
+
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
-    header {
-        padding: 0 20px;
-        height: 70px;
-    }
-
-    .header-left h1 {
-        font-size: 22px;
-    }
-
-    .header-right {
-        display: none;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    .main {
-        margin: 30px auto;
-        padding: 16px;
-    }
-
-    .card {
-        padding: 24px;
-    }
-
-    .card h2 {
-        font-size: 24px;
-    }
-
-    .filter-controls {
-        grid-template-columns: 1fr;
-    }
-
-    .analytics-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .metric-card .value {
-        font-size: 24px;
-    }
-
-    /* Hide desktop table, show mobile cards */
-    .desktop-table-wrapper {
-        display: none;
-    }
-
-    .mobile-invoice-list {
-        display: flex;
-    }
+    header { padding: 20px; }
+    .desktop-nav { display: none; }
+    .hamburger { display: flex; }
+    .mobile-invoice-list { display: flex; }
+    .desktop-table-wrapper { display: none; }
+    .main { padding: 20px; }
+    .card { padding: 20px; }
+    .filter-controls { grid-template-columns: 1fr; }
+    .invoice-card-main { grid-template-columns: 1fr; gap: 4px; }
+    .invoice-card-actions { flex-direction: column; }
+    .action-btn { width: 100%; text-align: center; }
+    .actions-cell { flex-direction: column; }
 }
 </style>
 </head>
@@ -587,93 +600,77 @@ input:checked + .slider:after {
         <span id="active-supplier"></span>
     </div>
 
-    <!-- Desktop Header Right -->
-    <div class="header-right">
-        <button id="suppliers-btn" class="cta">Switch Supplier</button>
-        <button id="customers-btn" class="cta">Customers</button>
-
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+        <button id="create-invoice-btn" class="cta">Create New Invoice</button>
+        <button id="logout-btn" class="logout-btn">Logout</button>
         <label class="theme-toggle">
-            <input type="checkbox" id="theme-switch">
+            <input type="checkbox" id="theme-toggle-desktop">
             <span class="slider"></span>
         </label>
+    </nav>
 
-        <button id="logout-btn" class="logout-btn">Logout</button>
-    </div>
-
-    <!-- Mobile Hamburger -->
+    <!-- Hamburger Icon (Mobile Only) -->
     <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
     </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+        <button id="mobile-create-invoice-btn" class="cta">Create New Invoice</button>
+        <button id="mobile-logout-btn">Logout</button>
+        <label class="theme-toggle">
+            <input type="checkbox" id="theme-toggle-mobile">
+            <span class="slider"></span>
+        </label>
+    </div>
 </header>
 
-<!-- Mobile Navigation Overlay -->
-<div class="mobile-nav" id="mobile-nav">
-    <button class="mobile-nav-close" id="mobile-nav-close">×</button>
-    <button id="mobile-suppliers-btn">Switch Supplier</button>
-    <button id="mobile-customers-btn">Customers</button>
-    <button id="mobile-create-invoice-btn">Create Invoice</button>
-    <label class="theme-toggle" style="margin:20px 0;">
-        <input type="checkbox" id="mobile-theme-switch">
-        <span class="slider"></span>
-    </label>
-    <button id="mobile-logout-btn" class="logout-btn">Logout</button>
-</div>
-
 <div class="main">
-
-    <!-- Analytics -->
     <div class="card">
-        <h2>Analytics Overview</h2>
-        <div class="analytics-grid" id="metrics-grid"></div>
-
-        <div class="charts-grid">
-            <div class="chart-container">
-                <h3>Monthly Revenue (Billed vs Paid)</h3>
-                <canvas id="revenueChart"></canvas>
+        <h2>Quick Stats</h2>
+        <div class="analytics-grid">
+            <div class="metric-card">
+                <h3>Total Invoices</h3>
+                <div class="value" id="total-invoices">0</div>
             </div>
-            <div class="chart-container">
-                <h3>Invoice Status Distribution</h3>
-                <canvas id="statusChart"></canvas>
+            <div class="metric-card">
+                <h3>Paid</h3>
+                <div class="value" id="paid-invoices" style="color: var(--success);">0</div>
             </div>
-            <div class="chart-container">
-                <h3>Top 5 Customers by Revenue</h3>
-                <canvas id="topCustomersChart"></canvas>
+            <div class="metric-card">
+                <h3>Sent</h3>
+                <div class="value" id="sent-invoices">0</div>
             </div>
-            <div class="chart-container">
-                <h3>Receivables Aging</h3>
-                <canvas id="agingChart"></canvas>
+            <div class="metric-card">
+                <h3>Drafts</h3>
+                <div class="value" id="draft-invoices" style="color: var(--error);">0</div>
             </div>
         </div>
     </div>
 
-    <!-- Create Invoice -->
     <div class="card">
-        <h2>Create New Invoice</h2>
-        <button id="create-invoice-btn" class="cta">Create Invoice</button>
-    </div>
-
-    <!-- Invoice History -->
-    <div class="card">
-        <h2>Invoice History</h2>
+        <h2>Recent Activity</h2>
         <div class="filter-bar">
             <div class="filter-controls">
                 <div class="filter-group">
-                    <label>Search Invoice ID</label>
-                    <input type="text" id="filter-id" placeholder="e.g. INV-001">
+                    <label>Invoice ID</label>
+                    <input id="filter-id" placeholder="Filter by ID">
                 </div>
                 <div class="filter-group">
                     <label>Customer</label>
-                    <input type="text" id="filter-customer" placeholder="Customer name">
+                    <input id="filter-customer" placeholder="Filter by customer">
                 </div>
                 <div class="filter-group">
                     <label>From Date</label>
-                    <input type="date" id="filter-from">
+                    <input id="filter-from" type="date">
                 </div>
                 <div class="filter-group">
                     <label>To Date</label>
-                    <input type="date" id="filter-to">
+                    <input id="filter-to" type="date">
                 </div>
                 <div class="filter-group">
                     <label>Status</label>
@@ -684,38 +681,49 @@ input:checked + .slider:after {
                         <option value="paid">Paid</option>
                     </select>
                 </div>
-                <button id="clear-filters">Clear Filters</button>
             </div>
-            <button id="export-csv-btn">Export Displayed to CSV</button>
+            <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <button id="clear-filters" style="background: #6b7280; color: white;">Clear Filters</button>
+                <button id="export-csv-btn" class="cta">Export CSV</button>
+            </div>
         </div>
 
-        <!-- Desktop Table -->
         <div class="desktop-table-wrapper">
-            <table id="invoices-table" class="table">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Invoice ID</th>
                         <th>Date</th>
                         <th>Customer</th>
-                        <th>Total</th>
+                        <th>Amount</th>
                         <th>Currency</th>
                         <th>Status</th>
                         <th>Actions</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
-                </tbody>
+                <tbody id="desktop-invoice-table"></tbody>
             </table>
         </div>
 
-        <!-- Mobile Card List -->
-        <div class="mobile-invoice-list" id="mobile-invoice-list">
-            <!-- Cards injected by JS -->
+        <div id="mobile-invoice-list" class="mobile-invoice-list"></div>
+        <div id="no-invoices" style="text-align: center; padding: 40px; color: var(--text-secondary); display: none;">
+            <p>No invoices found. <button class="cta" id="create-first-invoice">Create your first invoice</button></p>
         </div>
+    </div>
 
-        <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
+    <div class="card">
+        <h2>Invoice Trends</h2>
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>Invoices by Month</h3>
+                <canvas id="monthlyChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Status Distribution</h3>
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -727,290 +735,198 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 let allInvoices = [];
 let displayedInvoices = [];
-let revenueChart = null;
-let statusChart = null;
-let topCustomersChart = null;
-let agingChart = null;
+let monthlyChart, statusChart;
 
-// Mobile nav
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobile-nav');
-const mobileNavClose = document.getElementById('mobile-nav-close');
+// Theme toggle logic
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isLight = saved === 'light' || (!saved && !prefersDark);
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-});
+    if (isLight) {
+        document.body.classList.add('light-mode');
+    } else {
+        document.body.classList.remove('light-mode');
+    }
 
-mobileNavClose.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    mobileNav.classList.remove('active');
-});
+    document.getElementById('theme-toggle-desktop').checked = isLight;
+    document.getElementById('theme-toggle-mobile').checked = isLight;
+}
 
-mobileNav.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileNav.classList.remove('active');
-    });
-});
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    document.getElementById('theme-toggle-desktop').checked = isLight;
+    document.getElementById('theme-toggle-mobile').checked = isLight;
+}
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    initTheme();
+
+    document.getElementById('theme-toggle-desktop').addEventListener('change', toggleTheme);
+    document.getElementById('theme-toggle-mobile').addEventListener('change', toggleTheme);
+
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         window.location.href = 'index.html';
         return;
     }
 
-    const activeSupplierName = localStorage.getItem('selected_supplier_name');
-    const activeSupplierSpan = document.getElementById('active-supplier');
-    if (activeSupplierName) {
-        activeSupplierSpan.textContent = `Active: ${activeSupplierName}`;
-    } else {
-        activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
-    }
-
     const selectedSupplierId = localStorage.getItem('selected_supplier_id');
-    if (!selectedSupplierId) {
-        alert("Please select a supplier first.");
+    const selectedSupplierName = localStorage.getItem('selected_supplier_name');
+    if (selectedSupplierId && selectedSupplierName) {
+        document.getElementById('active-supplier').textContent = `Active: ${selectedSupplierName}`;
+    } else {
+        document.getElementById('active-supplier').textContent = 'No supplier selected';
         window.location.href = 'suppliers.html';
         return;
     }
 
-    // Buttons
-    document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
-    document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
 
-    document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
-    document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
-
-    document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
-    document.getElementById('mobile-customers-btn')?.addEventListener('click', () => window.location.href = 'customers.html');
-
-    document.getElementById('logout-btn').addEventListener('click', logout);
-    document.getElementById('mobile-logout-btn')?.addEventListener('click', logout);
-
-    async function logout() {
-        await supabase.auth.signOut();
-        localStorage.removeItem('selected_supplier_id');
-        localStorage.removeItem('selected_supplier_name');
-        window.location.href = 'index.html';
-    }
-
-    document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
-
-    // Theme
-    const themeSwitch = document.getElementById('theme-switch');
-    const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
-    const savedTheme = localStorage.getItem('theme');
-
-    const applyTheme = (isLight) => {
-        if (isLight) {
-            document.body.classList.add('light-mode');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.body.classList.remove('light-mode');
-            localStorage.setItem('theme', 'dark');
-        }
-    };
-
-    const preferredLight = !savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches;
-    const initialLight = savedTheme === 'light' || preferredLight;
-
-    applyTheme(initialLight);
-    themeSwitch.checked = initialLight;
-    if (mobileThemeSwitch) mobileThemeSwitch.checked = initialLight;
-
-    themeSwitch.addEventListener('change', () => {
-        applyTheme(themeSwitch.checked);
-        if (mobileThemeSwitch) mobileThemeSwitch.checked = themeSwitch.checked;
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
     });
 
-    if (mobileThemeSwitch) {
-        mobileThemeSwitch.addEventListener('change', () => {
-            applyTheme(mobileThemeSwitch.checked);
-            themeSwitch.checked = mobileThemeSwitch.checked;
-        });
-    }
+    mobileNavClose.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
 
-    await loadInvoices(session.user.id, selectedSupplierId);
+    mobileNav.querySelectorAll('button, a').forEach(item => {
+        item.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
+    });
+
+    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+    mobileLogoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
+    });
+
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
+    });
+
+    const mobileCreateInvoiceBtn = document.getElementById('mobile-create-invoice-btn');
+    mobileCreateInvoiceBtn.addEventListener('click', () => {
+        window.location.href = 'form.html';
+    });
+
+    const createInvoiceBtn = document.getElementById('create-invoice-btn');
+    createInvoiceBtn.addEventListener('click', () => {
+        window.location.href = 'form.html';
+    });
+
+    const createFirstInvoiceBtn = document.getElementById('create-first-invoice');
+    createFirstInvoiceBtn.addEventListener('click', () => {
+        window.location.href = 'form.html';
+    });
+
+    await loadInvoices();
+    setupEventListeners();
 });
 
-async function loadInvoices(userId, supplierId) {
-    const { data: invoices, error } = await supabase
+async function loadInvoices() {
+    const { data, error } = await supabase
         .from('invoices')
-        .select('id, invoice_id, issue_date, customer_name, total_amount, currency, xml_data, status, form_data')
-        .eq('user_id', userId)
-        .eq('supplier_id', supplierId)
+        .select(`
+            *,
+            customers!inner(name),
+            suppliers!inner(name)
+        `)
         .order('issue_date', { ascending: false });
 
     if (error) {
-        const msg = `Error loading invoices: ${error.message}`;
-        document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">${msg}</td></tr>`;
-        document.getElementById('mobile-invoice-list').innerHTML = `<div class="no-invoices">${msg}</div>`;
+        console.error('Error loading invoices:', error);
         return;
     }
 
-    allInvoices = invoices || [];
-    displayedInvoices = allInvoices;
-    renderAnalytics(allInvoices);
-    renderDesktopTable(allInvoices);
-    renderMobileCards(allInvoices);
+    allInvoices = data.map(inv => ({
+        ...inv,
+        customer_name: inv.customers?.name || 'Unknown',
+        supplier_name: inv.suppliers?.name || 'Unknown'
+    }));
+
+    applyFilters();
+}
+
+function setupEventListeners() {
+    // Filter listeners
+    ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', applyFilters);
+            el.addEventListener('change', applyFilters);
+        }
+    });
+
+    document.getElementById('clear-filters').addEventListener('click', () => {
+        ['filter-id', 'filter-customer', 'filter-from', 'filter-to'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('filter-status').value = '';
+        applyFilters();
+    });
+
+    document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
+}
+
+function applyFilters() {
+    let filtered = allInvoices;
+
+    const idFilter = document.getElementById('filter-id').value.trim().toLowerCase();
+    if (idFilter) filtered = filtered.filter(inv => (inv.invoice_id || '').toLowerCase().includes(idFilter));
+
+    const custFilter = document.getElementById('filter-customer').value.trim().toLowerCase();
+    if (custFilter) filtered = filtered.filter(inv => (inv.customer_name || '').toLowerCase().includes(custFilter));
+
+    const fromDate = document.getElementById('filter-from').value;
+    if (fromDate) filtered = filtered.filter(inv => inv.issue_date >= fromDate);
+
+    const toDate = document.getElementById('filter-to').value;
+    if (toDate) filtered = filtered.filter(inv => inv.issue_date <= toDate);
+
+    const statusFilter = document.getElementById('filter-status').value;
+    if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
+
+    displayedInvoices = filtered;
+    renderAnalytics(filtered);
+    renderDesktopTable(filtered);
+    renderMobileCards(filtered);
+
+    const noInvoices = document.getElementById('no-invoices');
+    if (filtered.length === 0) {
+        noInvoices.style.display = 'block';
+    } else {
+        noInvoices.style.display = 'none';
+    }
 }
 
 function renderAnalytics(invoices) {
-    // ... (unchanged from previous version)
-    const totalInvoices = invoices.length;
-    const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
-    const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
-    const outstanding = totalRevenue - paidRevenue;
-    const avgInvoice = totalInvoices > 0 ? totalRevenue / totalInvoices : 0;
-
-    const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
-    const sent = invoices.filter(inv => inv.status === 'sent').length;
+    const total = invoices.length;
     const paid = invoices.filter(inv => inv.status === 'paid').length;
+    const sent = invoices.filter(inv => inv.status === 'sent').length;
+    const drafts = invoices.filter(inv => !inv.status || inv.status === 'draft').length;
 
-    document.getElementById('metrics-grid').innerHTML = `
-        <div class="metric-card">
-            <h3>Total Invoices</h3>
-            <div class="value">${totalInvoices}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Total Billed</h3>
-            <div class="value">${totalRevenue.toFixed(2)}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Outstanding</h3>
-            <div class="value">${outstanding.toFixed(2)}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Avg. Invoice</h3>
-            <div class="value">${avgInvoice.toFixed(2)}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Drafts</h3>
-            <div class="value">${drafts}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Sent</h3>
-            <div class="value">${sent}</div>
-        </div>
-        <div class="metric-card">
-            <h3>Paid</h3>
-            <div class="value">${paid}</div>
-        </div>
-    `;
+    document.getElementById('total-invoices').textContent = total;
+    document.getElementById('paid-invoices').textContent = paid;
+    document.getElementById('sent-invoices').textContent = sent;
+    document.getElementById('draft-invoices').textContent = drafts;
 
-    // Charts code unchanged...
-    const monthlyBilled = {};
-    const monthlyPaid = {};
-    invoices.forEach(inv => {
-        if (inv.issue_date) {
-            const month = inv.issue_date.substring(0, 7);
-            const amount = parseFloat(inv.total_amount) || 0;
-            monthlyBilled[month] = (monthlyBilled[month] || 0) + amount;
-            if (inv.status === 'paid') monthlyPaid[month] = (monthlyPaid[month] || 0) + amount;
-        }
-    });
-    const months = [...new Set([...Object.keys(monthlyBilled), ...Object.keys(monthlyPaid)])].sort();
-    const billedData = months.map(m => monthlyBilled[m] || 0);
-    const paidData = months.map(m => monthlyPaid[m] || 0);
-
-    if (revenueChart) revenueChart.destroy();
-    revenueChart = new Chart(document.getElementById('revenueChart'), {
-        type: 'line',
-        data: {
-            labels: months,
-            datasets: [
-                { label: 'Billed', data: billedData, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.2)', tension: 0.3, fill: true },
-                { label: 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
-            ]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-    });
-
-    if (statusChart) statusChart.destroy();
-    statusChart = new Chart(document.getElementById('statusChart'), {
-        type: 'doughnut',
-        data: {
-            labels: [`Draft (€${outstanding.toFixed(0)})`, `Sent (€${invoices.filter(i=>i.status==='sent').reduce((s,i)=>s+(parseFloat(i.total_amount)||0),0).toFixed(0)})`, `Paid (€${paidRevenue.toFixed(0)})`],
-            datasets: [{
-                data: [drafts, sent, paid],
-                backgroundColor: ['#ef4444', '#f59e0b', '#22c55e']
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-    });
-
-    const customerRevenue = {};
-    invoices.forEach(inv => {
-        const name = inv.customer_name || 'Unknown';
-        customerRevenue[name] = (customerRevenue[name] || 0) + (parseFloat(inv.total_amount) || 0);
-    });
-    const top5 = Object.entries(customerRevenue)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
-
-    if (topCustomersChart) topCustomersChart.destroy();
-    topCustomersChart = new Chart(document.getElementById('topCustomersChart'), {
-        type: 'bar',
-        data: {
-            labels: top5.map(c => c[0]),
-            datasets: [{
-                label: 'Revenue',
-                data: top5.map(c => c[1]),
-                backgroundColor: '#2563eb'
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { x: { beginAtZero: true } }
-        }
-    });
-
-    const aging = { '0-30': 0, '31-60': 0, '61-90': 0, '90+': 0 };
-    const today = new Date();
-    invoices.filter(inv => inv.status !== 'paid').forEach(inv => {
-        if (!inv.issue_date) return;
-        const days = Math.floor((today - new Date(inv.issue_date)) / (1000 * 60 * 60 * 24));
-        const amount = parseFloat(inv.total_amount) || 0;
-        if (days <= 30) aging['0-30'] += amount;
-        else if (days <= 60) aging['31-60'] += amount;
-        else if (days <= 90) aging['61-90'] += amount;
-        else aging['90+'] += amount;
-    });
-
-    if (agingChart) agingChart.destroy();
-    agingChart = new Chart(document.getElementById('agingChart'), {
-        type: 'bar',
-        data: {
-            labels: ['0-30 days', '31-60 days', '61-90 days', '90+ days'],
-            datasets: [{
-                label: 'Outstanding',
-                data: [aging['0-30'], aging['31-60'], aging['61-90'], aging['90+']],
-                backgroundColor: ['#22c55e', '#f59e0b', '#f97316', '#ef4444']
-            }]
-        },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-    });
+    // Update charts
+    updateCharts(invoices);
 }
 
 function renderDesktopTable(invoices) {
-    const tbody = document.querySelector('#invoices-table tbody');
-    const noMsg = document.getElementById('no-invoices');
-
-    displayedInvoices = invoices;
-
-    if (invoices.length === 0) {
-        noMsg.style.display = 'block';
-        noMsg.textContent = 'No invoices yet.';
-        tbody.innerHTML = '';
-        return;
-    }
-
-    noMsg.style.display = 'none';
+    const tbody = document.getElementById('desktop-invoice-table');
     tbody.innerHTML = '';
 
     invoices.forEach(inv => {
@@ -1163,44 +1079,66 @@ function attachActionListeners() {
     });
 }
 
-function applyFilters() {
-    let filtered = allInvoices;
+function updateCharts(invoices) {
+    // Monthly chart
+    const monthlyData = {};
+    invoices.forEach(inv => {
+        if (inv.issue_date) {
+            const month = new Date(inv.issue_date).toLocaleDateString('en-CA', { year: 'numeric', month: 'short' });
+            monthlyData[month] = (monthlyData[month] || 0) + 1;
+        }
+    });
 
-    const idFilter = document.getElementById('filter-id').value.trim().toLowerCase();
-    if (idFilter) filtered = filtered.filter(inv => (inv.invoice_id || '').toLowerCase().includes(idFilter));
+    const monthlyLabels = Object.keys(monthlyData).sort();
+    const monthlyValues = monthlyLabels.map(label => monthlyData[label]);
 
-    const custFilter = document.getElementById('filter-customer').value.trim().toLowerCase();
-    if (custFilter) filtered = filtered.filter(inv => (inv.customer_name || '').toLowerCase().includes(custFilter));
+    if (monthlyChart) monthlyChart.destroy();
+    const ctx1 = document.getElementById('monthlyChart').getContext('2d');
+    monthlyChart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: monthlyLabels,
+            datasets: [{
+                label: 'Invoices',
+                data: monthlyValues,
+                borderColor: 'rgb(37, 99, 235)',
+                backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
 
-    const fromDate = document.getElementById('filter-from').value;
-    if (fromDate) filtered = filtered.filter(inv => inv.issue_date >= fromDate);
+    // Status chart
+    const statusData = {
+        draft: invoices.filter(inv => !inv.status || inv.status === 'draft').length,
+        sent: invoices.filter(inv => inv.status === 'sent').length,
+        paid: invoices.filter(inv => inv.status === 'paid').length
+    };
 
-    const toDate = document.getElementById('filter-to').value;
-    if (toDate) filtered = filtered.filter(inv => inv.issue_date <= toDate);
-
-    const statusFilter = document.getElementById('filter-status').value;
-    if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
-
-    displayedInvoices = filtered;
-    renderAnalytics(filtered);
-    renderDesktopTable(filtered);
-    renderMobileCards(filtered);
+    if (statusChart) statusChart.destroy();
+    const ctx2 = document.getElementById('statusChart').getContext('2d');
+    statusChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+            labels: ['Draft', 'Sent', 'Paid'],
+            datasets: [{
+                data: [statusData.draft, statusData.sent, statusData.paid],
+                backgroundColor: ['#ef4444', '#10b981', '#3b82f6']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
 }
-
-// Filter listeners unchanged
-['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-        el.addEventListener('input', applyFilters);
-        el.addEventListener('change', applyFilters);
-    }
-});
-
-document.getElementById('clear-filters').addEventListener('click', () => {
-    ['filter-id', 'filter-customer', 'filter-from', 'filter-to'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('filter-status').value = '';
-    applyFilters();
-});
 
 function exportDisplayedToCSV() {
     if (displayedInvoices.length === 0) {
