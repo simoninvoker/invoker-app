@@ -352,7 +352,7 @@ input:checked + .slider:after {
     height: 100% !important;
 }
 
-/* Filters & Table */
+/* Filters */
 .filter-bar {
     display: flex;
     flex-direction: column;
@@ -406,8 +406,8 @@ input:checked + .slider:after {
     color: white;
 }
 
-/* Responsive Table Wrapper */
-.table-wrapper {
+/* Desktop Table */
+.desktop-table-wrapper {
     overflow-x: auto;
     border-radius: 16px;
     border: 1px solid var(--border);
@@ -415,18 +415,9 @@ input:checked + .slider:after {
     -webkit-overflow-scrolling: touch;
 }
 
-.table-wrapper::-webkit-scrollbar {
-    height: 8px;
-}
-
-.table-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.2);
-    border-radius: 4px;
-}
-
 .table {
     width: 100%;
-    min-width: 800px; /* forces horizontal scroll on mobile */
+    min-width: 800px;
     border-collapse: collapse;
 }
 
@@ -445,32 +436,83 @@ input:checked + .slider:after {
     z-index: 10;
 }
 
-.actions-cell {
-    white-space: nowrap;
-    padding: 8px 16px !important;
+/* Mobile Card List */
+.mobile-invoice-list {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.invoice-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.invoice-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.invoice-card-main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    margin-bottom: 16px;
+    font-size: 15px;
+}
+
+.invoice-card-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.invoice-card-value strong {
+    font-size: 18px;
+    color: var(--accent);
+}
+
+.invoice-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.invoice-card-actions .action-btn {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
 }
 
 .action-btn {
-    padding: 8px 12px;
+    padding: 10px 16px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    margin: 4px;
-    min-width: 80px;
-    height: 36px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .view-btn { background: var(--primary); color: white; }
 .download-btn { background: var(--accent); color: black; }
 .edit-btn { background: #f59e0b; color: white; }
 
-.delete-cell { text-align: center; }
+.delete-cell-mobile {
+    text-align: right;
+    margin-top: 12px;
+}
+
 .delete-cross {
     display: inline-block;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 28px;
     color: var(--error);
     cursor: pointer;
 }
@@ -527,17 +569,13 @@ input:checked + .slider:after {
         font-size: 24px;
     }
 
-    .action-btn {
-        padding: 10px 14px;
-        font-size: 14px;
-        width: 100%;
-        margin: 6px 0;
+    /* Hide desktop table, show mobile cards */
+    .desktop-table-wrapper {
+        display: none;
     }
 
-    .actions-cell {
+    .mobile-invoice-list {
         display: flex;
-        flex-direction: column;
-        align-items: stretch;
     }
 }
 </style>
@@ -651,7 +689,8 @@ input:checked + .slider:after {
             <button id="export-csv-btn">Export Displayed to CSV</button>
         </div>
 
-        <div class="table-wrapper">
+        <!-- Desktop Table -->
+        <div class="desktop-table-wrapper">
             <table id="invoices-table" class="table">
                 <thead>
                     <tr>
@@ -670,6 +709,12 @@ input:checked + .slider:after {
                 </tbody>
             </table>
         </div>
+
+        <!-- Mobile Card List -->
+        <div class="mobile-invoice-list" id="mobile-invoice-list">
+            <!-- Cards injected by JS -->
+        </div>
+
         <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
 </div>
@@ -687,7 +732,7 @@ let statusChart = null;
 let topCustomersChart = null;
 let agingChart = null;
 
-// Mobile nav elements
+// Mobile nav
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobile-nav');
 const mobileNavClose = document.getElementById('mobile-nav-close');
@@ -731,7 +776,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // Button bindings
+    // Buttons
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
     document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
 
@@ -753,7 +798,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
 
-    // Theme Toggle (both desktop and mobile)
+    // Theme
     const themeSwitch = document.getElementById('theme-switch');
     const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
     const savedTheme = localStorage.getItem('theme');
@@ -790,7 +835,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadInvoices(session.user.id, selectedSupplierId);
 });
 
-/* All your existing JS functions remain unchanged below */
 async function loadInvoices(userId, supplierId) {
     const { data: invoices, error } = await supabase
         .from('invoices')
@@ -800,17 +844,21 @@ async function loadInvoices(userId, supplierId) {
         .order('issue_date', { ascending: false });
 
     if (error) {
-        document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">Error loading invoices: ${error.message}</td></tr>`;
+        const msg = `Error loading invoices: ${error.message}`;
+        document.querySelector('#invoices-table tbody').innerHTML = `<tr><td colspan="8" class="no-invoices">${msg}</td></tr>`;
+        document.getElementById('mobile-invoice-list').innerHTML = `<div class="no-invoices">${msg}</div>`;
         return;
     }
 
     allInvoices = invoices || [];
     displayedInvoices = allInvoices;
     renderAnalytics(allInvoices);
-    renderTable(allInvoices);
+    renderDesktopTable(allInvoices);
+    renderMobileCards(allInvoices);
 }
 
 function renderAnalytics(invoices) {
+    // ... (unchanged from previous version)
     const totalInvoices = invoices.length;
     const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
     const paidRevenue = invoices.filter(inv => inv.status === 'paid').reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
@@ -852,6 +900,7 @@ function renderAnalytics(invoices) {
         </div>
     `;
 
+    // Charts code unchanged...
     const monthlyBilled = {};
     const monthlyPaid = {};
     invoices.forEach(inv => {
@@ -948,7 +997,7 @@ function renderAnalytics(invoices) {
     });
 }
 
-function renderTable(invoices) {
+function renderDesktopTable(invoices) {
     const tbody = document.querySelector('#invoices-table tbody');
     const noMsg = document.getElementById('no-invoices');
 
@@ -965,20 +1014,9 @@ function renderTable(invoices) {
     tbody.innerHTML = '';
 
     invoices.forEach(inv => {
-        let statusColor, statusText;
-        if (inv.status === 'paid') {
-            statusColor = '#10b981';
-            statusText = 'Paid';
-        } else if (inv.status === 'sent') {
-            statusColor = 'var(--success)';
-            statusText = 'Sent';
-        } else if (inv.status === 'draft' || !inv.status) {
-            statusColor = 'var(--error)';
-            statusText = 'Draft';
-        } else {
-            statusColor = '#6b7280';
-            statusText = inv.status.charAt(0).toUpperCase() + inv.status.slice(1);
-        }
+        let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
+        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
+        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
 
         const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
 
@@ -1007,24 +1045,69 @@ function renderTable(invoices) {
     attachActionListeners();
 }
 
+function renderMobileCards(invoices) {
+    const container = document.getElementById('mobile-invoice-list');
+    const noMsg = document.getElementById('no-invoices');
+
+    if (invoices.length === 0) {
+        noMsg.style.display = 'block';
+        container.innerHTML = '';
+        return;
+    }
+
+    noMsg.style.display = 'none';
+    container.innerHTML = '';
+
+    invoices.forEach(inv => {
+        let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
+        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
+        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
+
+        const statusBadge = `<span style="padding:8px 16px; border-radius:50px; font-size:14px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
+
+        const isDraft = (!inv.status || inv.status === 'draft');
+
+        const card = document.createElement('div');
+        card.className = 'invoice-card';
+        card.innerHTML = `
+            <div class="invoice-card-header">
+                <div>
+                    <strong style="font-size:20px;">${inv.invoice_id || 'N/A'}</strong><br>
+                    <span style="color:var(--text-secondary);">${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</span>
+                </div>
+                ${statusBadge}
+            </div>
+            <div class="invoice-card-main">
+                <div class="invoice-card-label">Customer</div>
+                <div class="invoice-card-value">${inv.customer_name || '—'}</div>
+
+                <div class="invoice-card-label">Total</div>
+                <div class="invoice-card-value"><strong>${inv.total_amount ? parseFloat(inv.total_amount).toFixed(2) : '0.00'} ${inv.currency || 'EUR'}</strong></div>
+            </div>
+            <div class="invoice-card-actions">
+                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit Draft</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View XML</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
+            </div>
+            ${isDraft ? `<div class="delete-cell-mobile"><span class="delete-cross" data-id="${inv.id}">×</span></div>` : ''}
+        `;
+        container.appendChild(card);
+    });
+
+    attachActionListeners();
+}
+
 function attachActionListeners() {
+    // Edit, delete, view, download – same for both views
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.onclick = () => {
             const invId = btn.dataset.id;
             const inv = allInvoices.find(i => i.id === invId);
-            if (!inv) {
-                alert('Invoice not found.');
-                return;
-            }
+            if (!inv) return alert('Invoice not found.');
 
             let formData = inv.form_data;
             if (typeof formData === 'string') {
-                try {
-                    formData = JSON.parse(formData);
-                } catch (e) {
-                    alert('Corrupted form data.');
-                    return;
-                }
+                try { formData = JSON.parse(formData); } catch (e) { return alert('Corrupted form data.'); }
             }
 
             if (formData && typeof formData === 'object' && Object.keys(formData).length > 0) {
@@ -1042,10 +1125,7 @@ function attachActionListeners() {
             if (!confirm("Are you sure you want to delete this draft? This cannot be undone.")) return;
 
             const invId = icon.dataset.id;
-            const { error } = await supabase
-                .from('invoices')
-                .delete()
-                .eq('id', invId);
+            const { error } = await supabase.from('invoices').delete().eq('id', invId);
 
             if (error) {
                 alert('Failed to delete draft: ' + error.message);
@@ -1103,9 +1183,11 @@ function applyFilters() {
 
     displayedInvoices = filtered;
     renderAnalytics(filtered);
-    renderTable(filtered);
+    renderDesktopTable(filtered);
+    renderMobileCards(filtered);
 }
 
+// Filter listeners unchanged
 ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
