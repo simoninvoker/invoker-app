@@ -1173,8 +1173,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   </cac:AccountingCustomerParty>
 
   <cac:PaymentMeans>
-<cbc:PaymentMeansCode${selectedCode ? ` name="${paymentMeansName}"` : ''}>${selectedCode || ''}</cbc:PaymentMeansCode>    
-<cbc:PaymentID>${document.getElementById("paymentID").value || ''}</cbc:PaymentID>
+    <cbc:PaymentMeansCode>${bank.code || ''}</cbc:PaymentMeansCode>
+    <cbc:PaymentID>${document.getElementById("paymentID").value || ''}</cbc:PaymentID>
     <cac:PayeeFinancialAccount>
       <cbc:ID>${bank.iban || ''}</cbc:ID>
       <cbc:Name>${bank.name || ''}</cbc:Name>
