@@ -1009,7 +1009,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        if (await checkInvoiceIdDuplicate(invoiceId)) {
+        // Only check for duplicates when creating a new invoice (not editing draft)
+        if (!isEditingDraft && await checkInvoiceIdDuplicate(invoiceId)) {
             return;
         }
 
