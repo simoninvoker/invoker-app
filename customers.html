@@ -294,12 +294,35 @@ input:checked + .slider:after {
 .card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom:20px; color: var(--accent); }
 
-.peppol-search { margin-bottom: 20px; }
+.peppol-search { margin-bottom: 20px; position: relative; }
 .peppol-search input { width: 350px; padding: 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: white; }
-.peppol-results { margin-top: 20px; max-height: 400px; overflow-y: auto; }
+.peppol-results { margin-top: 20px; max-height: 400px; overflow-y: auto; position: relative; }
 .peppol-result { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 16px; }
 .peppol-result strong { font-size: 18px; }
 .peppol-result p { margin: 8px 0; color: var(--text-secondary); }
+
+/* Close button for PEPPOL results */
+#peppol-close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--white);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+#peppol-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
 
 /* Desktop Table */
 .desktop-table-wrapper { overflow-x: auto; }
@@ -504,7 +527,9 @@ input:focus, select:focus { outline: none; border-color: var(--primary); box-sha
             <input id="peppol-search-input" placeholder="Company name, VAT ID, or country">
             <button id="peppol-search-btn" class="cta">Lookup</button>
         </div>
-        <div id="peppol-results" class="peppol-results" style="display:none;"></div>
+        <div id="peppol-results" class="peppol-results" style="display:none;">
+            <button id="peppol-close-btn">×</button>
+        </div>
         <button id="add-customer-btn" class="cta">Add Customer Manually</button>
 
         <div class="desktop-table-wrapper">
@@ -951,7 +976,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
     document.getElementById('cust-name').addEventListener('input', syncRegistrationName);
 
-    // PEPPOL Directory lookup
+    // PEPPOL Directory lookup with close button
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -962,6 +987,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const resultsDiv = document.getElementById('peppol-results');
         resultsDiv.innerHTML = '<p>Searching PEPPOL Directory...</p>';
         resultsDiv.style.display = 'block';
+        document.getElementById('peppol-close-btn').style.display = 'flex';
 
         try {
             const response = await fetch(`https://directory.peppol.eu/search/1.0/json?q=${encodeURIComponent(query)}&rpc=50`);
@@ -1027,6 +1053,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             resultsDiv.innerHTML = '<p>Error searching PEPPOL Directory. Try again later.</p>';
             console.error(err);
         }
+    });
+
+    // Close button for PEPPOL results
+    document.getElementById('peppol-close-btn').addEventListener('click', () => {
+        document.getElementById('peppol-results').style.display = 'none';
     });
 });
 
