@@ -16,6 +16,7 @@
     --border: rgba(255, 255, 255, 0.12);
     --text-secondary: rgba(255, 255, 255, 0.7);
     --error: #ef4444;
+    --success: #22c55e;
 }
 
 /* Light Mode Overrides */
@@ -371,6 +372,12 @@ label { margin-bottom: 8px; font-weight: 500; color: var(--text-secondary); font
 input { padding: 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.08); color: var(--white); font-size: 16px; }
 input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
 
+.validation-message {
+    margin-top: 8px;
+    font-size: 14px;
+    min-height: 24px;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header { padding: 20px; }
@@ -465,6 +472,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 <div class="form-group">
                     <label>VAT ID *</label>
                     <input id="cust-vat" required placeholder="e.g. SE7350133930013">
+                    <div id="vat-validation" class="validation-message"></div>
                 </div>
                 <div class="form-group">
                     <label>Street *</label>
@@ -493,6 +501,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 <div class="form-group">
                     <label>Company ID</label>
                     <input id="cust-company-id" placeholder="e.g. 5561234567">
+                    <div id="company-validation" class="validation-message"></div>
                 </div>
                 <div class="form-group">
                     <label>Contact Name</label>
@@ -523,6 +532,98 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 let currentCustomerId = null;
 let userId = null;
+
+// VAT patterns (cleaned number, without prefix; Greece uses EL)
+const vatPatterns = {
+    AT: /^U\d{8}$/,
+    BE: /^(0\d{9}|\d{10})$/,
+    BG: /^\d{9,10}$/,
+    CY: /^\d{8}[A-Z]$/,
+    CZ: /^\d{8,10}$/,
+    DE: /^\d{9}$/,
+    DK: /^\d{8}$/,
+    EE: /^\d{9}$/,
+    EL: /^\d{9}$/,  // Greece
+    ES: /^[A-Z0-9]\d{7}[A-Z0-9]$/,
+    FI: /^\d{8}$/,
+    FR: /^[A-Z0-9]{2}\d{9}$/,
+    HR: /^\d{11}$/,
+    HU: /^\d{8}$/,
+    IE: /^\d{7}[A-Z]{1,2}$|^\d[A-Z]\d{5}[A-Z]$/,
+    IT: /^\d{11}$/,
+    LT: /^(\d{9}|\d{12})$/,
+    LU: /^\d{8}$/,
+    LV: /^\d{11}$/,
+    MT: /^\d{8}$/,
+    NL: /^\d{9}B\d{2}$/,
+    PL: /^\d{10}$/,
+    PT: /^\d{9}$/,
+    RO: /^\d{2,10}$/,
+    SE: /^\d{10}01$/,
+    SI: /^\d{8}$/,
+    SK: /^\d{10}$/
+};
+
+// Company ID patterns (basic for common countries; optional)
+const companyPatterns = {
+    DE: /^(HRB|HRA)\s*\d+$/i,
+    NL: /^\d{8}$/,
+    FR: /^\d{9}\s*\d{5}$/,
+    IT: /^\d{11}$/,
+    ES: /^[A-Z]?[0-9]{8}[A-Z0-9]?$/i,
+    SE: /^\d{10}$/
+};
+
+function cleanInput(value) {
+    return value.trim().toUpperCase().replace(/[\s\.\-]/g, '');
+}
+
+function validateVAT(country, vat) {
+    if (!vat || !country) return null; // No input yet
+    const cleaned = cleanInput(vat);
+    const pattern = vatPatterns[country.toUpperCase()];
+    if (!pattern) return false;
+    return pattern.test(cleaned);
+}
+
+function validateCompanyID(country, companyId) {
+    if (!companyId || !country) return null;
+    const cleaned = cleanInput(companyId);
+    const pattern = companyPatterns[country.toUpperCase()];
+    if (!pattern) return true; // No specific pattern, accept
+    return pattern.test(cleaned);
+}
+
+function updateValidation() {
+    const country = document.getElementById('cust-country').value.toUpperCase();
+    const vat = document.getElementById('cust-vat').value;
+    const companyId = document.getElementById('cust-company-id').value;
+
+    const vatMsg = document.getElementById('vat-validation');
+    const companyMsg = document.getElementById('company-validation');
+
+    const vatValid = validateVAT(country, vat);
+    if (vatValid === null) {
+        vatMsg.textContent = '';
+    } else if (vatValid) {
+        vatMsg.textContent = 'Valid VAT format';
+        vatMsg.style.color = 'var(--success)';
+    } else {
+        vatMsg.textContent = 'Invalid VAT format for ' + country;
+        vatMsg.style.color = 'var(--error)';
+    }
+
+    const companyValid = validateCompanyID(country, companyId);
+    if (companyValid === null) {
+        companyMsg.textContent = '';
+    } else if (companyValid) {
+        companyMsg.textContent = 'Valid format';
+        companyMsg.style.color = 'var(--success)';
+    } else {
+        companyMsg.textContent = 'Invalid Company ID format for ' + country;
+        companyMsg.style.color = 'var(--error)';
+    }
+}
 
 // Theme toggle logic
 function initTheme() {
@@ -602,6 +703,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         currentCustomerId = null;
         document.getElementById('customer-form-title').textContent = 'Add Customer';
         document.getElementById('customer-form').reset();
+        updateValidation();
         document.getElementById('customer-form-card').style.display = 'block';
         document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
     });
@@ -615,10 +717,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     const customerForm = document.getElementById('customer-form');
     customerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        const country = document.getElementById('cust-country').value.toUpperCase();
+        const vat = document.getElementById('cust-vat').value;
+
+        if (!validateVAT(country, vat)) {
+            document.getElementById('vat-validation').textContent = 'Invalid VAT format for ' + country;
+            document.getElementById('vat-validation').style.color = 'var(--error)';
+            return;
+        }
+
         await saveCustomer(userId);
     });
 
-    // PEPPOL Directory lookup
+    // Real-time validation listeners
+    document.getElementById('cust-country').addEventListener('input', updateValidation);
+    document.getElementById('cust-vat').addEventListener('input', updateValidation);
+    document.getElementById('cust-company-id').addEventListener('input', updateValidation);
+
+    // Initial validation on edit
+    document.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', updateValidationAfterEdit));
+
+    // PEPPOL Directory lookup (unchanged)
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -676,6 +796,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         document.getElementById('cust-endpoint').value = cleanEndpoint;
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
+                        updateValidation();
                         document.getElementById('customer-form-card').style.display = 'block';
                         document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
                         resultsDiv.style.display = 'none';
@@ -792,6 +913,7 @@ async function editCustomer(id) {
 
     document.getElementById('customer-form-card').style.display = 'block';
     document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
+    updateValidation();
 }
 
 async function deleteCustomer(id) {
@@ -820,7 +942,7 @@ async function saveCustomer(userId) {
         additional_street: document.getElementById('cust-add-street').value.trim(),
         city: document.getElementById('cust-city').value.trim(),
         postal_code: document.getElementById('cust-postal').value.trim(),
-        country: document.getElementById('cust-country').value.trim(),
+        country: document.getElementById('cust-country').value.trim().toUpperCase(),
         registration_name: document.getElementById('cust-reg-name').value.trim(),
         company_id: document.getElementById('cust-company-id').value.trim(),
         contact_name: document.getElementById('cust-contact-name').value.trim(),
