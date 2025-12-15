@@ -122,6 +122,24 @@ nav.desktop-nav .logout-btn:hover {
     color: var(--accent);
 }
 
+/* Cancel button - now matches primary CTA style but with different colors */
+#cancel-customer-btn {
+    background: #6b7280;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#cancel-customer-btn:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
+}
+
 /* Hamburger Icon - Mobile Only */
 .hamburger {
     display: none;
@@ -384,20 +402,6 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
     min-height: 24px;
 }
 
-/* Cancel button styling improvement */
-#cancel-customer-btn {
-    background: transparent;
-    color: var(--white);
-    border: 1px solid var(--border);
-    padding: 14px 28px;
-}
-
-#cancel-customer-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header { padding: 20px; }
@@ -539,7 +543,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
             </div>
             <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
                 <button type="submit" class="cta">Save Customer</button>
-                <button type="button" id="cancel-customer-btn">Cancel</button>
+                <button type="button" id="cancel-customer-btn" class="cta">Cancel</button>
             </div>
         </form>
     </div>
@@ -694,6 +698,12 @@ function toggleTheme() {
     document.getElementById('theme-toggle-mobile').checked = isLight;
 }
 
+function clearForm() {
+    document.getElementById('customer-form').reset();
+    document.getElementById('customer-form-title').textContent = 'Add Customer';
+    updateValidation();
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
     initTheme();
 
@@ -746,9 +756,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const addCustomerBtn = document.getElementById('add-customer-btn');
     addCustomerBtn.addEventListener('click', () => {
         currentCustomerId = null;
-        document.getElementById('customer-form-title').textContent = 'Add Customer';
-        document.getElementById('customer-form').reset();
-        updateValidation();
+        clearForm();
         document.getElementById('customer-form-card').style.display = 'block';
         document.getElementById('customer-form-card').scrollIntoView({ behavior: 'smooth' });
     });
@@ -810,11 +818,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (data.matches && data.matches.length > 0) {
                 resultsDiv.innerHTML = '<h3>Found in PEPPOL Directory:</h3>';
                 data.matches.forEach(match => {
-                    const scheme = match.participantID.scheme;
                     const fullValue = match.participantID.value;
-                    // Remove any prefix up to and including the last colon before the scheme
-                    const afterColon = fullValue.split(':').slice(-2).join(':');
-                    const cleanEndpoint = `${scheme}:${afterColon.split(':')[1] || afterColon}`;
+                    const scheme = match.participantID.scheme;
+                    // Remove everything before the scheme (including iso6523-actorid-upis and any ::)
+                    const participant = fullValue.replace(/.*?(?=\d{4}:)/, '');
+                    const cleanEndpoint = scheme + ':' + participant.replace(/^\d{4}:/, '');
 
                     let name = 'Unknown';
                     let country = '';
@@ -843,7 +851,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         currentCustomerId = null;
                         document.getElementById('customer-form-title').textContent = 'Add Customer (from PEPPOL)';
                         document.getElementById('cust-name').value = name;
-                        document.getElementById('cust-endpoint').value = cleanEndpoint; // Guaranteed only 9955:se556608145001
+                        document.getElementById('cust-endpoint').value = cleanEndpoint;
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
                         updateValidation();
