@@ -406,6 +406,13 @@ select option {
     min-height: 24px;
 }
 
+/* Hint text */
+.hint {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
 /* Theme Toggle Switch */
 .theme-toggle {
     position: relative;
@@ -553,7 +560,7 @@ input:checked + .slider:after {
             </div>
 
             <h3 style="margin-top:40px;">Bank Accounts</h3>
-            <p style="color: var(--text-secondary); margin-bottom:20px;">Add at least one bank account. IBAN and Account Name are required.</p>
+            <p style="color: var(--text-secondary); margin-bottom:20px;">Add at least one bank account. Account Name and either IBAN or BBAN are required.</p>
             <div id="banks-container"></div>
             <button type="button" id="add-bank-entry" style="margin-top:20px; background:var(--accent); color:#000;">+ Add Another Bank</button>
 
@@ -711,11 +718,14 @@ function updateValidation() {
 // Bank validation function
 function validateBank(entry) {
     const name = entry.querySelector('.bank-name').value.trim();
-    const iban = entry.querySelector('.bank-iban').value.trim().toUpperCase().replace(/\s/g, '');
+    const ibanRaw = entry.querySelector('.bank-iban').value.trim();
+    const iban = ibanRaw.toUpperCase().replace(/\s/g, '');
+    const bban = entry.querySelector('.bank-bban').value.trim();
     const bic = entry.querySelector('.bank-bic').value.trim().toUpperCase();
 
     const nameMsg = entry.querySelector('.bank-name-validation') || createValidationElement(entry, '.bank-name');
     const ibanMsg = entry.querySelector('.bank-iban-validation') || createValidationElement(entry, '.bank-iban');
+    const bbanMsg = entry.querySelector('.bank-bban-validation') || createValidationElement(entry, '.bank-bban');
     const bicMsg = entry.querySelector('.bank-bic-validation') || createValidationElement(entry, '.bank-bic');
 
     let isValid = true;
@@ -729,18 +739,28 @@ function validateBank(entry) {
         nameMsg.textContent = '';
     }
 
-    // IBAN required and basic format check
-    if (!iban) {
-        ibanMsg.textContent = 'IBAN is required';
+    // Either IBAN or BBAN must be provided
+    if (!iban && !bban) {
+        ibanMsg.textContent = 'Either IBAN or BBAN must be provided';
         ibanMsg.style.color = 'var(--error)';
-        isValid = false;
-    } else if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
-        ibanMsg.textContent = 'Invalid IBAN format';
-        ibanMsg.style.color = 'var(--error)';
+        bbanMsg.textContent = 'Either IBAN or BBAN must be provided';
+        bbanMsg.style.color = 'var(--error)';
         isValid = false;
     } else {
-        ibanMsg.textContent = 'Valid IBAN';
-        ibanMsg.style.color = 'var(--success)';
+        ibanMsg.textContent = '';
+        bbanMsg.textContent = '';
+    }
+
+    // IBAN format check if provided
+    if (iban) {
+        if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
+            ibanMsg.textContent = 'Invalid IBAN format';
+            ibanMsg.style.color = 'var(--error)';
+            isValid = false;
+        } else {
+            ibanMsg.textContent = 'Valid IBAN';
+            ibanMsg.style.color = 'var(--success)';
+        }
     }
 
     // BIC optional but format check if provided
@@ -1064,18 +1084,19 @@ function addBankEntry(bankData = {}) {
                 <div class="bank-name-validation bank-validation"></div>
             </div>
             <div class="form-group">
-                <label>IBAN *</label>
-                <input class="bank-iban" value="${bankData.iban || ''}" required>
+                <label>IBAN</label>
+                <input class="bank-iban" value="${bankData.iban || ''}">
                 <div class="bank-iban-validation bank-validation"></div>
+            </div>
+            <div class="form-group">
+                <label>BBAN</label>
+                <input class="bank-bban" value="${bankData.bban || ''}">
+                <div class="bank-bban-validation bank-validation"></div>
             </div>
             <div class="form-group">
                 <label>BIC</label>
                 <input class="bank-bic" value="${bankData.bic || ''}">
                 <div class="bank-bic-validation bank-validation"></div>
-            </div>
-            <div class="form-group">
-                <label>BBAN</label>
-                <input class="bank-bban" value="${bankData.bban || ''}">
             </div>
             <div class="form-group">
                 <label>Payment Means Code</label>
@@ -1084,7 +1105,11 @@ function addBankEntry(bankData = {}) {
                     ${paymentMeansCodes.map(pm => `<option value="${pm.code}" ${bankData.code === pm.code ? 'selected' : ''}>${pm.code} - ${pm.name}</option>`).join('')}
                 </select>
             </div>
-            <div class="form-group"><label>Payment ID</label><input class="bank-payment_id" value="${bankData.payment_id || ''}"></div>
+            <div class="form-group">
+                <label>Payment ID</label>
+                <input class="bank-payment_id" value="${bankData.payment_id || ''}">
+                <div class="hint">Optional reference shown to buyer (e.g., "Invoice #12345" or structured payment reference)</div>
+            </div>
         </div>
     `;
     entry.querySelector('.remove-bank').addEventListener('click', () => entry.remove());
@@ -1195,23 +1220,24 @@ async function saveBanksForSupplier(supplierId, userId) {
         const name = entry.querySelector('.bank-name').value.trim();
         const ibanRaw = entry.querySelector('.bank-iban').value.trim();
         const iban = ibanRaw.toUpperCase().replace(/\s/g, '');
-        if (name && iban) {
+        const bban = entry.querySelector('.bank-bban').value.trim();
+        if (name && (iban || bban)) {
             hasValid = true;
             banks.push({
                 supplier_id: supplierId,
                 user_id: userId,
                 name,
-                iban,
+                iban: iban || null,
+                bban: bban || null,
                 bic: entry.querySelector('.bank-bic').value.trim().toUpperCase() || null,
                 code: entry.querySelector('.bank-code').value || null,
-                payment_id: entry.querySelector('.bank-payment_id').value.trim() || null,
-                bban: entry.querySelector('.bank-bban').value.trim() || null
+                payment_id: entry.querySelector('.bank-payment_id').value.trim() || null
             });
         }
     });
 
     if (!hasValid) {
-        alert('Please add at least one bank account with name and IBAN.');
+        alert('Please add at least one bank account with Account Name and either IBAN or BBAN.');
         return false;
     }
 
