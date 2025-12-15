@@ -458,12 +458,13 @@ pre {
                     <label>Select Bank Account</label>
                     <select id="paymentSelect" required></select>
                 </div>
-                <div class="form-group"><label>Default Payment Means Code</label><select id="paymentMeansCode"></select></div>
-                <div class="form-group"><label>Default Payment ID</label><input id="paymentID"></div>
+                <div class="form-group"><label>Account Name</label><input id="accountName" readonly></div>
+                <div class="form-group"><label>Payment Means Code</label><select id="paymentMeansCode"></select></div>       
                 <div class="form-group"><label>IBAN</label><input id="iban" readonly></div>
                 <div class="form-group"><label>BBAN</label><input id="bban" readonly></div>
                 <div class="form-group"><label>BIC</label><input id="bic" readonly></div>
-                <div class="form-group"><label>Account Name</label><input id="accountName" readonly></div>
+                <div class="form-group"><label>Payment ID</label><input id="paymentID"></div>
+                
                 <div class="form-group">
                     <label>Payment Terms</label>
                     <select id="paymentTermsNote">
@@ -715,6 +716,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         return entry ? entry.name : '';
     }
 
+    // Flag to know if we are loading from draft (to prevent overwriting user changes)
+    let isLoadingDraft = false;
+
     paymentSelect.addEventListener("change", () => {
         const selected = paymentSelect.selectedOptions[0];
         if (!selected || !selected.dataset.bank) {
@@ -722,8 +726,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("iban").value = '';
             document.getElementById("bban").value = '';
             document.getElementById("bic").value = '';
-            document.getElementById("paymentMeansCode").value = '';
-            document.getElementById("paymentID").value = '';
+            // Only set default if not loading from draft
+            if (!isLoadingDraft) {
+                document.getElementById("paymentMeansCode").value = '';
+                document.getElementById("paymentID").value = '';
+            }
             return;
         }
 
@@ -732,8 +739,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("iban").value = bank.iban || '';
         document.getElementById("bban").value = bank.bban || '';
         document.getElementById("bic").value = bank.bic || '';
-        document.getElementById("paymentMeansCode").value = bank.code || '';
-        document.getElementById("paymentID").value = bank.payment_id || '';
+
+        // Only override Payment Means Code and Payment ID if not loading from draft
+        if (!isLoadingDraft) {
+            document.getElementById("paymentMeansCode").value = bank.code || '';
+            document.getElementById("paymentID").value = bank.payment_id || '';
+        }
     });
 
     const today = new Date().toISOString().split('T')[0];
@@ -918,6 +929,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const draftId = localStorage.getItem('editing_draft_id');
 
         if (draftDataJSON) {
+            isLoadingDraft = true; // Prevent overwriting during load
+
             try {
                 const data = JSON.parse(draftDataJSON);
 
@@ -938,6 +951,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (data.paymentBankId) {
                     paymentSelect.value = data.paymentBankId;
                     paymentSelect.dispatchEvent(new Event('change'));
+                }
+
+                // Restore overridden payment means code and payment ID from draft
+                if (data.paymentMeansCode !== undefined) {
+                    document.getElementById("paymentMeansCode").value = data.paymentMeansCode;
+                }
+                if (data.paymentID !== undefined) {
+                    document.getElementById("paymentID").value = data.paymentID;
                 }
 
                 linesTableBody.innerHTML = '';
@@ -967,6 +988,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             } catch (e) {
                 console.error("Failed to load draft data", e);
                 alert("Error loading draft data.");
+            } finally {
+                isLoadingDraft = false; // Re-enable defaulting after load
             }
         } else {
             alert("No draft data found.");
@@ -1009,10 +1032,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        // Only check for duplicates when creating a new invoice (not editing draft)
         if (!isEditingDraft && await checkInvoiceIdDuplicate(invoiceId)) {
             return;
         }
+
+        // Capture current (possibly overridden) values
+        const currentPaymentMeansCode = document.getElementById("paymentMeansCode").value;
+        const currentPaymentID = document.getElementById("paymentID").value;
 
         const formObject = {
             invoiceId: invoiceId,
@@ -1025,6 +1051,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             paymentTermsNote: document.getElementById("paymentTermsNote").value,
             customerId: document.getElementById("customerSelect").value,
             paymentBankId: document.getElementById("paymentSelect").value,
+            paymentMeansCode: currentPaymentMeansCode,  // Store current value
+            paymentID: currentPaymentID,                // Store current value
             line_items: Array.from(linesTableBody.querySelectorAll("tr")).map(row => ({
                 desc: row.querySelector(".desc").value,
                 itemName: row.querySelector(".itemName").value,
@@ -1074,9 +1102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         const bank = JSON.parse(selectedBankOpt.dataset.bank);
 
-        // Get current payment means code and name
-        const selectedCode = document.getElementById("paymentMeansCode").value;
-        const paymentMeansName = getPaymentMeansName(selectedCode);
+        const paymentMeansName = getPaymentMeansName(currentPaymentMeansCode);
 
         let lineTotal = 0, allowanceTotal = 0;
         const taxSubtotals = {};
@@ -1177,8 +1203,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   </cac:AccountingCustomerParty>
 
   <cac:PaymentMeans>
-    <cbc:PaymentMeansCode${selectedCode ? ` name="${paymentMeansName}"` : ''}>${selectedCode || ''}</cbc:PaymentMeansCode>
-    <cbc:PaymentID>${document.getElementById("paymentID").value || ''}</cbc:PaymentID>
+    <cbc:PaymentMeansCode${currentPaymentMeansCode ? ` name="${paymentMeansName}"` : ''}>${currentPaymentMeansCode || ''}</cbc:PaymentMeansCode>
+    <cbc:PaymentID>${currentPaymentID || ''}</cbc:PaymentID>
     <cac:PayeeFinancialAccount>
       <cbc:ID>${bank.iban || ''}</cbc:ID>
       <cbc:Name>${bank.name || ''}</cbc:Name>
