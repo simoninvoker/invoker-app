@@ -378,6 +378,12 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
     min-height: 24px;
 }
 
+.endpoint-validation {
+    margin-top: 8px;
+    font-size: 14px;
+    min-height: 24px;
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header { padding: 20px; }
@@ -468,10 +474,11 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 <div class="form-group">
                     <label>Endpoint ID *</label>
                     <input id="cust-endpoint" required placeholder="e.g. 0088:7350133930013">
+                    <div id="endpoint-validation" class="endpoint-validation"></div>
                 </div>
                 <div class="form-group">
                     <label>VAT ID *</label>
-                    <input id="cust-vat" required placeholder="e.g. SE556608145001 or GB123456789">
+                    <input id="cust-vat" required placeholder="e.g. SE556471447401">
                     <div id="vat-validation" class="validation-message"></div>
                 </div>
                 <div class="form-group">
@@ -500,7 +507,7 @@ input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px
                 </div>
                 <div class="form-group">
                     <label>Company ID</label>
-                    <input id="cust-company-id" placeholder="e.g. 5566081450">
+                    <input id="cust-company-id" placeholder="e.g. 5564714474">
                     <div id="company-validation" class="validation-message"></div>
                 </div>
                 <div class="form-group">
@@ -562,10 +569,10 @@ const vatPatterns = {
     SE: /^\d{10}01$/,  // Always ends with 01
     SI: /^\d{8}$/,
     SK: /^\d{10}$/,
-    GB: /^\d{9}(\d{3})?$/  // 9 digits, optional 3 more (12 total)
+    GB: /^\d{9}(\d{3})?$/  // 9 or 12 digits
 };
 
-// Company ID patterns (no hyphens/spaces allowed in PEPPOL format)
+// Company ID patterns (no hyphens/spaces allowed)
 const companyPatterns = {
     DE: /^(HRB|HRA)\d+$/i,
     NL: /^\d{8}$/,
@@ -598,13 +605,22 @@ function validateCompanyID(country, companyId) {
     return pattern.test(cleaned);
 }
 
+function validateEndpoint(endpoint) {
+    if (!endpoint) return null;
+    const trimmed = endpoint.trim();
+    const regex = /^\d{4}:[A-Z0-9]+$/i;  // 4 digits : alphanumeric
+    return regex.test(trimmed);
+}
+
 function updateValidation() {
     const country = document.getElementById('cust-country').value.toUpperCase();
     const vat = document.getElementById('cust-vat').value;
     const companyId = document.getElementById('cust-company-id').value;
+    const endpoint = document.getElementById('cust-endpoint').value;
 
     const vatMsg = document.getElementById('vat-validation');
     const companyMsg = document.getElementById('company-validation');
+    const endpointMsg = document.getElementById('endpoint-validation');
 
     const vatValid = validateVAT(country, vat);
     if (vatValid === null) {
@@ -626,6 +642,17 @@ function updateValidation() {
     } else {
         companyMsg.textContent = 'Invalid Company ID format for ' + country + ' (no hyphens/spaces allowed)';
         companyMsg.style.color = 'var(--error)';
+    }
+
+    const endpointValid = validateEndpoint(endpoint);
+    if (endpointValid === null) {
+        endpointMsg.textContent = '';
+    } else if (endpointValid) {
+        endpointMsg.textContent = 'Valid PEPPOL endpoint format';
+        endpointMsg.style.color = 'var(--success)';
+    } else {
+        endpointMsg.textContent = 'Invalid endpoint format (must be 0000:endpoint)';
+        endpointMsg.style.color = 'var(--error)';
     }
 }
 
@@ -724,10 +751,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const country = document.getElementById('cust-country').value.toUpperCase();
         const vat = document.getElementById('cust-vat').value;
+        const endpoint = document.getElementById('cust-endpoint').value.trim();
 
         if (!validateVAT(country, vat)) {
             document.getElementById('vat-validation').textContent = 'Invalid VAT format for ' + country;
             document.getElementById('vat-validation').style.color = 'var(--error)';
+            return;
+        }
+
+        if (!validateEndpoint(endpoint)) {
+            document.getElementById('endpoint-validation').textContent = 'Invalid endpoint format (must be 0000:endpoint)';
+            document.getElementById('endpoint-validation').style.color = 'var(--error)';
             return;
         }
 
@@ -738,6 +772,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById('cust-country').addEventListener('input', updateValidation);
     document.getElementById('cust-vat').addEventListener('input', updateValidation);
     document.getElementById('cust-company-id').addEventListener('input', updateValidation);
+    document.getElementById('cust-endpoint').addEventListener('input', updateValidation);
 
     // PEPPOL Directory lookup
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
@@ -761,10 +796,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (data.matches && data.matches.length > 0) {
                 resultsDiv.innerHTML = '<h3>Found in PEPPOL Directory:</h3>';
                 data.matches.forEach(match => {
-                    const fullParticipant = match.participantID.value;
                     const scheme = match.participantID.scheme;
-                    const participant = match.participantID.value.split('::')[1] || fullParticipant;
-                    const cleanEndpoint = `${scheme}:${participant}`;
+                    const participant = match.participantID.value.split('::')[1] || match.participantID.value;
+                    const cleanEndpoint = `${scheme}:${participant}`;  // Always include scheme prefix
 
                     let name = 'Unknown';
                     let country = '';
@@ -933,18 +967,27 @@ async function deleteCustomer(id) {
 }
 
 async function saveCustomer(userId) {
+    const rawVat = document.getElementById('cust-vat').value.trim();
+    const country = document.getElementById('cust-country').value.trim().toUpperCase();
+
+    // Force VAT prefix to uppercase country code
+    let formattedVat = rawVat.toUpperCase();
+    if (!formattedVat.startsWith(country)) {
+        formattedVat = country + formattedVat.replace(/^[A-Z]{2}/, '');  // Replace any existing prefix
+    }
+
     const customer = {
         user_id: userId,
         name: document.getElementById('cust-name').value.trim(),
         endpoint_id: document.getElementById('cust-endpoint').value.trim(),
-        vat_id: document.getElementById('cust-vat').value.trim(),
+        vat_id: formattedVat,
         street: document.getElementById('cust-street').value.trim(),
         additional_street: document.getElementById('cust-add-street').value.trim(),
         city: document.getElementById('cust-city').value.trim(),
         postal_code: document.getElementById('cust-postal').value.trim(),
-        country: document.getElementById('cust-country').value.trim().toUpperCase(),
+        country: country,
         registration_name: document.getElementById('cust-reg-name').value.trim(),
-        company_id: cleanInput(document.getElementById('cust-company-id').value),  // Clean hyphens on save
+        company_id: cleanInput(document.getElementById('cust-company-id').value),
         contact_name: document.getElementById('cust-contact-name').value.trim(),
         contact_phone: document.getElementById('cust-contact-phone').value.trim(),
         contact_email: document.getElementById('cust-contact-email').value.trim()
