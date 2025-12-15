@@ -132,6 +132,16 @@ nav.desktop-nav .logout-btn:hover {
     color: var(--accent);
 }
 
+/* Cancel button - now uses same class as Save (cta) for identical look */
+#cancel-btn {
+    background: #6b7280;
+}
+
+#cancel-btn:hover {
+    background: #4b5563;
+    transform: translateY(-2px);
+}
+
 /* Hamburger Icon - Mobile Only */
 .hamburger {
     display: none;
@@ -384,6 +394,13 @@ select option {
 
 /* Validation messages */
 .validation-message {
+    margin-top: 8px;
+    font-size: 14px;
+    min-height: 24px;
+}
+
+/* Bank validation messages */
+.bank-validation {
     margin-top: 8px;
     font-size: 14px;
     min-height: 24px;
@@ -673,6 +690,74 @@ function updateValidation() {
     }
 }
 
+// Bank validation function
+function validateBank(entry) {
+    const name = entry.querySelector('.bank-name').value.trim();
+    const iban = entry.querySelector('.bank-iban').value.trim().toUpperCase().replace(/\s/g, '');
+    const bic = entry.querySelector('.bank-bic').value.trim().toUpperCase();
+
+    const nameMsg = entry.querySelector('.bank-name-validation') || createValidationElement(entry, '.bank-name');
+    const ibanMsg = entry.querySelector('.bank-iban-validation') || createValidationElement(entry, '.bank-iban');
+    const bicMsg = entry.querySelector('.bank-bic-validation') || createValidationElement(entry, '.bank-bic');
+
+    let isValid = true;
+
+    // Account Name required
+    if (!name) {
+        nameMsg.textContent = 'Account name is required';
+        nameMsg.style.color = 'var(--error)';
+        isValid = false;
+    } else {
+        nameMsg.textContent = '';
+    }
+
+    // IBAN required and basic format check
+    if (!iban) {
+        ibanMsg.textContent = 'IBAN is required';
+        ibanMsg.style.color = 'var(--error)';
+        isValid = false;
+    } else if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
+        ibanMsg.textContent = 'Invalid IBAN format';
+        ibanMsg.style.color = 'var(--error)';
+        isValid = false;
+    } else {
+        ibanMsg.textContent = 'Valid IBAN';
+        ibanMsg.style.color = 'var(--success)';
+    }
+
+    // BIC optional but format check if provided
+    if (bic && !/^[A-Z]{6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3}){0,1}$/.test(bic)) {
+        bicMsg.textContent = 'Invalid BIC format';
+        bicMsg.style.color = 'var(--error)';
+        isValid = false;
+    } else if (bic) {
+        bicMsg.textContent = 'Valid BIC';
+        bicMsg.style.color = 'var(--success)';
+    } else {
+        bicMsg.textContent = '';
+    }
+
+    return isValid;
+}
+
+function createValidationElement(entry, selector) {
+    const input = entry.querySelector(selector);
+    const div = document.createElement('div');
+    div.className = 'bank-validation';
+    input.parentNode.appendChild(div);
+    return div;
+}
+
+// Validate all banks
+function validateAllBanks() {
+    const entries = document.querySelectorAll('.bank-entry');
+    let allValid = true;
+    entries.forEach(entry => {
+        if (!validateBank(entry)) allValid = false;
+    });
+    return allValid;
+}
+
 // Theme toggle logic
 function initTheme() {
     const saved = localStorage.getItem('theme');
@@ -755,6 +840,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const supplierForm = document.getElementById('supplier-form');
     supplierForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        if (!validateAllBanks()) {
+            alert('Please fix bank account errors');
+            return;
+        }
+
         if (editingSupplierId) {
             await updateSupplier(editingSupplierId);
         } else {
@@ -769,11 +860,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         editingSupplierId = null;
     });
 
-    // Real-time validation
+    // Real-time validation for main fields
     document.getElementById('country').addEventListener('input', updateValidation);
     document.getElementById('vat').addEventListener('input', updateValidation);
     document.getElementById('company-id').addEventListener('input', updateValidation);
     document.getElementById('endpoint').addEventListener('input', updateValidation);
+
+    // Real-time bank validation
+    document.getElementById('banks-container').addEventListener('input', (e) => {
+        const entry = e.target.closest('.bank-entry');
+        if (entry) validateBank(entry);
+    });
 });
 
 async function loadSuppliers(userId) {
@@ -933,6 +1030,7 @@ async function editSupplier(supplierId) {
     document.getElementById('suppliers-list').style.opacity = '0.5';
     document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
     updateValidation();
+    validateAllBanks();
 }
 
 function addBankEntry(bankData = {}) {
@@ -942,9 +1040,21 @@ function addBankEntry(bankData = {}) {
     entry.innerHTML = `
         <button type="button" class="remove-bank">Delete</button>
         <div class="form-grid">
-            <div class="form-group"><label>Account Name *</label><input class="bank-name" value="${bankData.name || ''}" required></div>
-            <div class="form-group"><label>IBAN *</label><input class="bank-iban" value="${bankData.iban || ''}" required></div>
-            <div class="form-group"><label>BIC</label><input class="bank-bic" value="${bankData.bic || ''}"></div>
+            <div class="form-group">
+                <label>Account Name *</label>
+                <input class="bank-name" value="${bankData.name || ''}" required>
+                <div class="bank-name-validation bank-validation"></div>
+            </div>
+            <div class="form-group">
+                <label>IBAN *</label>
+                <input class="bank-iban" value="${bankData.iban || ''}" required>
+                <div class="bank-iban-validation bank-validation"></div>
+            </div>
+            <div class="form-group">
+                <label>BIC</label>
+                <input class="bank-bic" value="${bankData.bic || ''}">
+                <div class="bank-bic-validation bank-validation"></div>
+            </div>
             <div class="form-group"><label>Payment Means Code</label><input class="bank-code" value="${bankData.code || ''}"></div>
             <div class="form-group"><label>Payment ID</label><input class="bank-payment_id" value="${bankData.payment_id || ''}"></div>
             <div class="form-group"><label>Terms</label><input class="bank-terms" value="${bankData.terms || ''}"></div>
@@ -952,6 +1062,7 @@ function addBankEntry(bankData = {}) {
     `;
     entry.querySelector('.remove-bank').addEventListener('click', () => entry.remove());
     container.appendChild(entry);
+    validateBank(entry);
     return entry;
 }
 
@@ -1055,7 +1166,8 @@ async function saveBanksForSupplier(supplierId, userId) {
 
     entries.forEach(entry => {
         const name = entry.querySelector('.bank-name').value.trim();
-        const iban = entry.querySelector('.bank-iban').value.trim();
+        const ibanRaw = entry.querySelector('.bank-iban').value.trim();
+        const iban = ibanRaw.toUpperCase().replace(/\s/g, '');
         if (name && iban) {
             hasValid = true;
             banks.push({
@@ -1063,7 +1175,7 @@ async function saveBanksForSupplier(supplierId, userId) {
                 user_id: userId,
                 name,
                 iban,
-                bic: entry.querySelector('.bank-bic').value.trim() || null,
+                bic: entry.querySelector('.bank-bic').value.trim().toUpperCase() || null,
                 code: entry.querySelector('.bank-code').value.trim() || null,
                 payment_id: entry.querySelector('.bank-payment_id').value.trim() || null,
                 terms: entry.querySelector('.bank-terms').value.trim() || null
