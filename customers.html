@@ -395,6 +395,56 @@ input:focus, select:focus { outline: none; border-color: var(--primary); box-sha
     min-height: 24px;
 }
 
+/* Searchable Country Dropdown Styles */
+#country-search-container {
+    position: relative;
+}
+
+#country-search-input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+    font-size: 16px;
+}
+
+#country-search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+#country-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: var(--bg-darker);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    z-index: 10;
+    display: none;
+}
+
+.country-option {
+    padding: 12px 14px;
+    cursor: pointer;
+    color: var(--white);
+}
+
+.country-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.country-option.selected {
+    background: var(--primary);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     header { padding: 20px; }
@@ -510,37 +560,11 @@ input:focus, select:focus { outline: none; border-color: var(--primary); box-sha
                 </div>
                 <div class="form-group">
                     <label>Country *</label>
-                    <select id="cust-country" required>
-                        <option value="">Select Country</option>
-                        <option value="AT">Austria (AT)</option>
-                        <option value="BE">Belgium (BE)</option>
-                        <option value="BG">Bulgaria (BG)</option>
-                        <option value="CY">Cyprus (CY)</option>
-                        <option value="CZ">Czech Republic (CZ)</option>
-                        <option value="DE">Germany (DE)</option>
-                        <option value="DK">Denmark (DK)</option>
-                        <option value="EE">Estonia (EE)</option>
-                        <option value="EL">Greece (EL)</option>
-                        <option value="ES">Spain (ES)</option>
-                        <option value="FI">Finland (FI)</option>
-                        <option value="FR">France (FR)</option>
-                        <option value="GB">United Kingdom (GB)</option>
-                        <option value="HR">Croatia (HR)</option>
-                        <option value="HU">Hungary (HU)</option>
-                        <option value="IE">Ireland (IE)</option>
-                        <option value="IT">Italy (IT)</option>
-                        <option value="LT">Lithuania (LT)</option>
-                        <option value="LU">Luxembourg (LU)</option>
-                        <option value="LV">Latvia (LV)</option>
-                        <option value="MT">Malta (MT)</option>
-                        <option value="NL">Netherlands (NL)</option>
-                        <option value="PL">Poland (PL)</option>
-                        <option value="PT">Portugal (PT)</option>
-                        <option value="RO">Romania (RO)</option>
-                        <option value="SE">Sweden (SE)</option>
-                        <option value="SI">Slovenia (SI)</option>
-                        <option value="SK">Slovakia (SK)</option>
-                    </select>
+                    <div id="country-search-container">
+                        <input type="text" id="country-search-input" placeholder="Search country..." autocomplete="off">
+                        <div id="country-list"></div>
+                    </div>
+                    <input type="hidden" id="cust-country" required>
                 </div>
                 <div class="form-group">
                     <label>Registration Name</label>
@@ -580,6 +604,38 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 let currentCustomerId = null;
 let userId = null;
+
+// Country list
+const countries = [
+    { code: "AT", name: "Austria" },
+    { code: "BE", name: "Belgium" },
+    { code: "BG", name: "Bulgaria" },
+    { code: "CY", name: "Cyprus" },
+    { code: "CZ", name: "Czech Republic" },
+    { code: "DE", name: "Germany" },
+    { code: "DK", name: "Denmark" },
+    { code: "EE", name: "Estonia" },
+    { code: "EL", name: "Greece" },
+    { code: "ES", name: "Spain" },
+    { code: "FI", name: "Finland" },
+    { code: "FR", name: "France" },
+    { code: "GB", name: "United Kingdom" },
+    { code: "HR", name: "Croatia" },
+    { code: "HU", name: "Hungary" },
+    { code: "IE", name: "Ireland" },
+    { code: "IT", name: "Italy" },
+    { code: "LT", name: "Lithuania" },
+    { code: "LU", name: "Luxembourg" },
+    { code: "LV", name: "Latvia" },
+    { code: "MT", name: "Malta" },
+    { code: "NL", name: "Netherlands" },
+    { code: "PL", name: "Poland" },
+    { code: "PT", name: "Portugal" },
+    { code: "RO", name: "Romania" },
+    { code: "SE", name: "Sweden" },
+    { code: "SI", name: "Slovenia" },
+    { code: "SK", name: "Slovakia" }
+];
 
 // VAT patterns (cleaned number only, no prefix)
 const vatPatterns = {
@@ -714,8 +770,52 @@ function applySwedishLogic(endpoint) {
         document.getElementById('cust-company-id').value = orgNumber;
         document.getElementById('cust-vat').value = 'SE' + orgNumber + '01';
         document.getElementById('cust-country').value = 'SE';
+        document.getElementById('country-search-input').value = 'Sweden (SE)';
         syncRegistrationName();
         updateValidation();
+    }
+}
+
+// Searchable country dropdown
+function initCountryDropdown() {
+    const searchInput = document.getElementById('country-search-input');
+    const countryList = document.getElementById('country-list');
+    const hiddenCountry = document.getElementById('cust-country');
+
+    // Populate list
+    countries.forEach(country => {
+        const div = document.createElement('div');
+        div.className = 'country-option';
+        div.textContent = `${country.name} (${country.code})`;
+        div.dataset.code = country.code;
+        div.addEventListener('click', () => {
+            searchInput.value = `${country.name} (${country.code})`;
+            hiddenCountry.value = country.code;
+            countryList.style.display = 'none';
+            updateValidation();
+        });
+        countryList.appendChild(div);
+    });
+
+    searchInput.addEventListener('focus', () => {
+        countryList.style.display = 'block';
+        filterCountries('');
+    });
+
+    searchInput.addEventListener('input', () => {
+        filterCountries(searchInput.value.toLowerCase());
+    });
+
+    searchInput.addEventListener('blur', () => {
+        setTimeout(() => countryList.style.display = 'none', 200); // Delay to allow click
+    });
+
+    function filterCountries(query) {
+        const options = countryList.querySelectorAll('.country-option');
+        options.forEach(option => {
+            const text = option.textContent.toLowerCase();
+            option.style.display = text.includes(query) ? 'block' : 'none';
+        });
     }
 }
 
@@ -749,12 +849,14 @@ function clearForm() {
     form.querySelectorAll('input').forEach(input => {
         input.value = '';
     });
+    document.getElementById('country-search-input').value = '';
     document.getElementById('customer-form-title').textContent = 'Add Customer';
     updateValidation();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
     initTheme();
+    initCountryDropdown();
 
     document.getElementById('theme-toggle-desktop').addEventListener('change', toggleTheme);
     document.getElementById('theme-toggle-mobile').addEventListener('change', toggleTheme);
@@ -879,11 +981,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     if (match.entities && match.entities.length > 0) {
                         const entity = match.entities[0];
-                        if (typeof entity.name === 'string') {
-                            name = entity.name;
-                        } else if (Array.isArray(entity.name) && entity.name.length > 0) {
-                            name = entity.name[0].name || 'Unknown';
-                        }
+                        name = (typeof entity.name === 'string' ? entity.name : (Array.isArray(entity.name) && entity.name.length > 0 ? entity.name[0].name : 'Unknown')) || 'Unknown';
                         country = entity.countryCode || '';
                         if (entity.identifiers) {
                             const vatId = entity.identifiers.find(id => id.scheme && id.scheme.toLowerCase().includes('vat'));
@@ -908,6 +1006,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         document.getElementById('cust-endpoint').value = cleanEndpoint;
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
+                        const countryObj = countries.find(c => c.code === country);
+                        if (countryObj) {
+                            document.getElementById('country-search-input').value = `${countryObj.name} (${countryObj.code})`;
+                        }
                         applySwedishLogic(cleanEndpoint);
                         syncRegistrationName();
                         updateValidation();
@@ -1019,6 +1121,12 @@ async function editCustomer(id) {
     document.getElementById('cust-city').value = customer.city || '';
     document.getElementById('cust-postal').value = customer.postal_code || '';
     document.getElementById('cust-country').value = customer.country || '';
+    const countryObj = countries.find(c => c.code === customer.country);
+    if (countryObj) {
+        document.getElementById('country-search-input').value = `${countryObj.name} (${countryObj.code})`;
+    } else {
+        document.getElementById('country-search-input').value = '';
+    }
     document.getElementById('cust-reg-name').value = customer.registration_name || '';
     document.getElementById('cust-company-id').value = customer.company_id || '';
     document.getElementById('cust-contact-name').value = customer.contact_name || '';
