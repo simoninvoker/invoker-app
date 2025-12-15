@@ -458,13 +458,12 @@
                     <label>Select Bank Account</label>
                     <select id="paymentSelect" required></select>
                 </div>
-                <div class="form-group"><label>Account Name</label><input id="accountName" readonly></div>
-                <div class="form-group"><label>Payment Means Code</label><select id="paymentMeansCode"></select></div>
+                <div class="form-group"><label>Default Payment Means Code</label><select id="paymentMeansCode"></select></div>
+                <div class="form-group"><label>Default Payment ID</label><input id="paymentID"></div>
                 <div class="form-group"><label>IBAN</label><input id="iban" readonly></div>
                 <div class="form-group"><label>BBAN</label><input id="bban" readonly></div>
                 <div class="form-group"><label>BIC</label><input id="bic" readonly></div>
-                <div class="form-group"><label>Payment ID</label><input id="paymentID"></div>
-                
+                <div class="form-group"><label>Account Name</label><input id="accountName" readonly></div>
                 <div class="form-group">
                     <label>Payment Terms</label>
                     <select id="paymentTermsNote">
@@ -676,7 +675,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         supplierBanks.forEach(b => {
             const opt = document.createElement("option");
             opt.value = b.id;
-            opt.textContent = `${b.name} (${b.iban})`;
+            opt.textContent = `${b.name} (${b.iban || b.bban || 'No IBAN/BBAN'})`;
             opt.dataset.bank = JSON.stringify(b);
             paymentSelect.appendChild(opt);
         });
@@ -709,6 +708,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         option.textContent = `${pm.code} - ${pm.name}`;
         pmSelect.appendChild(option);
     });
+
+    // Helper to get name from code
+    function getPaymentMeansName(code) {
+        const entry = paymentMeansCodes.find(pm => pm.code === code);
+        return entry ? entry.name : '';
+    }
 
     paymentSelect.addEventListener("change", () => {
         const selected = paymentSelect.selectedOptions[0];
@@ -874,14 +879,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         linesTableBody.appendChild(tr);
-
-        const qtyInput = tr.querySelector(".qty");
-        const priceInput = tr.querySelector(".price");
-        qtyInput.value = values.qty ?? 1;
-        priceInput.value = values.price ?? 10.00;
-
-        qtyInput.dispatchEvent(new Event('input', { bubbles: true }));
-        priceInput.dispatchEvent(new Event('input', { bubbles: true }));
 
         updateTotals();
         updateGenerateButton();
@@ -1075,6 +1072,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
         const bank = JSON.parse(selectedBankOpt.dataset.bank);
 
+        // Get current payment means code and name
+        const selectedCode = document.getElementById("paymentMeansCode").value;
+        const paymentMeansName = getPaymentMeansName(selectedCode);
+
         let lineTotal = 0, allowanceTotal = 0;
         const taxSubtotals = {};
 
@@ -1101,8 +1102,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         let totalTax = 0;
         for (const key in taxSubtotals) {
-            taxSubtotals[key].taxAmount = +(taxSubtotals[key].taxable * taxSubtotals[key].rate / 100).toFixed(2);
-            totalTax += taxSubtotals[key].taxAmount;
+            const t = taxSubtotals[key];
+            t.taxAmount = +(t.taxable * t.rate / 100).toFixed(2);
+            totalTax += t.taxAmount;
         }
         const taxExclusiveAmount = +(lineTotal + allowanceTotal).toFixed(2);
         const taxInclusiveAmount = +(taxExclusiveAmount + totalTax).toFixed(2);
@@ -1173,7 +1175,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   </cac:AccountingCustomerParty>
 
   <cac:PaymentMeans>
-    <cbc:PaymentMeansCode>${bank.code || ''}</cbc:PaymentMeansCode>
+    <cbc:PaymentMeansCode${selectedCode ? ` name="${paymentMeansName}"` : ''}>${selectedCode || ''}</cbc:PaymentMeansCode>
     <cbc:PaymentID>${document.getElementById("paymentID").value || ''}</cbc:PaymentID>
     <cac:PayeeFinancialAccount>
       <cbc:ID>${bank.iban || ''}</cbc:ID>
@@ -1183,7 +1185,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   </cac:PaymentMeans>
   ${paymentTerms ? `<cac:PaymentTerms><cbc:Note>${paymentTerms}</cbc:Note></cac:PaymentTerms>` : ""}
 
-  <!-- Allowances/Charges -->`;
+  <!-- Allowances/Charges -->
+`;
 
         allowanceTableBody.querySelectorAll("tr").forEach(row => {
             const charge = row.querySelector(".chargeIndicator").checked;
@@ -1401,5 +1404,3 @@ document.addEventListener("DOMContentLoaded", async () => {
 </script>
 </body>
 </html>
-
-
