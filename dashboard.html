@@ -147,7 +147,7 @@ header h1 {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
-/* Mobile Nav Overlay */
+/* Mobile Nav Overlay - now respects light/dark mode */
 .mobile-nav {
     position: fixed;
     top: 0;
@@ -155,6 +155,7 @@ header h1 {
     width: 100vw;
     height: 100vh;
     background: var(--bg-dark);
+    color: var(--white); /* Ensures text is white in dark mode */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -167,6 +168,11 @@ header h1 {
     pointer-events: none;
 }
 
+body.light-mode .mobile-nav {
+    background: var(--bg-dark);
+    color: #0f172a; /* Dark text in light mode */
+}
+
 .mobile-nav.active {
     transform: translateX(0);
     visibility: visible;
@@ -177,7 +183,7 @@ header h1 {
 .mobile-nav a {
     font-size: 24px;
     font-weight: 600;
-    color: var(--white);
+    color: inherit; /* Inherits from .mobile-nav */
     background: none;
     border: none;
     padding: 12px 24px;
@@ -192,12 +198,17 @@ header h1 {
     background: rgba(255, 255, 255, 0.1);
 }
 
+body.light-mode .mobile-nav button:hover,
+body.light-mode .mobile-nav a:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
 .mobile-nav-close {
     position: absolute;
     top: 20px;
     right: 20px;
     font-size: 32px;
-    color: var(--white);
+    color: inherit;
     background: none;
     border: none;
     cursor: pointer;
@@ -638,7 +649,7 @@ input:checked + .slider:after {
         <span id="active-supplier"></span>
     </div>
 
-    <!-- Desktop Header Right - Create Invoice added here -->
+    <!-- Desktop Header Right -->
     <div class="header-right">
         <button id="create-invoice-btn" class="cta">Create Invoice</button>
         <button id="suppliers-btn" class="cta">Switch Supplier</button>
@@ -662,7 +673,7 @@ input:checked + .slider:after {
     </div>
 </header>
 
-<!-- Mobile Navigation Overlay - Create Invoice added here -->
+<!-- Mobile Navigation Overlay -->
 <div class="mobile-nav" id="mobile-nav">
     <button class="mobile-nav-close" id="mobile-nav-close">×</button>
     <button id="mobile-create-invoice-btn" class="cta">Create Invoice</button>
@@ -824,7 +835,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // Buttons - now using the ones in header
+    // Buttons
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
     document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
 
@@ -883,6 +894,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadInvoices(session.user.id, selectedSupplierId);
 });
 
+/* The rest of your JavaScript remains unchanged from your original file */
 async function loadInvoices(userId, supplierId) {
     const { data: invoices, error } = await supabase
         .from('invoices')
