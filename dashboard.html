@@ -548,6 +548,27 @@ input:checked + .slider:after {
     text-align: right;
 }
 
+/* Hide trash icon on mobile - keep only text */
+@media (max-width: 768px) {
+    .delete-icon::before {
+        content: none;
+    }
+    
+    .delete-icon {
+        background: none;
+        width: auto;
+        height: auto;
+        font-size: 15px;
+        color: var(--error);
+    }
+    
+    .delete-icon:hover {
+        background: none;
+        transform: none;
+        text-decoration: underline;
+    }
+}
+
 .no-invoices {
     color: var(--text-secondary);
     font-style: italic;
@@ -1120,7 +1141,7 @@ function renderMobileCards(invoices) {
                 ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
             </div>
             <div class="delete-cell-mobile">
-                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}">🗑 Delete</span>` : ''}
+                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}">Delete</span>` : ''}
             </div>
         `;
         container.appendChild(card);
