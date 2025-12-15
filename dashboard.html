@@ -310,33 +310,69 @@ input:checked + .slider:after {
 .card { background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom: 20px; color: var(--accent); }
 
+/* Analytics - improved responsiveness */
 .analytics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 16px;
     margin-top: 24px;
 }
 
-.metric-card {
-    background: rgba(255,255,255,0.06);
-    padding: 20px;
-    border-radius: 16px;
+/* Empty state improvements */
+.empty-state {
     text-align: center;
-    border: 1px solid var(--border);
-}
-
-.metric-card h3 {
-    font-size: 14px;
+    padding: 60px 20px;
     color: var(--text-secondary);
-    margin-bottom: 12px;
 }
 
-.metric-card .value {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--accent);
+.empty-state h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: var(--white);
 }
 
+body.light-mode .empty-state h3 {
+    color: #1e293b;
+}
+
+.empty-state p {
+    font-size: 18px;
+    margin-bottom: 32px;
+}
+
+.empty-state .cta {
+    display: inline-block;
+}
+
+/* Sortable table headers */
+.table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding-right: 32px !important;
+}
+
+.table th.sortable::after {
+    content: '↕';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.4;
+    font-size: 14px;
+}
+
+.table th.sortable.asc::after {
+    content: '↑';
+    opacity: 1;
+}
+
+.table th.sortable.desc::after {
+    content: '↓';
+    opacity: 1;
+}
+
+/* Rest of styles unchanged */
 .charts-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -613,7 +649,7 @@ input:checked + .slider:after {
     }
 
     .analytics-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
 
     .metric-card .value {
@@ -729,29 +765,36 @@ input:checked + .slider:after {
             <button id="export-csv-btn">Export Displayed to CSV</button>
         </div>
 
+        <!-- Desktop Table -->
         <div class="desktop-table-wrapper">
             <table id="invoices-table" class="table">
                 <thead>
                     <tr>
-                        <th>Invoice ID</th>
-                        <th>Date</th>
+                        <th class="sortable" data-sort="invoice_id">Invoice ID</th>
+                        <th class="sortable" data-sort="issue_date">Date</th>
                         <th>Customer</th>
-                        <th>Total</th>
+                        <th class="sortable" data-sort="total_amount">Total</th>
                         <th>Currency</th>
-                        <th>Status</th>
+                        <th class="sortable" data-sort="status">Status</th>
                         <th>Actions</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td colspan="8" class="no-invoices">Loading invoices...</td></tr>
+                    <!-- Filled by JS -->
                 </tbody>
             </table>
         </div>
 
+        <!-- Mobile Card List -->
         <div class="mobile-invoice-list" id="mobile-invoice-list"></div>
 
-        <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
+        <!-- Improved empty state -->
+        <div id="empty-state" class="empty-state" style="display:none;">
+            <h3>No invoices yet</h3>
+            <p>Get started by creating your first PEPPOL invoice.</p>
+            <button id="empty-create-btn" class="cta">Create Invoice</button>
+        </div>
     </div>
 </div>
 
@@ -763,6 +806,7 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 let allInvoices = [];
 let displayedInvoices = [];
+let currentSort = { key: 'issue_date', direction: 'desc' }; // default sort
 let revenueChart = null;
 let statusChart = null;
 let topCustomersChart = null;
@@ -813,6 +857,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
     document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
+    document.getElementById('empty-create-btn')?.addEventListener('click', () => window.location.href = 'form.html');
 
     document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
     document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
@@ -865,6 +910,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    // Table sorting
+    document.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.dataset.sort;
+            if (currentSort.key === key) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort = { key, direction: 'asc' };
+            }
+
+            // Update arrow indicators
+            document.querySelectorAll('th.sortable').forEach(h => {
+                h.classList.remove('asc', 'desc');
+            });
+            th.classList.add(currentSort.direction);
+
+            sortAndRender();
+        });
+    });
+
     await loadInvoices(session.user.id, selectedSupplierId);
 });
 
@@ -879,6 +944,39 @@ function formatAmount(amount) {
     } else {
         return amount.toFixed(2);
     }
+}
+
+function sortInvoices(invoices) {
+    const { key, direction } = currentSort;
+    return [...invoices].sort((a, b) => {
+        let valA = a[key] || '';
+        let valB = b[key] || '';
+
+        if (key === 'total_amount') {
+            valA = parseFloat(valA) || 0;
+            valB = parseFloat(valB) || 0;
+        } else if (key === 'issue_date') {
+            valA = valA ? new Date(valA) : new Date(0);
+            valB = valB ? new Date(valB) : new Date(0);
+        } else if (key === 'status') {
+            const order = { paid: 3, sent: 2, draft: 1, '': 1 };
+            valA = order[valA] || 0;
+            valB = order[valB] || 0;
+        } else if (key === 'invoice_id') {
+            valA = valA.toString().toLowerCase();
+            valB = valB.toString().toLowerCase();
+        }
+
+        if (valA < valB) return direction === 'asc' ? -1 : 1;
+        if (valA > valB) return direction === 'asc' ? 1 : -1;
+        return 0;
+    });
+}
+
+function sortAndRender() {
+    displayedInvoices = sortInvoices(displayedInvoices);
+    renderDesktopTable(displayedInvoices);
+    renderMobileCards(displayedInvoices);
 }
 
 async function loadInvoices(userId, supplierId) {
@@ -897,10 +995,7 @@ async function loadInvoices(userId, supplierId) {
     }
 
     allInvoices = invoices || [];
-    displayedInvoices = allInvoices;
-    renderAnalytics(allInvoices);
-    renderDesktopTable(allInvoices);
-    renderMobileCards(allInvoices);
+    applyFilters(); // this will also sort initially
 }
 
 function renderAnalytics(invoices) {
@@ -945,6 +1040,7 @@ function renderAnalytics(invoices) {
         </div>
     `;
 
+    // Charts code unchanged (kept full)
     const monthlyBilled = {};
     const monthlyPaid = {};
     invoices.forEach(inv => {
@@ -1043,18 +1139,15 @@ function renderAnalytics(invoices) {
 
 function renderDesktopTable(invoices) {
     const tbody = document.querySelector('#invoices-table tbody');
-    const noMsg = document.getElementById('no-invoices');
-
-    displayedInvoices = invoices;
+    const emptyState = document.getElementById('empty-state');
 
     if (invoices.length === 0) {
-        noMsg.style.display = 'block';
-        noMsg.textContent = 'No invoices yet.';
         tbody.innerHTML = '';
+        emptyState.style.display = 'block';
         return;
     }
 
-    noMsg.style.display = 'none';
+    emptyState.style.display = 'none';
     tbody.innerHTML = '';
 
     invoices.forEach(inv => {
@@ -1091,15 +1184,15 @@ function renderDesktopTable(invoices) {
 
 function renderMobileCards(invoices) {
     const container = document.getElementById('mobile-invoice-list');
-    const noMsg = document.getElementById('no-invoices');
+    const emptyState = document.getElementById('empty-state');
 
     if (invoices.length === 0) {
-        noMsg.style.display = 'block';
         container.innerHTML = '';
+        emptyState.style.display = 'block';
         return;
     }
 
-    noMsg.style.display = 'none';
+    emptyState.style.display = 'none';
     container.innerHTML = '';
 
     invoices.forEach(inv => {
@@ -1231,9 +1324,8 @@ function applyFilters() {
     if (statusFilter) filtered = filtered.filter(inv => (inv.status || 'draft') === statusFilter);
 
     displayedInvoices = filtered;
+    sortAndRender();
     renderAnalytics(filtered);
-    renderDesktopTable(filtered);
-    renderMobileCards(filtered);
 }
 
 ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
