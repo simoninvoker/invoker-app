@@ -788,7 +788,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById('cust-company-id').addEventListener('input', updateValidation);
     document.getElementById('cust-endpoint').addEventListener('input', updateValidation);
 
-    // PEPPOL Directory lookup - extract only the scheme:participant part (no actorid)
+    // PEPPOL Directory lookup - robust extraction of only "9955:se556608145001"
     document.getElementById('peppol-search-btn').addEventListener('click', async () => {
         const query = document.getElementById('peppol-search-input').value.trim();
         if (!query) {
@@ -810,11 +810,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (data.matches && data.matches.length > 0) {
                 resultsDiv.innerHTML = '<h3>Found in PEPPOL Directory:</h3>';
                 data.matches.forEach(match => {
-                    const fullValue = match.participantID.value;
-                    // Remove everything before and including the last '::' if present (actorid)
-                    const participantPart = fullValue.includes('::') ? fullValue.split('::').pop() : fullValue;
                     const scheme = match.participantID.scheme;
-                    const cleanEndpoint = `${scheme}:${participantPart}`;
+                    const fullValue = match.participantID.value;
+                    // Remove any prefix up to and including the last colon before the scheme
+                    const afterColon = fullValue.split(':').slice(-2).join(':');
+                    const cleanEndpoint = `${scheme}:${afterColon.split(':')[1] || afterColon}`;
 
                     let name = 'Unknown';
                     let country = '';
@@ -843,7 +843,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         currentCustomerId = null;
                         document.getElementById('customer-form-title').textContent = 'Add Customer (from PEPPOL)';
                         document.getElementById('cust-name').value = name;
-                        document.getElementById('cust-endpoint').value = cleanEndpoint; // Only 9955:se556608145001
+                        document.getElementById('cust-endpoint').value = cleanEndpoint; // Guaranteed only 9955:se556608145001
                         document.getElementById('cust-vat').value = vat;
                         document.getElementById('cust-country').value = country;
                         updateValidation();
