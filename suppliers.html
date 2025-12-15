@@ -20,15 +20,9 @@
 
 * { box-sizing: border-box; margin:0; padding:0; }
 
-body {
-    font-family:'Inter',sans-serif;
-    background: var(--bg-dark);
-    color: var(--white);
-    padding-top: 90px;
-    min-height: 100vh;
-}
+body { font-family:'Inter',sans-serif; background: var(--bg-dark); color: var(--white); padding-top: 90px; min-height: 100vh; }
 
-/* Modern Fixed Navbar */
+/* Header */
 header {
     position: fixed;
     top: 0;
@@ -69,47 +63,116 @@ header h1 {
     border: 1px solid rgba(250, 204, 21, 0.3);
 }
 
-.header-right {
+/* Desktop Navigation */
+nav.desktop-nav {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
 }
-
-.back-btn, .logout-btn {
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 15px;
+nav.desktop-nav button {
+    color: #00e5ff;
     text-decoration: none;
-    transition: all 0.3s ease;
-    border: none;
+    opacity: .85;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
-
-.back-btn {
-    background: var(--accent);
-    color: #000;
+nav.desktop-nav button:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
 }
 
-.back-btn:hover {
-    background: #fde047;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(250, 204, 21, 0.4);
+/* Hamburger Icon - Mobile Only */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 101;
 }
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: var(--white);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
 
-.logout-btn {
-    background: transparent;
+/* Mobile Menu Overlay */
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    z-index: 100;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+}
+.mobile-nav.active {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+.mobile-nav button {
+    font-size: 24px;
+    font-weight: 600;
     color: var(--white);
-    border: 1px solid var(--border);
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    width: 80%;
+    text-align: center;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+    cursor: pointer;
 }
-
-.logout-btn:hover {
+.mobile-nav button:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: var(--accent);
-    color: var(--accent);
+}
+.mobile-nav-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 32px;
+    color: var(--white);
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+.mobile-nav-close:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.main { max-width: 1000px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
+.main { max-width: 1400px; margin: 50px auto; padding:20px; display:flex; flex-direction:column; gap:40px; }
 .card { background: var(--glass); padding:30px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(12px); }
 .card h2 { margin-bottom:20px; color: var(--accent); font-size:24px; }
 .supplier-card {
@@ -274,18 +337,50 @@ select option {
     background: #4b5563;
     transform: translateY(-2px);
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    header { padding: 20px; }
+    .desktop-nav { display: none; }
+    .hamburger { display: flex; }
+    .main { padding: 20px; }
+    .card { padding: 20px; }
+    .supplier-card { padding: 20px; }
+    .supplier-card .buttons-container { flex-direction: column; }
+    .supplier-card .primary-action { width: 100%; }
+    .supplier-card .secondary-actions { width: 100%; justify-content: space-between; }
+    .supplier-card .action-btn { flex: 1; text-align: center; }
+    .form-grid { grid-template-columns: 1fr; }
+    .bank-entry .form-grid { grid-template-columns: 1fr; }
+    .remove-bank { position: static; width: 100%; margin-top: 16px; }
+}
 </style>
 </head>
 <body>
-
 <header>
     <div class="header-left">
         <h1>Select Supplier</h1>
         <span id="active-supplier"></span>
     </div>
-    <div class="header-right">
-        <a href="dashboard.html" id="dashboard-btn" class="back-btn" style="display:none;">Back to Dashboard</a>
+
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
+        <a href="dashboard.html" id="dashboard-btn" style="display:none;" class="back-btn">Back to Dashboard</a>
         <button id="logout-btn" class="logout-btn">Logout</button>
+    </nav>
+
+    <!-- Hamburger Icon (Mobile Only) -->
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-nav" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+        <a href="dashboard.html" id="mobile-dashboard-btn" style="display:none;">Back to Dashboard</a>
+        <button id="mobile-logout-btn">Logout</button>
     </div>
 </header>
 
@@ -315,27 +410,16 @@ select option {
                 <div class="form-group"><label>Email</label><input id="email" type="email"></div>
                 <div class="form-group"><label>Legal Name</label><input id="reg-name"></div>
                 <div class="form-group"><label>Company ID</label><input id="company-id"></div>
-                <div class="form-group">
-                    <label>Default Currency</label>
-                    <select id="default-currency">
-                        <option value="EUR">EUR - Euro</option>
-                        <option value="USD">USD - US Dollar</option>
-                        <option value="GBP">GBP - British Pound</option>
-                        <option value="SEK">SEK - Swedish Krona</option>
-                        <option value="NOK">NOK - Norwegian Krone</option>
-                        <option value="DKK">DKK - Danish Krone</option>
-                        <option value="CHF">CHF - Swiss Franc</option>
-                    </select>
-                </div>
+                <div class="form-group"><label>Default Currency *</label><select id="default-currency" required><option value="EUR">EUR</option><option value="SEK">SEK</option><option value="GBP">GBP</option><option value="USD">USD</option></select></div>
             </div>
 
-            <h3 style="margin-top:40px; color:var(--accent);">Bank Accounts</h3>
-            <p>Add at least one bank account where customers should send payment.</p>
+            <h3 style="margin-top:40px;">Bank Accounts</h3>
+            <p style="color: var(--text-secondary); margin-bottom:20px;">Add at least one bank account. IBAN and Account Name are required.</p>
             <div id="banks-container"></div>
-            <button type="button" id="add-bank-entry">+ Add Another Bank</button>
+            <button type="button" id="add-bank-entry" style="margin-top:20px; background:var(--accent); color:#000;">+ Add Another Bank</button>
 
-            <div style="margin-top:32px; display: flex; gap: 12px;">
-                <button type="submit" id="submit-btn">Save & Select This Supplier</button>
+            <div style="margin-top:32px; display:flex; gap:16px;">
+                <button type="submit" id="submit-btn" class="cta">Save & Select This Supplier</button>
                 <button type="button" id="cancel-btn">Cancel</button>
             </div>
         </form>
@@ -348,11 +432,10 @@ const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-let editingSupplierId = null;
-let isSaving = false;
 let currentUserId = null;
+let editingSupplierId = null;
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         window.location.href = 'index.html';
@@ -360,149 +443,157 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     currentUserId = session.user.id;
 
-    // Display active supplier in navbar
-    const activeSupplierName = localStorage.getItem('selected_supplier_name');
-    const activeSupplierSpan = document.getElementById('active-supplier');
-    if (activeSupplierName) {
-        activeSupplierSpan.textContent = `Active: ${activeSupplierName}`;
-    } else {
-        activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
-    }
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
 
-    // Logout button
-    document.getElementById('logout-btn').addEventListener('click', async () => {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
+
+    mobileNavClose.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+
+    mobileNav.querySelectorAll('button, a').forEach(item => {
+        item.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
+    });
+
+    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+    mobileLogoutBtn.addEventListener('click', async () => {
         await supabase.auth.signOut();
         window.location.href = 'index.html';
     });
 
-    const selectedSupplierId = localStorage.getItem('selected_supplier_id');
+    const mobileDashboardBtn = document.getElementById('mobile-dashboard-btn');
+    mobileDashboardBtn.addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+    });
 
-    // Safe access to dashboard-btn
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
+    });
+
     const dashboardBtn = document.getElementById('dashboard-btn');
-    if (dashboardBtn) {
-        dashboardBtn.style.display = selectedSupplierId ? 'inline-block' : 'none';
-        dashboardBtn.addEventListener('click', () => {
-            window.location.href = 'dashboard.html';
-        });
-    }
+    dashboardBtn.addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+    });
 
     await loadSuppliers(currentUserId);
 
-    document.getElementById('add-supplier-btn').addEventListener('click', () => {
-        startAddSupplier();
+    const selectedId = localStorage.getElementById('selected_supplier_id');
+    if (selectedId) {
+        document.getElementById('dashboard-btn').style.display = 'inline-block';
+        document.getElementById('mobile-dashboard-btn').style.display = 'block';
+    }
+
+    const addSupplierBtn = document.getElementById('add-supplier-btn');
+    addSupplierBtn.addEventListener('click', startAddSupplier);
+
+    const addBankBtn = document.getElementById('add-bank-entry');
+    addBankBtn.addEventListener('click', () => addBankEntry());
+
+    const supplierForm = document.getElementById('supplier-form');
+    supplierForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (editingSupplierId) {
+            await updateSupplier(editingSupplierId);
+        } else {
+            await createSupplierWithBanks(currentUserId);
+        }
     });
 
-    document.getElementById('cancel-btn').addEventListener('click', () => {
+    const cancelBtn = document.getElementById('cancel-btn');
+    cancelBtn.addEventListener('click', () => {
         document.getElementById('supplier-form-card').style.display = 'none';
         document.getElementById('suppliers-list').style.opacity = '1';
         editingSupplierId = null;
-        isSaving = false;
-    });
-
-    document.getElementById('add-bank-entry').addEventListener('click', addBankEntry);
-
-    document.getElementById('supplier-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (isSaving) return;
-        isSaving = true;
-        document.getElementById('submit-btn').disabled = true;
-        document.getElementById('submit-btn').textContent = 'Saving...';
-
-        try {
-            if (editingSupplierId) {
-                await updateSupplier(editingSupplierId);
-            } else {
-                await createSupplierWithBanks(currentUserId);
-            }
-        } finally {
-            isSaving = false;
-            document.getElementById('submit-btn').disabled = false;
-            document.getElementById('submit-btn').textContent = editingSupplierId ? 'Save Supplier' : 'Save & Select This Supplier';
-        }
     });
 });
 
 async function loadSuppliers(userId) {
     const { data: suppliers, error } = await supabase
         .from('suppliers')
-        .select('id, name, endpoint_id, vat_id, street, additional_street, city, postal_code, country')
+        .select('*')
         .eq('user_id', userId)
         .order('name');
 
-    const list = document.getElementById('suppliers-list');
-
     if (error) {
-        list.innerHTML = '<p style="color:var(--error);">Error loading suppliers: ' + error.message + '</p>';
+        alert('Error loading suppliers: ' + error.message);
         return;
     }
+
+    const list = document.getElementById('suppliers-list');
+    list.innerHTML = '';
 
     if (suppliers.length === 0) {
-        list.innerHTML = `
-            <div class="no-suppliers">
-                <p>You don't have any suppliers yet.</p>
-                <p style="margin-top:16px;">Click "Add New Supplier" to create your first one.</p>
-            </div>
-        `;
+        list.innerHTML = '<div class="no-suppliers">No suppliers added yet. Add your first supplier!</div>';
         return;
     }
 
-    list.innerHTML = '';
-    suppliers.forEach(s => {
-        const address = [s.street, s.additional_street, s.city, s.postal_code].filter(Boolean).join(', ') || 'No address';
+    const selectedId = localStorage.getItem('selected_supplier_id');
+    const selectedName = localStorage.getItem('selected_supplier_name');
+    document.getElementById('active-supplier').textContent = selectedName ? `Active: ${selectedName}` : '';
+
+    suppliers.forEach(supplier => {
         const card = document.createElement('div');
         card.className = 'supplier-card';
         card.innerHTML = `
-            <h3>${s.name}</h3>
-            <p>${s.endpoint_id || 'No endpoint'} • ${s.vat_id || 'No VAT'}</p>
-            <p>${address} • ${s.country || ''}</p>
+            <h3>${supplier.name}</h3>
+            <p>VAT ID: ${supplier.vat_id || 'Not set'}</p>
+            <p>Country: ${supplier.country || 'Not set'}</p>
+            <p>Currency: ${supplier.currency || 'EUR'}</p>
             <div class="buttons-container">
-                <button class="primary-action">Select & Continue</button>
+                <button class="primary-action select-supplier" data-id="${supplier.id}" data-name="${supplier.name}">Select This Supplier</button>
                 <div class="secondary-actions">
-                    <button class="action-btn edit-btn">Edit</button>
-                    <button class="action-btn delete-btn">Delete</button>
+                    <button class="action-btn edit-btn" data-id="${supplier.id}">Edit</button>
+                    <button class="action-btn delete-btn" data-id="${supplier.id}">Delete</button>
                 </div>
             </div>
         `;
-        card.querySelector('.primary-action').addEventListener('click', () => {
-            localStorage.setItem('selected_supplier_id', s.id);
-            localStorage.setItem('selected_supplier_name', s.name);
+        list.appendChild(card);
+    });
+
+    document.querySelectorAll('.select-supplier').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            const name = btn.dataset.name;
+            localStorage.setItem('selected_supplier_id', id);
+            localStorage.setItem('selected_supplier_name', name);
+            document.getElementById('dashboard-btn').style.display = 'inline-block';
+            document.getElementById('mobile-dashboard-btn').style.display = 'block';
+            document.getElementById('active-supplier').textContent = `Active: ${name}`;
             window.location.href = 'dashboard.html';
         });
-        card.querySelector('.edit-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            editSupplier(s.id);
-        });
-        card.querySelector('.delete-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            deleteSupplier(s.id, s.name);
-        });
-        list.appendChild(card);
+    });
+
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => editSupplier(btn.dataset.id));
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteSupplier(btn.dataset.id));
     });
 }
 
-async function deleteSupplier(supplierId, supplierName) {
-    const confirmMsg = `Are you sure you want to delete "${supplierName}"?\n\nThis will permanently delete:\n• The supplier\n• All bank accounts\n• ALL invoice history for this supplier\n\nThis action cannot be undone.`;
-    if (!confirm(confirmMsg)) {
-        return;
-    }
+async function deleteSupplier(supplierId) {
+    if (!confirm('Are you sure? This will delete the supplier and all related bank accounts permanently.')) return;
 
-    const { error: bankError } = await supabase
+    const { error: banksError } = await supabase
         .from('supplier_banks')
         .delete()
         .eq('supplier_id', supplierId);
 
-    if (bankError) {
-        alert('Error deleting bank accounts: ' + bankError.message);
-        return;
-    }
-
-    const { error: invoiceError } = await supabase
-        .from('invoices')
-        .delete()
-        .eq('supplier_id', supplierId);
-
-    if (invoiceError) {
-        alert('Error deleting invoices: ' + invoiceError.message);
+    if (banksError) {
+        alert('Error deleting banks: ' + banksError.message);
         return;
     }
 
@@ -516,13 +607,11 @@ async function deleteSupplier(supplierId, supplierName) {
         return;
     }
 
-    alert(`"${supplierName}" and all related data have been permanently deleted.`);
-
     if (localStorage.getItem('selected_supplier_id') === supplierId.toString()) {
         localStorage.removeItem('selected_supplier_id');
         localStorage.removeItem('selected_supplier_name');
-        const dashboardBtn = document.getElementById('dashboard-btn');
-        if (dashboardBtn) dashboardBtn.style.display = 'none';
+        document.getElementById('dashboard-btn').style.display = 'none';
+        document.getElementById('mobile-dashboard-btn').style.display = 'none';
     }
 
     await loadSuppliers(currentUserId);
