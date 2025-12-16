@@ -1,12 +1,6 @@
 // assets/js/nav.js - Complete Shared Navigation Script
 // Handles: Hamburger menu, mobile nav, theme toggle, logout (with redirect to index.html), dashboard navigation, language selector, active supplier display
 
-// Supabase client - ensure this script loads after Supabase CDN in HTML
-const supabase = window.supabase.createClient(
-    'https://qxpaplabjocxaftqocgu.supabase.co',
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4"
-);
-
 document.addEventListener('DOMContentLoaded', () => {
     // Guard to prevent running multiple times (fixes duplicate listeners)
     if (window.navInitialized) return;
@@ -149,5 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
