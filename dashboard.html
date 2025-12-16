@@ -108,6 +108,66 @@ header h1 {
     align-items: center;
     gap: 16px;
 }
+/* Language Selector - Desktop */
+.language-selector {
+    position: relative;
+}
+.language-globe {
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+}
+.language-globe:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    min-width: 180px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    margin-top: 8px;
+}
+.language-selector:hover .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.language-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    text-align: left;
+    color: var(--white);
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.language-dropdown button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+body.light-mode .language-dropdown {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+body.light-mode .language-dropdown button {
+    color: #1e293b;
+}
+body.light-mode .language-dropdown button:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
 /* Hamburger - Mobile Only */
 .hamburger {
     display: none;
@@ -590,11 +650,30 @@ body.light-mode select option {
         <h1>Dashboard</h1>
         <span id="active-supplier"></span>
     </div>
+
     <div class="header-right">
         <button id="create-invoice-btn" class="cta">Create Invoice</button>
         <button id="suppliers-btn" class="cta">Switch Supplier</button>
         <button id="customers-btn" class="cta">Customers</button>
+
         <div class="logout-group">
+            <!-- Language Selector -->
+            <div class="language-selector">
+                <div class="language-globe" title="Change language">🌐</div>
+                <div class="language-dropdown">
+                    <button data-lang="en">English</button>
+                    <button data-lang="sv">Svenska</button>
+                    <button data-lang="no">Norsk</button>
+                    <button data-lang="da">Dansk</button>
+                    <button data-lang="fr">Français</button>
+                    <button data-lang="es">Español</button>
+                    <button data-lang="de">Deutsch</button>
+                    <button data-lang="it">Italiano</button>
+                    <button data-lang="nl">Nederlands</button>
+                    <button data-lang="pl">Polski</button>
+                </div>
+            </div>
+
             <button id="logout-btn" class="logout-btn">Logout</button>
             <label class="theme-toggle">
                 <input type="checkbox" id="theme-switch">
@@ -602,27 +681,49 @@ body.light-mode select option {
             </label>
         </div>
     </div>
+
     <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
     </div>
 </header>
+
 <div class="mobile-nav" id="mobile-nav">
     <button class="mobile-nav-close" id="mobile-nav-close">×</button>
     <button id="mobile-create-invoice-btn">Create Invoice</button>
     <button id="mobile-suppliers-btn">Switch Supplier</button>
     <button id="mobile-customers-btn">Customers</button>
+
+    <!-- Mobile language selector -->
+    <div class="language-selector" style="margin: 20px 0;">
+        <div class="language-globe" style="font-size: 32px;">🌐</div>
+        <div class="language-dropdown">
+            <button data-lang="en">English</button>
+            <button data-lang="sv">Svenska</button>
+            <button data-lang="no">Norsk</button>
+            <button data-lang="da">Dansk</button>
+            <button data-lang="fr">Français</button>
+            <button data-lang="es">Español</button>
+            <button data-lang="de">Deutsch</button>
+            <button data-lang="it">Italiano</button>
+            <button data-lang="nl">Nederlands</button>
+            <button data-lang="pl">Polski</button>
+        </div>
+    </div>
+
     <label class="theme-toggle" style="margin:20px 0;">
         <input type="checkbox" id="mobile-theme-switch">
         <span class="slider"></span>
     </label>
     <button id="mobile-logout-btn" class="logout-btn">Logout</button>
 </div>
+
 <div class="main">
     <div class="card">
         <h2>Analytics Overview</h2>
         <div class="analytics-grid" id="metrics-grid"></div>
+
         <div class="charts-grid">
             <div class="chart-container">
                 <h3>Monthly Revenue (Billed vs Paid)</h3>
@@ -642,6 +743,7 @@ body.light-mode select option {
             </div>
         </div>
     </div>
+
     <div class="card">
         <h2>Invoice History</h2>
         <div class="filter-bar">
@@ -675,6 +777,7 @@ body.light-mode select option {
             </div>
             <button id="export-csv-btn">Export Displayed to CSV</button>
         </div>
+
         <div class="desktop-table-wrapper">
             <table id="invoices-table" class="table">
                 <thead>
@@ -694,15 +797,19 @@ body.light-mode select option {
                 </tbody>
             </table>
         </div>
+
         <div class="mobile-invoice-list" id="mobile-invoice-list"></div>
+
         <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+
 let allInvoices = [];
 let displayedInvoices = [];
 let currentSort = { key: 'issue_date', direction: 'desc' };
@@ -710,29 +817,45 @@ let revenueChart = null;
 let statusChart = null;
 let topCustomersChart = null;
 let agingChart = null;
+
 const hamburger = document.getElementById('hamburger');
 const mobileNav = document.getElementById('mobile-nav');
 const mobileNavClose = document.getElementById('mobile-nav-close');
+
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     mobileNav.classList.toggle('active');
 });
+
 mobileNavClose.addEventListener('click', () => {
     hamburger.classList.remove('active');
     mobileNav.classList.remove('active');
 });
+
 mobileNav.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
         hamburger.classList.remove('active');
         mobileNav.classList.remove('active');
     });
 });
+
+// Language selector handler (placeholder - you can extend with real translations later)
+document.querySelectorAll('.language-dropdown button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const lang = btn.dataset.lang;
+        localStorage.setItem('preferred_language', lang);
+        alert(`Language changed to: ${btn.textContent} (reload to apply)`);
+        // In future: reload page or dynamically translate
+    });
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         window.location.href = 'index.html';
         return;
     }
+
     const activeSupplierName = localStorage.getItem('selected_supplier_name');
     const activeSupplierSpan = document.getElementById('active-supplier');
     if (activeSupplierName) {
@@ -740,30 +863,39 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
         activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
     }
+
     const selectedSupplierId = localStorage.getItem('selected_supplier_id');
     if (!selectedSupplierId) {
         alert("Please select a supplier first.");
         window.location.href = 'suppliers.html';
         return;
     }
+
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
     document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
+
     document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
     document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
+
     document.getElementById('customers-btn').addEventListener('click', () => window.location.href = 'customers.html');
     document.getElementById('mobile-customers-btn')?.addEventListener('click', () => window.location.href = 'customers.html');
+
     document.getElementById('logout-btn').addEventListener('click', logout);
     document.getElementById('mobile-logout-btn')?.addEventListener('click', logout);
+
     async function logout() {
         await supabase.auth.signOut();
         localStorage.removeItem('selected_supplier_id');
         localStorage.removeItem('selected_supplier_name');
         window.location.href = 'index.html';
     }
+
     document.getElementById('export-csv-btn').addEventListener('click', exportDisplayedToCSV);
+
     const themeSwitch = document.getElementById('theme-switch');
     const mobileThemeSwitch = document.getElementById('mobile-theme-switch');
     const savedTheme = localStorage.getItem('theme');
+
     const applyTheme = (isLight) => {
         if (isLight) {
             document.body.classList.add('light-mode');
@@ -773,21 +905,26 @@ document.addEventListener("DOMContentLoaded", async () => {
             localStorage.setItem('theme', 'dark');
         }
     };
+
     const preferredLight = !savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches;
     const initialLight = savedTheme === 'light' || preferredLight;
+
     applyTheme(initialLight);
     themeSwitch.checked = initialLight;
     if (mobileThemeSwitch) mobileThemeSwitch.checked = initialLight;
+
     themeSwitch.addEventListener('change', () => {
         applyTheme(themeSwitch.checked);
         if (mobileThemeSwitch) mobileThemeSwitch.checked = themeSwitch.checked;
     });
+
     if (mobileThemeSwitch) {
         mobileThemeSwitch.addEventListener('change', () => {
             applyTheme(mobileThemeSwitch.checked);
             themeSwitch.checked = mobileThemeSwitch.checked;
         });
     }
+
     document.querySelectorAll('th.sortable').forEach(th => {
         th.addEventListener('click', () => {
             const key = th.dataset.sort;
@@ -802,8 +939,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             sortAndRender();
         });
     });
+
     await loadInvoices(session.user.id, selectedSupplierId);
 });
+
 function formatAmount(amount) {
     amount = parseFloat(amount) || 0;
     if (amount >= 1_000_000_000) {
@@ -816,6 +955,7 @@ function formatAmount(amount) {
         return amount.toFixed(2);
     }
 }
+
 function sortInvoices(invoices) {
     const { key, direction } = currentSort;
     return [...invoices].sort((a, b) => {
@@ -837,11 +977,13 @@ function sortInvoices(invoices) {
         return 0;
     });
 }
+
 function sortAndRender() {
     displayedInvoices = sortInvoices(displayedInvoices);
     renderDesktopTable(displayedInvoices);
     renderMobileCards(displayedInvoices);
 }
+
 async function loadInvoices(userId, supplierId) {
     const { data: invoices, error } = await supabase
         .from('invoices')
@@ -858,6 +1000,7 @@ async function loadInvoices(userId, supplierId) {
     allInvoices = invoices || [];
     applyFilters();
 }
+
 function renderAnalytics(invoices) {
     const totalInvoices = invoices.length;
     const totalRevenue = invoices.reduce((sum, inv) => sum + (parseFloat(inv.total_amount) || 0), 0);
@@ -949,13 +1092,13 @@ function renderAnalytics(invoices) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            cutout: '60%', /* Reduced cutout for more centered look and better use of space */
+            cutout: '60%',
             plugins: {
                 legend: {
-                    position: 'bottom', /* Moved back to bottom to avoid bottom overflow */
+                    position: 'bottom',
                     labels: {
                         font: { size: 13, weight: '600' },
-                        padding: 12, /* Reduced padding to bring labels closer */
+                        padding: 12,
                         usePointStyle: true,
                         pointStyle: 'rectRounded',
                         boxWidth: 12,
@@ -1033,6 +1176,7 @@ function renderAnalytics(invoices) {
         }
     });
 }
+
 function renderDesktopTable(invoices) {
     const tbody = document.querySelector('#invoices-table tbody');
     const noMsg = document.getElementById('no-invoices');
@@ -1072,6 +1216,7 @@ function renderDesktopTable(invoices) {
     });
     attachActionListeners();
 }
+
 function renderMobileCards(invoices) {
     const container = document.getElementById('mobile-invoice-list');
     const noMsg = document.getElementById('no-invoices');
@@ -1117,6 +1262,7 @@ function renderMobileCards(invoices) {
     });
     attachActionListeners();
 }
+
 function attachActionListeners() {
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.onclick = () => {
@@ -1177,6 +1323,7 @@ function attachActionListeners() {
         };
     });
 }
+
 function applyFilters() {
     let filtered = allInvoices;
     const idFilter = document.getElementById('filter-id').value.trim().toLowerCase();
@@ -1193,6 +1340,7 @@ function applyFilters() {
     sortAndRender();
     renderAnalytics(filtered);
 }
+
 ['filter-id', 'filter-customer', 'filter-from', 'filter-to', 'filter-status'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -1200,11 +1348,13 @@ function applyFilters() {
         el.addEventListener('change', applyFilters);
     }
 });
+
 document.getElementById('clear-filters').addEventListener('click', () => {
     ['filter-id', 'filter-customer', 'filter-from', 'filter-to'].forEach(id => document.getElementById(id).value = '');
     document.getElementById('filter-status').value = '';
     applyFilters();
 });
+
 function exportDisplayedToCSV() {
     if (displayedInvoices.length === 0) {
         alert('No invoices currently displayed to export.');
