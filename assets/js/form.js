@@ -10,6 +10,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+        // Add this to the top of every page's JS file (or make shared header.js)
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
+    const mobileNavClose = document.getElementById('mobile-nav-close');
+    
+    if (hamburger && mobileNav) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        });
+    
+        mobileNavClose.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
+    
+        mobileNav.querySelectorAll('button, a').forEach(item => {
+            item.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
+        });
+    }
+
     const userId = session.user.id;
 
     const activeSupplierName = localStorage.getItem('selected_supplier_name');
@@ -826,4 +850,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     updateGenerateButton();
     updateTotals();
+
 });
