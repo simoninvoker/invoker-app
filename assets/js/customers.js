@@ -5,6 +5,30 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 let currentCustomerId = null;
 let userId = null;
 
+// Add this to the top of every page's JS file (or make shared header.js)
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
+
+if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
+
+    mobileNavClose.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+
+    mobileNav.querySelectorAll('button, a').forEach(item => {
+        item.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
+    });
+}
+
 // Country list
 const countries = [
     { code: "AT", name: "Austria" },
@@ -603,4 +627,5 @@ async function saveCustomer(userId) {
     document.getElementById('customer-form-card').style.display = 'none';
     currentCustomerId = null;
     await loadCustomers(userId);
+
 }
