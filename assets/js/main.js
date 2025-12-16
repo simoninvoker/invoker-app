@@ -2,6 +2,30 @@ const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
+// Add this to the top of every page's JS file (or make shared header.js)
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
+
+if (hamburger && mobileNav) {
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
+
+    mobileNavClose.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('active');
+    });
+
+    mobileNav.querySelectorAll('button, a').forEach(item => {
+        item.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+        });
+    });
+}
+
 let allInvoices = [];
 let displayedInvoices = [];
 let currentSort = { key: 'issue_date', direction: 'desc' };
@@ -565,3 +589,4 @@ function exportDisplayedToCSV() {
     link.click();
     document.body.removeChild(link);
 }
+
