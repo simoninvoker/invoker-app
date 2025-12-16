@@ -10,37 +10,31 @@
 <header>
     <h1>Invoker</h1>
 
-    <!-- Desktop Navigation -->
-    <nav class="desktop-nav">
-        <a href="#features">Features</a>
-        <a href="#use-cases">Use Cases</a>
-        <a href="#contact">Contact</a>
-        <a href="docs.html">Documentation</a>
-        <a href="dashboard.html" id="dashboard-nav" style="display:none;">Dashboard</a>
-        <a href="#" id="admin-nav" style="display:none;">Admin</a>
+    <div class="header-right">
         <button id="login-btn">Login / Sign Up</button>
-        <button id="logout-btn">Logout</button>
-    </nav>
+        <button id="logout-btn" style="display:none;">Logout</button>
+        <label class="theme-toggle">
+            <input type="checkbox" id="theme-switch">
+            <span class="slider"></span>
+        </label>
+    </div>
 
-    <!-- Hamburger Icon (Mobile Only) -->
     <div class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
     </div>
-
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-nav" id="mobile-nav">
-        <button class="mobile-nav-close" id="mobile-nav-close">×</button>
-        <a href="#features">Features</a>
-        <a href="#use-cases">Use Cases</a>
-        <a href="#contact">Contact</a>
-        <a href="docs.html">Documentation</a>
-        <a href="dashboard.html" id="mobile-dashboard-nav">Dashboard</a>
-        <button id="mobile-login-btn">Login / Sign Up</button>
-        <button id="mobile-logout-btn">Logout</button>
-    </div>
 </header>
+
+<div class="mobile-nav" id="mobile-nav">
+    <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+    <button id="mobile-login-btn">Login / Sign Up</button>
+    <button id="mobile-logout-btn" style="display:none;">Logout</button>
+    <label class="theme-toggle" style="margin:20px 0;">
+        <input type="checkbox" id="mobile-theme-switch">
+        <span class="slider"></span>
+    </label>
+</div>
 
 <section id="vanta-hero" class="visible">
     <div class="gradient-overlay"></div>
@@ -148,3 +142,4 @@
 <script src="assets/js/index.js"></script>
 </body>
 </html>
+
