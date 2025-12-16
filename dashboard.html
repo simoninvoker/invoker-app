@@ -949,19 +949,26 @@ function renderAnalytics(invoices) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            cutout: '70%', /* Makes the doughnut thicker and gives more inner space */
+            cutout: '60%', /* Reduced cutout for more centered look and better use of space */
             plugins: {
                 legend: {
-                    position: 'right', /* Moved to right side - fully inside the pane, more prominent */
-                    align: 'center',
+                    position: 'bottom', /* Moved back to bottom to avoid bottom overflow */
                     labels: {
-                        font: { size: 14, weight: '600' },
-                        padding: 20,
+                        font: { size: 13, weight: '600' },
+                        padding: 12, /* Reduced padding to bring labels closer */
                         usePointStyle: true,
                         pointStyle: 'rectRounded',
-                        boxWidth: 14,
-                        boxHeight: 14
+                        boxWidth: 12,
+                        boxHeight: 12
                     }
+                }
+            },
+            layout: {
+                padding: {
+                    top: 20,
+                    bottom: 20,
+                    left: 20,
+                    right: 20
                 }
             }
         }
