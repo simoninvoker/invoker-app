@@ -8,49 +8,40 @@ const supabase = window.supabase.createClient(
 );
 
 document.addEventListener('DOMContentLoaded', () => {
-   // Inside nav.js - Hamburger Menu Toggle (FIXED to prevent duplicates)
-let hamburgerInitialized = false;
+    // Guard to prevent running multiple times (fixes duplicate listeners)
+    if (window.navInitialized) return;
+    window.navInitialized = true;
 
-const initHamburger = () => {
-    if (hamburgerInitialized) return; // Prevent double initialization
-    hamburgerInitialized = true;
-
+    // ================================
+    // Hamburger Menu Toggle (SAFE - no duplicates)
+    // ================================
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobile-nav');
     const mobileNavClose = document.getElementById('mobile-nav-close');
 
-    if (!hamburger || !mobileNav) return;
+    if (hamburger && mobileNav) {
+        const toggleMenu = () => {
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+        };
 
-    // Remove any existing listeners to prevent duplicates
-    hamburger.replaceWith(hamburger.cloneNode(true));
-    const newHamburger = document.getElementById('hamburger');
+        hamburger.addEventListener('click', toggleMenu);
 
-    newHamburger.addEventListener('click', () => {
-        newHamburger.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-    });
+        if (mobileNavClose) {
+            mobileNavClose.addEventListener('click', toggleMenu);
+        }
 
-    if (mobileNavClose) {
-        mobileNavClose.addEventListener('click', () => {
-            newHamburger.classList.remove('active');
-            mobileNav.classList.remove('active');
+        // Close when clicking any button inside mobile nav
+        mobileNav.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('active');
+            });
         });
     }
 
-    // Close on button click inside mobile nav
-    mobileNav.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
-            newHamburger.classList.remove('active');
-            mobileNav.classList.remove('active');
-        });
-    });
-};
-
-// Call on load
-document.addEventListener('DOMContentLoaded', initHamburger);
-
     // ================================
-    // Dashboard Navigation (Desktop + Mobile)
+    // Dashboard Navigation (Desktop + Mobile) - SAFE
     // ================================
     document.getElementById('dashboard-btn')?.addEventListener('click', () => {
         window.location.href = 'dashboard.html';
@@ -61,7 +52,7 @@ document.addEventListener('DOMContentLoaded', initHamburger);
     });
 
     // ================================
-    // Logout (Desktop + Mobile) - FIXED: Redirects to index.html
+    // Logout (Desktop + Mobile) - Redirects to index.html
     // ================================
     const performLogout = async () => {
         const { error } = await supabase.auth.signOut();
@@ -72,11 +63,9 @@ document.addEventListener('DOMContentLoaded', initHamburger);
             return;
         }
 
-        // Clear stored supplier selection
         localStorage.removeItem('selected_supplier_id');
         localStorage.removeItem('selected_supplier_name');
 
-        // Redirect to landing page
         window.location.href = 'index.html';
     };
 
@@ -84,7 +73,7 @@ document.addEventListener('DOMContentLoaded', initHamburger);
     document.getElementById('mobile-logout-btn')?.addEventListener('click', performLogout);
 
     // ================================
-    // Theme Toggle (Desktop + Mobile)
+    // Theme Toggle (Desktop + Mobile) - SAFE
     // ================================
     const initTheme = () => {
         const saved = localStorage.getItem('theme');
@@ -97,8 +86,10 @@ document.addEventListener('DOMContentLoaded', initHamburger);
             document.body.classList.remove('light-mode');
         }
 
-        document.getElementById('theme-switch')?.checked = isLight;
-        document.getElementById('mobile-theme-switch')?.checked = isLight;
+        const themeSwitch = document.getElementById('theme-switch');
+        const mobileSwitch = document.getElementById('mobile-theme-switch');
+        if (themeSwitch) themeSwitch.checked = isLight;
+        if (mobileSwitch) mobileSwitch.checked = isLight;
     };
 
     const toggleTheme = () => {
@@ -106,8 +97,10 @@ document.addEventListener('DOMContentLoaded', initHamburger);
         const isLight = document.body.classList.contains('light-mode');
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
 
-        document.getElementById('theme-switch')?.checked = isLight;
-        document.getElementById('mobile-theme-switch')?.checked = isLight;
+        const themeSwitch = document.getElementById('theme-switch');
+        const mobileSwitch = document.getElementById('mobile-theme-switch');
+        if (themeSwitch) themeSwitch.checked = isLight;
+        if (mobileSwitch) mobileSwitch.checked = isLight;
     };
 
     initTheme();
@@ -118,8 +111,7 @@ document.addEventListener('DOMContentLoaded', initHamburger);
     // ================================
     // Language Selector Dropdown
     // ================================
-    const languageSelectors = document.querySelectorAll('.language-selector');
-    languageSelectors.forEach(selector => {
+    document.querySelectorAll('.language-selector').forEach(selector => {
         const globeBtn = selector.querySelector('.language-globe-btn, .language-globe');
         if (globeBtn) {
             globeBtn.addEventListener('click', (e) => {
@@ -129,12 +121,11 @@ document.addEventListener('DOMContentLoaded', initHamburger);
         }
     });
 
-    // Close all language dropdowns when clicking outside
     document.addEventListener('click', () => {
-        languageSelectors.forEach(selector => selector.classList.remove('active'));
+        document.querySelectorAll('.language-selector').forEach(s => s.classList.remove('active'));
     });
 
-    // Language change (integrates with i18n.js if present)
+    // Language change
     document.querySelectorAll('.language-dropdown button[data-lang]').forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.dataset.lang;
@@ -146,7 +137,7 @@ document.addEventListener('DOMContentLoaded', initHamburger);
     });
 
     // ================================
-    // Active Supplier Display in Header
+    // Active Supplier Display
     // ================================
     const activeSupplierSpan = document.getElementById('active-supplier');
     if (activeSupplierSpan) {
@@ -158,4 +149,5 @@ document.addEventListener('DOMContentLoaded', initHamburger);
         }
     }
 });
+
 
