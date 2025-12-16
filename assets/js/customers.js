@@ -241,50 +241,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         activeSupplierSpan.innerHTML = 'No supplier selected — <a href="suppliers.html" style="color: var(--accent); text-decoration: underline;">Select one</a>';
     }
 
-    document.getElementById('theme-switch')?.addEventListener('change', toggleTheme);
-    document.getElementById('mobile-theme-switch')?.addEventListener('change', toggleTheme);
-
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         window.location.href = 'index.html';
         return;
     }
     userId = session.user.id;
-
-    // Mobile menu
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobile-nav');
-    const mobileNavClose = document.getElementById('mobile-nav-close');
-
-    hamburger?.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-    });
-
-    mobileNavClose?.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileNav.classList.remove('active');
-    });
-
-    mobileNav?.querySelectorAll('button').forEach(item => {
-        item.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            mobileNav.classList.remove('active');
-        });
-    });
-
-    document.getElementById('dashboard-btn')?.addEventListener('click', () => window.location.href = 'dashboard.html');
-    document.getElementById('mobile-dashboard-btn')?.addEventListener('click', () => window.location.href = 'dashboard.html');
-
-    document.getElementById('logout-btn')?.addEventListener('click', async () => {
-        await supabase.auth.signOut();
-        window.location.href = 'index.html';
-    });
-
-    document.getElementById('mobile-logout-btn')?.addEventListener('click', async () => {
-        await supabase.auth.signOut();
-        window.location.href = 'index.html';
-    });
 
     await loadCustomers(userId);
 
@@ -578,4 +540,5 @@ async function saveCustomer(userId) {
     await loadCustomers(userId);
 
 }
+
 
