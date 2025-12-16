@@ -834,11 +834,8 @@ body.light-mode select option {
     background: rgba(255, 255, 255, 0.05);
 }
 
-/* Mobile Customer List */
 .mobile-customer-list {
-    display: none;
-    flex-direction: column;
-    gap: 16px;
+    display: flex !important; /* Force show on mobile */
 }
 
 .customer-card {
@@ -1964,4 +1961,5 @@ body.light-mode .download-btn {
 
 body.light-mode .download-btn:hover {
     box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5);
+
 }
