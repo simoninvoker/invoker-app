@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    // Apply saved language and translations
+    // Apply translations on load (from i18n.js)
     applyTranslations();
 
     await loadInvoices(session.user.id, selectedSupplierId);
@@ -371,25 +371,19 @@ function renderAnalytics(invoices) {
 function renderDesktopTable(invoices) {
     const tbody = document.querySelector('#invoices-table tbody');
     const emptyState = document.getElementById('empty-state');
-
     if (invoices.length === 0) {
         tbody.innerHTML = '';
         emptyState.style.display = 'block';
         return;
     }
-
     emptyState.style.display = 'none';
     tbody.innerHTML = '';
-
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
         let statusText = inv.status === 'paid' ? (translations[currentLang]['paid'] || 'Paid') : inv.status === 'sent' ? (translations[currentLang]['sent'] || 'Sent') : (translations[currentLang]['draft'] || 'Draft');
         if (!inv.status || inv.status === 'draft') statusText = translations[currentLang]['draft'] || 'Draft';
-
         const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
-
         const isDraft = (!inv.status || inv.status === 'draft');
-
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><strong>${inv.invoice_id || 'N/A'}</strong></td>
@@ -409,32 +403,25 @@ function renderDesktopTable(invoices) {
         `;
         tbody.appendChild(tr);
     });
-
     attachActionListeners();
 }
 
 function renderMobileCards(invoices) {
     const container = document.getElementById('mobile-invoice-list');
     const emptyState = document.getElementById('empty-state');
-
     if (invoices.length === 0) {
         container.innerHTML = '';
         emptyState.style.display = 'block';
         return;
     }
-
     emptyState.style.display = 'none';
     container.innerHTML = '';
-
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
         let statusText = inv.status === 'paid' ? (translations[currentLang]['paid'] || 'Paid') : inv.status === 'sent' ? (translations[currentLang]['sent'] || 'Sent') : (translations[currentLang]['draft'] || 'Draft');
         if (!inv.status || inv.status === 'draft') statusText = translations[currentLang]['draft'] || 'Draft';
-
         const statusBadge = `<span style="padding:8px 16px; border-radius:50px; font-size:14px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
-
         const isDraft = (!inv.status || inv.status === 'draft');
-
         const card = document.createElement('div');
         card.className = 'invoice-card';
         card.innerHTML = `
@@ -448,7 +435,6 @@ function renderMobileCards(invoices) {
             <div class="invoice-card-main">
                 <div class="invoice-card-label">${translations[currentLang]['customer'] || 'Customer'}</div>
                 <div class="invoice-card-value">${inv.customer_name || '—'}</div>
-
                 <div class="invoice-card-label">${translations[currentLang]['total'] || 'Total'}</div>
                 <div class="invoice-card-value"><strong>${formatAmount(inv.total_amount)} ${inv.currency || 'EUR'}</strong></div>
             </div>
@@ -463,7 +449,6 @@ function renderMobileCards(invoices) {
         `;
         container.appendChild(card);
     });
-
     attachActionListeners();
 }
 
