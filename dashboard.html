@@ -585,7 +585,6 @@ body.light-mode select option {
 </style>
 </head>
 <body>
-<!-- HTML content unchanged from your provided version -->
 <header>
     <div class="header-left">
         <h1>Dashboard</h1>
@@ -699,10 +698,8 @@ body.light-mode select option {
         <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
     </div>
 </div>
-<!-- JavaScript unchanged - full code preserved -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* Full JavaScript from your original file - no changes */
 const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
@@ -923,7 +920,21 @@ function renderAnalytics(invoices) {
                 { label: 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top', /* Moved legend to top - more prominent and always fully inside the chart area */
+                    labels: {
+                        font: { size: 14, weight: '600' },
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded'
+                    }
+                }
+            }
+        }
     });
     if (statusChart) statusChart.destroy();
     statusChart = new Chart(document.getElementById('statusChart'), {
@@ -935,7 +946,21 @@ function renderAnalytics(invoices) {
                 backgroundColor: ['#ef4444', '#f59e0b', '#22c55e']
             }]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: { size: 14, weight: '600' },
+                        padding: 20,
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded'
+                    }
+                }
+            }
+        }
     });
     const customerRevenue = {};
     invoices.forEach(inv => {
@@ -960,7 +985,9 @@ function renderAnalytics(invoices) {
             indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            plugins: {
+                legend: { display: false }
+            },
             scales: { x: { beginAtZero: true } }
         }
     });
@@ -986,7 +1013,13 @@ function renderAnalytics(invoices) {
                 backgroundColor: ['#22c55e', '#f59e0b', '#f97316', '#ef4444']
             }]
         },
-        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            }
+        }
     });
 }
 function renderDesktopTable(invoices) {
