@@ -219,34 +219,6 @@ function initCountryDropdown() {
     }
 }
 
-function initTheme() {
-    const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isLight = saved === 'light' || (!saved && !prefersDark);
-
-    if (isLight) {
-        document.body.classList.add('light-mode');
-    } else {
-        document.body.classList.remove('light-mode');
-    }
-
-    const themeSwitch = document.getElementById('theme-switch');
-    const mobileSwitch = document.getElementById('mobile-theme-switch');
-    if (themeSwitch) themeSwitch.checked = isLight;
-    if (mobileSwitch) mobileSwitch.checked = isLight;
-}
-
-function toggleTheme() {
-    document.body.classList.toggle('light-mode');
-    const isLight = document.body.classList.contains('light-mode');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
-
-    const themeSwitch = document.getElementById('theme-switch');
-    const mobileSwitch = document.getElementById('mobile-theme-switch');
-    if (themeSwitch) themeSwitch.checked = isLight;
-    if (mobileSwitch) mobileSwitch.checked = isLight;
-}
-
 function clearForm() {
     const form = document.getElementById('customer-form');
     form.reset();
@@ -605,4 +577,5 @@ async function saveCustomer(userId) {
     document.getElementById('customer-form-card').style.display = 'none';
     currentCustomerId = null;
     await loadCustomers(userId);
+
 }
