@@ -416,7 +416,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (draftId) {
                     localStorage.setItem('current_editing_draft_id', draftId);
                 }
-                document.getElementById("pageTitle").textContent = "Edit Draft Invoice";
                 updateGenerateButton();
                 updateTotals();
             } catch (e) {
@@ -828,4 +827,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateTotals();
 
 });
+
 
