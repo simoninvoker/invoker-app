@@ -231,7 +231,6 @@ function clearForm() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    initTheme();
     initCountryDropdown();
 
     const activeSupplierName = localStorage.getItem('selected_supplier_name');
@@ -579,3 +578,4 @@ async function saveCustomer(userId) {
     await loadCustomers(userId);
 
 }
+
