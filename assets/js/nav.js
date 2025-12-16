@@ -8,34 +8,46 @@ const supabase = window.supabase.createClient(
 );
 
 document.addEventListener('DOMContentLoaded', () => {
-    // ================================
-    // Hamburger Menu Toggle
-    // ================================
+   // Inside nav.js - Hamburger Menu Toggle (FIXED to prevent duplicates)
+let hamburgerInitialized = false;
+
+const initHamburger = () => {
+    if (hamburgerInitialized) return; // Prevent double initialization
+    hamburgerInitialized = true;
+
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobile-nav');
     const mobileNavClose = document.getElementById('mobile-nav-close');
 
-    if (hamburger && mobileNav) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-        });
-    }
+    if (!hamburger || !mobileNav) return;
+
+    // Remove any existing listeners to prevent duplicates
+    hamburger.replaceWith(hamburger.cloneNode(true));
+    const newHamburger = document.getElementById('hamburger');
+
+    newHamburger.addEventListener('click', () => {
+        newHamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+    });
 
     if (mobileNavClose) {
         mobileNavClose.addEventListener('click', () => {
-            hamburger?.classList.remove('active');
-            mobileNav?.classList.remove('active');
+            newHamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
         });
     }
 
-    // Close mobile menu when clicking any button inside it
-    mobileNav?.querySelectorAll('button').forEach(btn => {
+    // Close on button click inside mobile nav
+    mobileNav.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('click', () => {
-            hamburger?.classList.remove('active');
-            mobileNav?.classList.remove('active');
+            newHamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
         });
     });
+};
+
+// Call on load
+document.addEventListener('DOMContentLoaded', initHamburger);
 
     // ================================
     // Dashboard Navigation (Desktop + Mobile)
@@ -146,3 +158,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
