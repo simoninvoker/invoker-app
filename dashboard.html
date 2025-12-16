@@ -647,14 +647,14 @@ body.light-mode select option {
 <body>
 <header>
     <div class="header-left">
-        <h1>Dashboard</h1>
+        <h1 data-i18n="dashboard">Dashboard</h1>
         <span id="active-supplier"></span>
     </div>
 
     <div class="header-right">
-        <button id="create-invoice-btn" class="cta">Create Invoice</button>
-        <button id="suppliers-btn" class="cta">Switch Supplier</button>
-        <button id="customers-btn" class="cta">Customers</button>
+        <button id="create-invoice-btn" class="cta" data-i18n="create_invoice">Create Invoice</button>
+        <button id="suppliers-btn" class="cta" data-i18n="switch_supplier">Switch Supplier</button>
+        <button id="customers-btn" class="cta" data-i18n="customers">Customers</button>
 
         <div class="logout-group">
             <!-- Language Selector -->
@@ -674,7 +674,7 @@ body.light-mode select option {
                 </div>
             </div>
 
-            <button id="logout-btn" class="logout-btn">Logout</button>
+            <button id="logout-btn" class="logout-btn" data-i18n="logout">Logout</button>
             <label class="theme-toggle">
                 <input type="checkbox" id="theme-switch">
                 <span class="slider"></span>
@@ -691,9 +691,9 @@ body.light-mode select option {
 
 <div class="mobile-nav" id="mobile-nav">
     <button class="mobile-nav-close" id="mobile-nav-close">×</button>
-    <button id="mobile-create-invoice-btn">Create Invoice</button>
-    <button id="mobile-suppliers-btn">Switch Supplier</button>
-    <button id="mobile-customers-btn">Customers</button>
+    <button id="mobile-create-invoice-btn" data-i18n="create_invoice">Create Invoice</button>
+    <button id="mobile-suppliers-btn" data-i18n="switch_supplier">Switch Supplier</button>
+    <button id="mobile-customers-btn" data-i18n="customers">Customers</button>
 
     <!-- Mobile language selector -->
     <div class="language-selector" style="margin: 20px 0;">
@@ -716,56 +716,56 @@ body.light-mode select option {
         <input type="checkbox" id="mobile-theme-switch">
         <span class="slider"></span>
     </label>
-    <button id="mobile-logout-btn" class="logout-btn">Logout</button>
+    <button id="mobile-logout-btn" class="logout-btn" data-i18n="logout">Logout</button>
 </div>
 
 <div class="main">
     <div class="card">
-        <h2>Analytics Overview</h2>
+        <h2 data-i18n="analytics_overview">Analytics Overview</h2>
         <div class="analytics-grid" id="metrics-grid"></div>
 
         <div class="charts-grid">
             <div class="chart-container">
-                <h3>Monthly Revenue (Billed vs Paid)</h3>
+                <h3 data-i18n="monthly_revenue">Monthly Revenue (Billed vs Paid)</h3>
                 <canvas id="revenueChart"></canvas>
             </div>
             <div class="chart-container">
-                <h3>Invoice Status Distribution</h3>
+                <h3 data-i18n="invoice_status_distribution">Invoice Status Distribution</h3>
                 <canvas id="statusChart"></canvas>
             </div>
             <div class="chart-container">
-                <h3>Top 5 Customers by Revenue</h3>
+                <h3 data-i18n="top_customers">Top 5 Customers by Revenue</h3>
                 <canvas id="topCustomersChart"></canvas>
             </div>
             <div class="chart-container">
-                <h3>Receivables Aging</h3>
+                <h3 data-i18n="receivables_aging">Receivables Aging</h3>
                 <canvas id="agingChart"></canvas>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <h2>Invoice History</h2>
+        <h2 data-i18n="invoice_history">Invoice History</h2>
         <div class="filter-bar">
             <div class="filter-controls">
                 <div class="filter-group">
-                    <label>Search Invoice ID</label>
+                    <label data-i18n="search_invoice_id">Search Invoice ID</label>
                     <input type="text" id="filter-id" placeholder="e.g. INV-001">
                 </div>
                 <div class="filter-group">
-                    <label>Customer</label>
+                    <label data-i18n="customer">Customer</label>
                     <input type="text" id="filter-customer" placeholder="Customer name">
                 </div>
                 <div class="filter-group">
-                    <label>From Date</label>
+                    <label data-i18n="from_date">From Date</label>
                     <input type="date" id="filter-from">
                 </div>
                 <div class="filter-group">
-                    <label>To Date</label>
+                    <label data-i18n="to_date">To Date</label>
                     <input type="date" id="filter-to">
                 </div>
                 <div class="filter-group">
-                    <label>Status</label>
+                    <label data-i18n="status">Status</label>
                     <select id="filter-status">
                         <option value="">All</option>
                         <option value="draft">Draft</option>
@@ -773,22 +773,22 @@ body.light-mode select option {
                         <option value="paid">Paid</option>
                     </select>
                 </div>
-                <button id="clear-filters">Clear Filters</button>
+                <button id="clear-filters" data-i18n="clear_filters">Clear Filters</button>
             </div>
-            <button id="export-csv-btn">Export Displayed to CSV</button>
+            <button id="export-csv-btn" data-i18n="export_csv">Export Displayed to CSV</button>
         </div>
 
         <div class="desktop-table-wrapper">
             <table id="invoices-table" class="table">
                 <thead>
                     <tr>
-                        <th class="sortable" data-sort="invoice_id">Invoice ID</th>
-                        <th class="sortable" data-sort="issue_date">Date</th>
-                        <th>Customer</th>
-                        <th class="sortable" data-sort="total_amount">Total</th>
-                        <th>Currency</th>
-                        <th class="sortable" data-sort="status">Status</th>
-                        <th>Actions</th>
+                        <th class="sortable" data-sort="invoice_id" data-i18n="invoice_id">Invoice ID</th>
+                        <th class="sortable" data-sort="issue_date" data-i18n="date">Date</th>
+                        <th data-i18n="customer">Customer</th>
+                        <th class="sortable" data-sort="total_amount" data-i18n="total">Total</th>
+                        <th data-i18n="currency">Currency</th>
+                        <th class="sortable" data-sort="status" data-i18n="status">Status</th>
+                        <th data-i18n="actions">Actions</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -800,12 +800,314 @@ body.light-mode select option {
 
         <div class="mobile-invoice-list" id="mobile-invoice-list"></div>
 
-        <p id="no-invoices" class="no-invoices" style="display:none;">No invoices match your filters.</p>
+        <div id="empty-state" class="empty-state" style="display:none;">
+            <h3 data-i18n="no_invoices_yet">No invoices yet</h3>
+            <p data-i18n="get_started_peppol">Get started by creating your first PEPPOL invoice.</p>
+            <button id="empty-create-btn" class="cta" data-i18n="create_invoice">Create Invoice</button>
+        </div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// i18n translation dictionary
+const translations = {
+    en: {
+        dashboard: "Dashboard",
+        create_invoice: "Create Invoice",
+        switch_supplier: "Switch Supplier",
+        customers: "Customers",
+        logout: "Logout",
+        analytics_overview: "Analytics Overview",
+        monthly_revenue: "Monthly Revenue (Billed vs Paid)",
+        invoice_status_distribution: "Invoice Status Distribution",
+        top_customers: "Top 5 Customers by Revenue",
+        receivables_aging: "Receivables Aging",
+        invoice_history: "Invoice History",
+        search_invoice_id: "Search Invoice ID",
+        customer: "Customer",
+        from_date: "From Date",
+        to_date: "To Date",
+        status: "Status",
+        clear_filters: "Clear Filters",
+        export_csv: "Export Displayed to CSV",
+        invoice_id: "Invoice ID",
+        date: "Date",
+        total: "Total",
+        currency: "Currency",
+        actions: "Actions",
+        no_invoices_yet: "No invoices yet",
+        get_started_peppol: "Get started by creating your first PEPPOL invoice."
+    },
+    sv: {
+        dashboard: "Instrumentpanel",
+        create_invoice: "Skapa faktura",
+        switch_supplier: "Byt leverantör",
+        customers: "Kunder",
+        logout: "Logga ut",
+        analytics_overview: "Analysöversikt",
+        monthly_revenue: "Månatliga intäkter (Fakturerat vs Betalt)",
+        invoice_status_distribution: "Fakturastatusfördelning",
+        top_customers: "Topp 5 kunder efter intäkt",
+        receivables_aging: "Fordringar per ålder",
+        invoice_history: "Fakturahistorik",
+        search_invoice_id: "Sök faktura-ID",
+        customer: "Kund",
+        from_date: "Från datum",
+        to_date: "Till datum",
+        status: "Status",
+        clear_filters: "Rensa filter",
+        export_csv: "Exportera visade till CSV",
+        invoice_id: "Faktura-ID",
+        date: "Datum",
+        total: "Totalt",
+        currency: "Valuta",
+        actions: "Åtgärder",
+        no_invoices_yet: "Inga fakturor ännu",
+        get_started_peppol: "Kom igång genom att skapa din första PEPPOL-faktura."
+    },
+    no: {
+        dashboard: "Dashbord",
+        create_invoice: "Opprett faktura",
+        switch_supplier: "Bytt leverandør",
+        customers: "Kunder",
+        logout: "Logg ut",
+        analytics_overview: "Analyseoversikt",
+        monthly_revenue: "Månedlige inntekter (Fakturert vs Betalt)",
+        invoice_status_distribution: "Fakturastatusfordeling",
+        top_customers: "Topp 5 kunder etter inntekt",
+        receivables_aging: "Kundefordringer etter alder",
+        invoice_history: "Fakturahistorikk",
+        search_invoice_id: "Søk faktura-ID",
+        customer: "Kunde",
+        from_date: "Fra dato",
+        to_date: "Til dato",
+        status: "Status",
+        clear_filters: "Fjern filtre",
+        export_csv: "Eksporter viste til CSV",
+        invoice_id: "Faktura-ID",
+        date: "Dato",
+        total: "Totalt",
+        currency: "Valuta",
+        actions: "Handlinger",
+        no_invoices_yet: "Ingen fakturaer ennå",
+        get_started_peppol: "Kom i gang ved å opprette din første PEPPOL-faktura."
+    },
+    da: {
+        dashboard: "Dashboard",
+        create_invoice: "Opret faktura",
+        switch_supplier: "Skift leverandør",
+        customers: "Kunder",
+        logout: "Log ud",
+        analytics_overview: "Analyseoversigt",
+        monthly_revenue: "Månedlige indtægter (Faktureret vs Betalt)",
+        invoice_status_distribution: "Fakturastatusfordeling",
+        top_customers: "Top 5 kunder efter indtægt",
+        receivables_aging: "Tilgodehavender efter alder",
+        invoice_history: "Fakturahistorik",
+        search_invoice_id: "Søg faktura-ID",
+        customer: "Kunde",
+        from_date: "Fra dato",
+        to_date: "Til dato",
+        status: "Status",
+        clear_filters: "Ryd filtre",
+        export_csv: "Eksporter viste til CSV",
+        invoice_id: "Faktura-ID",
+        date: "Dato",
+        total: "Total",
+        currency: "Valuta",
+        actions: "Handlinger",
+        no_invoices_yet: "Ingen fakturaer endnu",
+        get_started_peppol: "Kom i gang ved at oprette din første PEPPOL-faktura."
+    },
+    fr: {
+        dashboard: "Tableau de bord",
+        create_invoice: "Créer une facture",
+        switch_supplier: "Changer de fournisseur",
+        customers: "Clients",
+        logout: "Se déconnecter",
+        analytics_overview: "Aperçu analytique",
+        monthly_revenue: "Revenus mensuels (Facturé vs Payé)",
+        invoice_status_distribution: "Répartition du statut des factures",
+        top_customers: "Top 5 clients par revenu",
+        receivables_aging: "Échéancier des créances",
+        invoice_history: "Historique des factures",
+        search_invoice_id: "Rechercher ID facture",
+        customer: "Client",
+        from_date: "Date de début",
+        to_date: "Date de fin",
+        status: "Statut",
+        clear_filters: "Effacer les filtres",
+        export_csv: "Exporter l'affichage vers CSV",
+        invoice_id: "ID facture",
+        date: "Date",
+        total: "Total",
+        currency: "Devise",
+        actions: "Actions",
+        no_invoices_yet: "Aucune facture pour le moment",
+        get_started_peppol: "Commencez par créer votre première facture PEPPOL."
+    },
+    es: {
+        dashboard: "Panel de control",
+        create_invoice: "Crear factura",
+        switch_supplier: "Cambiar proveedor",
+        customers: "Clientes",
+        logout: "Cerrar sesión",
+        analytics_overview: "Resumen analítico",
+        monthly_revenue: "Ingresos mensuales (Facturado vs Pagado)",
+        invoice_status_distribution: "Distribución del estado de facturas",
+        top_customers: "Top 5 clientes por ingresos",
+        receivables_aging: "Antigüedad de cuentas por cobrar",
+        invoice_history: "Historial de facturas",
+        search_invoice_id: "Buscar ID de factura",
+        customer: "Cliente",
+        from_date: "Desde fecha",
+        to_date: "Hasta fecha",
+        status: "Estado",
+        clear_filters: "Borrar filtros",
+        export_csv: "Exportar mostrados a CSV",
+        invoice_id: "ID factura",
+        date: "Fecha",
+        total: "Total",
+        currency: "Moneda",
+        actions: "Acciones",
+        no_invoices_yet: "Aún no hay facturas",
+        get_started_peppol: "Comience creando su primera factura PEPPOL."
+    },
+    de: {
+        dashboard: "Dashboard",
+        create_invoice: "Rechnung erstellen",
+        switch_supplier: "Lieferant wechseln",
+        customers: "Kunden",
+        logout: "Abmelden",
+        analytics_overview: "Analyseübersicht",
+        monthly_revenue: "Monatliche Einnahmen (Abgerechnet vs Bezahlt)",
+        invoice_status_distribution: "Rechnungsstatusverteilung",
+        top_customers: "Top 5 Kunden nach Umsatz",
+        receivables_aging: "Forderungsalterung",
+        invoice_history: "Rechnungshistorie",
+        search_invoice_id: "Rechnungs-ID suchen",
+        customer: "Kunde",
+        from_date: "Von Datum",
+        to_date: "Bis Datum",
+        status: "Status",
+        clear_filters: "Filter zurücksetzen",
+        export_csv: "Angezeigte als CSV exportieren",
+        invoice_id: "Rechnungs-ID",
+        date: "Datum",
+        total: "Gesamt",
+        currency: "Währung",
+        actions: "Aktionen",
+        no_invoices_yet: "Noch keine Rechnungen",
+        get_started_peppol: "Beginnen Sie mit der Erstellung Ihrer ersten PEPPOL-Rechnung."
+    },
+    it: {
+        dashboard: "Dashboard",
+        create_invoice: "Crea fattura",
+        switch_supplier: "Cambia fornitore",
+        customers: "Clienti",
+        logout: "Esci",
+        analytics_overview: "Panoramica analitica",
+        monthly_revenue: "Entrate mensili (Fatturato vs Pagato)",
+        invoice_status_distribution: "Distribuzione stato fatture",
+        top_customers: "Top 5 clienti per fatturato",
+        receivables_aging: "Invecchiamento crediti",
+        invoice_history: "Cronologia fatture",
+        search_invoice_id: "Cerca ID fattura",
+        customer: "Cliente",
+        from_date: "Dalla data",
+        to_date: "Alla data",
+        status: "Stato",
+        clear_filters: "Cancella filtri",
+        export_csv: "Esporta visualizzati in CSV",
+        invoice_id: "ID fattura",
+        date: "Data",
+        total: "Totale",
+        currency: "Valuta",
+        actions: "Azioni",
+        no_invoices_yet: "Nessuna fattura ancora",
+        get_started_peppol: "Inizia creando la tua prima fattura PEPPOL."
+    },
+    nl: {
+        dashboard: "Dashboard",
+        create_invoice: "Factuur aanmaken",
+        switch_supplier: "Leverancier wisselen",
+        customers: "Klanten",
+        logout: "Uitloggen",
+        analytics_overview: "Analyseoverzicht",
+        monthly_revenue: "Maandelijkse omzet (Gefactureerd vs Betaald)",
+        invoice_status_distribution: "Factuurstatusverdeling",
+        top_customers: "Top 5 klanten op omzet",
+        receivables_aging: "Debiteurenveroudering",
+        invoice_history: "Factuurhistorie",
+        search_invoice_id: "Zoek factuur-ID",
+        customer: "Klant",
+        from_date: "Van datum",
+        to_date: "Tot datum",
+        status: "Status",
+        clear_filters: "Filters wissen",
+        export_csv: "Getoonde exporteren naar CSV",
+        invoice_id: "Factuur-ID",
+        date: "Datum",
+        total: "Totaal",
+        currency: "Valuta",
+        actions: "Acties",
+        no_invoices_yet: "Nog geen facturen",
+        get_started_peppol: "Begin met het aanmaken van je eerste PEPPOL-factuur."
+    },
+    pl: {
+        dashboard: "Panel",
+        create_invoice: "Utwórz fakturę",
+        switch_supplier: "Zmień dostawcę",
+        customers: "Klienci",
+        logout: "Wyloguj",
+        analytics_overview: "Przegląd analiz",
+        monthly_revenue: "Przychody miesięczne (Zafakturowane vs Zapłacone)",
+        invoice_status_distribution: "Rozkład statusu faktur",
+        top_customers: "Top 5 klientów wg przychodu",
+        receivables_aging: "Starzenie należności",
+        invoice_history: "Historia faktur",
+        search_invoice_id: "Szukaj ID faktury",
+        customer: "Klient",
+        from_date: "Od daty",
+        to_date: "Do daty",
+        status: "Status",
+        clear_filters: "Wyczyść filtry",
+        export_csv: "Eksportuj wyświetlone do CSV",
+        invoice_id: "ID faktury",
+        date: "Data",
+        total: "Suma",
+        currency: "Waluta",
+        actions: "Akcje",
+        no_invoices_yet: "Brak faktur",
+        get_started_peppol: "Zacznij od utworzenia pierwszej faktury PEPPOL."
+    }
+};
+
+// Current language (default: English)
+let currentLang = localStorage.getItem('preferred_language') || 'en';
+
+// Function to apply translations
+function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.dataset.i18n;
+        if (translations[currentLang] && translations[currentLang][key]) {
+            element.textContent = translations[currentLang][key];
+        }
+    });
+}
+
+// Language change handler
+document.querySelectorAll('.language-dropdown button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        currentLang = btn.dataset.lang;
+        localStorage.setItem('preferred_language', currentLang);
+        applyTranslations();
+        // Optional: reload charts to update any dynamic text if needed
+        renderAnalytics(displayedInvoices);
+    });
+});
+
 const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
 const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
@@ -839,16 +1141,6 @@ mobileNav.querySelectorAll('button').forEach(btn => {
     });
 });
 
-// Language selector handler (placeholder - you can extend with real translations later)
-document.querySelectorAll('.language-dropdown button').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const lang = btn.dataset.lang;
-        localStorage.setItem('preferred_language', lang);
-        alert(`Language changed to: ${btn.textContent} (reload to apply)`);
-        // In future: reload page or dynamically translate
-    });
-});
-
 document.addEventListener("DOMContentLoaded", async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
@@ -873,6 +1165,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById('create-invoice-btn').addEventListener('click', () => window.location.href = 'form.html');
     document.getElementById('mobile-create-invoice-btn')?.addEventListener('click', () => window.location.href = 'form.html');
+    document.getElementById('empty-create-btn')?.addEventListener('click', () => window.location.href = 'form.html');
 
     document.getElementById('suppliers-btn').addEventListener('click', () => window.location.href = 'suppliers.html');
     document.getElementById('mobile-suppliers-btn')?.addEventListener('click', () => window.location.href = 'suppliers.html');
@@ -925,6 +1218,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
+    // Table sorting
     document.querySelectorAll('th.sortable').forEach(th => {
         th.addEventListener('click', () => {
             const key = th.dataset.sort;
@@ -939,6 +1233,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             sortAndRender();
         });
     });
+
+    // Apply saved language on load
+    applyTranslations();
 
     await loadInvoices(session.user.id, selectedSupplierId);
 });
@@ -1059,8 +1356,8 @@ function renderAnalytics(invoices) {
         data: {
             labels: months,
             datasets: [
-                { label: 'Billed', data: billedData, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.2)', tension: 0.3, fill: true },
-                { label: 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
+                { label: translations[currentLang]['billed'] || 'Billed', data: billedData, borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.2)', tension: 0.3, fill: true },
+                { label: translations[currentLang]['paid'] || 'Paid', data: paidData, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.2)', tension: 0.3, fill: true }
             ]
         },
         options: {
@@ -1083,7 +1380,11 @@ function renderAnalytics(invoices) {
     statusChart = new Chart(document.getElementById('statusChart'), {
         type: 'doughnut',
         data: {
-            labels: [`Draft (${formatAmount(outstanding)})`, `Sent (${formatAmount(invoices.filter(i=>i.status==='sent').reduce((s,i)=>s+(parseFloat(i.total_amount)||0),0))})`, `Paid (${formatAmount(paidRevenue)})`],
+            labels: [
+                `${translations[currentLang]['draft'] || 'Draft'} (${formatAmount(outstanding)})`,
+                `${translations[currentLang]['sent'] || 'Sent'} (${formatAmount(invoices.filter(i=>i.status==='sent').reduce((s,i)=>s+(parseFloat(i.total_amount)||0),0))})`,
+                `${translations[currentLang]['paid'] || 'Paid'} (${formatAmount(paidRevenue)})`
+            ],
             datasets: [{
                 data: [drafts, sent, paid],
                 backgroundColor: ['#ef4444', '#f59e0b', '#22c55e']
@@ -1179,87 +1480,100 @@ function renderAnalytics(invoices) {
 
 function renderDesktopTable(invoices) {
     const tbody = document.querySelector('#invoices-table tbody');
-    const noMsg = document.getElementById('no-invoices');
-    displayedInvoices = invoices;
+    const emptyState = document.getElementById('empty-state');
+
     if (invoices.length === 0) {
-        noMsg.style.display = 'block';
-        noMsg.textContent = 'No invoices yet.';
         tbody.innerHTML = '';
+        emptyState.style.display = 'block';
         return;
     }
-    noMsg.style.display = 'none';
+
+    emptyState.style.display = 'none';
     tbody.innerHTML = '';
+
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
-        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
-        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
+        let statusText = inv.status === 'paid' ? (translations[currentLang]['paid'] || 'Paid') : inv.status === 'sent' ? (translations[currentLang]['sent'] || 'Sent') : (translations[currentLang]['draft'] || 'Draft');
+        if (!inv.status || inv.status === 'draft') statusText = translations[currentLang]['draft'] || 'Draft';
+
         const statusBadge = `<span style="padding:6px 14px; border-radius:50px; font-size:12px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
+
         const isDraft = (!inv.status || inv.status === 'draft');
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td><strong>${inv.invoice_id || 'N/A'}</strong></td>
-            <td>${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</td>
+            <td>${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString(currentLang === 'sv' ? 'sv-SE' : 'en-GB') : '—'}</td>
             <td>${inv.customer_name || '—'}</td>
             <td><strong>${formatAmount(inv.total_amount)}</strong></td>
             <td>${inv.currency || 'EUR'}</td>
             <td>${statusBadge}</td>
             <td class="actions-cell">
-                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit</button>` : ''}
-                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View</button>` : '<span style="color:var(--text-secondary);font-size:11px;">No XML</span>'}
-                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
+                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">${translations[currentLang]['edit'] || 'Edit'}</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">${translations[currentLang]['view'] || 'View'}</button>` : '<span style="color:var(--text-secondary);font-size:11px;">No XML</span>'}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">${translations[currentLang]['download'] || 'Download'}</button>` : ''}
             </td>
             <td>
-                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}" title="Delete Draft">🗑</span>` : ''}
+                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}" title="${translations[currentLang]['delete_draft'] || 'Delete Draft'}">🗑</span>` : ''}
             </td>
         `;
         tbody.appendChild(tr);
     });
+
     attachActionListeners();
 }
 
 function renderMobileCards(invoices) {
     const container = document.getElementById('mobile-invoice-list');
-    const noMsg = document.getElementById('no-invoices');
+    const emptyState = document.getElementById('empty-state');
+
     if (invoices.length === 0) {
-        noMsg.style.display = 'block';
         container.innerHTML = '';
+        emptyState.style.display = 'block';
         return;
     }
-    noMsg.style.display = 'none';
+
+    emptyState.style.display = 'none';
     container.innerHTML = '';
+
     invoices.forEach(inv => {
         let statusColor = inv.status === 'paid' ? '#10b981' : inv.status === 'sent' ? 'var(--success)' : 'var(--error)';
-        let statusText = inv.status === 'paid' ? 'Paid' : inv.status === 'sent' ? 'Sent' : 'Draft';
-        if (!inv.status || inv.status === 'draft') statusText = 'Draft';
+        let statusText = inv.status === 'paid' ? (translations[currentLang]['paid'] || 'Paid') : inv.status === 'sent' ? (translations[currentLang]['sent'] || 'Sent') : (translations[currentLang]['draft'] || 'Draft');
+        if (!inv.status || inv.status === 'draft') statusText = translations[currentLang]['draft'] || 'Draft';
+
         const statusBadge = `<span style="padding:8px 16px; border-radius:50px; font-size:14px; font-weight:600; background:${statusColor}; color:white;">${statusText}</span>`;
+
         const isDraft = (!inv.status || inv.status === 'draft');
+
         const card = document.createElement('div');
         card.className = 'invoice-card';
         card.innerHTML = `
             <div class="invoice-card-header">
                 <div>
                     <strong style="font-size:20px;">${inv.invoice_id || 'N/A'}</strong><br>
-                    <span style="color:var(--text-secondary);">${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString('sv-SE') : '—'}</span>
+                    <span style="color:var(--text-secondary);">${inv.issue_date ? new Date(inv.issue_date).toLocaleDateString(currentLang === 'sv' ? 'sv-SE' : 'en-GB') : '—'}</span>
                 </div>
                 ${statusBadge}
             </div>
             <div class="invoice-card-main">
-                <div class="invoice-card-label">Customer</div>
+                <div class="invoice-card-label">${translations[currentLang]['customer'] || 'Customer'}</div>
                 <div class="invoice-card-value">${inv.customer_name || '—'}</div>
-                <div class="invoice-card-label">Total</div>
+
+                <div class="invoice-card-label">${translations[currentLang]['total'] || 'Total'}</div>
                 <div class="invoice-card-value"><strong>${formatAmount(inv.total_amount)} ${inv.currency || 'EUR'}</strong></div>
             </div>
             <div class="invoice-card-actions">
-                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">Edit</button>` : ''}
-                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">View</button>` : ''}
-                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">Download</button>` : ''}
+                ${isDraft ? `<button class="action-btn edit-btn" data-id="${inv.id}">${translations[currentLang]['edit'] || 'Edit'}</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn view-btn" data-id="${inv.id}">${translations[currentLang]['view'] || 'View'}</button>` : ''}
+                ${inv.xml_data ? `<button class="action-btn download-btn" data-id="${inv.id}">${translations[currentLang]['download'] || 'Download'}</button>` : ''}
             </div>
             <div class="delete-cell-mobile">
-                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}">Delete</span>` : ''}
+                ${isDraft ? `<span class="delete-icon" data-id="${inv.id}">${translations[currentLang]['delete'] || 'Delete'}</span>` : ''}
             </div>
         `;
         container.appendChild(card);
     });
+
     attachActionListeners();
 }
 
