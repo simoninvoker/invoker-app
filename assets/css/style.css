@@ -834,8 +834,29 @@ body.light-mode select option {
     background: rgba(255, 255, 255, 0.05);
 }
 
+/* Fix for customers page: Proper hide/show of table and cards */
+
+/* Default: Desktop view - show table, hide mobile cards */
+.desktop-table-wrapper {
+    display: block; /* or table-wrapper default */
+}
+
 .mobile-customer-list {
-    display: flex !important; /* Force show on mobile */
+    display: none;
+}
+
+/* Mobile view: Hide table, show cards */
+@media (max-width: 768px) {
+    .desktop-table-wrapper {
+        display: none;
+    }
+
+    .mobile-customer-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+    }
 }
 
 .customer-card {
@@ -1963,3 +1984,4 @@ body.light-mode .download-btn:hover {
     box-shadow: 0 8px 24px rgba(245, 158, 11, 0.5);
 
 }
+
