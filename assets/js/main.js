@@ -3,9 +3,6 @@ const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
 // Add this to the top of every page's JS file (or make shared header.js)
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobile-nav');
-const mobileNavClose = document.getElementById('mobile-nav-close');
 
 
 let allInvoices = [];
@@ -571,4 +568,5 @@ function exportDisplayedToCSV() {
     link.click();
     document.body.removeChild(link);
 }
+
 
