@@ -1,12 +1,11 @@
 // assets/js/nav.js - Complete Shared Navigation Script
-// Handles: Hamburger menu, mobile nav, theme toggle, logout, dashboard navigation
-// Works on ALL pages that include this script (dashboard.html, form.html, customers.html, suppliers.html, etc.)
+// Handles: Hamburger menu, mobile nav, theme toggle, logout (with redirect to index.html), dashboard navigation, language selector, active supplier display
 
-// Supabase client - must be loaded before this script
-// Assuming <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script> is included earlier
-const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+// Supabase client - ensure this script loads after Supabase CDN in HTML
+const supabase = window.supabase.createClient(
+    'https://qxpaplabjocxaftqocgu.supabase.co',
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4"
+);
 
 document.addEventListener('DOMContentLoaded', () => {
     // ================================
@@ -41,27 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // ================================
     // Dashboard Navigation (Desktop + Mobile)
     // ================================
-    const dashboardBtn = document.getElementById('dashboard-btn');
-    const mobileDashboardBtn = document.getElementById('mobile-dashboard-btn');
+    document.getElementById('dashboard-btn')?.addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+    });
 
-    if (dashboardBtn) {
-        dashboardBtn.addEventListener('click', () => {
-            window.location.href = 'dashboard.html';
-        });
-    }
-
-    if (mobileDashboardBtn) {
-        mobileDashboardBtn.addEventListener('click', () => {
-            window.location.href = 'dashboard.html';
-        });
-    }
+    document.getElementById('mobile-dashboard-btn')?.addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+    });
 
     // ================================
-    // Logout (Desktop + Mobile) - Redirects to landing page (index.html)
+    // Logout (Desktop + Mobile) - FIXED: Redirects to index.html
     // ================================
-    const logoutBtn = document.getElementById('logout-btn');
-    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
-
     const performLogout = async () => {
         const { error } = await supabase.auth.signOut();
 
@@ -79,13 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'index.html';
     };
 
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', performLogout);
-    }
-
-    if (mobileLogoutBtn) {
-        mobileLogoutBtn.addEventListener('click', performLogout);
-    }
+    document.getElementById('logout-btn')?.addEventListener('click', performLogout);
+    document.getElementById('mobile-logout-btn')?.addEventListener('click', performLogout);
 
     // ================================
     // Theme Toggle (Desktop + Mobile)
@@ -101,11 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('light-mode');
         }
 
-        const themeSwitch = document.getElementById('theme-switch');
-        const mobileSwitch = document.getElementById('mobile-theme-switch');
-
-        if (themeSwitch) themeSwitch.checked = isLight;
-        if (mobileSwitch) mobileSwitch.checked = isLight;
+        document.getElementById('theme-switch')?.checked = isLight;
+        document.getElementById('mobile-theme-switch')?.checked = isLight;
     };
 
     const toggleTheme = () => {
@@ -113,55 +94,47 @@ document.addEventListener('DOMContentLoaded', () => {
         const isLight = document.body.classList.contains('light-mode');
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
 
-        const themeSwitch = document.getElementById('theme-switch');
-        const mobileSwitch = document.getElementById('mobile-theme-switch');
-
-        if (themeSwitch) themeSwitch.checked = isLight;
-        if (mobileSwitch) mobileSwitch.checked = isLight;
+        document.getElementById('theme-switch')?.checked = isLight;
+        document.getElementById('mobile-theme-switch')?.checked = isLight;
     };
 
-    // Initialize theme on load
     initTheme();
 
-    // Attach theme toggle listeners
     document.getElementById('theme-switch')?.addEventListener('change', toggleTheme);
     document.getElementById('mobile-theme-switch')?.addEventListener('change', toggleTheme);
 
     // ================================
-    // Language Selector (Globe Dropdown)
+    // Language Selector Dropdown
     // ================================
-    const languageSelector = document.querySelector('.language-selector');
-    const languageGlobe = document.querySelector('.language-globe-btn, .language-globe');
+    const languageSelectors = document.querySelectorAll('.language-selector');
+    languageSelectors.forEach(selector => {
+        const globeBtn = selector.querySelector('.language-globe-btn, .language-globe');
+        if (globeBtn) {
+            globeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selector.classList.toggle('active');
+            });
+        }
+    });
 
-    if (languageSelector && languageGlobe) {
-        languageGlobe.addEventListener('click', () => {
-            languageSelector.classList.toggle('active');
-        });
+    // Close all language dropdowns when clicking outside
+    document.addEventListener('click', () => {
+        languageSelectors.forEach(selector => selector.classList.remove('active'));
+    });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!languageSelector.contains(e.target)) {
-                languageSelector.classList.remove('active');
-            }
-        });
-    }
-
-    // Language change handler (assumes i18n.js is loaded)
+    // Language change (integrates with i18n.js if present)
     document.querySelectorAll('.language-dropdown button[data-lang]').forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.dataset.lang;
             localStorage.setItem('preferred_language', lang);
-            // Trigger translation update (from i18n.js)
             if (typeof applyTranslations === 'function') {
                 applyTranslations();
             }
-            // Optional: reload page to apply language fully
-            // window.location.reload();
         });
     });
 
     // ================================
-    // Active Supplier Display (if present)
+    // Active Supplier Display in Header
     // ================================
     const activeSupplierSpan = document.getElementById('active-supplier');
     if (activeSupplierSpan) {
