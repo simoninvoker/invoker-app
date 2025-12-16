@@ -925,7 +925,7 @@ function renderAnalytics(invoices) {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    position: 'top', /* Moved legend to top - more prominent and always fully inside the chart area */
+                    position: 'top',
                     labels: {
                         font: { size: 14, weight: '600' },
                         padding: 20,
@@ -949,14 +949,18 @@ function renderAnalytics(invoices) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            cutout: '70%', /* Makes the doughnut thicker and gives more inner space */
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'right', /* Moved to right side - fully inside the pane, more prominent */
+                    align: 'center',
                     labels: {
                         font: { size: 14, weight: '600' },
                         padding: 20,
                         usePointStyle: true,
-                        pointStyle: 'rectRounded'
+                        pointStyle: 'rectRounded',
+                        boxWidth: 14,
+                        boxHeight: 14
                     }
                 }
             }
