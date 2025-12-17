@@ -1,6 +1,5 @@
-const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-const supabaseAnonKey = "sb_publishable_he7X4Xjj74CcZfRue2RVTg_UsJSbyYC";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+import { supabase, supabaseClient } from './supabaseClient.js';
+
 
 let currentCustomerId = null;
 let userId = null;
@@ -540,6 +539,5 @@ async function saveCustomer(userId) {
     await loadCustomers(userId);
 
 }
-
 
 

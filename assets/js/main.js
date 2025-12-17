@@ -1,6 +1,5 @@
-const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-const supabaseAnonKey = "sb_publishable_he7X4Xjj74CcZfRue2RVTg_UsJSbyYC";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+import { supabase, supabaseClient } from './supabaseClient.js';
+
 
 let allInvoices = [];
 let displayedInvoices = [];
@@ -544,7 +543,6 @@ function exportDisplayedToCSV() {
     link.click();
     document.body.removeChild(link);
 }
-
 
 
 

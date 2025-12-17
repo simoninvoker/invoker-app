@@ -1,8 +1,7 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-    const supabaseAnonKey = "sb_publishable_he7X4Xjj74CcZfRue2RVTg_UsJSbyYC";
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+import { supabase, supabaseClient } from './supabaseClient.js';
 
+
+document.addEventListener("DOMContentLoaded", async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
         alert("You must be logged in.");
@@ -827,6 +826,5 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateTotals();
 
 });
-
 
 

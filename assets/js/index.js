@@ -1,3 +1,6 @@
+import { supabase, supabaseClient } from './supabaseClient.js';
+
+
 VANTA.NET({
     el: "#vanta-hero",
     color: 0x2563eb,
@@ -6,11 +9,6 @@ VANTA.NET({
     spacing: 20,
     mouseControls: true
 });
-
-const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-const supabaseAnonKey = "sb_publishable_he7X4Xjj74CcZfRue2RVTg_UsJSbyYC";
-const { createClient } = window.supabase;
-const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 
 const loginBtn = document.getElementById('login-btn');
 const mobileLoginBtn = document.getElementById('mobile-login-btn');
@@ -198,5 +196,4 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
 });
 
 // Initial UI update on page load
-
 updateUI();
