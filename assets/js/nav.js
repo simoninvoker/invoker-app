@@ -1,3 +1,4 @@
+import { supabase, supabaseClient } from './supabaseClient.js';
 // assets/js/nav.js - Complete Shared Navigation Script
 // Handles: Hamburger menu, mobile nav, theme toggle, logout (with redirect to index.html), dashboard navigation, language selector, active supplier display
 
@@ -145,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
 
