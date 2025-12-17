@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const supabaseUrl = 'https://qxpaplabjocxaftqocgu.supabase.co';
-    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGFwbGFiam9jeGFmdHFvY2d1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2NTcyOTQsImV4cCI6MjA4MTIzMzI5NH0.VpoV9d2XGkRTv5UoZFKiA23IOOV2zasV18pW_9JmCj4";
+    const supabaseAnonKey = "sb_publishable_he7X4Xjj74CcZfRue2RVTg_UsJSbyYC";
     const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
     const { data: { session } } = await supabase.auth.getSession();
@@ -827,5 +827,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateTotals();
 
 });
+
 
 
