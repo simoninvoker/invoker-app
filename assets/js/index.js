@@ -1,6 +1,5 @@
 import { supabase, supabaseClient } from './supabaseClient.js';
 
-
 VANTA.NET({
     el: "#vanta-hero",
     color: 0x2563eb,
@@ -10,124 +9,94 @@ VANTA.NET({
     mouseControls: true
 });
 
-const loginBtn = document.getElementById('login-btn');
-const mobileLoginBtn = document.getElementById('mobile-login-btn');
-const logoutBtn = document.getElementById('logout-btn');
-const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
 const loginPopup = document.getElementById('login-popup');
 const loginEmail = document.getElementById('login-email');
 const loginPassword = document.getElementById('login-password');
-const submitLogin = document.getElementById('submit-login');
-const submitSignup = document.getElementById('submit-signup');
 const errorMessage = document.getElementById('error-message');
 const createInvoiceBtn = document.getElementById('create-invoice-btn');
-const dashboardNav = document.getElementById('dashboard-nav');
-const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
-const adminNav = document.getElementById('admin-nav');
 const popupTitle = document.getElementById('popup-title');
 const toggleLogin = document.getElementById('toggle-login');
 const forgotPasswordLink = document.getElementById('forgot-password');
-const hamburger = document.getElementById('hamburger');
-const mobileNav = document.getElementById('mobile-nav');
-const mobileNavClose = document.getElementById('mobile-nav-close');
-
-// Mobile menu toggle
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    mobileNav.classList.toggle('active');
-});
-
-mobileNavClose.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    mobileNav.classList.remove('active');
-});
-
-mobileNav.querySelectorAll('a, button').forEach(item => {
-    item.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileNav.classList.remove('active');
-    });
-});
 
 // Section reveal on scroll
 const sections = document.querySelectorAll('section');
 const reveal = new IntersectionObserver(entries => {
-    entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
 });
-sections.forEach(s => reveal.observe(s));
+sections.forEach(section => reveal.observe(section));
 
-// Toggle between Login and Sign Up
+// Toggle Login / Sign Up mode
 let isLogin = true;
 toggleLogin.addEventListener('click', () => {
     isLogin = !isLogin;
     popupTitle.textContent = isLogin ? 'Login' : 'Sign Up';
-    submitLogin.style.display = isLogin ? 'block' : 'none';
-    submitSignup.style.display = isLogin ? 'none' : 'block';
-    toggleLogin.textContent = isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login";
     forgotPasswordLink.style.display = isLogin ? 'block' : 'none';
+    document.getElementById('submit-login').style.display = isLogin ? 'block' : 'none';
+    document.getElementById('submit-signup').style.display = isLogin ? 'none' : 'block';
     errorMessage.textContent = '';
     loginEmail.value = '';
     loginPassword.value = '';
 });
 
-// Initial state
-forgotPasswordLink.style.display = isLogin ? 'block' : 'none';
-
-// Open login popup
-if (loginBtn) loginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
-if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', () => loginPopup.style.display = 'flex');
-
 // Close popup on backdrop click
 loginPopup.addEventListener('click', (e) => {
     if (e.target === loginPopup) {
         loginPopup.style.display = 'none';
+        errorMessage.textContent = '';
     }
 });
 
-// Login handler – fixed to avoid race condition
-submitLogin.addEventListener('click', async () => {
+// Form submit handler (Login or Sign Up)
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = isLogin
+        ? document.getElementById('submit-login')
+        : document.getElementById('submit-signup');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Loading...';
     errorMessage.textContent = '';
-    const email = loginEmail.value.trim();
+
+    const email = loginEmail.value.trim().toLowerCase();
     const password = loginPassword.value;
+
     if (!email || !password) {
-        errorMessage.textContent = 'Email & password required';
+        errorMessage.textContent = 'Email and password are required';
+        submitBtn.disabled = false;
+        submitBtn.textContent = isLogin ? 'Sign In' : 'Sign Up';
         return;
     }
-    // Show loading state
-    submitLogin.disabled = true;
-    submitLogin.textContent = 'Signing in...';
-    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-    submitLogin.disabled = false;
-    submitLogin.textContent = 'Sign In';
+
+    let data, error;
+    if (isLogin) {
+        ({ data, error } = await supabaseClient.auth.signInWithPassword({ email, password }));
+    } else {
+        ({ data, error } = await supabaseClient.auth.signUp({ email, password }));
+        if (!error) {
+            errorMessage.textContent = 'Check your email for confirmation link.';
+            errorMessage.style.color = 'var(--success)';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sign Up';
+            return;
+        }
+    }
+
     if (error) {
         errorMessage.textContent = error.message;
-        return;
+    } else {
+        loginPopup.style.display = 'none';
     }
-    // Close popup – redirect will happen via onAuthStateChange
-    loginPopup.style.display = 'none';
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = isLogin ? 'Sign In' : 'Sign Up';
 });
 
-// Sign Up handler
-submitSignup.addEventListener('click', async () => {
-    errorMessage.textContent = '';
-    const email = loginEmail.value.trim();
-    const password = loginPassword.value;
-    if (!email || !password) {
-        errorMessage.textContent = 'Email & password required';
-        return;
-    }
-    const { error } = await supabaseClient.auth.signUp({ email, password });
-    if (error) {
-        errorMessage.textContent = error.message;
-        return;
-    }
-    alert('Sign-up successful! Please confirm your email to continue.');
-    toggleLogin.click(); // Switch back to login
-});
-
-// Forgot Password
+// Forgot password
 forgotPasswordLink.addEventListener('click', async () => {
-    const email = loginEmail.value.trim();
+    const email = loginEmail.value.trim().toLowerCase();
     if (!email) {
         errorMessage.textContent = 'Please enter your email address first';
         return;
@@ -140,54 +109,52 @@ forgotPasswordLink.addEventListener('click', async () => {
         errorMessage.textContent = error.message;
     } else {
         errorMessage.textContent = 'Password reset link sent! Check your email (including spam folder).';
+        errorMessage.style.color = 'var(--success)';
     }
 });
 
-// Logout
-if (logoutBtn) logoutBtn.addEventListener('click', logout);
-if (mobileLogoutBtn) mobileLogoutBtn.addEventListener('click', logout);
-async function logout() {
-    await supabaseClient.auth.signOut();
-    updateUI();
-}
-
-// Create Invoice button – requires login
+// Create Invoice button
 createInvoiceBtn.addEventListener('click', async () => {
     const { data } = await supabaseClient.auth.getSession();
+
     if (!data.session) {
         loginPopup.style.display = 'flex';
+        if (!isLogin) toggleLogin.click();
+        errorMessage.textContent = 'Please log in to create invoices.';
+        errorMessage.style.color = 'var(--accent)';
+        loginEmail.focus();
         return;
     }
+
     window.location.href = 'dashboard.html';
 });
 
-// Update navigation UI based on auth state
+// Update UI based on auth state
 async function updateUI() {
     const { data } = await supabaseClient.auth.getSession();
     const user = data.session?.user;
+
+    const loginBtn = document.getElementById('login-btn');
+    const mobileLoginBtn = document.getElementById('mobile-login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+
     if (user) {
         if (loginBtn) loginBtn.style.display = 'none';
         if (mobileLoginBtn) mobileLoginBtn.style.display = 'none';
         if (logoutBtn) logoutBtn.style.display = 'inline-block';
         if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'block';
-        dashboardNav.style.display = 'inline-block';
-        if (mobileDashboardNav) mobileDashboardNav.style.display = 'block';
-        adminNav.style.display = (user.email === 'admin@example.com') ? 'inline-block' : 'none';
     } else {
         if (loginBtn) loginBtn.style.display = 'inline-block';
         if (mobileLoginBtn) mobileLoginBtn.style.display = 'block';
         if (logoutBtn) logoutBtn.style.display = 'none';
         if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
-        dashboardNav.style.display = 'none';
-        if (mobileDashboardNav) mobileDashboardNav.style.display = 'none';
-        adminNav.style.display = 'none';
     }
 }
 
-// Listen for auth changes – this reliably handles redirect after login
+// Auth state change listener
 supabaseClient.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN') {
-        // Only redirect if we're currently on the index page
         if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
             window.location.href = 'dashboard.html';
         }
@@ -195,5 +162,5 @@ supabaseClient.auth.onAuthStateChange((event, session) => {
     updateUI();
 });
 
-// Initial UI update on page load
+// Initial UI update
 updateUI();
