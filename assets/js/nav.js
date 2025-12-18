@@ -1,4 +1,3 @@
-import { supabase, supabaseClient } from './supabaseClient.js';
 // assets/js/nav.js - Complete Shared Navigation Script
 // Handles: Hamburger menu, mobile nav, theme toggle, logout (with redirect to index.html), dashboard navigation, language selector, active supplier display
 
@@ -71,39 +70,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ================================
     // Theme Toggle (Desktop + Mobile) - SAFE
+    // HIDE COMPLETELY ON INDEX PAGE
     // ================================
-    const initTheme = () => {
-        const saved = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const isLight = saved === 'light' || (!saved && !prefersDark);
+    const isIndexPage = window.location.pathname === '/' ||
+                        window.location.pathname.endsWith('index.html');
 
-        if (isLight) {
-            document.body.classList.add('light-mode');
-        } else {
-            document.body.classList.remove('light-mode');
-        }
+    if (isIndexPage) {
+        // Hide both desktop and mobile theme toggles
+        document.querySelectorAll('.theme-toggle').forEach(toggle => {
+            toggle.style.display = 'none';
+        });
+    } else {
+        // Only initialize theme logic on internal pages
+        const initTheme = () => {
+            const saved = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const isLight = saved === 'light' || (!saved && !prefersDark);
 
-        const themeSwitch = document.getElementById('theme-switch');
-        const mobileSwitch = document.getElementById('mobile-theme-switch');
-        if (themeSwitch) themeSwitch.checked = isLight;
-        if (mobileSwitch) mobileSwitch.checked = isLight;
-    };
+            if (isLight) {
+                document.body.classList.add('light-mode');
+            } else {
+                document.body.classList.remove('light-mode');
+            }
 
-    const toggleTheme = () => {
-        document.body.classList.toggle('light-mode');
-        const isLight = document.body.classList.contains('light-mode');
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            const themeSwitch = document.getElementById('theme-switch');
+            const mobileSwitch = document.getElementById('mobile-theme-switch');
+            if (themeSwitch) themeSwitch.checked = isLight;
+            if (mobileSwitch) mobileSwitch.checked = isLight;
+        };
 
-        const themeSwitch = document.getElementById('theme-switch');
-        const mobileSwitch = document.getElementById('mobile-theme-switch');
-        if (themeSwitch) themeSwitch.checked = isLight;
-        if (mobileSwitch) mobileSwitch.checked = isLight;
-    };
+        const toggleTheme = () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
 
-    initTheme();
+            const themeSwitch = document.getElementById('theme-switch');
+            const mobileSwitch = document.getElementById('mobile-theme-switch');
+            if (themeSwitch) themeSwitch.checked = isLight;
+            if (mobileSwitch) mobileSwitch.checked = isLight;
+        };
 
-    document.getElementById('theme-switch')?.addEventListener('change', toggleTheme);
-    document.getElementById('mobile-theme-switch')?.addEventListener('change', toggleTheme);
+        initTheme();
+
+        document.getElementById('theme-switch')?.addEventListener('change', toggleTheme);
+        document.getElementById('mobile-theme-switch')?.addEventListener('change', toggleTheme);
+    }
 
     // ================================
     // Language Selector Dropdown
@@ -146,7 +157,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
-
-
-
-
