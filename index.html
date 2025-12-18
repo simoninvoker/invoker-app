@@ -70,27 +70,11 @@
 
 <section id="use-cases">
     <h2>Use Cases</h2>
-    <p>Invoker empowers European businesses to streamline PEPPOL-compliant invoicing with enterprise-grade features. Here are key scenarios where it shines:</p>
     <div class="feature-grid">
         <div class="feature-card">
-            <img src="https://thumbs.dreamstime.com/b/abstract-network-connection-futuristic-digital-technology-background-glowing-blue-lines-orange-nodes-forming-complex-web-383665197.jpg" alt="Abstract digital compliance network">
-            <h3>Be Ready to Invoice</h3>
-            <p>Stay ahead of evolving EU e-invoicing mandates (e.g., upcoming requirements in France, Germany, Belgium from 2026). Generate and send fully compliant PEPPOL BIS 3.0 invoices instantly, ensuring regulation-ready formats, structured data for audits, and real-time delivery via the PEPPOL network.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://thumbs.dreamstime.com/b/abstract-network-connection-futuristic-blue-orange-nodes-connected-lines-representing-global-digital-technology-data-flow-383665170.jpg" alt="Abstract multi-company interconnected nodes">
-            <h3>Manage Multiple Companies</h3>
-            <p>Handle invoicing for group structures, subsidiaries, or clients effortlessly in one platform. Centralize operations across entities while maintaining separate compliance profiles, branding, and data isolation.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://thumbs.dreamstime.com/b/blue-network-digital-connections-data-points-abstract-glowing-lights-form-against-dark-background-pattern-361784745.jpg" alt="Abstract customer network connections grid">
-            <h3>Customer Management</h3>
-            <p>Build and maintain a robust customer database with PEPPOL IDs, contact details, tax info, and billing histories. Quickly lookup recipients on the network for accurate routing and automate recurring invoices.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://thumbs.dreamstime.com/b/hand-interacting-futuristic-holographic-data-dashboard-laptop-business-analytics-concept-points-glowing-blue-412339322.jpg" alt="Futuristic holographic analytics dashboard with graphs">
+            <img src="https://images.stockcake.com/public/8/9/1/891e0d6f-9c4d-4e9f-8e9d-2d8f2e8f8e8f_large/finance-dashboard-analysis-stockcake.jpg" alt="Finance dashboard with charts">
             <h3>Analytics</h3>
-            <p>Gain insights into invoicing performance with dashboards tracking volume, payment timelines, compliance rates, and network delivery status. Spot trends to optimize cash flow.</p>
+            <p>Track revenue, status, and aging. Spot trends to optimize cash flow.</p>
         </div>
         <div class="feature-card">
             <img src="https://images.stockcake.com/public/b/3/c/b3c8f0ce-1c6a-4529-a943-00575b10a05a_large/neon-data-flow-stockcake.jpg" alt="Neon holographic data flow for workflow automation">
@@ -120,19 +104,21 @@
 <div id="login-popup">
     <div class="popup-content">
         <h2 id="popup-title">Login</h2>
-        <div class="floating-label">
-            <input id="login-email" type="email" placeholder=" " required autocomplete="username">
-            <label for="login-email">Email</label>
-        </div>
-        <div class="floating-label">
-            <input id="login-password" type="password" placeholder=" " required autocomplete="current-password">
-            <label for="login-password">Password</label>
-        </div>
-        <p id="forgot-password">Forgot Password?</p>
-        <button id="submit-login">Sign In</button>
-        <button id="submit-signup" style="display:none;">Sign Up</button>
-        <p id="toggle-login">Don't have an account? Sign Up</p>
-        <p id="error-message"></p>
+        <form id="login-form">
+            <div class="floating-label">
+                <input id="login-email" type="email" placeholder=" " required autocomplete="username">
+                <label for="login-email">Email</label>
+            </div>
+            <div class="floating-label">
+                <input id="login-password" type="password" placeholder=" " required autocomplete="current-password">
+                <label for="login-password">Password</label>
+            </div>
+            <p id="forgot-password">Forgot Password?</p>
+            <button type="submit" id="submit-login">Sign In</button>
+            <button type="submit" id="submit-signup" style="display:none;">Sign Up</button>
+            <p id="toggle-login">Don't have an account? Sign Up</p>
+            <p id="error-message"></p>
+        </form>
     </div>
 </div>
 
@@ -141,8 +127,5 @@
 <script src="assets/js/i18n.js"></script>
 <script type="module" src="assets/js/nav.js"></script>
 <script type="module" src="assets/js/index.js"></script>
-
 </body>
 </html>
-
-
