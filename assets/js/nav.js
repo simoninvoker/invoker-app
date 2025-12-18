@@ -1,16 +1,12 @@
 // assets/js/nav.js - Complete Shared Navigation Script
-// Handles: Hamburger menu, mobile nav, theme toggle, logout (with redirect to index.html), dashboard navigation, language selector, active supplier display
 
+import { supabase } from './supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Guard to prevent running multiple times (fixes duplicate listeners)
     if (window.navInitialized) return;
     window.navInitialized = true;
 
-
-    // ================================
-    // Hamburger Menu Toggle (SAFE - no duplicates)
-    // ================================
+    // Hamburger Menu Toggle
     const hamburger = document.getElementById('hamburger');
     const mobileNav = document.getElementById('mobile-nav');
     const mobileNavClose = document.getElementById('mobile-nav-close');
@@ -27,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileNavClose.addEventListener('click', toggleMenu);
         }
 
-        // Close when clicking any button inside mobile nav
         mobileNav.querySelectorAll('button').forEach(btn => {
             btn.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -36,89 +31,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ================================
-    // Dashboard Navigation (Desktop + Mobile) - SAFE
-    // ================================
+    // Dashboard Navigation
     document.getElementById('dashboard-btn')?.addEventListener('click', () => {
         window.location.href = 'dashboard.html';
     });
-
     document.getElementById('mobile-dashboard-btn')?.addEventListener('click', () => {
         window.location.href = 'dashboard.html';
     });
 
-    // ================================
-    // Logout (Desktop + Mobile) - Redirects to index.html
-    // ================================
+    // Logout
     const performLogout = async () => {
         const { error } = await supabase.auth.signOut();
-
         if (error) {
             console.error('Logout error:', error);
             alert('Error logging out: ' + error.message);
             return;
         }
-
         localStorage.removeItem('selected_supplier_id');
         localStorage.removeItem('selected_supplier_name');
-
         window.location.href = 'index.html';
     };
 
     document.getElementById('logout-btn')?.addEventListener('click', performLogout);
     document.getElementById('mobile-logout-btn')?.addEventListener('click', performLogout);
 
-    // ================================
-    // Theme Toggle (Desktop + Mobile) - SAFE
-    // HIDE COMPLETELY ON INDEX PAGE
-    // ================================
-    const isIndexPage = window.location.pathname === '/' ||
-                        window.location.pathname.endsWith('index.html');
+    // Open Login Popup (index page specific)
+    document.getElementById('login-btn')?.addEventListener('click', () => {
+        const loginPopup = document.getElementById('login-popup');
+        if (loginPopup) loginPopup.style.display = 'flex';
+    });
+    document.getElementById('mobile-login-btn')?.addEventListener('click', () => {
+        const loginPopup = document.getElementById('login-popup');
+        if (loginPopup) loginPopup.style.display = 'flex';
+    });
+
+    // Theme Toggle - Hidden on index page
+    const isIndexPage =
+        window.location.pathname === '/' ||
+        window.location.pathname.endsWith('index.html') ||
+        window.location.pathname.endsWith('/');
 
     if (isIndexPage) {
-        // Hide both desktop and mobile theme toggles
         document.querySelectorAll('.theme-toggle').forEach(toggle => {
             toggle.style.display = 'none';
+            toggle.style.visibility = 'hidden';
+            toggle.style.opacity = '0';
         });
-    } else {
-        // Only initialize theme logic on internal pages
-        const initTheme = () => {
-            const saved = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const isLight = saved === 'light' || (!saved && !prefersDark);
-
-            if (isLight) {
-                document.body.classList.add('light-mode');
-            } else {
-                document.body.classList.remove('light-mode');
-            }
-
-            const themeSwitch = document.getElementById('theme-switch');
-            const mobileSwitch = document.getElementById('mobile-theme-switch');
-            if (themeSwitch) themeSwitch.checked = isLight;
-            if (mobileSwitch) mobileSwitch.checked = isLight;
-        };
-
-        const toggleTheme = () => {
-            document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-
-            const themeSwitch = document.getElementById('theme-switch');
-            const mobileSwitch = document.getElementById('mobile-theme-switch');
-            if (themeSwitch) themeSwitch.checked = isLight;
-            if (mobileSwitch) mobileSwitch.checked = isLight;
-        };
-
-        initTheme();
-
-        document.getElementById('theme-switch')?.addEventListener('change', toggleTheme);
-        document.getElementById('mobile-theme-switch')?.addEventListener('change', toggleTheme);
     }
 
-    // ================================
-    // Language Selector Dropdown
-    // ================================
+    const initTheme = () => {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isLight = saved === 'light' || (!saved && !prefersDark);
+
+        if (isLight) {
+            document.body.classList.add('light-mode');
+        } else {
+            document.body.classList.remove('light-mode');
+        }
+
+        const themeSwitch = document.getElementById('theme-switch');
+        const mobileSwitch = document.getElementById('mobile-theme-switch');
+        if (themeSwitch) themeSwitch.checked = isLight;
+        if (mobileSwitch) mobileSwitch.checked = isLight;
+    };
+
+    const toggleTheme = () => {
+        document.body.classList.toggle('light-mode');
+        const isLight = document.body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+
+        const themeSwitch = document.getElementById('theme-switch');
+        const mobileSwitch = document.getElementById('mobile-theme-switch');
+        if (themeSwitch) themeSwitch.checked = isLight;
+        if (mobileSwitch) mobileSwitch.checked = isLight;
+    };
+
+    initTheme();
+    document.getElementById('theme-switch')?.addEventListener('change', toggleTheme);
+    document.getElementById('mobile-theme-switch')?.addEventListener('change', toggleTheme);
+
+    // Language Selector
     document.querySelectorAll('.language-selector').forEach(selector => {
         const globeBtn = selector.querySelector('.language-globe-btn, .language-globe');
         if (globeBtn) {
@@ -133,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.language-selector').forEach(s => s.classList.remove('active'));
     });
 
-    // Language change
     document.querySelectorAll('.language-dropdown button[data-lang]').forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.dataset.lang;
@@ -144,9 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ================================
-    // Active Supplier Display
-    // ================================
+    // Active Supplier Display (only on internal pages)
     const activeSupplierSpan = document.getElementById('active-supplier');
     if (activeSupplierSpan) {
         const supplierName = localStorage.getItem('selected_supplier_name');
