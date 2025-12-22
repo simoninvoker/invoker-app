@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,126 +8,343 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-<header>
-    <h1>Invoker</h1>
 
-    <div class="header-right">
-        <button id="login-btn" class="cta">Sign In</button>
-        <button id="logout-btn" style="display:none;">Logout</button>
-        <label class="theme-toggle">
-            <input type="checkbox" id="theme-switch">
+<body>
+    <header>
+        <h1>Invoker</h1>
+
+        <div class="header-right">
+            <button id="login-btn" class="cta">Sign In</button>
+            <button id="logout-btn" style="display:none;">Logout</button>
+            <label class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="mobile-nav" id="mobile-nav">
+        <button class="mobile-nav-close" id="mobile-nav-close">×</button>
+        <button id="mobile-login-btn">Login / Sign Up</button>
+        <button id="mobile-logout-btn" style="display:none;">Logout</button>
+        <label class="theme-toggle" style="margin:20px 0;">
+            <input type="checkbox" id="mobile-theme-switch">
             <span class="slider"></span>
         </label>
     </div>
 
-    <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</header>
-
-<div class="mobile-nav" id="mobile-nav">
-    <button class="mobile-nav-close" id="mobile-nav-close">×</button>
-    <button id="mobile-login-btn">Login / Sign Up</button>
-    <button id="mobile-logout-btn" style="display:none;">Logout</button>
-    <label class="theme-toggle" style="margin:20px 0;">
-        <input type="checkbox" id="mobile-theme-switch">
-        <span class="slider"></span>
-    </label>
-</div>
-
-<section id="vanta-hero" class="visible">
-    <div class="gradient-overlay"></div>
-    <div class="hero-content">
-        <h1>Compliant PEPPOL Invoice creation.</h1>
-        <p> Built for <span class="keywords">business</span>, <span class="keywords">compliance</span>, and <span class="keywords">ease</span>. </p>
-        <button id="create-invoice-btn" class="cta">Create Invoices</button>
-    </div>
-</section>
-
-<section class="features" id="features">
-    <h2>Why Invoker</h2>
-    <div class="feature-grid">
-        <div class="feature-card">
-            <h3>PEPPOL BIS 3.0</h3>
-            <p>Regulation-ready invoices across Europe.</p>
+    <section id="vanta-hero" class="visible">
+        <div class="gradient-overlay"></div>
+        <div class="hero-content">
+            <h1>Compliant PEPPOL Invoice creation.</h1>
+            <p> Built for <span class="keywords">business</span>, <span class="keywords">compliance</span>, and <span
+                    class="keywords">ease</span>. </p>
+            <button id="create-invoice-btn" class="cta">Create Invoices</button>
         </div>
-        <div class="feature-card">
-            <h3>Audit-Ready</h3>
-            <p>Structured data, immutable totals.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Real-Time Invoicing</h3>
-            <p>Instant access to the network.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Secure by Design</h3>
-            <p>Built with enterprise-grade security.</p>
-        </div>
-    </div>
-</section>
+    </section>
 
-<section id="use-cases">
-    <h2>Use Cases</h2>
-    <div class="feature-grid">
-        <div class="feature-card">
-            <img src="https://images.stockcake.com/public/b/3/c/b3c8f0ce-1c6a-4529-a943-00575b10a05a_large/neon-data-flow-stockcake.jpg" alt="Finance dashboard with charts">
-            <h3>Analytics</h3>
-            <p>Track revenue, status, and aging. Spot trends to optimize cash flow.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://images.stockcake.com/public/b/3/c/b3c8f0ce-1c6a-4529-a943-00575b10a05a_large/neon-data-flow-stockcake.jpg" alt="Neon holographic data flow for workflow automation">
-            <h3>Workflow</h3>
-            <p>Automate end-to-end invoicing processes: from draft creation and approvals to validation, sending, and status monitoring. Set custom rules for multi-step reviews and notifications.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://thumbs.dreamstime.com/b/celestial-lotus-bloom-illuminated-vibrant-flower-glows-symbolizing-purity-enlightenment-rebirth-peace-spiritual-awakening-352101475.jpg" alt="Serene ethereal digital bloom">
-            <h3>Seamless Digital Harmony</h3>
-            <p>Experience the serene flow of compliant, automated invoicing—bringing peace of mind and effortless efficiency to your finance operations.</p>
-        </div>
-    </div>
-</section>
+    <div class="section-spacer"></div>
 
-<div class="trust">
-    <span>ISO-ready</span>
-    <span>GDPR-compliant</span>
-    <span>PEPPOL</span>
-    <span>Finance-first</span>
-</div>
 
-<footer id="contact">
-    support@invoker.com • © 2025 Invoker
-</footer>
+    <!-- NEW SECTION: Driven by Regulation and Reality -->
+    <section id="driven-by" class="driven-section">
+        <div class="driven-bg">
+            <div class="driven-overlay"></div>
+            <div class="driven-content">
+                <h2>Driven by Regulation and Reality</h2>
+                <p class="subtitle">Invoker was created to meet the growing demands of public sector bodies, large
+                    enterprises, and EU-wide e-invoicing mandates.</p>
 
-<!-- Login Popup -->
-<div id="login-popup">
-    <div class="popup-content">
-        <h2 id="popup-title">Login</h2>
-        <form id="login-form">
-            <div class="floating-label">
-                <input id="login-email" type="email" placeholder=" " required autocomplete="username">
-                <label for="login-email">Email</label>
+                <div class="mandates-grid">
+                    <div class="mandate-item">
+                        <h3>EU ViDA & PEPPOL Mandate</h3>
+                        <p>By 2028, e-invoicing will be mandatory across the EU. Countries like France (2026), Germany,
+                            Belgium, and Poland are already enforcing PEPPOL BIS 3.0.</p>
+                    </div>
+                    <div class="mandate-item">
+                        <h3>Public Sector Requirements</h3>
+                        <p>Most European governments now require PEPPOL-compliant invoices for all suppliers.
+                            Non-compliance risks delayed payments or exclusion from public tenders.</p>
+                    </div>
+                    <div class="mandate-item">
+                        <h3>Customer Expectations</h3>
+                        <p>Companies demand structured, validated e-invoices from all suppliers to streamline AP
+                            processes and ensure audit readiness.</p>
+                    </div>
+                </div>
+
+                <p class="conclusion">Invoker gives you the tools to comply today — without the complexity.</p>
             </div>
-            <div class="floating-label">
-                <input id="login-password" type="password" placeholder=" " required autocomplete="current-password">
-                <label for="login-password">Password</label>
-            </div>
-            <p id="forgot-password">Forgot Password?</p>
-            <button type="submit" id="submit-login">Sign In</button>
-            <button type="submit" id="submit-signup" style="display:none;">Sign Up</button>
-            <p id="toggle-login">Don't have an account? Sign Up</p>
-            <p id="error-message"></p>
-        </form>
-    </div>
-</div>
+        </div>
+    </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-<script src="assets/js/i18n.js"></script>
-<script type="module" src="assets/js/nav.js"></script>
-<script type="module" src="assets/js/index.js"></script>
+    <section class="features" id="features">
+        <h2>Why Invoker</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>PEPPOL BIS 3.0</h3>
+                <p>Regulation-ready invoices across Europe.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Audit-Ready</h3>
+                <p>Structured data, immutable totals.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Real-Time Invoicing</h3>
+                <p>Instant access to the network.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Secure by Design</h3>
+                <p>Built with enterprise-grade security.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Ease of use</h3>
+                <p>Simple, fast, intuitive, create invoices in minutes.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Designed with purpose</h3>
+                <p>Built specifically for small businesses and freelancers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="use-cases">
+        <h2>Use Cases</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="https://images.stockcake.com/public/b/3/c/b3c8f0ce-1c6a-4529-a943-00575b10a05a_large/neon-data-flow-stockcake.jpg"
+                    alt="Finance dashboard with charts">
+                <h3>Analytics</h3>
+                <p>Track revenue, status, and aging. Spot trends to optimize cash flow.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.stockcake.com/public/d/2/5/d25a1814-4582-4f7b-b7b8-fc9b67c6a575_large/digital-network-illuminated-stockcake.jpg"
+                    alt="Neon holographic data flow for workflow automation">
+                <h3>Network</h3>
+                <p>Connect to the PEPPOL Network and reach customers through the access point.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.stockcake.com/public/3/3/4/334f2d00-3f73-4135-acbd-2d0c4da4c983_large/digital-question-technology-stockcake.jpg"
+                    alt="Customer management">
+                <h3>Customer management</h3>
+                <p>Easily find PEPPOL registered customers and automatically fill out their information for invoicing.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="https://images.stockcake.com/public/5/1/1/511e3891-20b3-4b35-a21a-0ac84aab145d_large/digital-financial-waves-stockcake.jpg"
+                    alt="Finance dashboard with charts">
+                <h3>Multi Supplier</h3>
+                <p>Send invoices as multiple suppliers, track history and performance for each company.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://images.stockcake.com/public/8/4/1/84182532-15e0-4ecb-bdf9-1528aaa424fc_large/digital-time-flows-stockcake.jpg"
+                    alt="Neon holographic data flow for workflow automation">
+                <h3>Temporary tool</h3>
+                <p>Issue PEPPOL invoices to the main contractor without buying long-term invoicing software.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://thumbs.dreamstime.com/b/celestial-lotus-bloom-illuminated-vibrant-flower-glows-symbolizing-purity-enlightenment-rebirth-peace-spiritual-awakening-352101475.jpg"
+                    alt="Serene ethereal digital bloom">
+                <h3>Seamless Digital Harmony</h3>
+                <p>Experience the serene flow of compliant, automated invoicing—bringing peace of mind and effortless
+                    efficiency to your finance operations.</p>
+            </div>
+        </div>
+
+
+    </section>
+
+    <div class="trust">
+        <span>ISO-ready</span>
+        <span>GDPR-compliant</span>
+        <span>PEPPOL</span>
+        <span>Finance-first</span>
+    </div>
+
+    <footer id="contact">
+        support@invoker.com • © 2025 Invoker
+    </footer>
+
+    <!-- Login Popup -->
+    <div id="login-popup">
+        <div class="popup-content">
+            <h2 id="popup-title">Login</h2>
+            <form id="login-form">
+                <div class="floating-label">
+                    <input id="login-email" type="email" placeholder=" " required autocomplete="username">
+                    <label for="login-email">Email</label>
+                </div>
+                <div class="floating-label">
+                    <input id="login-password" type="password" placeholder=" " required autocomplete="current-password">
+                    <label for="login-password">Password</label>
+                </div>
+                <p id="forgot-password">Forgot Password?</p>
+                <button type="submit" id="submit-login">Sign In</button>
+                <button type="submit" id="submit-signup" style="display:none;">Sign Up</button>
+                <p id="toggle-login">Don't have an account? Sign Up</p>
+                <p id="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Inline CSS for new effects -->
+    <style>
+        /* Fade-in animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Spacing between sections */
+        .section-spacer {
+            height: 120px;
+            /* Adjust this value as needed (e.g., 80px on mobile) */
+        }
+
+        /* Existing Driven section styles (updated with centering) */
+        .driven-section {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            background: var(--bg-darker);
+        }
+
+        .driven-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1554224155-6726b3ff2a9b?auto=format&fit=crop&q=80&w=2070') center center / cover no-repeat;
+            background-blend-mode: overlay;
+        }
+
+        .driven-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(7, 13, 24, 0.85), rgba(5, 10, 20, 0.95));
+        }
+
+        .driven-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .driven-content h2 {
+            font-size: 3.2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .mandates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .mandate-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .mandate-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .mandate-item h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .mandate-item p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .conclusion {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-spacer {
+                height: 80px;
+            }
+
+            .driven-content h2 {
+                font-size: 2.4rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+
+    <!-- JavaScript for fade-in on scroll -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeSections = document.querySelectorAll('.fade-in-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Optional: only animate once
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of section is visible
+            });
+
+            fadeSections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="assets/js/i18n.js"></script>
+    <script type="module" src="assets/js/nav.js"></script>
+    <script type="module" src="assets/js/index.js"></script>
 </body>
-</html>
 
+</html>
