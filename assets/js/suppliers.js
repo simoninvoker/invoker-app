@@ -45,6 +45,39 @@ const companyPatterns = {
     SE: /^\d{10}$/
 };
 
+const countries = [
+    { code: "AT", name: "Austria" },
+    { code: "BE", name: "Belgium" },
+    { code: "BG", name: "Bulgaria" },
+    { code: "CY", name: "Cyprus" },
+    { code: "CZ", name: "Czech Republic" },
+    { code: "DE", name: "Germany" },
+    { code: "DK", name: "Denmark" },
+    { code: "EE", name: "Estonia" },
+    { code: "EL", name: "Greece" },
+    { code: "ES", name: "Spain" },
+    { code: "FI", name: "Finland" },
+    { code: "FR", name: "France" },
+    { code: "GB", name: "United Kingdom" },
+    { code: "HR", name: "Croatia" },
+    { code: "HU", name: "Hungary" },
+    { code: "IE", name: "Ireland" },
+    { code: "IT", name: "Italy" },
+    { code: "LT", name: "Lithuania" },
+    { code: "LU", name: "Luxembourg" },
+    { code: "LV", name: "Latvia" },
+    { code: "MT", name: "Malta" },
+    { code: "NL", name: "Netherlands" },
+    { code: "PL", name: "Poland" },
+    { code: "PT", name: "Portugal" },
+    { code: "RO", name: "Romania" },
+    { code: "SE", name: "Sweden" },
+    { code: "SI", name: "Slovenia" },
+    { code: "SK", name: "Slovakia" }
+];
+
+
+
 // PEPPOL Payment Means Code list
 const paymentMeansCodes = [
     { code: "1", name: "Instrument not defined" },
