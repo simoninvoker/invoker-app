@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     function updateCustomerFields() {
         const selectedOpt = customerSelect.selectedOptions[0];
         if (!selectedOpt || selectedOpt.value === "") {
-            ['customerName','customerEndpoint','customerVAT','customerStreet','customerAdditionalStreet','customerCity','customerPostal','customerCountry','customerRegName','customerCompanyID','customerContactName','customerContactPhone','customerContactEmail'].forEach(id => {
+            ['customerName', 'customerEndpoint', 'customerVAT', 'customerStreet', 'customerAdditionalStreet', 'customerCity', 'customerPostal', 'customerCountry', 'customerRegName', 'customerCompanyID', 'customerContactName', 'customerContactPhone', 'customerContactEmail'].forEach(id => {
                 document.getElementById(id).value = '';
             });
             return;
@@ -271,15 +271,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const peppolTaxCodes = [
-        {code: "S", desc: "Standard rate"},
-        {code: "Z", desc: "Zero rated goods"},
-        {code: "E", desc: "Exempt from tax"},
-        {code: "AE", desc: "Reverse charge"},
-        {code: "K", desc: "Intra-community supply"},
-        {code: "G", desc: "Export outside EU"},
-        {code: "O", desc: "Services outside scope"},
-        {code: "L", desc: "Canary Islands, Ceuta and Melilla"},
-        {code: "M", desc: "VAT exempt for EEA intra-community supply"}
+        { code: "S", desc: "Standard rate" },
+        { code: "Z", desc: "Zero rated goods" },
+        { code: "E", desc: "Exempt from tax" },
+        { code: "AE", desc: "Reverse charge" },
+        { code: "K", desc: "Intra-community supply" },
+        { code: "G", desc: "Export outside EU" },
+        { code: "O", desc: "Services outside scope" },
+        { code: "L", desc: "Canary Islands, Ceuta and Melilla" },
+        { code: "M", desc: "VAT exempt for EEA intra-community supply" }
     ];
 
     function createTaxCodeSelect(defaultCode = "S") {
@@ -577,14 +577,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   <cac:AccountingSupplierParty>
     <cac:Party>
       ${supplierScheme && supplierParticipant ? `<cbc:EndpointID schemeID="${supplierScheme}">${supplierParticipant}</cbc:EndpointID>` : ''}
-      <cac:PartyIdentification><cbc:ID>${supplier.vatID}</cbc:ID></cac:PartyIdentification>
-      <cac:PartyName><cbc:Name>${supplier.name}</cbc:Name></cac:PartyName>
+      <cac:PartyIdentification>
+        <cbc:ID>${supplier.vatID}</cbc:ID></cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>${supplier.name}</cbc:Name>
+        </cac:PartyName>
       <cac:PostalAddress>
         <cbc:StreetName>${supplier.street || ''}</cbc:StreetName>
         ${supplier.additionalStreet ? `<cbc:AdditionalStreetName>${supplier.additionalStreet}</cbc:AdditionalStreetName>` : ''}
         <cbc:CityName>${supplier.city || ''}</cbc:CityName>
         <cbc:PostalZone>${supplier.postalCode || ''}</cbc:PostalZone>
-        <cac:Country><cbc:IdentificationCode>${supplier.country}</cbc:IdentificationCode></cac:Country>
+        <cac:Country>
+            <cbc:IdentificationCode>${supplier.country}</cbc:IdentificationCode>
+        </cac:Country>
       </cac:PostalAddress>
       <cac:PartyTaxScheme>
         <cbc:CompanyID>${supplier.vatID}</cbc:CompanyID>
@@ -628,7 +633,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       <cac:FinancialInstitutionBranch><cbc:ID>${bank.bic || ''}</cbc:ID></cac:FinancialInstitutionBranch>
     </cac:PayeeFinancialAccount>
   </cac:PaymentMeans>
-  ${paymentTerms ? `<cac:PaymentTerms><cbc:Note>${paymentTerms}</cbc:Note></cac:PaymentTerms>` : ""}
+  ${paymentTerms ? `
+    <cac:PaymentTerms>
+        <cbc:Note>${paymentTerms}</cbc:Note>
+    </cac:PaymentTerms>` : ""}
   <!-- Allowances/Charges -->
 `;
         allowanceTableBody.querySelectorAll("tr").forEach(row => {
