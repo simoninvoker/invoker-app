@@ -1107,7 +1107,6 @@ textarea[readonly] {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 16px 0;
     background: rgba(255, 255, 255, 0.04);
     border-radius: 12px;
     overflow: hidden;
@@ -2158,4 +2157,5 @@ body.light-mode .download-btn:hover {
     font-size: 3.2rem;
     color: var(--accent);
     margin-bottom: 1.5rem;
+
 }
