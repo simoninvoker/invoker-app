@@ -133,7 +133,7 @@ function validateEmail(email) {
 }
 
 function updateValidation() {
-    const country = document.getElementById('cust-country')?.value.toUpperCase() || '';
+    const country = document.getElementById('country')?.value.toUpperCase() || '';
     const vat = document.getElementById('vat')?.value || '';
     const companyId = document.getElementById('company-id')?.value || '';
     const endpoint = document.getElementById('endpoint')?.value || '';
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Real-time validation
-    document.getElementById('cust-country').addEventListener('input', updateValidation);
+    document.getElementById('country').addEventListener('input', updateValidation);
     document.getElementById('vat').addEventListener('input', updateValidation);
     document.getElementById('company-id').addEventListener('input', updateValidation);
     document.getElementById('endpoint').addEventListener('input', updateValidation);
@@ -466,8 +466,8 @@ async function editSupplier(supplierId) {
     document.getElementById('additional-street').value = supplier.additional_street || '';
     document.getElementById('city').value = supplier.city || '';
     document.getElementById('postal').value = supplier.postal_code || '';
-    document.getElementById('cust-country').value = supplier.country || '';
     document.getElementById('country-search-input').value = countries.find(c => c.code === supplier.country)?.name || '';
+    document.getElementById('country').value = supplier.country || ''; // Hidden code
     document.getElementById('email').value = supplier.email || '';
     document.getElementById('default-currency').value = supplier.currency || 'EUR';
 
@@ -736,6 +736,7 @@ function filterCountryList() {
 
     return true;
 }
+
 
 
 
