@@ -111,21 +111,14 @@
                     <div class="form-group"><label>City *</label><input id="city" required></div>
                     <div class="form-group"><label>Postal Code *</label><input id="postal" required></div>
 
-<div class="form-group">
-    <label>Country *</label>
-    <div id="country-search-container">
-        <input
-            type="text"
-            id="country-search-input"
-            placeholder="Search country (e.g. Sweden)..."
-            autocomplete="off"
-            required
-        >
-        <div id="country-list" class="country-dropdown"></div>
-    </div>
-    <input type="hidden" id="country" required> <!-- Hidden: stores 2-letter code -->
-    <div id="country-validation" class="validation-message"></div>
-</div>
+                    <div class="form-group">
+                        <label>Country *</label>
+                        <select id="country" required>
+                        <option value="">Select country...</option>
+                        <!-- Options injected by JS, or you can hardcode them here if preferred -->
+                        </select>
+                        <div id="country-validation" class="validation-message"></div>
+                    </div>
                     <div class="form-group"><label>Email *</label><input id="email" type="email" required>
                         <div id="email-validation" class="validation-message"></div>
                     </div>
@@ -159,5 +152,6 @@
     <script type="module" src="assets/js/nav.js"></script>
 </body>
 </html>
+
 
 
