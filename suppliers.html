@@ -7,8 +7,7 @@
     <title>Select Supplier</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -89,49 +88,58 @@
 
         <div class="card" id="supplier-form-card" style="display:none;">
             <h2 id="form-title">Add New Supplier</h2>
-            <p id="form-subtitle">Fill in your company details and add at least one bank account for receiving payments.
-            </p>
+            <p id="form-subtitle">Fill in your company details and add at least one bank account for receiving payments.</p>
             <form id="supplier-form">
                 <div class="form-grid">
                     <div class="form-group"><label>Supplier Name *</label><input id="name" required></div>
                     <div class="form-group"><label>Legal Name *</label><input id="reg-name" required></div>
+
                     <div class="form-group"><label>Endpoint ID *</label><input id="endpoint" required>
                         <div id="endpoint-validation" class="validation-message"></div>
                     </div>
+
                     <div class="form-group"><label>VAT ID *</label><input id="vat" required>
                         <div id="vat-validation" class="validation-message"></div>
                     </div>
+
                     <div class="form-group"><label>Company ID *</label><input id="company-id" required>
                         <div id="company-validation" class="validation-message"></div>
                     </div>
+
                     <div class="form-group"><label>Street *</label><input id="street" required></div>
                     <div class="form-group"><label>Additional Street</label><input id="additional-street"></div>
                     <div class="form-group"><label>City *</label><input id="city" required></div>
                     <div class="form-group"><label>Postal Code *</label><input id="postal" required></div>
+
                     <div class="form-group">
                         <label>Country *</label>
                         <div id="country-search-container">
-                            <input type="text" id="country-search-input" placeholder="Search country..."
-                                autocomplete="off">
+                            <input type="text" id="country-search-input" placeholder="Search country..." autocomplete="off">
                             <div id="country-list"></div>
                         </div>
                         <input type="hidden" id="cust-country" required>
                     </div>
+
                     <div class="form-group"><label>Email *</label><input id="email" type="email" required>
                         <div id="email-validation" class="validation-message"></div>
                     </div>
-                    <div class="form-group"><label>Default Currency *</label><select id="default-currency" required>
+
+                    <div class="form-group"><label>Default Currency *</label>
+                        <select id="default-currency" required>
                             <option value="EUR">EUR</option>
                             <option value="SEK">SEK</option>
                             <option value="GBP">GBP</option>
                             <option value="USD">USD</option>
-                        </select></div>
+                        </select>
+                    </div>
                 </div>
+
                 <h3 style="margin-top:40px;">Bank Accounts</h3>
-                <p style="color: var(--text-secondary); margin-bottom:20px;">Add at least one bank account. Account Name
-                    and either IBAN or BBAN are required.</p>
+                <p style="color: var(--text-secondary); margin-bottom:20px;">Add at least one bank account. Account Name and either IBAN or BBAN are required.</p>
+
                 <div id="banks-container"></div>
                 <button type="button" id="add-bank-entry" class="cta">+ Add Another Bank</button>
+
                 <div style="margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;">
                     <button type="submit" id="submit-btn" class="cta">Save & Select This Supplier</button>
                     <button type="button" id="cancel-btn" class="action-btn cancel-btn">Cancel</button>
@@ -140,10 +148,8 @@
         </div>
     </div>
 
-
     <script src="assets/js/i18n.js"></script>
     <script type="module" src="assets/js/suppliers.js"></script>
     <script type="module" src="assets/js/nav.js"></script>
 </body>
-
 </html>
