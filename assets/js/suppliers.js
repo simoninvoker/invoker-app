@@ -100,6 +100,24 @@ function cleanInput(value) {
     return value.trim().toUpperCase().replace(/[\s\.\-]/g, '');
 }
 
+function validateVAT(country, vat) {
+    if (!vat || !country) return null;
+    let cleaned = cleanInput(vat);
+    if (cleaned.startsWith(country)) {
+        cleaned = cleaned.slice(country.length);
+    }
+    const pattern = vatPatterns[country.toUpperCase()];
+    if (!pattern) return false;
+    return pattern.test(cleaned);
+}
+
+function validateCompanyID(country, companyId) {
+    if (!companyId || !country) return null;
+    const cleaned = cleanInput(companyId);
+    const pattern = companyPatterns[country.toUpperCase()];
+    if (!pattern) return true;
+    return pattern.test(cleaned);
+}
 
 function validateEndpoint(endpoint) {
     if (!endpoint) return null;
@@ -673,4 +691,3 @@ async function saveBanksForSupplier(supplierId, userId) {
 
     return true;
 }
-
