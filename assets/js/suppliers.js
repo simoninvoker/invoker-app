@@ -16,6 +16,29 @@ function setCountry(code) {
     if (input) input.value = countries.find(c => c.code === code)?.name || '';
 }
 
+// ================= DOM REFERENCES =================
+const suppliersList = document.getElementById('suppliers-list');
+const supplierForm = document.getElementById('supplier-form');
+const supplierFormCard = document.getElementById('supplier-form-card');
+const addSupplierBtn = document.getElementById('add-supplier-btn');
+
+const name = document.getElementById('name');
+const regName = document.getElementById('reg-name');
+const endpoint = document.getElementById('endpoint');
+const vat = document.getElementById('vat');
+const companyIdInput = document.getElementById('company-id');
+const street = document.getElementById('street');
+const additionalStreet = document.getElementById('additional-street');
+const city = document.getElementById('city');
+const postal = document.getElementById('postal');
+const email = document.getElementById('email');
+const defaultCurrency = document.getElementById('default-currency');
+
+const vatValidation = document.getElementById('vat-validation');
+const companyValidation = document.getElementById('company-validation');
+const endpointValidation = document.getElementById('endpoint-validation');
+const emailValidation = document.getElementById('email-validation');
+
 // ================= VAT PATTERNS =================
 const vatPatterns = {
     AT: /^U\d{8}$/,
@@ -206,3 +229,4 @@ async function submitForm(e) {
     supplierFormCard.style.display = 'none';
     loadSuppliers(currentUserId);
 }
+
