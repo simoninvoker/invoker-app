@@ -485,7 +485,8 @@ async function editSupplier(supplierId) {
     document.getElementById('additional-street').value = supplier.additional_street || '';
     document.getElementById('city').value = supplier.city || '';
     document.getElementById('postal').value = supplier.postal_code || '';
-    document.getElementById('country').value = supplier.country || '';
+    document.getElementById('cust-country').value = supplier.country || '';
+    document.getElementById('country-search-input').value = countries.find(c => c.code === supplier.country)?.name || '';
     document.getElementById('email').value = supplier.email || '';
     document.getElementById('default-currency').value = supplier.currency || 'EUR';
 
@@ -691,3 +692,4 @@ async function saveBanksForSupplier(supplierId, userId) {
 
     return true;
 }
+
