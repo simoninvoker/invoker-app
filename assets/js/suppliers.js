@@ -734,8 +734,38 @@ function filterCountryList() {
     }
 }
 
+    // Populate Country <select> dropdown (same style as payment means)
+function populateCountrySelect() {
+    const countrySelect = document.getElementById('country');
+    if (!countrySelect) {
+        console.error("Element with ID 'country' not found.");
+        return;
+    }
+
+    // Clear existing options (except the placeholder)
+    countrySelect.innerHTML = '<option value="">Select country...</option>';
+
+    // Sort countries by name
+    countries.sort((a, b) => a.name.localeCompare(b.name));
+
+    countries.forEach(c => {
+        const option = document.createElement('option');
+        option.value = c.code;        // Stores the code (SE, DE, etc.)
+        option.textContent = `${c.name} (${c.code})`;
+        countrySelect.appendChild(option);
+    });
+}
+
+// Call this once on page load
+document.addEventListener('DOMContentLoaded', () => {
+    // ... your existing code ...
+
+    populateCountrySelect();  // Add this line
+});
+
     return true;
 }
+
 
 
 
