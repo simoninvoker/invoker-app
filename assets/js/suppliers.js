@@ -133,11 +133,11 @@ function validateEmail(email) {
 }
 
 function updateValidation() {
-    const country = document.getElementById('country').value.toUpperCase();
-    const vat = document.getElementById('vat').value;
-    const companyId = document.getElementById('company-id').value;
-    const endpoint = document.getElementById('endpoint').value;
-    const email = document.getElementById('email').value;
+    const country = document.getElementById('cust-country')?.value.toUpperCase() || '';
+    const vat = document.getElementById('vat')?.value || '';
+    const companyId = document.getElementById('company-id')?.value || '';
+    const endpoint = document.getElementById('endpoint')?.value || '';
+    const email = document.getElementById('email')?.value || '';
 
     const vatMsg = document.getElementById('vat-validation');
     const companyMsg = document.getElementById('company-validation');
@@ -145,49 +145,30 @@ function updateValidation() {
     const emailMsg = document.getElementById('email-validation');
 
     const vatValid = validateVAT(country, vat);
-    if (vatValid === null) {
-        vatMsg.textContent = '';
-    } else if (vatValid) {
-        vatMsg.textContent = 'Valid VAT ID';
-        vatMsg.style.color = 'var(--success)';
-    } else {
-        vatMsg.textContent = 'Invalid VAT ID';
-        vatMsg.style.color = 'var(--error)';
-    }
+    vatMsg.textContent =
+        vatValid === null ? '' :
+        vatValid ? 'Valid VAT ID' : 'Invalid VAT ID';
+    vatMsg.style.color = vatValid ? 'var(--success)' : 'var(--error)';
 
     const companyValid = validateCompanyID(country, companyId);
-    if (companyValid === null) {
-        companyMsg.textContent = '';
-    } else if (companyValid) {
-        companyMsg.textContent = 'Valid Company ID';
-        companyMsg.style.color = 'var(--success)';
-    } else {
-        companyMsg.textContent = 'Invalid Company ID';
-        companyMsg.style.color = 'var(--error)';
-    }
+    companyMsg.textContent =
+        companyValid === null ? '' :
+        companyValid ? 'Valid Company ID' : 'Invalid Company ID';
+    companyMsg.style.color = companyValid ? 'var(--success)' : 'var(--error)';
 
     const endpointValid = validateEndpoint(endpoint);
-    if (endpointValid === null) {
-        endpointMsg.textContent = '';
-    } else if (endpointValid) {
-        endpointMsg.textContent = 'Valid Endpoint ID';
-        endpointMsg.style.color = 'var(--success)';
-    } else {
-        endpointMsg.textContent = 'Invalid Endpoint ID';
-        endpointMsg.style.color = 'var(--error)';
-    }
+    endpointMsg.textContent =
+        endpointValid === null ? '' :
+        endpointValid ? 'Valid Endpoint ID' : 'Invalid Endpoint ID';
+    endpointMsg.style.color = endpointValid ? 'var(--success)' : 'var(--error)';
 
     const emailValid = validateEmail(email);
-    if (emailValid === null) {
-        emailMsg.textContent = '';
-    } else if (emailValid) {
-        emailMsg.textContent = 'Valid email';
-        emailMsg.style.color = 'var(--success)';
-    } else {
-        emailMsg.textContent = 'Invalid email';
-        emailMsg.style.color = 'var(--error)';
-    }
+    emailMsg.textContent =
+        emailValid === null ? '' :
+        emailValid ? 'Valid email' : 'Invalid email';
+    emailMsg.style.color = emailValid ? 'var(--success)' : 'var(--error)';
 }
+
 
 function syncRegistrationName() {
     const nameInput = document.getElementById('name');
@@ -692,4 +673,5 @@ async function saveBanksForSupplier(supplierId, userId) {
 
     return true;
 }
+
 
