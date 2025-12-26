@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Real-time validation
-    document.getElementById('country').addEventListener('input', updateValidation);
+    document.getElementById('cust-country').addEventListener('input', updateValidation);
     document.getElementById('vat').addEventListener('input', updateValidation);
     document.getElementById('company-id').addEventListener('input', updateValidation);
     document.getElementById('endpoint').addEventListener('input', updateValidation);
@@ -673,5 +673,6 @@ async function saveBanksForSupplier(supplierId, userId) {
 
     return true;
 }
+
 
 
