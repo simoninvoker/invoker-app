@@ -76,8 +76,6 @@ const countries = [
     { code: "SK", name: "Slovakia" }
 ];
 
-
-
 // PEPPOL Payment Means Code list
 const paymentMeansCodes = [
     { code: "1", name: "Instrument not defined" },
@@ -133,7 +131,8 @@ function validateEmail(email) {
 }
 
 function updateValidation() {
-    const country = document.getElementById('country')?.value.toUpperCase() || '';
+    const countryEl = document.getElementById('country');
+    const country = countryEl ? countryEl.value.toUpperCase() : '';
     const vat = document.getElementById('vat')?.value || '';
     const companyId = document.getElementById('company-id')?.value || '';
     const endpoint = document.getElementById('endpoint')?.value || '';
@@ -145,35 +144,34 @@ function updateValidation() {
     const emailMsg = document.getElementById('email-validation');
 
     const vatValid = validateVAT(country, vat);
-    vatMsg.textContent =
-        vatValid === null ? '' :
-        vatValid ? 'Valid VAT ID' : 'Invalid VAT ID';
-    vatMsg.style.color = vatValid ? 'var(--success)' : 'var(--error)';
+    if (vatMsg) {
+        vatMsg.textContent = vatValid === null ? '' : vatValid ? 'Valid VAT ID' : 'Invalid VAT ID';
+        vatMsg.style.color = vatValid ? 'var(--success)' : vatValid === false ? 'var(--error)' : '';
+    }
 
     const companyValid = validateCompanyID(country, companyId);
-    companyMsg.textContent =
-        companyValid === null ? '' :
-        companyValid ? 'Valid Company ID' : 'Invalid Company ID';
-    companyMsg.style.color = companyValid ? 'var(--success)' : 'var(--error)';
+    if (companyMsg) {
+        companyMsg.textContent = companyValid === null ? '' : companyValid ? 'Valid Company ID' : 'Invalid Company ID';
+        companyMsg.style.color = companyValid ? 'var(--success)' : companyValid === false ? 'var(--error)' : '';
+    }
 
     const endpointValid = validateEndpoint(endpoint);
-    endpointMsg.textContent =
-        endpointValid === null ? '' :
-        endpointValid ? 'Valid Endpoint ID' : 'Invalid Endpoint ID';
-    endpointMsg.style.color = endpointValid ? 'var(--success)' : 'var(--error)';
+    if (endpointMsg) {
+        endpointMsg.textContent = endpointValid === null ? '' : endpointValid ? 'Valid Endpoint ID' : 'Invalid Endpoint ID';
+        endpointMsg.style.color = endpointValid ? 'var(--success)' : endpointValid === false ? 'var(--error)' : '';
+    }
 
     const emailValid = validateEmail(email);
-    emailMsg.textContent =
-        emailValid === null ? '' :
-        emailValid ? 'Valid email' : 'Invalid email';
-    emailMsg.style.color = emailValid ? 'var(--success)' : 'var(--error)';
+    if (emailMsg) {
+        emailMsg.textContent = emailValid === null ? '' : emailValid ? 'Valid email' : 'Invalid email';
+        emailMsg.style.color = emailValid ? 'var(--success)' : emailValid === false ? 'var(--error)' : '';
+    }
 }
-
 
 function syncRegistrationName() {
     const nameInput = document.getElementById('name');
     const regNameInput = document.getElementById('reg-name');
-    if (!editingSupplierId) {
+    if (nameInput && regNameInput && !editingSupplierId) {
         regNameInput.value = nameInput.value;
     }
 }
@@ -183,12 +181,10 @@ function validateBank(entry) {
     const ibanRaw = entry.querySelector('.bank-iban').value.trim();
     const iban = ibanRaw.toUpperCase().replace(/\s/g, '');
     const bban = entry.querySelector('.bank-bban').value.trim();
-    const bic = entry.querySelector('.bank-bic').value.trim().toUpperCase();
 
     const nameMsg = entry.querySelector('.bank-name-validation') || createValidationElement(entry, '.bank-name');
     const ibanMsg = entry.querySelector('.bank-iban-validation') || createValidationElement(entry, '.bank-iban');
     const bbanMsg = entry.querySelector('.bank-bban-validation') || createValidationElement(entry, '.bank-bban');
-    const bicMsg = entry.querySelector('.bank-bic-validation') || createValidationElement(entry, '.bank-bic');
 
     let isValid = true;
 
@@ -211,26 +207,13 @@ function validateBank(entry) {
         bbanMsg.textContent = '';
     }
 
-    if (iban) {
-        if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
-            ibanMsg.textContent = 'Invalid IBAN';
-            ibanMsg.style.color = 'var(--error)';
-            isValid = false;
-        } else {
-            ibanMsg.textContent = 'Valid';
-            ibanMsg.style.color = 'var(--success)';
-        }
-    }
-
-    if (bic && !/^[A-Z]{6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3}){0,1}$/.test(bic)) {
-        bicMsg.textContent = 'Invalid BIC';
-        bicMsg.style.color = 'var(--error)';
+    if (iban && !/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(iban)) {
+        ibanMsg.textContent = 'Invalid IBAN format';
+        ibanMsg.style.color = 'var(--error)';
         isValid = false;
-    } else if (bic) {
-        bicMsg.textContent = 'Valid';
-        bicMsg.style.color = 'var(--success)';
-    } else {
-        bicMsg.textContent = '';
+    } else if (iban) {
+        ibanMsg.textContent = 'Valid';
+        ibanMsg.style.color = 'var(--success)';
     }
 
     return isValid;
@@ -253,6 +236,25 @@ function validateAllBanks() {
     return allValid;
 }
 
+// Populate country dropdown on page load
+function populateCountrySelect() {
+    const countrySelect = document.getElementById('country');
+    if (!countrySelect) {
+        console.error("Country select element (#country) not found in DOM.");
+        return;
+    }
+
+    countrySelect.innerHTML = '<option value="">Select country...</option>';
+
+    const sorted = [...countries].sort((a, b) => a.name.localeCompare(b.name));
+    sorted.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.code;
+        opt.textContent = `${c.name} (${c.code})`;
+        countrySelect.appendChild(opt);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
@@ -261,59 +263,51 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     currentUserId = session.user.id;
 
-    document.getElementById('dashboard-btn').addEventListener('click', () => window.location.href = 'dashboard.html');
-    if (document.getElementById('mobile-dashboard-btn')) {
-        document.getElementById('mobile-dashboard-btn').addEventListener('click', () => window.location.href = 'dashboard.html');
-    }
+    // Navigation buttons
+    document.getElementById('dashboard-btn')?.addEventListener('click', () => window.location.href = 'dashboard.html');
+    document.getElementById('mobile-dashboard-btn')?.addEventListener('click', () => window.location.href = 'dashboard.html');
 
-    document.getElementById('logout-btn').addEventListener('click', async () => {
+    document.getElementById('logout-btn')?.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = 'index.html';
+    });
+    document.getElementById('mobile-logout-btn')?.addEventListener('click', async () => {
         await supabase.auth.signOut();
         window.location.href = 'index.html';
     });
 
-    if (document.getElementById('mobile-logout-btn')) {
-        document.getElementById('mobile-logout-btn').addEventListener('click', async () => {
-            await supabase.auth.signOut();
-            window.location.href = 'index.html';
-        });
-    }
+    // Populate country dropdown
+    populateCountrySelect();
 
     await loadSuppliers(currentUserId);
 
-    document.getElementById('add-supplier-btn').addEventListener('click', startAddSupplier);
-
-    document.getElementById('add-bank-entry').addEventListener('click', () => addBankEntry());
-
-    document.getElementById('supplier-form').addEventListener('submit', async (e) => {
+    document.getElementById('add-supplier-btn')?.addEventListener('click', startAddSupplier);
+    document.getElementById('add-bank-entry')?.addEventListener('click', () => addBankEntry());
+    document.getElementById('supplier-form')?.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         if (!validateAllBanks()) {
             alert('Please fix bank account errors');
             return;
         }
-
         if (editingSupplierId) {
             await updateSupplier(editingSupplierId);
         } else {
             await createSupplierWithBanks(currentUserId);
         }
     });
-
-    document.getElementById('cancel-btn').addEventListener('click', () => {
+    document.getElementById('cancel-btn')?.addEventListener('click', () => {
         document.getElementById('supplier-form-card').style.display = 'none';
         document.getElementById('suppliers-list').style.opacity = '1';
         editingSupplierId = null;
     });
 
     // Real-time validation
-    document.getElementById('country').addEventListener('input', updateValidation);
-    document.getElementById('vat').addEventListener('input', updateValidation);
-    document.getElementById('company-id').addEventListener('input', updateValidation);
-    document.getElementById('endpoint').addEventListener('input', updateValidation);
-    document.getElementById('email').addEventListener('input', updateValidation);
-    document.getElementById('name').addEventListener('input', syncRegistrationName);
-
-    document.getElementById('banks-container').addEventListener('input', (e) => {
+    ['vat', 'company-id', 'endpoint', 'email', 'country'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateValidation);
+    });
+    document.getElementById('name')?.addEventListener('input', syncRegistrationName);
+    document.getElementById('banks-container')?.addEventListener('input', (e) => {
         const entry = e.target.closest('.bank-entry');
         if (entry) validateBank(entry);
     });
@@ -328,11 +322,14 @@ async function loadSuppliers(userId) {
 
     if (error) {
         console.error('Error loading suppliers:', error);
-        document.getElementById('suppliers-list').innerHTML = '<div class="no-suppliers">Error loading suppliers. Check console.</div>';
+        const list = document.getElementById('suppliers-list');
+        if (list) list.innerHTML = '<div class="no-suppliers">Error loading suppliers.</div>';
         return;
     }
 
     const list = document.getElementById('suppliers-list');
+    if (!list) return;
+
     list.innerHTML = '';
 
     if (suppliers.length === 0) {
@@ -340,7 +337,6 @@ async function loadSuppliers(userId) {
         return;
     }
 
-    const selectedId = localStorage.getItem('selected_supplier_id');
     const selectedName = localStorage.getItem('selected_supplier_name');
     document.getElementById('active-supplier').textContent = selectedName ? `Active: ${selectedName}` : '';
 
@@ -369,11 +365,9 @@ async function loadSuppliers(userId) {
 
     document.querySelectorAll('.select-supplier').forEach(btn => {
         btn.addEventListener('click', () => {
-            const id = btn.dataset.id;
-            const name = btn.dataset.name;
-            localStorage.setItem('selected_supplier_id', id);
-            localStorage.setItem('selected_supplier_name', name);
-            document.getElementById('active-supplier').textContent = `Active: ${name}`;
+            localStorage.setItem('selected_supplier_id', btn.dataset.id);
+            localStorage.setItem('selected_supplier_name', btn.dataset.name);
+            document.getElementById('active-supplier').textContent = `Active: ${btn.dataset.name}`;
             window.location.href = 'dashboard.html';
         });
     });
@@ -390,21 +384,13 @@ async function loadSuppliers(userId) {
 async function deleteSupplier(supplierId) {
     if (!confirm('Are you sure? This will delete the supplier and all related bank accounts permanently.')) return;
 
-    const { error: banksError } = await supabase
-        .from('supplier_banks')
-        .delete()
-        .eq('supplier_id', supplierId);
-
+    const { error: banksError } = await supabase.from('supplier_banks').delete().eq('supplier_id', supplierId);
     if (banksError) {
         alert('Error deleting banks: ' + banksError.message);
         return;
     }
 
-    const { error } = await supabase
-        .from('suppliers')
-        .delete()
-        .eq('id', supplierId);
-
+    const { error } = await supabase.from('suppliers').delete().eq('id', supplierId);
     if (error) {
         alert('Error deleting supplier: ' + error.message);
         return;
@@ -426,13 +412,17 @@ function startAddSupplier() {
     const submitBtn = document.getElementById('submit-btn');
     submitBtn.textContent = 'Save & Select This Supplier';
     submitBtn.classList.add('cta');
+
     document.getElementById('supplier-form').reset();
     document.getElementById('default-currency').value = 'EUR';
+    document.getElementById('country').value = ''; // placeholder option
     document.getElementById('banks-container').innerHTML = '';
     addBankEntry();
+
     document.getElementById('supplier-form-card').style.display = 'block';
     document.getElementById('suppliers-list').style.opacity = '0.5';
     document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+
     updateValidation();
     syncRegistrationName();
 }
@@ -466,8 +456,7 @@ async function editSupplier(supplierId) {
     document.getElementById('additional-street').value = supplier.additional_street || '';
     document.getElementById('city').value = supplier.city || '';
     document.getElementById('postal').value = supplier.postal_code || '';
-    document.getElementById('country-search-input').value = countries.find(c => c.code === supplier.country)?.name || '';
-    document.getElementById('country').value = supplier.country || ''; // Hidden code
+    document.getElementById('country').value = supplier.country || '';
     document.getElementById('email').value = supplier.email || '';
     document.getElementById('default-currency').value = supplier.currency || 'EUR';
 
@@ -487,6 +476,7 @@ async function editSupplier(supplierId) {
     document.getElementById('supplier-form-card').style.display = 'block';
     document.getElementById('suppliers-list').style.opacity = '0.5';
     document.getElementById('supplier-form-card').scrollIntoView({ behavior: 'smooth' });
+
     updateValidation();
     validateAllBanks();
 }
@@ -527,13 +517,11 @@ function addBankEntry(bankData = {}) {
             <div class="form-group">
                 <label>Default Payment ID</label>
                 <input class="bank-payment_id" value="${bankData.payment_id || ''}">
-                <div class="hint">Optional reference shown to buyer (e.g., "Invoice #12345" or structured payment reference)</div>
+                <div class="hint">Optional reference shown to buyer</div>
             </div>
         </div>
         <button type="button" class="remove-bank danger">Delete</button>
-
     `;
-
     entry.querySelector('.remove-bank').addEventListener('click', () => entry.remove());
     container.appendChild(entry);
     validateBank(entry);
@@ -630,9 +618,7 @@ async function saveBanksForSupplier(supplierId, userId) {
         .delete()
         .eq('supplier_id', supplierId);
 
-    if (deleteError) {
-        console.error('Error deleting old banks:', deleteError);
-    }
+    if (deleteError) console.error('Error deleting old banks:', deleteError);
 
     const entries = document.querySelectorAll('.bank-entry');
     const banks = [];
@@ -643,6 +629,7 @@ async function saveBanksForSupplier(supplierId, userId) {
         const ibanRaw = entry.querySelector('.bank-iban').value.trim();
         const iban = ibanRaw.toUpperCase().replace(/\s/g, '');
         const bban = entry.querySelector('.bank-bban').value.trim();
+
         if (name && (iban || bban)) {
             hasValid = true;
             banks.push({
@@ -670,104 +657,6 @@ async function saveBanksForSupplier(supplierId, userId) {
             return false;
         }
     }
-    // === Searchable Country Dropdown Logic ===
-const countrySearchInput = document.getElementById('country-search-input');
-const countryList = document.getElementById('country-list');
-const countryHidden = document.getElementById('country'); // Hidden field for code
-
-if (countrySearchInput && countryList && countryHidden) {
-    // Show full list on focus/click
-    countrySearchInput.addEventListener('focus', populateCountryList);
-    countrySearchInput.addEventListener('click', populateCountryList);
-
-    // Filter as user types
-    countrySearchInput.addEventListener('input', filterCountryList);
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!countrySearchInput.contains(e.target) && !countryList.contains(e.target)) {
-            countryList.classList.remove('active');
-        }
-    });
-}
-
-function populateCountryList() {
-    countryList.innerHTML = '';
-    countries.forEach(c => {
-        const option = document.createElement('div');
-        option.className = 'country-option';
-        option.textContent = `${c.name} (${c.code})`;
-        option.dataset.code = c.code;
-        option.dataset.name = c.name;
-        option.addEventListener('click', () => {
-            countrySearchInput.value = c.name;
-            countryHidden.value = c.code;
-            countryList.classList.remove('active');
-            updateValidation(); // Re-validate VAT etc.
-        });
-        countryList.appendChild(option);
-    });
-    countryList.classList.add('active');
-}
-
-function filterCountryList() {
-    const query = countrySearchInput.value.toLowerCase().trim();
-    populateCountryList(); // Re-populate and then filter
-    if (query === '') {
-        return; // Show all if empty
-    }
-    const options = countryList.querySelectorAll('.country-option');
-    let hasVisible = false;
-    options.forEach(opt => {
-        const text = opt.textContent.toLowerCase();
-        if (text.includes(query)) {
-            opt.style.display = 'block';
-            hasVisible = true;
-        } else {
-            opt.style.display = 'none';
-        }
-    });
-    if (hasVisible) {
-        countryList.classList.add('active');
-    } else {
-        countryList.classList.remove('active');
-    }
-}
-
-    // Populate Country <select> dropdown (same style as payment means)
-function populateCountrySelect() {
-    const countrySelect = document.getElementById('country');
-    if (!countrySelect) {
-        console.error("Element with ID 'country' not found.");
-        return;
-    }
-
-    // Clear existing options (except the placeholder)
-    countrySelect.innerHTML = '<option value="">Select country...</option>';
-
-    // Sort countries by name
-    countries.sort((a, b) => a.name.localeCompare(b.name));
-
-    countries.forEach(c => {
-        const option = document.createElement('option');
-        option.value = c.code;        // Stores the code (SE, DE, etc.)
-        option.textContent = `${c.name} (${c.code})`;
-        countrySelect.appendChild(option);
-    });
-}
-
-// Call this once on page load
-document.addEventListener('DOMContentLoaded', () => {
-    // ... your existing code ...
-
-    populateCountrySelect();  // Add this line
-});
 
     return true;
 }
-
-
-
-
-
-
