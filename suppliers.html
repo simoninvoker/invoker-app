@@ -114,16 +114,16 @@
 <div class="form-group">
     <label>Country *</label>
     <div id="country-search-container">
-        <input 
-            type="text" 
-            id="country-search-input" 
-            placeholder="Search country..." 
+        <input
+            type="text"
+            id="country-search-input"
+            placeholder="Search country (e.g. Sweden)..."
             autocomplete="off"
             required
         >
         <div id="country-list" class="country-dropdown"></div>
     </div>
-    <input type="hidden" id="country" required>
+    <input type="hidden" id="country" required> <!-- Stores the 2-letter code -->
     <div id="country-validation" class="validation-message"></div>
 </div>
                     <div class="form-group"><label>Email *</label><input id="email" type="email" required>
@@ -159,4 +159,5 @@
     <script type="module" src="assets/js/nav.js"></script>
 </body>
 </html>
+
 
