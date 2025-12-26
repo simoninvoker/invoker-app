@@ -670,9 +670,73 @@ async function saveBanksForSupplier(supplierId, userId) {
             return false;
         }
     }
+    // === Searchable Country Dropdown Logic ===
+const countrySearchInput = document.getElementById('country-search-input');
+const countryList = document.getElementById('country-list');
+const countryHidden = document.getElementById('country'); // Hidden field for code
+
+if (countrySearchInput && countryList && countryHidden) {
+    // Show full list on focus/click
+    countrySearchInput.addEventListener('focus', populateCountryList);
+    countrySearchInput.addEventListener('click', populateCountryList);
+
+    // Filter as user types
+    countrySearchInput.addEventListener('input', filterCountryList);
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!countrySearchInput.contains(e.target) && !countryList.contains(e.target)) {
+            countryList.classList.remove('active');
+        }
+    });
+}
+
+function populateCountryList() {
+    countryList.innerHTML = '';
+    countries.forEach(c => {
+        const option = document.createElement('div');
+        option.className = 'country-option';
+        option.textContent = `${c.name} (${c.code})`;
+        option.dataset.code = c.code;
+        option.dataset.name = c.name;
+        option.addEventListener('click', () => {
+            countrySearchInput.value = c.name;
+            countryHidden.value = c.code;
+            countryList.classList.remove('active');
+            updateValidation(); // Re-validate VAT etc.
+        });
+        countryList.appendChild(option);
+    });
+    countryList.classList.add('active');
+}
+
+function filterCountryList() {
+    const query = countrySearchInput.value.toLowerCase().trim();
+    populateCountryList(); // Re-populate and then filter
+    if (query === '') {
+        return; // Show all if empty
+    }
+    const options = countryList.querySelectorAll('.country-option');
+    let hasVisible = false;
+    options.forEach(opt => {
+        const text = opt.textContent.toLowerCase();
+        if (text.includes(query)) {
+            opt.style.display = 'block';
+            hasVisible = true;
+        } else {
+            opt.style.display = 'none';
+        }
+    });
+    if (hasVisible) {
+        countryList.classList.add('active');
+    } else {
+        countryList.classList.remove('active');
+    }
+}
 
     return true;
 }
+
 
 
 
