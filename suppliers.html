@@ -111,15 +111,21 @@
                     <div class="form-group"><label>City *</label><input id="city" required></div>
                     <div class="form-group"><label>Postal Code *</label><input id="postal" required></div>
 
-                    <div class="form-group">
-                        <label>Country *</label>
-                        <div id="country-search-container">
-                            <input type="text" id="country-search-input" placeholder="Search country..." autocomplete="off">
-                            <div id="country-list"></div>
-                        </div>
-                        <input type="hidden" id="cust-country" required>
-                    </div>
-
+<div class="form-group">
+    <label>Country *</label>
+    <div id="country-search-container">
+        <input 
+            type="text" 
+            id="country-search-input" 
+            placeholder="Search country..." 
+            autocomplete="off"
+            required
+        >
+        <div id="country-list" class="country-dropdown"></div>
+    </div>
+    <input type="hidden" id="country" required>
+    <div id="country-validation" class="validation-message"></div>
+</div>
                     <div class="form-group"><label>Email *</label><input id="email" type="email" required>
                         <div id="email-validation" class="validation-message"></div>
                     </div>
@@ -153,3 +159,4 @@
     <script type="module" src="assets/js/nav.js"></script>
 </body>
 </html>
+
